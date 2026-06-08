@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Web制作ポートフォリオ｜架空ブランド3作品のLP</title>
+  <meta name="description" content="フレームワーク不使用のvanilla HTML / CSS / JS で制作した、架空ブランドのランディングページ3作品。オンラインスクール「Atelier Lumen」、コーヒー焙煎所「焙煎所 茜」、プライベートサロン「月白」。" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Web制作ポートフォリオ｜架空ブランド3作品のLP" />
+  <meta property="og:description" content="vanilla HTML / CSS / JS で制作した、架空ブランドのランディングページ3作品。" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,500;1,500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       Web制作ポートフォリオ ハブページ
+       単一ファイル完結 / フレームワーク不使用
+       ============================================================ */
+
+    :root {
+      --ink: #1a1c22;
+      --ink-soft: #555a66;
+      --ink-faint: #8b909c;
+      --bg: #f5f3ee;
+      --bg-deep: #14161c;
+      --panel: #fbfaf6;
+      --line: rgba(26, 28, 34, 0.1);
+      --gold: #b89149;
+
+      /* 各作品のブランドカラー */
+      --lumen-primary: #1b2a4a;
+      --lumen-accent: #e8b04b;
+      --lumen-bg: #f7f4ec;
+
+      --akane-primary: #3a2a1e;
+      --akane-accent: #c2632b;
+      --akane-bg: #f4ede2;
+
+      --tsuki-primary: #1f2a28;
+      --tsuki-accent: #a88b6a;
+      --tsuki-bg: #f4f1eb;
+
+      --serif: "Shippori Mincho B1", "Hiragino Mincho ProN", serif;
+      --sans: "Zen Kaku Gothic New", "Hiragino Sans", "Noto Sans JP", sans-serif;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --radius: 18px;
+      --shadow-sm: 0 6px 20px -10px rgba(20, 22, 28, 0.25);
+      --shadow-md: 0 26px 60px -34px rgba(20, 22, 28, 0.45);
+      --shadow-lg: 0 40px 90px -42px rgba(20, 22, 28, 0.55);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+    body {
+      font-family: var(--sans);
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.85;
+      letter-spacing: 0.02em;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    .container {
+      width: min(1180px, 100% - 2.6rem);
+      margin-inline: auto;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: -3rem;
+      z-index: 200;
+      background: var(--ink);
+      color: #fff;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      transition: top 0.2s var(--ease);
+    }
+    .skip-link:focus { top: 1rem; }
+
+    /* ============ HEADER ============ */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      background: rgba(245, 243, 238, 0.78);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
+    }
+    .site-header.scrolled {
+      border-bottom-color: var(--line);
+      background: rgba(245, 243, 238, 0.92);
+    }
+    .site-header__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-block: 1.1rem;
+    }
+    .brand { display: flex; align-items: center; gap: 0.7rem; }
+    .brand__mark {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--bg-deep);
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+    .brand__name {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: 1.05rem;
+      letter-spacing: 0.04em;
+      line-height: 1.3;
+    }
+    .brand__sub {
+      display: block;
+      font-size: 0.62rem;
+      letter-spacing: 0.28em;
+      color: var(--ink-faint);
+      text-transform: uppercase;
+    }
+    .header__nav { display: flex; align-items: center; gap: 1.8rem; }
+    .header__nav a {
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      color: var(--ink-soft);
+      transition: color 0.2s var(--ease);
+    }
+    .header__nav a:hover { color: var(--ink); }
+    .header__nav .nav-cta {
+      padding: 0.5rem 1.1rem;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      color: var(--ink);
+      transition: background 0.25s var(--ease), color 0.25s var(--ease);
+    }
+    .header__nav .nav-cta:hover { background: var(--ink); color: #fff; }
+    @media (max-width: 720px) {
+      .header__nav a:not(.nav-cta) { display: none; }
+    }
+
+    /* ============ HERO ============ */
+    .hero {
+      position: relative;
+      padding-block: clamp(4.5rem, 12vw, 8.5rem) clamp(3rem, 7vw, 5rem);
+      overflow: hidden;
+    }
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.5;
+      z-index: 0;
+    }
+    .hero::before {
+      width: 460px; height: 460px;
+      top: -160px; right: -120px;
+      background: radial-gradient(circle, rgba(232, 176, 75, 0.4), transparent 70%);
+    }
+    .hero::after {
+      width: 420px; height: 420px;
+      bottom: -200px; left: -140px;
+      background: radial-gradient(circle, rgba(168, 139, 106, 0.35), transparent 70%);
+    }
+    .hero__inner { position: relative; z-index: 1; max-width: 760px; }
+    .hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.74rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 1.6rem;
+    }
+    .hero__eyebrow::before {
+      content: "";
+      width: 38px; height: 1px;
+      background: var(--gold);
+    }
+    .hero__title {
+      font-family: var(--serif);
+      font-weight: 700;
+      font-size: clamp(2.4rem, 6.5vw, 4.4rem);
+      line-height: 1.28;
+      letter-spacing: 0.02em;
+      margin-bottom: 1.6rem;
+    }
+    .hero__title em {
+      font-style: normal;
+      position: relative;
+      white-space: nowrap;
+    }
+    .hero__title em::after {
+      content: "";
+      position: absolute;
+      left: -2%; right: -2%;
+      bottom: 0.08em;
+      height: 0.42em;
+      background: linear-gradient(90deg, rgba(232, 176, 75, 0.55), rgba(194, 99, 43, 0.32));
+      z-index: -1;
+      border-radius: 4px;
+    }
+    .hero__lead {
+      font-size: clamp(0.98rem, 1.6vw, 1.12rem);
+      color: var(--ink-soft);
+      max-width: 56ch;
+      margin-bottom: 2.2rem;
+    }
+    .hero__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem 1.8rem;
+      font-size: 0.82rem;
+      color: var(--ink-faint);
+    }
+    .hero__meta li { display: flex; align-items: center; gap: 0.5rem; }
+    .hero__meta li::before {
+      content: "";
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    /* ============ WORKS ============ */
+    .works { padding-block: clamp(2rem, 5vw, 3rem) clamp(4rem, 9vw, 7rem); }
+
+    .section-head { margin-bottom: clamp(2.4rem, 5vw, 3.6rem); }
+    .section-head__eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+    .section-head__title {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: clamp(1.5rem, 3.4vw, 2.1rem);
+      letter-spacing: 0.03em;
+    }
+    .section-head__lead {
+      margin-top: 0.8rem;
+      color: var(--ink-soft);
+      font-size: 0.95rem;
+      max-width: 60ch;
+    }
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: clamp(1.4rem, 2.6vw, 2rem);
+    }
+
+    .card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease),
+                  box-shadow 0.4s var(--ease);
+    }
+    .card.is-visible { opacity: 1; transform: none; }
+    .card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-6px);
+    }
+    .card:focus-within {
+      outline: 2px solid var(--card-accent, var(--gold));
+      outline-offset: 3px;
+    }
+
+    /* ビジュアル（サムネ的）：ブランド配色のグラデ + 抽象モチーフ */
+    .card__visual {
+      position: relative;
+      aspect-ratio: 16 / 10;
+      background: var(--card-grad);
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .card__visual svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .card__glow {
+      position: absolute;
+      width: 60%; aspect-ratio: 1;
+      border-radius: 50%;
+      filter: blur(46px);
+      opacity: 0.7;
+      background: var(--card-accent);
+      top: -15%; right: -10%;
+      transition: transform 0.8s var(--ease);
+    }
+    .card:hover .card__glow { transform: translate(-12%, 18%) scale(1.15); }
+    .card__genre {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      z-index: 2;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      padding: 0.4rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.16);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #fff;
+    }
+    .card__logo {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+      padding: 1.5rem;
+    }
+    .card__logo-mark {
+      width: 52px; height: 52px;
+      margin-bottom: 0.9rem;
+      color: var(--card-accent);
+    }
+    .card__logo-name {
+      font-family: var(--serif);
+      font-weight: 700;
+      font-size: clamp(1.4rem, 3vw, 1.8rem);
+      letter-spacing: 0.06em;
+      line-height: 1.25;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.35);
+    }
+    .card__logo-en {
+      margin-top: 0.5rem;
+      font-size: 0.66rem;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .card__body {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      padding: 1.6rem 1.6rem 1.5rem;
+    }
+    .card__catch {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: 1.18rem;
+      letter-spacing: 0.03em;
+      line-height: 1.55;
+      margin-bottom: 0.7rem;
+      color: var(--ink);
+    }
+    .card__desc {
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      flex: 1;
+      margin-bottom: 1.3rem;
+    }
+    .card__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-bottom: 1.4rem;
+    }
+    .card__tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.04em;
+      color: var(--ink-soft);
+      padding: 0.28rem 0.7rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.015);
+    }
+    .card__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      align-self: flex-start;
+      font-weight: 500;
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      padding: 0.7rem 1.3rem;
+      border-radius: 999px;
+      color: #fff;
+      background: var(--card-primary);
+      transition: gap 0.25s var(--ease), filter 0.25s var(--ease);
+    }
+    .card__link::after {
+      content: "";
+      width: 18px; height: 9px;
+      background: currentColor;
+      -webkit-mask: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 12'%3E%3Cpath d='M0 6h21M16 1l5 5-5 5' fill='none' stroke='%23000' stroke-width='1.6'/%3E%3C/svg%3E");
+              mask: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 12'%3E%3Cpath d='M0 6h21M16 1l5 5-5 5' fill='none' stroke='%23000' stroke-width='1.6'/%3E%3C/svg%3E");
+      transition: transform 0.25s var(--ease);
+    }
+    .card:hover .card__link { gap: 0.9rem; filter: brightness(1.08); }
+    .card:hover .card__link::after { transform: translateX(3px); }
+
+    /* ブランド別アクセント割当 */
+    .card--lumen {
+      --card-primary: var(--lumen-primary);
+      --card-accent: var(--lumen-accent);
+      --card-grad: linear-gradient(150deg, #16233e 0%, #1b2a4a 55%, #2c4366 100%);
+    }
+    .card--akane {
+      --card-primary: var(--akane-primary);
+      --card-accent: var(--akane-accent);
+      --card-grad: linear-gradient(150deg, #2a1d13 0%, #4a3322 50%, #b65a28 130%);
+    }
+    .card--tsuki {
+      --card-primary: var(--tsuki-primary);
+      --card-accent: var(--tsuki-accent);
+      --card-grad: linear-gradient(150deg, #18211f 0%, #1f2a28 55%, #3a4d49 110%);
+    }
+
+    /* ============ TECH ============ */
+    .tech {
+      padding-block: clamp(3.5rem, 7vw, 6rem);
+      background: var(--bg-deep);
+      color: rgba(245, 243, 238, 0.9);
+    }
+    .tech .section-head__title { color: #fff; }
+    .tech .section-head__lead { color: rgba(245, 243, 238, 0.65); }
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.4rem;
+    }
+    .tech-card {
+      padding: 1.6rem;
+      border: 1px solid rgba(245, 243, 238, 0.12);
+      border-radius: 14px;
+      background: rgba(245, 243, 238, 0.03);
+    }
+    .tech-card h3 {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: 1.05rem;
+      margin-bottom: 0.6rem;
+      color: var(--gold);
+    }
+    .tech-card p {
+      font-size: 0.88rem;
+      color: rgba(245, 243, 238, 0.7);
+    }
+
+    /* ============ FOOTER ============ */
+    .site-footer {
+      padding-block: clamp(2.5rem, 5vw, 3.5rem) 1.6rem;
+      background: #0e1015;
+      color: rgba(245, 243, 238, 0.7);
+    }
+    .site-footer__inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem 2.5rem;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 1.8rem;
+      border-bottom: 1px solid rgba(245, 243, 238, 0.1);
+    }
+    .site-footer__tagline {
+      font-family: var(--serif);
+      font-size: 0.95rem;
+      color: rgba(245, 243, 238, 0.85);
+    }
+    .site-footer__links { display: flex; flex-wrap: wrap; gap: 1.2rem; }
+    .site-footer__links a {
+      font-size: 0.84rem;
+      color: rgba(245, 243, 238, 0.75);
+      transition: color 0.2s var(--ease);
+    }
+    .site-footer__links a:hover { color: var(--gold); }
+    .site-footer__bottom {
+      padding-top: 1.4rem;
+      font-size: 0.76rem;
+      color: rgba(245, 243, 238, 0.45);
+      letter-spacing: 0.03em;
+    }
+    .site-footer__bottom p + p { margin-top: 0.3rem; }
+
+    /* ============ Reduced motion ============ */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .card { opacity: 1; transform: none; transition: box-shadow 0.3s ease; }
+      * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#works">作品一覧へスキップ</a>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header" id="siteHeader">
+    <div class="container site-header__inner">
+      <a class="brand" href="#top" aria-label="ポートフォリオ トップへ">
+        <span class="brand__mark" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 7l9-4 9 4-9 4-9-4Z" />
+            <path d="M3 12l9 4 9-4" />
+            <path d="M3 17l9 4 9-4" />
+          </svg>
+        </span>
+        <span class="brand__text">
+          <span class="brand__name">Web制作ポートフォリオ</span>
+          <span class="brand__sub">Selected Works</span>
+        </span>
+      </a>
+      <nav class="header__nav" aria-label="メインナビゲーション">
+        <a href="#works">作品</a>
+        <a href="#tech">技術</a>
+        <a href="https://github.com/" class="nav-cta" rel="noopener">お問い合わせ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="container hero__inner">
+        <p class="hero__eyebrow">Front-end / Landing Page Design</p>
+        <h1 class="hero__title">ブランドの世界観を、<br /><em>そのまま画面に。</em></h1>
+        <p class="hero__lead">
+          フレームワークに頼らず、vanilla な HTML / CSS / JavaScript だけで仕上げた、架空ブランドのランディングページ3作品です。
+          コンセプト設計・コピー・配色・実装まで、一貫してデザインしました。気になる作品をご覧ください。
+        </p>
+        <ul class="hero__meta">
+          <li>ライブラリ不使用</li>
+          <li>レスポンシブ対応</li>
+          <li>アクセシビリティ配慮</li>
+          <li>静的ホスティング即対応</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ WORKS ============ -->
+    <section class="works" id="works">
+      <div class="container">
+        <header class="section-head">
+          <p class="section-head__eyebrow">Works — 3 Brands</p>
+          <h2 class="section-head__title">3つの架空ブランドのLP</h2>
+          <p class="section-head__lead">
+            それぞれ業種・ターゲット・トーンの異なる架空ブランドを想定し、ブランドごとに固有の配色と書体、動きを設計しています。
+          </p>
+        </header>
+
+        <div class="work-grid">
+
+          <!-- 01 Atelier Lumen -->
+          <article class="card card--lumen">
+            <div class="card__visual">
+              <span class="card__glow" aria-hidden="true"></span>
+              <span class="card__genre">オンラインスクール</span>
+              <svg viewBox="0 0 400 250" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+                <path d="M20 230 C 110 150, 160 190, 220 110 S 340 20, 400 8" fill="none" stroke="var(--lumen-accent)" stroke-width="1.4" opacity="0.55" />
+                <path d="M0 200 C 100 180, 130 90, 240 70 S 360 40, 400 60" fill="none" stroke="var(--lumen-accent)" stroke-width="0.9" opacity="0.3" />
+                <circle cx="220" cy="110" r="2.6" fill="var(--lumen-accent)" />
+              </svg>
+              <div class="card__logo">
+                <svg class="card__logo-mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
+                  <circle cx="16" cy="16" r="6.5" />
+                  <line x1="16" y1="2" x2="16" y2="7" /><line x1="16" y1="25" x2="16" y2="30" />
+                  <line x1="2" y1="16" x2="7" y2="16" /><line x1="25" y1="16" x2="30" y2="16" />
+                  <line x1="6" y1="6" x2="9.5" y2="9.5" /><line x1="22.5" y1="22.5" x2="26" y2="26" />
+                  <line x1="26" y1="6" x2="22.5" y2="9.5" /><line x1="9.5" y1="22.5" x2="6" y2="26" />
+                </svg>
+                <span class="card__logo-name">Atelier Lumen</span>
+                <span class="card__logo-en">アトリエ・ルーメン</span>
+              </div>
+            </div>
+            <div class="card__body">
+              <p class="card__catch">学びを、灯す。</p>
+              <p class="card__desc">
+                1クラス最大12名の少人数制オンライン創造学校。現役プロの伴走と週次の個別添削を軸に、信頼感のある紺×金で「静かに灯る学びの場」を表現しました。
+              </p>
+              <ul class="card__tags">
+                <li class="card__tag"># 料金プラン3種</li>
+                <li class="card__tag"># 申込フォーム</li>
+                <li class="card__tag"># スクロール演出</li>
+              </ul>
+              <a class="card__link" href="./online-school/">作品を見る</a>
+            </div>
+          </article>
+
+          <!-- 02 焙煎所 茜 -->
+          <article class="card card--akane">
+            <div class="card__visual">
+              <span class="card__glow" aria-hidden="true"></span>
+              <span class="card__genre">コーヒー焙煎所</span>
+              <svg viewBox="0 0 400 250" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+                <path d="M140 250 C 100 190, 180 160, 140 100 C 110 60, 170 35, 140 -10" fill="none" stroke="var(--akane-accent)" stroke-width="1.6" opacity="0.45" />
+                <path d="M210 250 C 170 190, 250 160, 210 100 C 180 60, 240 35, 210 -10" fill="none" stroke="var(--akane-accent)" stroke-width="1.2" opacity="0.3" />
+                <path d="M280 250 C 240 190, 320 160, 280 100 C 250 60, 310 35, 280 -10" fill="none" stroke="var(--akane-accent)" stroke-width="1" opacity="0.22" />
+              </svg>
+              <div class="card__logo">
+                <svg class="card__logo-mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <ellipse cx="16" cy="16" rx="8" ry="12" />
+                  <path d="M16 5 C 12.5 11, 12.5 21, 16 27" />
+                </svg>
+                <span class="card__logo-name">焙煎所 茜</span>
+                <span class="card__logo-en">Akane Roastery</span>
+              </div>
+            </div>
+            <div class="card__body">
+              <p class="card__catch">一杯に、夜明けの色を。</p>
+              <p class="card__desc">
+                スペシャルティコーヒーと自家製焼き菓子の焙煎所。立ちのぼる湯気のアニメーションと焦茶×茜色の配色で、早朝の焙煎所の香りと温度を画面に閉じ込めました。
+              </p>
+              <ul class="card__tags">
+                <li class="card__tag"># 数字カウントアップ</li>
+                <li class="card__tag"># 定期便プラン</li>
+                <li class="card__tag"># スティッキーCTA</li>
+              </ul>
+              <a class="card__link" href="./cafe/">作品を見る</a>
+            </div>
+          </article>
+
+          <!-- 03 月白 Tsukishiro -->
+          <article class="card card--tsuki">
+            <div class="card__visual">
+              <span class="card__glow" aria-hidden="true"></span>
+              <span class="card__genre">プライベートサロン</span>
+              <svg viewBox="0 0 400 250" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+                <circle cx="300" cy="70" r="60" fill="none" stroke="var(--tsuki-accent)" stroke-width="1.2" opacity="0.4" />
+                <path d="M300 18 a52 52 0 0 0 0 104 38 38 0 0 1 0-104Z" fill="var(--tsuki-accent)" opacity="0.18" />
+                <line x1="0" y1="180" x2="400" y2="155" stroke="var(--tsuki-accent)" stroke-width="0.8" opacity="0.25" />
+                <line x1="0" y1="205" x2="400" y2="185" stroke="var(--tsuki-accent)" stroke-width="0.8" opacity="0.18" />
+              </svg>
+              <div class="card__logo">
+                <svg class="card__logo-mark" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                  <circle cx="13" cy="13" r="9" />
+                  <path d="M13 4a9 9 0 0 0 0 18 6.5 6.5 0 0 1 0-18Z" fill="currentColor" stroke="none" />
+                </svg>
+                <span class="card__logo-name">月白</span>
+                <span class="card__logo-en">Tsukishiro Atelier</span>
+              </div>
+            </div>
+            <div class="card__body">
+              <p class="card__catch">肌が、静かに目を覚ます。</p>
+              <p class="card__desc">
+                表参道の路地裏にある完全予約制プライベートサロン。墨緑×金茶の落ち着いた配色と余白を効かせ、「静かな美容」のラグジュアリーで上質な世界観を組み立てました。
+              </p>
+              <ul class="card__tags">
+                <li class="card__tag"># 縦長ヒーロー</li>
+                <li class="card__tag"># 会員制メニュー</li>
+                <li class="card__tag"># OGP / アクセシビリティ</li>
+              </ul>
+              <a class="card__link" href="./beauty-salon/">作品を見る</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TECH ============ -->
+    <section class="tech" id="tech">
+      <div class="container">
+        <header class="section-head">
+          <p class="section-head__eyebrow">Tech &amp; Approach</p>
+          <h2 class="section-head__title">技術構成とこだわり</h2>
+          <p class="section-head__lead">
+            すべての作品をフレームワーク・ビルドツールなしで構築。HTMLファイルを開くだけで動き、静的ホスティングにそのまま載せられます。
+          </p>
+        </header>
+        <div class="tech-grid">
+          <div class="tech-card">
+            <h3>Vanilla 構成</h3>
+            <p>React・jQuery等は不使用。HTML / CSS / 素のJavaScriptのみで実装し、依存もビルド工程もありません。</p>
+          </div>
+          <div class="tech-card">
+            <h3>レスポンシブ</h3>
+            <p>clamp() と CSS Grid / Flexbox を用い、スマートフォンからワイド画面まで滑らかに最適化しています。</p>
+          </div>
+          <div class="tech-card">
+            <h3>アクセシビリティ</h3>
+            <p>スキップリンク、適切なARIA属性、キーボード操作、prefers-reduced-motion への配慮を組み込んでいます。</p>
+          </div>
+          <div class="tech-card">
+            <h3>軽量な演出</h3>
+            <p>IntersectionObserver によるスクロール表示やカウントアップなど、軽い純正JSで体験を引き立てています。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="site-footer__inner">
+        <p class="site-footer__tagline">ブランドの世界観を、そのまま画面に。</p>
+        <nav class="site-footer__links" aria-label="フッターナビゲーション">
+          <a href="./online-school/">Atelier Lumen</a>
+          <a href="./cafe/">焙煎所 茜</a>
+          <a href="./beauty-salon/">月白</a>
+        </nav>
+      </div>
+      <div class="site-footer__bottom">
+        <p>© 2026 Web Production Portfolio.</p>
+        <p>※掲載作品はすべてポートフォリオ用に制作した架空のサンプルです。実在の企業・サービスとは関係ありません。</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ヘッダーのスクロール影
+    (function () {
+      var header = document.getElementById('siteHeader');
+      var onScroll = function () {
+        if (window.scrollY > 8) header.classList.add('scrolled');
+        else header.classList.remove('scrolled');
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
+
+    // カードのスクロールイン表示
+    (function () {
+      var cards = document.querySelectorAll('.card');
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || !('IntersectionObserver' in window)) {
+        cards.forEach(function (c) { c.classList.add('is-visible'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry, i) {
+          if (entry.isIntersecting) {
+            // 同時に複数見えても順に出る軽いずらし
+            var el = entry.target;
+            el.style.transitionDelay = (Array.prototype.indexOf.call(cards, el) % 3 * 90) + 'ms';
+            el.classList.add('is-visible');
+            io.unobserve(el);
+          }
+        });
+      }, { threshold: 0.16 });
+      cards.forEach(function (c) { io.observe(c); });
+    })();
+  </script>
+</body>
+</html>
