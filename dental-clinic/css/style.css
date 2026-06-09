@@ -515,48 +515,6 @@ table {
   font-weight: 700;
 }
 
-.hero__scroll {
-  position: absolute;
-  left: 50%;
-  bottom: 1.6rem;
-  transform: translateX(-50%);
-  z-index: 3;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--color-text-soft);
-}
-.hero__scroll-text {
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 0.62rem;
-  letter-spacing: 0.28em;
-  writing-mode: vertical-rl;
-}
-.hero__scroll-line {
-  width: 2px;
-  height: 48px;
-  background: rgba(28, 90, 130, 0.2);
-  position: relative;
-  overflow: hidden;
-  border-radius: 2px;
-}
-.hero__scroll-line::after {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: 0;
-  width: 100%;
-  height: 50%;
-  background: var(--color-primary);
-  animation: scrollDot 2.2s var(--ease) infinite;
-}
-@keyframes scrollDot {
-  0% { top: -50%; }
-  100% { top: 120%; }
-}
-
 /* =========================================================
    REASONS
    ========================================================= */
@@ -1711,8 +1669,5 @@ body.nav-open {
   .js .reveal {
     opacity: 1 !important;
     transform: none !important;
-  }
-  .hero__scroll-line::after {
-    display: none;
   }
 }
