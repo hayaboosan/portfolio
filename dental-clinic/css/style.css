@@ -1180,7 +1180,7 @@ table {
   /* Dedicated easing for the open glide. ease-out-cubic responds instantly
      (パッと) but decelerates gently into place (ヌルっと); the global --ease
      (ease-out-quint) is too front-loaded and snaps open. */
-  transition: height 2s cubic-bezier(0.33, 1, 0.68, 1); /* TEST: 極端にゆっくり（要調整・本番は0.45s前後） */
+  transition: height 0.5s cubic-bezier(0.33, 1, 0.68, 1);
 }
 /* Progressive enhancement: only collapse panels when JS can reopen them. */
 .js .accordion__panel {
