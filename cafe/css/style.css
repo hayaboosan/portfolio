@@ -215,13 +215,22 @@ h1, h2, h3, h4 {
   height: var(--header-h);
   display: flex;
   align-items: center;
-  transition: background-color 0.4s var(--ease), box-shadow 0.4s var(--ease), backdrop-filter 0.4s var(--ease);
 }
-.site-header.scrolled {
+/* scrolled時の背景・ブラーは ::before に分離。
+   header 本体に backdrop-filter を置くと fixed 子孫（SPの .nav-menu ドロワー）の
+   containing block が 64px のヘッダーになり、ドロワーが帯状に潰れるため。 */
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
   background: rgba(244, 237, 226, 0.82);
   backdrop-filter: blur(10px);
   box-shadow: 0 1px 0 var(--c-line);
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
 }
+.site-header.scrolled::before { opacity: 1; }
 
 .header-inner {
   display: flex;
@@ -278,6 +287,7 @@ h1, h2, h3, h4 {
   gap: 5px;
   width: 44px; height: 44px;
   padding: 10px;
+  position: relative;
   z-index: 110;
 }
 .nav-toggle-bar {
@@ -319,7 +329,6 @@ h1, h2, h3, h4 {
   bottom: 12%;
   width: clamp(90px, 16vw, 170px);
   height: auto;
-  z-index: -1;
   opacity: 0.5;
 }
 .hero-steam .steam {
@@ -772,7 +781,6 @@ h1, h2, h3, h4 {
   .nav-menu.open { transform: translateX(0); }
   .nav-menu > li { width: 100%; }
   .nav-menu > li > a { display: block; color: var(--c-primary) !important; padding: 0.75rem 0; font-size: 1.05rem; border-bottom: 1px solid var(--c-line); }
-  .site-header:not(.scrolled) .nav-menu > li > a { color: var(--c-primary); }
   .nav-cta { display: inline-block; margin-top: 0.8rem; border-bottom: none !important; color: var(--c-white) !important; }
 
   /* hamburger -> X */
@@ -789,6 +797,8 @@ h1, h2, h3, h4 {
 
   /* スティッキーCTA表示。SPでは本文末尾に余白を確保 */
   .sticky-cta { display: block; }
+  /* スティッキーCTAの背後に隠れるためスクロールヒントはSPでは非表示 */
+  .scroll-hint { display: none; }
   .site-footer { padding-bottom: 5.5rem; }
   /* JS無効時のフォールバック: CTAセクション下部にも逃げを入れ、
      スティッキーCTAがフォーム送信ボタンに重ならないようにする */

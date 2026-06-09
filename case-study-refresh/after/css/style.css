@@ -223,9 +223,15 @@ ul, ol { list-style: none; }
   inset: 0 0 auto 0;
   z-index: 100;
   background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(12px);
   box-shadow: 0 1px 0 var(--color-line);
   transition: box-shadow 0.4s var(--ease);
+}
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  backdrop-filter: blur(12px);
 }
 .site-header.is-scrolled {
   box-shadow: 0 6px 24px -16px rgba(13, 59, 54, 0.35);
@@ -926,7 +932,7 @@ ul, ol { list-style: none; }
 
 /* mobile nav drawer (<=760px) */
 @media (max-width: 760px) {
-  .nav__toggle { display: flex; }
+  .nav__toggle { display: flex; position: relative; }
   .nav__menu {
     position: fixed;
     inset: 0 0 0 auto;
@@ -942,6 +948,7 @@ ul, ol { list-style: none; }
     transition: transform 0.45s var(--ease);
     z-index: 105;
   }
+  .js .nav__menu { height: 100vh; height: 100dvh; }
   /* JSが無い時はドロワー化せず、通常リストとして全項目を表示 */
   .no-js .nav__menu {
     position: static;
@@ -981,7 +988,7 @@ body.nav-open { overflow: hidden; }
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.4s var(--ease), visibility 0.4s var(--ease);
-  z-index: 104;
+  z-index: 99;
 }
 .nav-backdrop.is-active { opacity: 1; visibility: visible; }
 

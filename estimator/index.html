@@ -25,7 +25,7 @@
   <!-- no-js -> js は描画前に差し替えて、CSSのフラッシュを防ぐ -->
   <script>document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/, 'js');</script>
 </head>
-<body>
+<body id="top">
   <a class="skip-link" href="#configurator">設定パネルへスキップ</a>
 
   <!-- ============ HEADER ============ -->
@@ -59,7 +59,7 @@
         参考として、各箇所の<strong>基本工事費の早見表</strong>を以下に掲載します。
       </p>
       <table class="price-table">
-        <caption class="price-table__caption">箇所別 基本工事費（スタンダード・税抜の目安）</caption>
+        <caption class="price-table__caption">箇所別 基本工事費（税抜の目安）</caption>
         <thead>
           <tr><th scope="col">箇所</th><th scope="col" class="price-table__num">スタンダード</th><th scope="col" class="price-table__num">ハイグレード</th><th scope="col" class="price-table__num">プレミアム</th></tr>
         </thead>
@@ -208,6 +208,7 @@
       <div class="mobile-sheet__body" id="mobileSheetBody">
         <!-- JSが明細＋サマリーを複製 -->
       </div>
+      <p class="estimate__copy-status" id="sheetCopyStatus" role="status" aria-live="polite"></p>
     </div>
   </div>
 
@@ -218,7 +219,7 @@
       <nav class="app-footer__links" aria-label="フッターナビゲーション">
         <a href="../">ポートフォリオ トップ</a>
         <a href="../quick-fixes/">小修正デモ集</a>
-        <a href="#app">ページ上部へ</a>
+        <a href="#top">ページ上部へ</a>
       </nav>
     </div>
     <div class="app-footer__bottom">

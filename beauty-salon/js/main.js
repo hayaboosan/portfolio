@@ -97,21 +97,36 @@
     return el.offsetHeight;
   }
 
+  // Remove the panel's pending transitionend listener, if any. An interrupted
+  // open (quick re-click before the 0.5s transition finishes) fires
+  // transitioncancel — not transitionend — so the stale handler would survive
+  // and set height:auto when the close transition completes, snapping the
+  // panel open while its trigger still shows aria-expanded="false".
+  function clearPanelListener(panel) {
+    if (panel._accDone) {
+      panel.removeEventListener('transitionend', panel._accDone);
+      panel._accDone = null;
+    }
+  }
+
   function closePanel(panel) {
+    clearPanelListener(panel);
     panel.style.height = panel.scrollHeight + 'px';
     forceReflow(panel);
     panel.style.height = '0px';
   }
   function openPanel(panel) {
+    clearPanelListener(panel);
     panel.style.height = panel.scrollHeight + 'px';
     // after transition, set to auto so it adapts to content
     var done = function () {
       panel.style.height = 'auto';
-      panel.removeEventListener('transitionend', done);
+      clearPanelListener(panel);
     };
     if (prefersReducedMotion) {
       panel.style.height = 'auto';
     } else {
+      panel._accDone = done;
       panel.addEventListener('transitionend', done);
     }
   }
@@ -379,7 +394,7 @@
       setError(emailInput, '');
       if (successMsg) {
         successMsg.hidden = false;
-        successMsg.focus && successMsg.focus();
+        successMsg.focus({ preventScroll: true });
         successMsg.scrollIntoView({
           behavior: prefersReducedMotion ? 'auto' : 'smooth',
           block: 'center',

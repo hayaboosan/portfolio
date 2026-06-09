@@ -169,18 +169,25 @@
   }
 
   var suppressHashWrite = false;
+  var hashWriteTimer = null;
   function writeHash() {
     if (suppressHashWrite) return;
-    var enc = encodeState();
-    var newHash = enc ? '#r=' + encodeURIComponent(enc) : '';
-    // 履歴を汚さず置換
-    var url = location.pathname + location.search + newHash;
-    try {
-      history.replaceState(null, '', url);
-    } catch (e) {
-      // file:// などで失敗する場合のフォールバック
-      if (location.hash !== newHash) location.hash = newHash;
-    }
+    // スライダー連続入力で Safari の replaceState 回数制限(100回/30秒)に
+    // 達しないようデバウンス。状態は発火時点で読むため、デバウンス中に
+    // 戻る/進むが起きても現在のURLと同一内容の置換になり安全。
+    window.clearTimeout(hashWriteTimer);
+    hashWriteTimer = window.setTimeout(function () {
+      var enc = encodeState();
+      var newHash = enc ? '#r=' + encodeURIComponent(enc) : '';
+      // 履歴を汚さず置換
+      var url = location.pathname + location.search + newHash;
+      try {
+        history.replaceState(null, '', url);
+      } catch (e) {
+        // file:// などで失敗する場合のフォールバック
+        if (location.hash !== newHash) location.hash = newHash;
+      }
+    }, 250);
   }
 
   /* ---------------------------------------------------------
@@ -263,6 +270,7 @@
   var elPrintBtn = document.getElementById('printBtn');
   var elResetBtn = document.getElementById('resetBtn');
   var elCopyStatus = document.getElementById('copyStatus');
+  var elSheetCopyStatus = document.getElementById('sheetCopyStatus');
 
   var elMobileBar = document.getElementById('mobileBar');
   var elMobileTotal = document.getElementById('mobileTotal');
@@ -500,7 +508,7 @@
       html += '<div class="estimate__group-head">' +
         '<span class="estimate__group-name">' + ln.room.name +
         '<span class="estimate__group-grade">' + ln.grade.name + '</span></span>' +
-        '<span class="estimate__line-amount">' + yen(ln.baseCost) + '</span>' +
+        '<span class="estimate__line-amount">' + yen(ln.baseCost + ln.optLines.reduce(function (a, o) { return a + o.amount; }, 0)) + '</span>' +
         '</div>';
       // base detail line (area rooms show 単価×面積)
       if (ln.area != null) {
@@ -664,12 +672,15 @@
   }
 
   function showCopyStatus(msg, isErr) {
-    elCopyStatus.textContent = msg;
-    elCopyStatus.className = 'estimate__copy-status' + (isErr ? ' estimate__copy-status--err' : '');
+    var cls = 'estimate__copy-status' + (isErr ? ' estimate__copy-status--err' : '');
+    [elCopyStatus, elSheetCopyStatus].forEach(function (n) {
+      if (n) { n.textContent = msg; n.className = cls; }
+    });
     window.clearTimeout(showCopyStatus._t);
     showCopyStatus._t = window.setTimeout(function () {
-      elCopyStatus.textContent = '';
-      elCopyStatus.className = 'estimate__copy-status';
+      [elCopyStatus, elSheetCopyStatus].forEach(function (n) {
+        if (n) { n.textContent = ''; n.className = 'estimate__copy-status'; }
+      });
     }, 3200);
   }
 
@@ -806,9 +817,6 @@
       var b = e.target.closest('[data-sheet-copy]');
       if (!b) return;
       doCopy();
-      var orig = b.textContent;
-      b.textContent = 'コピーしました';
-      window.setTimeout(function () { if (b.isConnected) b.textContent = orig; }, 2000);
     });
   }
   // デスクトップ幅(>700px)に広がったらシートはCSSで非表示になるため、
@@ -823,6 +831,10 @@
      13) hashchange（ブラウザの戻る/進む・外部からの貼り付け）
      --------------------------------------------------------- */
   window.addEventListener('hashchange', function () {
+    // ページ内アンカー（#app / #configurator）は状態URLではないので無視し、
+    // 上書きされた '#r=' 状態をURLに復元する（replaceStateなのでスクロールには影響しない）
+    var h = location.hash.replace(/^#/, '');
+    if (h && !/(?:^|&)r=/.test(h)) { writeHash(); return; }
     var next = decodeState(location.hash);
     // 文字列比較で実質変更があるときだけ再描画
     var encNext = (function () {

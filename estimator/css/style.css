@@ -877,6 +877,7 @@ input { font-family: inherit; }
 /* re-use estimate styles inside the sheet body */
 .mobile-sheet__body .estimate__lines { max-height: none; }
 .mobile-sheet__body .estimate__summary { border-top: none; }
+.mobile-sheet__panel .estimate__copy-status { margin: 0; padding-bottom: 0.8rem; }
 
 /* default: hide mobile UI on desktop; JS toggles [hidden] but width gates display */
 @media (min-width: 701px) {

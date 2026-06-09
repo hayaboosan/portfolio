@@ -180,7 +180,7 @@
     // 緩めの形式チェック。サーバ側検証の代わりにはならない簡易確認。
     var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     // 日本の電話番号：ハイフン許容、数字10〜11桁を想定した緩いチェック。
-    var telRe = /^[0-9０-９+\-（）()\s]{10,17}$/;
+    var telRe = /^[0-9０-９+\-－ー（）()\s]{10,17}$/;
 
     function setError(input, message) {
       var errEl = document.getElementById(input.getAttribute('aria-describedby'));

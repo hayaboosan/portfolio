@@ -263,7 +263,7 @@
     }
 
     /* ============ FIX BLOCK ============ */
-    .fix { padding-block: clamp(2rem, 5vw, 3.2rem); border-top: 1px solid var(--line); }
+    .fix { padding-block: clamp(2rem, 5vw, 3.2rem); border-top: 1px solid var(--line); scroll-margin-top: 4.5rem; }
     .fix:first-of-type { border-top: none; }
 
     /* 課題→対応→効果 の3点解説 */
@@ -375,12 +375,6 @@
       border-radius: 10px;
       background: #fff;
       display: block;
-    }
-    .frame--phone {
-      width: 100%;
-      max-width: 280px;
-      height: 380px;
-      margin-inline: auto;
     }
     .frame-label {
       text-align: center;
@@ -721,6 +715,8 @@
       .js-only { display: none !important; }
       .toggle-panel[hidden] { display: block !important; }
       .demo__bar .toggle { display: none !important; }
+      /* JSなしでは送信ガードが効かず実際にGET送信されてしまうため、デモの送信ボタンを隠す */
+      .naive-form button, .form-submit { display: none !important; }
     </style>
   </noscript>
 </head>
@@ -789,7 +785,7 @@
         <div class="demo">
           <div class="demo__bar">
             <span class="demo__bar-title">実演：枠の幅を変えて挙動を比較</span>
-            <span class="demo__hint">幅を280pxにするとBeforeははみ出します</span>
+            <span class="demo__hint js-only">幅を280pxにするとBeforeははみ出します</span>
           </div>
           <div class="demo__stage">
             <div class="vp-controls js-only" role="group" aria-label="プレビュー幅の切り替え">
@@ -900,7 +896,7 @@
           </div>
           <div class="demo__stage">
             <p style="margin-bottom:1rem;font-size:0.88rem;color:var(--ink-soft)">
-              <button type="button" id="clsReplay" class="chip js-only" aria-pressed="false">画像を読み込む（再生）</button>
+              <button type="button" id="clsReplay" class="chip js-only">画像を読み込む（再生）</button>
             </p>
             <div class="ba-grid ba-grid--2col">
               <div>
@@ -1179,15 +1175,16 @@
         btn.addEventListener('click', function () {
           if (playing) return;
           playing = true;
-          btn.setAttribute('aria-pressed', 'true');
+          var prevTransition = beforeImg.style.transition;
+          beforeImg.style.transition = 'none';
           beforeImg.style.height = '0px';
           // リフロー強制後にアニメ
           void beforeImg.offsetHeight;
+          beforeImg.style.transition = prevTransition;
           window.setTimeout(function () {
             beforeImg.style.height = '150px';
             window.setTimeout(function () {
               playing = false;
-              btn.setAttribute('aria-pressed', 'false');
             }, 700);
           }, 350);
         });

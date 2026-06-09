@@ -232,9 +232,17 @@ ul, ol { list-style: none; }
   inset: 0 0 auto 0;
   z-index: 100;
   background: rgba(250, 244, 232, 0.92);
-  backdrop-filter: blur(12px);
   box-shadow: 0 1px 0 var(--color-line);
   transition: box-shadow 0.4s var(--ease);
+}
+/* blur on a pseudo-element: backdrop-filter on .site-header itself would make it
+   the containing block for the fixed-position mobile drawer (.nav__menu) */
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  backdrop-filter: blur(12px);
 }
 .site-header.is-scrolled {
   box-shadow: 0 6px 24px -16px rgba(17, 39, 64, 0.35);
@@ -321,6 +329,7 @@ ul, ol { list-style: none; }
   width: 48px; height: 48px;
   padding: 12px;
   color: var(--color-primary-deep);
+  position: relative; /* z-index を効かせ、開いたドロワーより前面に出す */
   z-index: 110;
 }
 .nav__toggle-bar {
@@ -976,6 +985,7 @@ ul, ol { list-style: none; }
 
 /* body lock + backdrop for open nav */
 body.nav-open { overflow: hidden; }
+html:has(body.nav-open) { overflow: hidden; }
 .nav-backdrop {
   position: fixed;
   inset: 0;
@@ -983,7 +993,7 @@ body.nav-open { overflow: hidden; }
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.4s var(--ease), visibility 0.4s var(--ease);
-  z-index: 104;
+  z-index: 99; /* below .site-header (100) so the drawer inside the header paints above the dimmer */
 }
 .nav-backdrop.is-active { opacity: 1; visibility: visible; }
 

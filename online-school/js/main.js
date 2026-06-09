@@ -71,12 +71,23 @@
   // 高さ変化を確定させるための強制リフロー（intentを明示）
   function faqReflow(el) { return el.offsetHeight; }
 
+  // 登録中の transitionend リスナをトグルのたびに必ず除去する。
+  // 開アニメ中に閉じると transitioncancel になり旧リスナが残留し、
+  // 閉アニメ完了の transitionend で height:auto に戻して開いてしまうため。
+  function faqClearDone(panel) {
+    if (panel._faqDone) {
+      panel.removeEventListener('transitionend', panel._faqDone);
+      panel._faqDone = null;
+    }
+  }
   function faqClosePanel(panel) {
+    faqClearDone(panel);
     panel.style.height = panel.scrollHeight + 'px';
     faqReflow(panel);
     panel.style.height = '0px';
   }
   function faqOpenPanel(panel) {
+    faqClearDone(panel);
     panel.style.height = panel.scrollHeight + 'px';
     if (prefersReducedMotion) {
       panel.style.height = 'auto';
@@ -84,8 +95,9 @@
       // トランジション後に auto へ戻し、内容変化やリサイズに追従
       var done = function () {
         panel.style.height = 'auto';
-        panel.removeEventListener('transitionend', done);
+        faqClearDone(panel);
       };
+      panel._faqDone = done;
       panel.addEventListener('transitionend', done);
     }
   }

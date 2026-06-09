@@ -21,6 +21,7 @@
     deli: '宅配ボックス', park: '駐車場あり', pet: 'ペット相談可',
     corner: '角部屋', reform: 'リフォーム済', '2f': '2階以上', south: '南向き',
   };
+  var LAYOUT_LABEL = { '1R': 'ワンルーム' };
 
   // ----- DOM -----
   var form = document.getElementById('filters');
@@ -195,7 +196,7 @@
     var chips = [];
     if (s.q) chips.push(['q', '', '「' + s.q + '」']);
     if (s.rmax !== null) chips.push(['rmax', '', '〜' + (s.rmax / 10000) + '万円']);
-    s.lay.forEach(function (v) { chips.push(['lay', v, v]); });
+    s.lay.forEach(function (v) { chips.push(['layout', v, LAYOUT_LABEL[v] || v]); });
     if (s.smin !== null) chips.push(['smin', '', s.smin + '㎡以上']);
     if (s.wmax !== null) chips.push(['wmax', '', '徒歩' + s.wmax + '分以内']);
     if (s.amax) chips.push(['amax', '', s.amax === 'new' ? '新築のみ' : '築' + s.amax + '年以内']);
@@ -252,7 +253,15 @@
 
   chipsEl.addEventListener('click', function (e) {
     var rm = e.target.closest('.chip__remove');
-    if (rm) { removeFilter(rm.getAttribute('data-kind'), rm.getAttribute('data-value')); return; }
+    if (rm) {
+      // 再描画でフォーカス中のボタンが消えるため、近傍へ明示的に移動する
+      var idx = Array.prototype.indexOf.call(chipsEl.querySelectorAll('.chip__remove'), rm);
+      removeFilter(rm.getAttribute('data-kind'), rm.getAttribute('data-value'));
+      var btns = chipsEl.querySelectorAll('.chip__remove');
+      if (btns.length) btns[Math.min(idx, btns.length - 1)].focus();
+      else if (sortSelect) sortSelect.focus();
+      return;
+    }
     if (e.target.closest('#chipClearAll')) resetAll();
   });
 
@@ -287,11 +296,11 @@
     if (s.sort) p.set('sort', s.sort);
     if (view === 'grid') p.set('view', 'grid');
     var str = p.toString();
-    var url = str ? '#' + str : location.pathname + location.search;
+    var url = (str ? location.pathname + '?' + str : location.pathname) + location.hash;
     history.replaceState(null, '', url);
   }
   function readURL() {
-    var hash = location.hash.replace(/^#/, '');
+    var hash = location.search.replace(/^\?/, '');
     if (!hash) return;
     var p = new URLSearchParams(hash);
     var setBoxes = function (name, csv) {

@@ -8,22 +8,22 @@
 
   <rect width="800" height="480" fill="url(#mapbg)"/>
 
-  <!-- park / green block -->
-  <rect x="40" y="40" width="180" height="150" rx="10" fill="#C7E6C9"/>
-  <text x="130" y="120" font-family="sans-serif" font-size="18" fill="#3A6B4A" text-anchor="middle">わかば公園</text>
-
-  <!-- water -->
-  <rect x="600" y="300" width="180" height="150" rx="10" fill="#BFE0EC"/>
-
   <!-- roads -->
   <g stroke="#FFFFFF" stroke-width="26">
     <line x1="0" y1="250" x2="800" y2="250"/>
     <line x1="400" y1="0" x2="400" y2="480"/>
   </g>
   <g stroke="#D8C9AE" stroke-width="14">
-    <line x1="0" y1="120" x2="800" y2="120"/>
-    <line x1="180" y1="0" x2="180" y2="480"/>
+    <line x1="220" y1="120" x2="800" y2="120"/>
+    <line x1="280" y1="0" x2="280" y2="480"/>
   </g>
+
+  <!-- park / green block -->
+  <rect x="40" y="40" width="180" height="150" rx="10" fill="#C7E6C9"/>
+  <text x="130" y="120" font-family="sans-serif" font-size="18" fill="#3A6B4A" text-anchor="middle">わかば公園</text>
+
+  <!-- water -->
+  <rect x="600" y="300" width="180" height="150" rx="10" fill="#BFE0EC"/>
 
   <!-- station -->
   <rect x="60" y="290" width="150" height="60" rx="8" fill="#5A6B7A"/>

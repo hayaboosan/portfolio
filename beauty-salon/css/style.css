@@ -246,8 +246,7 @@ ol {
   inset: 0 0 auto 0;
   z-index: 100;
   background: transparent;
-  transition: background-color 0.5s var(--ease), box-shadow 0.5s var(--ease),
-    backdrop-filter 0.5s var(--ease);
+  transition: box-shadow 0.5s var(--ease);
 }
 /* Dark scrim behind the light header text while transparent (non-scrolled),
    so brand/nav/hamburger keep AA contrast over bright areas of the hero
@@ -269,9 +268,25 @@ ol {
 .site-header.is-scrolled::before {
   opacity: 0;
 }
-.site-header.is-scrolled {
+/* スクロール後の背景＋ブラーは ::after に分離。
+   .site-header 自身に backdrop-filter を置くと、fixed のドロワー
+   （.nav__menu）の包含ブロックがヘッダーになり、メニューが
+   ヘッダーの帯内に閉じ込められてしまうため（他LPと同じ対処）。 */
+.site-header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
   background: rgba(244, 241, 235, 0.86);
   backdrop-filter: blur(14px);
+  opacity: 0;
+  transition: opacity 0.5s var(--ease);
+}
+.site-header.is-scrolled::after {
+  opacity: 1;
+}
+.site-header.is-scrolled {
   box-shadow: 0 1px 0 var(--color-line);
 }
 .header__inner {
@@ -368,6 +383,7 @@ ol {
   width: 44px;
   height: 44px;
   padding: 10px;
+  position: relative; /* z-index を効かせ、開いたドロワーより前面に出す */
   z-index: 110;
 }
 .nav__toggle-bar {
@@ -1170,7 +1186,9 @@ ol {
 /* =========================================================
    REVEAL ANIMATION
    ========================================================= */
-.reveal {
+/* Progressive enhancement: only hide content when JS is available to add
+   .is-visible. Without JS (no .js on <html>) everything renders visible. */
+.js .reveal {
   opacity: 0;
   transform: translateY(12px);
   transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
@@ -1308,7 +1326,7 @@ body.nav-open {
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.4s var(--ease), visibility 0.4s var(--ease);
-  z-index: 104;
+  z-index: 99;
 }
 .nav-backdrop.is-active {
   opacity: 1;
