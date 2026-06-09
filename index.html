@@ -432,6 +432,17 @@
     .card:hover .card__link { gap: 0.9rem; filter: brightness(1.08); }
     .card:hover .card__link::after { transform: translateX(3px); }
 
+    /* カード全体をクリック可能に（stretched link）。
+       リンクの当たり判定をカード全面へ拡張し、ホバーで浮く演出と操作対象を一致させる。
+       .card は position:relative なので、この絶対配置の擬似要素はカード全体を覆う。 */
+    .card__link::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+    /* キーボードのフォーカスは従来どおりボタンに表示（card の :focus-within と併用） */
+
     /* ブランド別アクセント割当 */
     .card--lumen {
       --card-primary: var(--lumen-primary);
@@ -768,7 +779,7 @@
                 <li class="card__tag"># 申込フォーム</li>
                 <li class="card__tag"># スクロール演出</li>
               </ul>
-              <a class="card__link" href="./online-school/">作品を見る</a>
+              <a class="card__link" href="./online-school/" aria-label="Atelier Lumen の作品を見る">作品を見る</a>
             </div>
           </article>
 
@@ -801,7 +812,7 @@
                 <li class="card__tag"># 定期便プラン</li>
                 <li class="card__tag"># スティッキーCTA</li>
               </ul>
-              <a class="card__link" href="./cafe/">作品を見る</a>
+              <a class="card__link" href="./cafe/" aria-label="焙煎所 茜 の作品を見る">作品を見る</a>
             </div>
           </article>
 
@@ -835,7 +846,7 @@
                 <li class="card__tag"># 会員制メニュー</li>
                 <li class="card__tag"># OGP / アクセシビリティ</li>
               </ul>
-              <a class="card__link" href="./beauty-salon/">作品を見る</a>
+              <a class="card__link" href="./beauty-salon/" aria-label="月白 Tsukishiro の作品を見る">作品を見る</a>
             </div>
           </article>
 
@@ -868,7 +879,7 @@
                 <li class="card__tag"># ビフォーアフター実績</li>
                 <li class="card__tag"># スティッキー予約CTA</li>
               </ul>
-              <a class="card__link" href="./personal-gym/">作品を見る</a>
+              <a class="card__link" href="./personal-gym/" aria-label="臨界 RINKAI の作品を見る">作品を見る</a>
             </div>
           </article>
 
@@ -901,7 +912,7 @@
                 <li class="card__tag"># 自作SVG地図</li>
                 <li class="card__tag"># 電話/Web予約CTA</li>
               </ul>
-              <a class="card__link" href="./dental-clinic/">作品を見る</a>
+              <a class="card__link" href="./dental-clinic/" aria-label="そよかぜ歯科 の作品を見る">作品を見る</a>
             </div>
           </article>
 
