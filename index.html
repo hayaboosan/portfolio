@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Web制作ポートフォリオ｜架空ブランドのLP4作品＋サイト改修事例</title>
-  <meta name="description" content="フレームワーク不使用のvanilla HTML / CSS / JS で制作した、架空ブランドのランディングページ4作品（オンラインスクール・コーヒー焙煎所・美容サロン・パーソナルジム）と、既存サイトのビフォーアフター改修事例をまとめたWeb制作ポートフォリオ。" />
+  <title>Web制作ポートフォリオ｜架空ブランドのLP5作品＋サイト改修事例2件＋小修正デモ集</title>
+  <meta name="description" content="フレームワーク不使用のvanilla HTML / CSS / JS で制作した、架空ブランドのランディングページ5作品（オンラインスクール・コーヒー焙煎所・美容サロン・パーソナルジム・歯科クリニック）と、既存サイトのビフォーアフター改修事例2件・よくある小修正デモ集をまとめたWeb制作ポートフォリオ。" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Web制作ポートフォリオ｜架空ブランドのLP4作品＋サイト改修事例" />
-  <meta property="og:description" content="vanilla HTML / CSS / JS で制作した架空ブランドのLP4作品と、既存サイトのビフォーアフター改修事例。" />
+  <meta property="og:title" content="Web制作ポートフォリオ｜架空ブランドのLP5作品＋サイト改修事例2件＋小修正デモ集" />
+  <meta property="og:description" content="vanilla HTML / CSS / JS で制作した架空ブランドのLP5作品と、既存サイトのビフォーアフター改修事例2件・よくある小修正デモ集。" />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -48,6 +48,10 @@
       --gym-primary: #17171b;
       --gym-accent: #c8ff00;
       --gym-bg: #101015;
+
+      --soyokaze-primary: #15679a;
+      --soyokaze-accent: #2f9bd6;
+      --soyokaze-bg: #eef6fb;
 
       --serif: "Shippori Mincho B1", "Hiragino Mincho ProN", serif;
       --sans: "Zen Kaku Gothic New", "Hiragino Sans", "Noto Sans JP", sans-serif;
@@ -449,6 +453,11 @@
       --card-accent: var(--gym-accent);
       --card-grad: linear-gradient(150deg, #0b0b0e 0%, #17171b 55%, #21240c 130%);
     }
+    .card--soyokaze {
+      --card-primary: var(--soyokaze-primary);
+      --card-accent: var(--soyokaze-accent);
+      --card-grad: linear-gradient(150deg, #1f88bf 0%, #1577a8 60%, #0f6f9c 120%);
+    }
 
     /* ============ REFRESH (Before / After) ============ */
     .refresh { padding-block: clamp(2rem, 5vw, 3rem) clamp(3.5rem, 8vw, 6rem); }
@@ -495,6 +504,23 @@
       .refresh-arrow { padding-block: 0.5rem; }
       .refresh-arrow span { display: inline-block; transform: rotate(90deg); }
     }
+    .refresh-card + .refresh-card { margin-top: clamp(1.4rem, 3vw, 2rem); }
+    .refresh-card--indigo .refresh-panel--after { background: #16263d; color: #eaf0f7; }
+    .refresh-card--indigo .refresh-panel__tag--after { background: rgba(216, 154, 46, 0.18); color: #f0c878; }
+    .refresh-card--indigo .refresh-arrow { color: #c4452f; }
+
+    /* ============ FIXES (Quick Fixes catalog) ============ */
+    .fixes { padding-block: clamp(1rem, 3vw, 2rem) clamp(3.5rem, 8vw, 6rem); }
+    .fixes-card {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 1.2rem 1.8rem; padding: clamp(1.4rem, 3.6vw, 2.3rem);
+      border: 1px solid var(--line); border-radius: var(--radius);
+      background: var(--panel); box-shadow: var(--shadow-md);
+    }
+    .fixes-card__body { flex: 1 1 380px; }
+    .fixes-card__catch { font-family: var(--serif); font-weight: 600; font-size: clamp(1.15rem, 2.6vw, 1.4rem); letter-spacing: 0.02em; color: var(--ink); }
+    .fixes-card__desc { margin-top: 0.7rem; font-size: 0.92rem; color: var(--ink-soft); max-width: 60ch; }
+    .fixes-card__tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1.1rem; }
 
     /* ============ TECH ============ */
     .tech {
@@ -598,6 +624,7 @@
       <nav class="header__nav" aria-label="メインナビゲーション">
         <a href="#works">作品</a>
         <a href="#refresh">改修事例</a>
+        <a href="#fixes">小修正</a>
         <a href="#tech">技術</a>
         <a href="https://crowdworks.jp/public/employees/3919155/" class="nav-cta" rel="noopener noreferrer" target="_blank">お問い合わせ</a>
       </nav>
@@ -611,7 +638,7 @@
         <p class="hero__eyebrow">Front-end / Landing Page Design</p>
         <h1 class="hero__title">ブランドの世界観を、<br /><em>そのまま画面に。</em></h1>
         <p class="hero__lead">
-          フレームワークに頼らず、vanilla な HTML / CSS / JavaScript だけで仕上げた、架空ブランドのランディングページ4作品です。
+          フレームワークに頼らず、vanilla な HTML / CSS / JavaScript だけで仕上げた、架空ブランドのランディングページ5作品です。
           コンセプト設計・コピー・配色・実装まで、一貫してデザインしました。気になる作品をご覧ください。
         </p>
         <ul class="hero__meta">
@@ -627,8 +654,8 @@
     <section class="works" id="works">
       <div class="container">
         <header class="section-head">
-          <p class="section-head__eyebrow">Works — 4 Brands</p>
-          <h2 class="section-head__title">4つの架空ブランドのLP</h2>
+          <p class="section-head__eyebrow">Works — 5 Brands</p>
+          <h2 class="section-head__title">5つの架空ブランドのLP</h2>
           <p class="section-head__lead">
             それぞれ業種・ターゲット・トーンの異なる架空ブランドを想定し、ブランドごとに固有の配色と書体、動きを設計しています。
           </p>
@@ -772,6 +799,39 @@
             </div>
           </article>
 
+          <!-- 05 そよかぜ歯科 -->
+          <article class="card card--soyokaze">
+            <div class="card__visual">
+              <span class="card__glow" aria-hidden="true"></span>
+              <span class="card__genre">歯科クリニック</span>
+              <svg viewBox="0 0 400 250" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+                <path d="M0 150 C 80 120, 140 180, 220 150 S 360 120, 400 150" fill="none" stroke="var(--soyokaze-accent)" stroke-width="1.4" opacity="0.5" />
+                <path d="M0 185 C 90 160, 150 205, 240 180 S 360 160, 400 185" fill="none" stroke="#ffffff" stroke-width="0.9" opacity="0.3" />
+                <circle cx="320" cy="66" r="2.6" fill="#ffffff" opacity="0.85" />
+                <circle cx="92" cy="58" r="1.8" fill="var(--soyokaze-accent)" opacity="0.7" />
+              </svg>
+              <div class="card__logo">
+                <svg class="card__logo-mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M16 6c-3.4-2.4-7.6-1.4-7.6 3.4 0 2.9 1 4.8 1.7 8.2.5 2.2.7 4.8 2.1 4.8 1.3 0 1.4-1.9 1.9-3.8.3-1 .8-1.7 1.9-1.7s1.6.7 1.9 1.7c.5 1.9.6 3.8 1.9 3.8 1.4 0 1.6-2.6 2.1-4.8.7-3.4 1.7-5.3 1.7-8.2C23.6 4.6 19.4 3.6 16 6Z" />
+                </svg>
+                <span class="card__logo-name">そよかぜ歯科</span>
+                <span class="card__logo-en">Soyokaze Dental</span>
+              </div>
+            </div>
+            <div class="card__body">
+              <p class="card__catch">歯医者さんを、好きになる。</p>
+              <p class="card__desc">
+                みどり野駅すぐの架空の歯科医院LP。既存4作品のダーク／和テイストとはあえて対照的に、白×ソフトブルー／ミントに暖色を効かせ、痛みへの配慮と「家族で通える清潔感」を明るく親しみやすく表現しました。
+              </p>
+              <ul class="card__tags">
+                <li class="card__tag"># 診療時間○×表</li>
+                <li class="card__tag"># 自作SVG地図</li>
+                <li class="card__tag"># 電話/Web予約CTA</li>
+              </ul>
+              <a class="card__link" href="./dental-clinic/">作品を見る</a>
+            </div>
+          </article>
+
         </div>
       </div>
     </section>
@@ -780,10 +840,10 @@
     <section class="refresh" id="refresh">
       <div class="container">
         <header class="section-head">
-          <p class="section-head__eyebrow">Case Study — Site Refresh</p>
-          <h2 class="section-head__title">サイト改修 ビフォーアフター</h2>
+          <p class="section-head__eyebrow">Case Studies — Site Refresh</p>
+          <h2 class="section-head__title">サイト改修 ビフォーアフター（2業種）</h2>
           <p class="section-head__lead">
-            古い作りのサイトを、スマホ対応・読みやすさ・アクセシビリティ・集客導線の観点で作り直すと何が変わるか。架空の整骨院サイトを題材に、改修前後を比較できる事例です。
+            古い作りのサイトを、スマホ対応・読みやすさ・アクセシビリティ・集客導線の観点で作り直すと何が変わるか。架空の整骨院と個人食堂の2サイトを題材に、改修前後を比較できる事例です。
           </p>
         </header>
 
@@ -821,6 +881,72 @@
               <a class="refresh-card__sub" href="./case-study-refresh/after/">改修後</a>
             </div>
           </div>
+        </article>
+
+        <article class="refresh-card refresh-card--indigo">
+          <div class="refresh-card__grid">
+            <div class="refresh-panel refresh-panel--before">
+              <span class="refresh-panel__tag">Before</span>
+              <p class="refresh-panel__year">2008年当時の作り（個人食堂）</p>
+              <ul class="refresh-panel__list">
+                <li>お品書きが画像1枚（読めない・更新できない）</li>
+                <li>固定幅でスマホは横スクロール必須</li>
+                <li>営業時間・定休日が低コントラストで読めない</li>
+                <li>電話のみ・タップ発信不可／地図なし</li>
+              </ul>
+            </div>
+            <div class="refresh-arrow" aria-hidden="true"><span>→</span></div>
+            <div class="refresh-panel refresh-panel--after">
+              <span class="refresh-panel__tag refresh-panel__tag--after">After</span>
+              <p class="refresh-panel__year">現行の標準（レスポンシブ）</p>
+              <ul class="refresh-panel__list">
+                <li>価格つきの読めるHTMLメニューに刷新</li>
+                <li>モバイルファースト・横スクロールなし</li>
+                <li>営業時間テーブル＋定休日を明記</li>
+                <li>tel: リンク＋24時間予約フォーム＋自作SVG地図</li>
+              </ul>
+            </div>
+          </div>
+          <div class="refresh-card__foot">
+            <p class="refresh-card__desc">
+              画像1枚のお品書きを「読めて・予約できる」サイトへ。飲食店ならではの集客導線を、Before→After対応表つきで整理した事例です。
+            </p>
+            <div class="refresh-card__actions">
+              <a class="refresh-card__link" href="./case-study-restaurant/">改修事例を見る</a>
+              <a class="refresh-card__sub" href="./case-study-restaurant/before/">改修前</a>
+              <a class="refresh-card__sub" href="./case-study-restaurant/after/">改修後</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ FIXES (Quick Fixes catalog) ============ -->
+    <section class="fixes" id="fixes">
+      <div class="container">
+        <header class="section-head">
+          <p class="section-head__eyebrow">Quick Fixes — Demo</p>
+          <h2 class="section-head__title">よくある小修正デモ集</h2>
+          <p class="section-head__lead">
+            スマホ崩れ・問い合わせフォーム・読みにくさ・画像最適化・tel: リンク・レイアウト崩れ。既存サイトのよくある小修正を、実際に触って違いが分かるBefore→Afterで実演しています。
+          </p>
+        </header>
+        <article class="fixes-card">
+          <div class="fixes-card__body">
+            <p class="fixes-card__catch">その困りごと、触って直せます。</p>
+            <p class="fixes-card__desc">
+              6種類のよくある修正を、その場で切り替えて確認できるデモにまとめました。「ここだけ直してほしい」という単発のご相談のイメージ共有にどうぞ。
+            </p>
+            <ul class="fixes-card__tags">
+              <li class="card__tag"># スマホ対応化</li>
+              <li class="card__tag"># フォーム設置</li>
+              <li class="card__tag"># 画像最適化/CLS</li>
+              <li class="card__tag"># コントラスト改善</li>
+              <li class="card__tag"># tel: リンク化</li>
+              <li class="card__tag"># レイアウト崩れ修正</li>
+            </ul>
+          </div>
+          <a class="refresh-card__link" href="./quick-fixes/">デモを見る</a>
         </article>
       </div>
     </section>
@@ -867,7 +993,10 @@
           <a href="./cafe/">焙煎所 茜</a>
           <a href="./beauty-salon/">月白</a>
           <a href="./personal-gym/">臨界 RINKAI</a>
-          <a href="./case-study-refresh/">サイト改修事例</a>
+          <a href="./dental-clinic/">そよかぜ歯科</a>
+          <a href="./case-study-refresh/">改修事例：整骨院</a>
+          <a href="./case-study-restaurant/">改修事例：食堂</a>
+          <a href="./quick-fixes/">小修正デモ集</a>
         </nav>
       </div>
       <div class="site-footer__bottom">

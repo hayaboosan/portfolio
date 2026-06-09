@@ -1,0 +1,85 @@
+/* ますだ食堂 スタイルシート 2008 */
+
+body {
+	font-family: "ＭＳ Ｐゴシック", "MS PGothic", Osaka, sans-serif;
+	font-size: 12px;
+	line-height: 1.3;
+	margin: 0px;
+	padding: 0px;
+	background-color: #fbf3df;
+	color: #333333;
+}
+
+td {
+	font-size: 12px;
+	line-height: 1.35;
+}
+
+a {
+	color: #1133ff;
+}
+
+a:hover {
+	color: #ff0000;
+}
+
+/* グローバルナビ */
+.navcell {
+	padding-top: 6px;
+	padding-bottom: 6px;
+}
+
+a.nav {
+	color: #ffffff;
+	font-size: 12px;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a.nav:hover {
+	color: #ffff66;
+	text-decoration: underline;
+}
+
+.navsep {
+	color: #b06a55;
+	font-size: 12px;
+}
+
+/* ベベル付きボタン風リンク */
+a.bevel {
+	text-decoration: none;
+	border-top: 2px solid #ffe9a0;
+	border-left: 2px solid #ffe9a0;
+	border-right: 2px solid #b8860b;
+	border-bottom: 2px solid #b8860b;
+	background: #ffd54f;
+	padding: 2px 6px 2px 6px;
+	display: inline-block;
+}
+
+a.bevel:hover {
+	border-top: 2px solid #b8860b;
+	border-left: 2px solid #b8860b;
+	border-right: 2px solid #ffe9a0;
+	border-bottom: 2px solid #ffe9a0;
+}
+
+/* フッターリンク：濃い茶背景に低コントラストの茶系で読みにくい */
+a.footlink {
+	color: #b5722e;
+	font-size: 11px;
+	text-decoration: underline;
+}
+
+/* blink を CSS でも再現（marquee/blink 非対応ブラウザ向けの名残） */
+blink {
+	color: #aa0000;
+	font-weight: bold;
+}
+
+/* 注意書きのグレー文字（淡色背景で AA 不適合） */
+.note {
+	color: #999999;
+	font-size: 11px;
+}

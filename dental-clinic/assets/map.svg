@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img" aria-label="そよかぜ歯科・矯正歯科の簡易地図。みどり野駅 北口から徒歩3分、けやき通り沿い、さくら公園の向かい。">
+  <defs>
+    <linearGradient id="land" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eef7f1"/>
+      <stop offset="1" stop-color="#e6f3ee"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="600" height="400" fill="url(#land)"/>
+
+  <!-- park (green block) -->
+  <rect x="40" y="60" width="170" height="120" rx="14" fill="#bfe3c4"/>
+  <circle cx="80" cy="100" r="14" fill="#8fcf99"/>
+  <circle cx="120" cy="130" r="18" fill="#8fcf99"/>
+  <circle cx="170" cy="95" r="12" fill="#8fcf99"/>
+  <text x="125" y="125" font-family="sans-serif" font-size="15" fill="#3f7a4a" text-anchor="middle">さくら公園</text>
+
+  <!-- roads -->
+  <!-- keyaki dori (horizontal main road) -->
+  <rect x="0" y="210" width="600" height="46" fill="#ffffff"/>
+  <line x1="0" y1="233" x2="600" y2="233" stroke="#d7c98a" stroke-width="3" stroke-dasharray="18 14"/>
+  <text x="300" y="280" font-family="sans-serif" font-size="14" fill="#8a7d4a" text-anchor="middle">けやき通り</text>
+
+  <!-- vertical side road -->
+  <rect x="360" y="0" width="40" height="400" fill="#ffffff"/>
+  <line x1="380" y1="0" x2="380" y2="400" stroke="#d7c98a" stroke-width="3" stroke-dasharray="16 12"/>
+
+  <!-- station -->
+  <rect x="430" y="300" width="140" height="70" rx="12" fill="#9bc7e8"/>
+  <path d="M450 300 v-16 h100 v16" fill="none" stroke="#5a92bd" stroke-width="4"/>
+  <text x="500" y="342" font-family="sans-serif" font-size="15" fill="#234a66" text-anchor="middle">みどり野駅</text>
+
+  <!-- clinic pin -->
+  <g transform="translate(250 150)">
+    <rect x="-58" y="-2" width="116" height="58" rx="10" fill="#ffffff" stroke="#2f9bd6" stroke-width="3"/>
+    <text x="0" y="22" font-family="sans-serif" font-size="14" fill="#1c6e9c" text-anchor="middle" font-weight="bold">そよかぜ</text>
+    <text x="0" y="42" font-family="sans-serif" font-size="13" fill="#1c6e9c" text-anchor="middle">歯科</text>
+    <!-- pin marker -->
+    <path d="M0 -8 C -22 -8, -30 -28, -16 -44 C -8 -54, 8 -54, 16 -44 C 30 -28, 22 -8, 0 -8 Z" fill="#ff9f3e" stroke="#ffffff" stroke-width="2"/>
+    <circle cx="0" cy="-32" r="7" fill="#ffffff"/>
+  </g>
+
+  <!-- walking dashed route from station to clinic -->
+  <path d="M470 320 C 360 300, 330 230, 290 196" fill="none" stroke="#2f9bd6" stroke-width="3" stroke-dasharray="6 8" stroke-linecap="round"/>
+  <text x="370" y="160" font-family="sans-serif" font-size="13" fill="#2f9bd6" text-anchor="middle">徒歩3分</text>
+</svg>

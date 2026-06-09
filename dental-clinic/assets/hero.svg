@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" role="img" aria-label="">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0" stop-color="#eaf6fc"/>
+      <stop offset="0.55" stop-color="#dceffa"/>
+      <stop offset="1" stop-color="#cfeaf3"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="0.8" cy="0.2" r="0.55">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="0.45" stop-color="#ffe7c2" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#ffe7c2" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="hill1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#bfe7e0"/>
+      <stop offset="1" stop-color="#a9ddd6"/>
+    </linearGradient>
+    <linearGradient id="hill2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9bdaf0"/>
+      <stop offset="1" stop-color="#7ccae6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- sky -->
+  <rect width="1600" height="1000" fill="url(#sky)"/>
+  <rect width="1600" height="1000" fill="url(#sun)"/>
+
+  <!-- soft sun disc -->
+  <circle cx="1280" cy="210" r="150" fill="#ffffff" opacity="0.55"/>
+  <circle cx="1280" cy="210" r="150" fill="none" stroke="#ffffff" stroke-opacity="0.6" stroke-width="2"/>
+
+  <!-- gentle clouds -->
+  <g fill="#ffffff" fill-opacity="0.7">
+    <ellipse cx="360" cy="200" rx="150" ry="42"/>
+    <ellipse cx="470" cy="180" rx="110" ry="36"/>
+    <ellipse cx="250" cy="220" rx="100" ry="32"/>
+    <ellipse cx="980" cy="120" rx="120" ry="34"/>
+    <ellipse cx="1080" cy="140" rx="90" ry="28"/>
+  </g>
+
+  <!-- breeze lines (そよかぜ) -->
+  <g stroke="#3aa8d6" stroke-opacity="0.18" stroke-width="3" fill="none" stroke-linecap="round">
+    <path d="M120 430 C 260 400, 380 460, 520 430 S 760 400, 880 430"/>
+    <path d="M180 500 C 320 470, 440 530, 580 500 S 820 470, 940 500"/>
+    <path d="M90 560 C 230 530, 350 590, 490 560"/>
+  </g>
+
+  <!-- rolling mint hills -->
+  <path d="M0 720 C 280 640, 560 760, 880 700 C 1140 650, 1380 740, 1600 690 L1600 1000 L0 1000 Z" fill="url(#hill1)" opacity="0.85"/>
+  <path d="M0 820 C 320 760, 620 870, 980 800 C 1240 750, 1420 840, 1600 800 L1600 1000 L0 1000 Z" fill="url(#hill2)" opacity="0.92"/>
+
+  <!-- friendly tooth motif, lower-left, very soft -->
+  <g transform="translate(250 540)" opacity="0.5">
+    <path d="M0 18 C 0 -8, 22 -20, 48 -8 C 60 -14, 78 -14, 90 -6 C 116 -20, 140 -6, 140 20 C 140 70, 122 120, 108 120 C 96 120, 92 92, 78 92 C 64 92, 60 130, 50 130 C 36 130, 0 70, 0 18 Z"
+      fill="#ffffff" fill-opacity="0.85" stroke="#7ccae6" stroke-width="3"/>
+    <path d="M40 14 C 52 6, 70 6, 84 14" fill="none" stroke="#9bdaf0" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <!-- sparkle accents -->
+  <g fill="#ffb454">
+    <path d="M1180 470 l6 16 16 6 -16 6 -6 16 -6 -16 -16 -6 16 -6 Z" opacity="0.8"/>
+    <path d="M980 560 l4 11 11 4 -11 4 -4 11 -4 -11 -11 -4 11 -4 Z" opacity="0.65"/>
+  </g>
+</svg>

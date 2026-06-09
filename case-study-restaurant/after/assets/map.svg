@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" role="img" aria-label="">
+  <defs>
+    <linearGradient id="mapbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FBF4E6"/>
+      <stop offset="1" stop-color="#F3E6CB"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="480" fill="url(#mapbg)"/>
+
+  <!-- park / green block -->
+  <rect x="40" y="40" width="170" height="130" rx="10" fill="#CFE3B6"/>
+  <text x="125" y="112" font-family="sans-serif" font-size="17" fill="#3F6B33" text-anchor="middle">中町公園</text>
+
+  <!-- shopping street block -->
+  <rect x="300" y="40" width="200" height="120" rx="8" fill="#F1DFBF"/>
+  <text x="400" y="106" font-family="sans-serif" font-size="16" fill="#8A5A2B" text-anchor="middle">市場どおり商店街</text>
+
+  <!-- roads -->
+  <g stroke="#FFFFFF" stroke-width="26">
+    <line x1="0" y1="250" x2="800" y2="250"/>
+    <line x1="400" y1="0" x2="400" y2="480"/>
+  </g>
+  <g stroke="#E4CFA0" stroke-width="14">
+    <line x1="0" y1="120" x2="800" y2="120"/>
+    <line x1="180" y1="0" x2="180" y2="480"/>
+  </g>
+
+  <!-- station -->
+  <rect x="60" y="288" width="150" height="60" rx="8" fill="#1B3A5B"/>
+  <text x="135" y="326" font-family="sans-serif" font-size="17" fill="#FFFFFF" text-anchor="middle">なかまち駅</text>
+
+  <!-- restaurant marker -->
+  <g transform="translate(470 175)">
+    <path d="M0 0 C 38 0, 60 26, 60 56 C 60 92, 0 130, 0 130 C 0 130, -60 92, -60 56 C -60 26, -38 0, 0 0 Z" fill="#C4452F"/>
+    <circle cx="0" cy="52" r="26" fill="#FFFFFF"/>
+    <!-- bowl glyph -->
+    <path d="M-14 48 C -10 64 10 64 14 48 Z" fill="#C4452F"/>
+    <ellipse cx="0" cy="48" rx="14" ry="4" fill="#C4452F"/>
+  </g>
+  <text x="470" y="330" font-family="sans-serif" font-size="17" font-weight="bold" fill="#1B3A5B" text-anchor="middle">ますだ食堂</text>
+
+  <!-- bus stop marker -->
+  <rect x="560" y="290" width="44" height="44" rx="6" fill="#D89A2E"/>
+  <text x="582" y="320" font-family="sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">B</text>
+  <text x="582" y="356" font-family="sans-serif" font-size="13" fill="#8A5A2B" text-anchor="middle">バス停</text>
+
+  <rect x="1" y="1" width="798" height="478" fill="none" stroke="#1B3A5B" stroke-opacity="0.2" stroke-width="2"/>
+</svg>

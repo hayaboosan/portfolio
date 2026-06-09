@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>サイト改修 ビフォーアフター事例｜ますだ食堂（架空）｜Web制作ポートフォリオ</title>
+  <meta name="description" content="古い作りの個人飲食店サイトを、スマホ対応・メニューの可読性・アクセシビリティ・予約導線の観点で作り直すと何が変わるか。架空の大衆食堂サイトを題材にした、Before→After対応表つきのサイト改修事例。" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="サイト改修 ビフォーアフター事例｜ますだ食堂（架空）" />
+  <meta property="og:description" content="2008年当時の作りの飲食店サイトを現行標準へ改修。画像メニューを読めるHTMLメニューに、電話のみの予約を24時間フォームに。なぜその変更が来店・予約につながるのかを言語化した事例です。" />
+
+  <meta name="theme-color" content="#112740" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --ink: #2a2622;
+      --body: #34302a;
+      --soft: #6a5e4e;
+      --indigo: #1B3A5B;
+      --indigo-deep: #112740;
+      --accent: #C4452F;
+      --accent-ink: #A8341F;
+      --gold: #D89A2E;
+      --bg: #FAF4E8;
+      --panel: #ffffff;
+      --line: rgba(42, 38, 34, 0.13);
+      --before-bg: #efe5cf;
+      --before-ink: #5a4f3c;
+      --before-soft: #6e6048;
+      --radius: 16px;
+      --shadow: 0 24px 60px -36px rgba(17, 39, 64, 0.5);
+      --sans: "Zen Kaku Gothic New", "Noto Sans JP", "Hiragino Sans", sans-serif;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: var(--sans);
+      color: var(--body);
+      background: var(--bg);
+      line-height: 1.85;
+      letter-spacing: 0.01em;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container { width: min(1040px, 92%); margin-inline: auto; }
+    a { color: var(--accent-ink); }
+
+    .skip-link {
+      position: absolute; left: 0.5rem; top: -3rem;
+      background: var(--indigo-deep); color: #fff;
+      padding: 0.6rem 1rem; border-radius: 8px; text-decoration: none; z-index: 50;
+      transition: top 0.2s var(--ease);
+    }
+    .skip-link:focus { top: 0.5rem; }
+
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+    /* Header */
+    .top {
+      border-bottom: 1px solid var(--line);
+      background: rgba(250, 244, 232, 0.9);
+      backdrop-filter: saturate(1.2) blur(6px);
+      position: sticky; top: 0; z-index: 20;
+    }
+    .top__inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 0.85rem; }
+    .top__home { display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 700; color: var(--ink); text-decoration: none; font-size: 0.95rem; }
+    .top__home::before { content: "←"; color: var(--accent-ink); }
+    .top__tag { font-size: 0.78rem; letter-spacing: 0.12em; color: var(--soft); text-transform: uppercase; }
+
+    /* Hero */
+    .hero { background: linear-gradient(160deg, #112740 0%, #1B3A5B 60%, #2C5578 130%); color: #f6efe2; padding-block: clamp(2.6rem, 7vw, 4.6rem); }
+    .hero__eyebrow { font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); font-weight: 700; }
+    .hero__title { font-size: clamp(1.8rem, 5.5vw, 3rem); font-weight: 700; line-height: 1.3; margin-top: 0.7rem; }
+    .hero__lead { margin-top: 1.1rem; max-width: 56ch; color: #e6dcc8; font-size: clamp(0.98rem, 2.2vw, 1.08rem); }
+    .note {
+      margin-top: 1.4rem; padding: 0.9rem 1.1rem;
+      background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 12px; font-size: 0.88rem; color: #f6efe2; max-width: 60ch;
+    }
+    .actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 1.7rem; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 1.5rem; border-radius: 999px; font-weight: 700; font-size: 0.96rem;
+      text-decoration: none; transition: transform 0.2s var(--ease), filter 0.2s var(--ease);
+    }
+    .btn--after { background: var(--gold); color: #3a2a08; }
+    .btn--before { background: transparent; color: #f6efe2; border: 1.5px solid rgba(255, 255, 255, 0.5); }
+    .btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
+    .btn:focus-visible { outline-offset: 4px; }
+
+    /* Sections */
+    .section { padding-block: clamp(2.4rem, 6vw, 4rem); }
+    .section__head { max-width: 60ch; margin-bottom: 1.8rem; }
+    .section__eyebrow { font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent-ink); font-weight: 700; }
+    .section__title { font-size: clamp(1.4rem, 3.6vw, 2rem); font-weight: 700; color: var(--ink); margin-top: 0.4rem; line-height: 1.4; }
+    .section__lead { margin-top: 0.7rem; color: var(--soft); }
+
+    /* Before / After compare */
+    .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .pane { border-radius: var(--radius); padding: clamp(1.3rem, 3.4vw, 2rem); box-shadow: var(--shadow); }
+    .pane--before { background: var(--before-bg); color: var(--before-ink); }
+    .pane--after { background: var(--indigo-deep); color: #f6efe2; }
+    .pane__tag { display: inline-block; font-weight: 700; font-size: 0.76rem; letter-spacing: 0.14em; padding: 0.25rem 0.75rem; border-radius: 999px; }
+    .pane--before .pane__tag { background: rgba(90, 79, 60, 0.16); color: #5c5343; }
+    .pane--after .pane__tag { background: rgba(216, 154, 46, 0.22); color: #f0cd8a; }
+    .pane__year { font-weight: 700; font-size: clamp(1.05rem, 2.6vw, 1.25rem); margin-top: 0.7rem; }
+    .pane__list { list-style: none; margin-top: 1rem; display: grid; gap: 0.6rem; }
+    .pane__list li { position: relative; padding-left: 1.5rem; font-size: 0.93rem; line-height: 1.75; }
+    .pane--before .pane__list li { color: var(--before-soft); }
+    .pane--before .pane__list li::before { content: "×"; position: absolute; left: 0; color: #b4533f; font-weight: 700; }
+    .pane--after .pane__list li::before { content: "✓"; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
+
+    /* Tables */
+    .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+    table { width: 100%; border-collapse: collapse; min-width: 560px; }
+    caption { text-align: left; padding: 0.9rem 1rem; font-weight: 700; color: var(--ink); border-bottom: 1px solid var(--line); }
+    th, td { text-align: left; padding: 0.85rem 1rem; border-bottom: 1px solid var(--line); font-size: 0.92rem; vertical-align: top; }
+    thead th { background: #f1e6d0; color: var(--ink); font-weight: 700; white-space: nowrap; }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:nth-child(even) td { background: #fdf9f0; }
+    td.col-before { color: var(--before-soft); }
+    td.col-after { color: var(--indigo-deep); font-weight: 500; }
+
+    /* Closing CTA */
+    .end { background: var(--indigo-deep); color: #f6efe2; border-radius: var(--radius); padding: clamp(1.8rem, 5vw, 2.8rem); text-align: center; }
+    .end h2 { font-size: clamp(1.3rem, 3.4vw, 1.8rem); }
+    .end p { margin-top: 0.7rem; color: #e6dcc8; }
+    .end .actions { justify-content: center; }
+
+    /* Footer */
+    .foot { border-top: 1px solid var(--line); padding-block: 1.8rem; margin-top: 2.5rem; color: var(--soft); font-size: 0.85rem; }
+    .foot a { color: var(--accent-ink); }
+    .foot__row { display: flex; flex-wrap: wrap; gap: 0.6rem 1.4rem; justify-content: space-between; }
+
+    @media (max-width: 680px) {
+      .compare { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">本文へスキップ</a>
+
+  <header class="top">
+    <div class="container top__inner">
+      <a class="top__home" href="../">Web制作ポートフォリオ トップ</a>
+      <span class="top__tag">Case Study — Site Refresh</span>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <p class="hero__eyebrow">Before → After</p>
+        <h1 class="hero__title">サイト改修 ビフォーアフター事例（飲食店）</h1>
+        <p class="hero__lead">
+          古い作りのままになっている個人経営の飲食店サイトを、<strong>スマホ対応・メニューの読みやすさ・アクセシビリティ・予約導線</strong>の観点でまるごと作り直すと、どこまで変わるのか。架空の大衆食堂「ますだ食堂」を題材に、2008年当時の作り（Before）を現行標準（After）へ改修した過程を、「なぜその変更が来店・予約につながるのか」とあわせて整理しました。
+        </p>
+        <p class="note">
+          ⚠️ 店名・店主名・住所・電話番号・価格・メニュー・口コミなどはすべて<strong>架空のサンプル</strong>です。実在の飲食店・人物・団体とは関係ありません。画像はSVGのプレースホルダーです。
+        </p>
+        <div class="actions">
+          <a class="btn btn--after" href="./after/">改修後（After）を見る</a>
+          <a class="btn btn--before" href="./before/">改修前（Before）を見る</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPARE -->
+    <section class="section" aria-labelledby="compare-h">
+      <div class="container">
+        <div class="section__head">
+          <p class="section__eyebrow">At a glance</p>
+          <h2 class="section__title" id="compare-h">ひと目でわかる違い</h2>
+          <p class="section__lead">スマホでの違いを体感するには、ブラウザの開発者ツールで幅320px程度に切り替えてご覧ください。Before は横スクロールとピンチズームが必須になります。</p>
+        </div>
+        <div class="compare">
+          <article class="pane pane--before">
+            <span class="pane__tag">Before</span>
+            <p class="pane__year">2008年当時の作り</p>
+            <ul class="pane__list">
+              <li>スマホ非対応（横スクロール・ピンチズーム必須）</li>
+              <li>メニューが画像1枚に文字を焼き込み・更新不能</li>
+              <li>低コントラストで営業時間・定休日が読めない</li>
+              <li>marquee・blink・偽カウンターなど古い演出</li>
+              <li>電話番号がタップ発信できない・予約は電話のみ</li>
+              <li>OGP・説明文なしでSNS共有・検索に弱い</li>
+            </ul>
+          </article>
+          <article class="pane pane--after">
+            <span class="pane__tag">After</span>
+            <p class="pane__year">現行の標準（レスポンシブ）</p>
+            <ul class="pane__list">
+              <li>モバイルファースト・320pxでも横スクロールなし</li>
+              <li>HTMLで読める・更新できるメニュー＋価格を明記</li>
+              <li>営業時間テーブル・定休日（水・日）を明確に表示</li>
+              <li>セマンティックHTML5・スキップリンク・ARIA整備</li>
+              <li>全箇所 tel: リンク化＋24時間予約フォーム新設</li>
+              <li>title・description・OGP・自作SVGの地図を整備</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 対応表 -->
+    <section class="section" aria-labelledby="map-h">
+      <div class="container">
+        <div class="section__head">
+          <p class="section__eyebrow">What changed</p>
+          <h2 class="section__title" id="map-h">改修内容（Before → After 対応表）</h2>
+          <p class="section__lead">見た目の好みではなく、一つひとつの変更が「来店・予約・信頼」にどう効くかをセットで設計しました。</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <caption>課題ごとの改修と効果</caption>
+            <thead>
+              <tr><th scope="col">課題</th><th scope="col">改修（After で行ったこと）</th><th scope="col">効果</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="col-before">スマホで横スクロール必須</td><td class="col-after">&lt;meta viewport&gt; 追加＋モバイルファースト設計。固定800px幅を撤廃</td><td>幅320pxでも横スクロールなし。スマホでそのまま読める</td></tr>
+              <tr><td class="col-before">メニューが画像で更新不能</td><td class="col-after">画像メニューを、価格付きのHTMLメニューカードへ。説明文も付与</td><td>店主が自分で更新でき、読み上げ・検索・コピーにも対応</td></tr>
+              <tr><td class="col-before">価格が画像内で不明瞭</td><td class="col-after">各メニューに税込価格を明記。人気・名物にラベル付け</td><td>来店前に予算がわかり、「思ったより高い」離脱を防ぐ</td></tr>
+              <tr><td class="col-before">営業時間・定休日が読めない</td><td class="col-after">曜日別の営業時間テーブル化＋定休日（水・日）を明示</td><td>「開いている日」を取り違えての来店トラブルを防ぐ</td></tr>
+              <tr><td class="col-before">marquee/blink/偽カウンター</td><td class="col-after">静的な「お知らせ」リスト＋落ち着いた藍基調へ刷新</td><td>「きちんと営業している店」という第一印象</td></tr>
+              <tr><td class="col-before">&lt;font&gt;・align・alt無し画像</td><td class="col-after">セマンティックHTML5＋全画像に説明的alt</td><td>読み上げ・SEO・画像非表示時にも内容が伝わる</td></tr>
+              <tr><td class="col-before">タップ発信できない電話番号</td><td class="col-after">すべて tel: リンク化。タップ領域44px以上</td><td>スマホからワンタップで予約電話。離脱を防ぐ</td></tr>
+              <tr><td class="col-before">弱いtitle・OGP無し</td><td class="col-after">検索意図を含むtitle＋description＋OGP/Twitterカード</td><td>「近くの定食屋」検索・SNSでクリックされやすくなる</td></tr>
+              <tr><td class="col-before">予約が電話のみ</td><td class="col-after">予約・お持ち帰り・宴会に対応した24時間フォームを新設</td><td>営業時間外でも受付でき、予約の取りこぼしを減らす</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 測定できる改善 -->
+    <section class="section" aria-labelledby="metric-h">
+      <div class="container">
+        <div class="section__head">
+          <p class="section__eyebrow">Measurable</p>
+          <h2 class="section__title" id="metric-h">測定できる改善</h2>
+          <p class="section__lead">数値は本サンプルの実装値・設計値に基づく例示です（実在サイトの計測値ではありません）。</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <caption>Before / After の比較</caption>
+            <thead>
+              <tr><th scope="col">観点</th><th scope="col">Before</th><th scope="col">After</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>スマホ表示（幅320px）</td><td class="col-before">横スクロール＋ピンチズーム必須</td><td class="col-after">横スクロールなし・等倍で判読可</td></tr>
+              <tr><td>メニューの更新性</td><td class="col-before">画像のため店主が更新不能</td><td class="col-after">HTMLテキストで店主が更新可・検索/読み上げ対応</td></tr>
+              <tr><td>価格表示</td><td class="col-before">画像内・変更困難で不明瞭</td><td class="col-after">各品に税込価格を明記（来店前に把握可）</td></tr>
+              <tr><td>電話番号のタップ発信</td><td class="col-before">不可（プレーンテキスト）</td><td class="col-after">可（全箇所 tel: リンク）</td></tr>
+              <tr><td>本文コントラスト比（例）</td><td class="col-before">約2.8:1（AA不適合）</td><td class="col-after">約12:1（AAA水準）</td></tr>
+              <tr><td>定休日の伝わりやすさ</td><td class="col-before">小さな注記・低コントラスト</td><td class="col-after">テーブル＋「定休日 水・日」ラベルで明示</td></tr>
+              <tr><td>見出し構造（SEO）</td><td class="col-before">見出しタグ・ランドマークなし</td><td class="col-after">h1〜h3＋header/nav/main/footer で構造化</td></tr>
+              <tr><td>予約手段</td><td class="col-before">電話のみ（営業時間内）</td><td class="col-after">電話＋24時間受付フォーム（予約/持ち帰り/宴会）</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- END CTA -->
+    <section class="section">
+      <div class="container">
+        <div class="end">
+          <h2>このサイトは、既存サイト修正案件で実際に行う作業を架空題材で再現したものです。</h2>
+          <p>Before / After を実際に開いて、スマホ幅での違いをご確認ください。</p>
+          <div class="actions">
+            <a class="btn btn--after" href="./after/">改修後（After）を見る</a>
+            <a class="btn btn--before" href="./before/">改修前（Before）を見る</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="container foot__row">
+      <p>© 2026 Web制作ポートフォリオ ／ 架空サンプルによるサイト改修事例</p>
+      <p><a href="../">← ポートフォリオ トップへ戻る</a></p>
+    </div>
+  </footer>
+</body>
+</html>
