@@ -589,7 +589,9 @@ h1, h2, h3, h4 {
   padding: 0 clamp(1.1rem, 3vw, 1.6rem);
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.4s var(--ease), padding 0.4s var(--ease);
+  /* ease-out-cubic：頭で溜めず即反応（パッと）、減速は緩やかに着地（ヌルっと）。
+     --ease（ease-out-quint）は前のめりが強すぎてスナップして開くため専用指定。 */
+  transition: max-height 0.45s cubic-bezier(0.33, 1, 0.68, 1), padding 0.45s cubic-bezier(0.33, 1, 0.68, 1);
 }
 /* 折りたたみ中は hidden 属性のまま（display:none）。
    キーボード/スクリーンリーダーから到達不可にし、aria-expanded=false と整合させる。

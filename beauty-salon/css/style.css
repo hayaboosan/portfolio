@@ -872,7 +872,10 @@ ol {
 }
 .accordion__panel {
   overflow: hidden;
-  transition: height 0.45s var(--ease);
+  /* Dedicated easing for the open glide. ease-out-cubic responds instantly
+     (パッと) but decelerates gently into place (ヌルっと); the global --ease
+     (ease-out-quint) is too front-loaded and snaps open. */
+  transition: height 0.45s cubic-bezier(0.33, 1, 0.68, 1);
 }
 /* Progressive enhancement: only collapse panels when JS is available to
    reopen them. Without JS (no .js on <html>) panels stay fully visible and
