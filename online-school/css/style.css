@@ -693,9 +693,13 @@ strong { font-weight: 700; }
 
 /* details開閉アニメ（reduced-motionで無効化）。
    grid-template-rows 0fr→1fr で高さを開閉双方なめらかに。
-   閉じる側にもトランジションが効くため、排他開閉時の
-   「開く要素のフェードイン」と「閉じる要素の瞬間消滅」の
-   ちぐはぐさを解消する。content-visibility で閉時のレンダーも抑止。 */
+   ただし modern Chromium は <details> を ::details-content 擬似要素で包み、
+   閉時に content-visibility:hidden へ即切替するため、そのままだと閉アニメが
+   効かず一瞬で閉じる（＝「アトリエ・ルーメンだけ閉じが速い」の主因）。
+   ::details-content の content-visibility を allow-discrete で 0.55s 後に
+   切り替え、閉じる間もレンダーを残して開閉双方を滑らかにする。
+   ネイティブ<details>は開始が即時なため、JS高さ方式の他LP(0.5s)と着地時間を
+   揃える目的で 0.5s→0.55s に微増（実測 0.5s=着地406ms / 他LP≈452ms）。 */
 @media (prefers-reduced-motion: no-preference) {
   /* display を与えることで、閉時もコンテンツをレイアウトに残し、
      grid 行を 0fr→1fr で滑らかに開閉する */
@@ -704,17 +708,23 @@ strong { font-weight: 700; }
     grid-template-rows: 0fr;
     opacity: 0;
     visibility: hidden;
-    transition: grid-template-rows 0.5s cubic-bezier(0.33, 1, 0.68, 1), opacity 0.5s cubic-bezier(0.33, 1, 0.68, 1), visibility 0s linear 0.5s;
+    transition: grid-template-rows 0.55s cubic-bezier(0.33, 1, 0.68, 1), opacity 0.55s cubic-bezier(0.33, 1, 0.68, 1), visibility 0s linear 0.55s;
   }
   .faq-item[open] .faq-item__a {
     grid-template-rows: 1fr;
     opacity: 1;
     visibility: visible;
-    transition: grid-template-rows 0.5s cubic-bezier(0.33, 1, 0.68, 1), opacity 0.5s cubic-bezier(0.33, 1, 0.68, 1), visibility 0s;
+    transition: grid-template-rows 0.55s cubic-bezier(0.33, 1, 0.68, 1), opacity 0.55s cubic-bezier(0.33, 1, 0.68, 1), visibility 0s;
   }
   .faq-item__a > * {
     overflow: hidden;
     min-height: 0;
+  }
+  /* 閉時スナップ対策（modern Chromium）: ::details-content の content-visibility を
+     即 hidden にせず allow-discrete で 0.55s 後に切替え、閉アニメを成立させる。
+     未対応ブラウザでは従来どおり（開はgridで動作、閉は瞬時）にフォールバック。 */
+  .faq-item::details-content {
+    transition: content-visibility 0.55s allow-discrete;
   }
 }
 
