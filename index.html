@@ -429,7 +429,10 @@
               mask: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 12'%3E%3Cpath d='M0 6h21M16 1l5 5-5 5' fill='none' stroke='%23000' stroke-width='1.6'/%3E%3C/svg%3E");
       transition: transform 0.25s var(--ease);
     }
-    .card:hover .card__link { gap: 0.9rem; filter: brightness(1.08); }
+    /* 注意：.card__link に filter / transform を付けないこと。それらは containing block を生成し、
+       下の stretched link（.card__link::before）の基準が .card からボタン自身に変わって当たり判定が
+       ボタンサイズに縮み、カード全体が押せなくなる。ホバー感は card の浮き＋矢印スライドで十分。 */
+    .card:hover .card__link { gap: 0.9rem; }
     .card:hover .card__link::after { transform: translateX(3px); }
 
     /* カード全体をクリック可能に（stretched link）。
