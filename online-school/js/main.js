@@ -57,53 +57,85 @@
   }
 
   /* -------------------------------------------------------
-     2. FAQ アコーディオン（<details>ベース）
-        - クリックはネイティブで動作
-        - aria-expanded を summary に同期
-        - Enter / Space を確実に処理
-        - 排他（同時に1つだけ開く）
+     2. FAQ アコーディオン（JS制御の高さアニメ。他LPと同一方式）
+        - <button> + aria-expanded、クリック / Enter / Space
+        - panel.style.height を 0⇄scrollHeight で制御し CSS transition で補間
+        - 開いたら height:auto に戻して内容変化に追従
+        - 排他（同時に1つだけ開く）、reduced-motion 尊重
+        旧 <details>+grid 方式は modern Chromium の ::details-content が
+        閉時に content-visibility:hidden へ即切替するため閉アニメが効かず
+        （スナップ）、height 方式に統一して開閉とも滑らかにした。
      ------------------------------------------------------- */
-  var faqItems = Array.prototype.slice.call(document.querySelectorAll('.faq-item'));
+  var faqTriggers = Array.prototype.slice.call(document.querySelectorAll('.faq-item__q'));
 
-  faqItems.forEach(function (item) {
-    var summary = item.querySelector('summary');
-    if (!summary) return;
+  // 高さ変化を確定させるための強制リフロー（intentを明示）
+  function faqReflow(el) { return el.offsetHeight; }
 
-    var contentId = 'faq-panel-' + Math.random().toString(36).slice(2, 8);
-    var panel = item.querySelector('.faq-item__a');
-    if (panel) { panel.id = contentId; }
+  function faqClosePanel(panel) {
+    panel.style.height = panel.scrollHeight + 'px';
+    faqReflow(panel);
+    panel.style.height = '0px';
+  }
+  function faqOpenPanel(panel) {
+    panel.style.height = panel.scrollHeight + 'px';
+    if (prefersReducedMotion) {
+      panel.style.height = 'auto';
+    } else {
+      // トランジション後に auto へ戻し、内容変化やリサイズに追従
+      var done = function () {
+        panel.style.height = 'auto';
+        panel.removeEventListener('transitionend', done);
+      };
+      panel.addEventListener('transitionend', done);
+    }
+  }
 
-    // role="button" は付与しない: details/summary はネイティブで
-    // disclosure ロールを持つため、上書きすると SR の意味を弱める。
-    summary.setAttribute('aria-expanded', item.hasAttribute('open') ? 'true' : 'false');
-    if (panel) { summary.setAttribute('aria-controls', contentId); }
+  var faqPairs = [];
 
-    // open状態が変わるたびに aria-expanded を同期
-    item.addEventListener('toggle', function () {
-      summary.setAttribute('aria-expanded', item.hasAttribute('open') ? 'true' : 'false');
+  faqTriggers.forEach(function (trigger) {
+    var panel = document.getElementById(trigger.getAttribute('aria-controls'));
+    if (!panel) return;
+    faqPairs.push({ trigger: trigger, panel: panel });
 
-      // 排他: 開いたら他を閉じる
-      if (item.hasAttribute('open')) {
-        faqItems.forEach(function (other) {
-          if (other !== item && other.hasAttribute('open')) {
-            other.removeAttribute('open');
-          }
-        });
+    function toggle() {
+      var isOpen = trigger.getAttribute('aria-expanded') === 'true';
+      if (isOpen) {
+        trigger.setAttribute('aria-expanded', 'false');
+        faqClosePanel(panel);
+        return;
       }
-    });
+      // 排他: 開く前に他の開いているものを閉じる
+      faqPairs.forEach(function (p) {
+        if (p.trigger !== trigger && p.trigger.getAttribute('aria-expanded') === 'true') {
+          p.trigger.setAttribute('aria-expanded', 'false');
+          faqClosePanel(p.panel);
+        }
+      });
+      trigger.setAttribute('aria-expanded', 'true');
+      faqOpenPanel(panel);
+    }
 
-    // Enter / Space で確実にトグル（ブラウザ差異の保険）
-    summary.addEventListener('keydown', function (e) {
+    trigger.addEventListener('click', toggle);
+
+    // ネイティブ<button>でも Enter/Space を確実に処理（既定clickは抑止して二重発火回避）
+    trigger.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
         e.preventDefault();
-        if (item.hasAttribute('open')) {
-          item.removeAttribute('open');
-        } else {
-          item.setAttribute('open', '');
-        }
+        toggle();
       }
     });
   });
+
+  // リサイズ時、開いているパネルの高さを auto に保ち直す（折返し変化に追従）
+  if (faqPairs.length) {
+    window.addEventListener('resize', function () {
+      faqPairs.forEach(function (p) {
+        if (p.trigger.getAttribute('aria-expanded') === 'true') {
+          p.panel.style.height = 'auto';
+        }
+      });
+    });
+  }
 
   /* -------------------------------------------------------
      3. ページ内アンカーのスムーズスクロール

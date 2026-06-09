@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- JSが使える時だけ折りたたみFAQの初期非表示(.js)を適用（描画前にマーク） -->
+  <script>document.documentElement.classList.add('js');</script>
   <meta name="description" content="Atelier Lumen（アトリエ・ルーメン）は、1クラス最大12名の少人数制オンライン創造学校。現役プロの伴走と週次の個別添削で、デザイン・ライティング・データ・マーケティングなどの創造的スキルを体系的に学び直せます。" />
   <title>Atelier Lumen（アトリエ・ルーメン）｜学びを、灯す。少人数制オンライン創造学校</title>
 
@@ -334,53 +336,53 @@
         </header>
 
         <div class="faq-list">
-          <details class="faq-item reveal">
-            <summary class="faq-item__q">
+          <div class="faq-item reveal">
+            <button type="button" class="faq-item__q" id="faq-os-1" aria-expanded="false" aria-controls="faq-os-a-1">
               <span class="faq-item__q-text">まったくの初心者でも大丈夫ですか？</span>
               <span class="faq-item__icon" aria-hidden="true"></span>
-            </summary>
-            <div class="faq-item__a"><div class="faq-item__a-inner"><p>はい。受講生の約7割が未経験スタートです。基礎から段階的に進む設計で、つまずきは週次添削とグループ質問会でフォローします。</p></div></div>
-          </details>
+            </button>
+            <div class="faq-item__a" id="faq-os-a-1" role="region" aria-labelledby="faq-os-1"><div class="faq-item__a-inner"><p>はい。受講生の約7割が未経験スタートです。基礎から段階的に進む設計で、つまずきは週次添削とグループ質問会でフォローします。</p></div></div>
+          </div>
 
-          <details class="faq-item reveal">
-            <summary class="faq-item__q">
+          <div class="faq-item reveal">
+            <button type="button" class="faq-item__q" id="faq-os-2" aria-expanded="false" aria-controls="faq-os-a-2">
               <span class="faq-item__q-text">仕事が忙しく、毎週リアルタイムで参加できません。</span>
               <span class="faq-item__icon" aria-hidden="true"></span>
-            </summary>
-            <div class="faq-item__a"><div class="faq-item__a-inner"><p>全授業を無期限アーカイブで配信しています（倍速・字幕対応）。課題提出の締切も柔軟に相談可能です。学習継続率は91%です。</p></div></div>
-          </details>
+            </button>
+            <div class="faq-item__a" id="faq-os-a-2" role="region" aria-labelledby="faq-os-2"><div class="faq-item__a-inner"><p>全授業を無期限アーカイブで配信しています（倍速・字幕対応）。課題提出の締切も柔軟に相談可能です。学習継続率は91%です。</p></div></div>
+          </div>
 
-          <details class="faq-item reveal">
-            <summary class="faq-item__q">
+          <div class="faq-item reveal">
+            <button type="button" class="faq-item__q" id="faq-os-3" aria-expanded="false" aria-controls="faq-os-a-3">
               <span class="faq-item__q-text">途中で続けられなくなったら？</span>
               <span class="faq-item__icon" aria-hidden="true"></span>
-            </summary>
-            <div class="faq-item__a"><div class="faq-item__a-inner"><p>いつでも解約可能で、違約金はありません。さらに開始から14日間は全額返金保証つきなので、安心して試せます。</p></div></div>
-          </details>
+            </button>
+            <div class="faq-item__a" id="faq-os-a-3" role="region" aria-labelledby="faq-os-3"><div class="faq-item__a-inner"><p>いつでも解約可能で、違約金はありません。さらに開始から14日間は全額返金保証つきなので、安心して試せます。</p></div></div>
+          </div>
 
-          <details class="faq-item reveal">
-            <summary class="faq-item__q">
+          <div class="faq-item reveal">
+            <button type="button" class="faq-item__q" id="faq-os-4" aria-expanded="false" aria-controls="faq-os-a-4">
               <span class="faq-item__q-text">プランは途中で変更できますか？</span>
               <span class="faq-item__icon" aria-hidden="true"></span>
-            </summary>
-            <div class="faq-item__a"><div class="faq-item__a-inner"><p>Light → Standard → Pro へのアップグレードは受講期間中いつでも可能です（差額のみのお支払い）。ダウングレードもご相談ください。</p></div></div>
-          </details>
+            </button>
+            <div class="faq-item__a" id="faq-os-a-4" role="region" aria-labelledby="faq-os-4"><div class="faq-item__a-inner"><p>Light → Standard → Pro へのアップグレードは受講期間中いつでも可能です（差額のみのお支払い）。ダウングレードもご相談ください。</p></div></div>
+          </div>
 
-          <details class="faq-item reveal">
-            <summary class="faq-item__q">
+          <div class="faq-item reveal">
+            <button type="button" class="faq-item__q" id="faq-os-5" aria-expanded="false" aria-controls="faq-os-a-5">
               <span class="faq-item__q-text">支払い方法と分割について教えてください。</span>
               <span class="faq-item__icon" aria-hidden="true"></span>
-            </summary>
-            <div class="faq-item__a"><div class="faq-item__a-inner"><p>クレジットカード・銀行振込・分割（最大24回）に対応。月々12,400円〜から始められます。請求書払い（法人）も可能です。</p></div></div>
-          </details>
+            </button>
+            <div class="faq-item__a" id="faq-os-a-5" role="region" aria-labelledby="faq-os-5"><div class="faq-item__a-inner"><p>クレジットカード・銀行振込・分割（最大24回）に対応。月々12,400円〜から始められます。請求書払い（法人）も可能です。</p></div></div>
+          </div>
 
-          <details class="faq-item reveal">
-            <summary class="faq-item__q">
+          <div class="faq-item reveal">
+            <button type="button" class="faq-item__q" id="faq-os-6" aria-expanded="false" aria-controls="faq-os-a-6">
               <span class="faq-item__q-text">卒業後のサポートはありますか？</span>
               <span class="faq-item__icon" aria-hidden="true"></span>
-            </summary>
-            <div class="faq-item__a"><div class="faq-item__a-inner"><p>Standard 以上は卒業後もコミュニティに永久アクセスでき、勉強会・案件紹介・登壇機会を継続提供します。Pro は卒業後6ヶ月の伴走付きです。</p></div></div>
-          </details>
+            </button>
+            <div class="faq-item__a" id="faq-os-a-6" role="region" aria-labelledby="faq-os-6"><div class="faq-item__a-inner"><p>Standard 以上は卒業後もコミュニティに永久アクセスでき、勉強会・案件紹介・登壇機会を継続提供します。Pro は卒業後6ヶ月の伴走付きです。</p></div></div>
+          </div>
         </div>
       </div>
     </section>
