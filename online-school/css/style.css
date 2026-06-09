@@ -704,13 +704,13 @@ strong { font-weight: 700; }
     grid-template-rows: 0fr;
     opacity: 0;
     visibility: hidden;
-    transition: grid-template-rows 0.45s cubic-bezier(0.33, 1, 0.68, 1), opacity 0.35s cubic-bezier(0.33, 1, 0.68, 1), visibility 0s linear 0.45s;
+    transition: grid-template-rows 2s cubic-bezier(0.33, 1, 0.68, 1), opacity 1.5s cubic-bezier(0.33, 1, 0.68, 1), visibility 0s linear 2s; /* TEST: 極端にゆっくり（要調整・本番は0.45s前後） */
   }
   .faq-item[open] .faq-item__a {
     grid-template-rows: 1fr;
     opacity: 1;
     visibility: visible;
-    transition: grid-template-rows 0.45s cubic-bezier(0.33, 1, 0.68, 1), opacity 0.35s cubic-bezier(0.33, 1, 0.68, 1), visibility 0s;
+    transition: grid-template-rows 2s cubic-bezier(0.33, 1, 0.68, 1), opacity 1.5s cubic-bezier(0.33, 1, 0.68, 1), visibility 0s; /* TEST: 極端にゆっくり（要調整・本番は0.45s前後） */
   }
   .faq-item__a > * {
     overflow: hidden;
