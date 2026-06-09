@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Web制作ポートフォリオ｜LP5作品＋サイト改修事例2件＋小修正デモ集＋見積もりWebアプリ</title>
-  <meta name="description" content="フレームワーク不使用のvanilla HTML / CSS / JS で制作した、架空ブランドのランディングページ5作品（オンラインスクール・コーヒー焙煎所・美容サロン・パーソナルジム・歯科クリニック）、既存サイトのビフォーアフター改修事例2件、よくある小修正デモ集、そしてリアルタイム計算する見積もりWebアプリまでをまとめたWeb制作ポートフォリオ。" />
+  <title>Web制作ポートフォリオ｜LP5作品＋サイト改修事例2件＋小修正デモ集＋見積もりWebアプリ＋絞り込み検索UI</title>
+  <meta name="description" content="フレームワーク不使用のvanilla HTML / CSS / JS で制作した、架空ブランドのランディングページ5作品（オンラインスクール・コーヒー焙煎所・美容サロン・パーソナルジム・歯科クリニック）、既存サイトのビフォーアフター改修事例2件、よくある小修正デモ集、リアルタイム計算する見積もりWebアプリ、そして条件で絞り込める賃貸物件検索UIまでをまとめたWeb制作ポートフォリオ。" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Web制作ポートフォリオ｜LP5作品＋改修事例2件＋小修正デモ集＋見積もりWebアプリ" />
-  <meta property="og:description" content="vanilla HTML / CSS / JS で制作した架空ブランドのLP5作品、既存サイトの改修事例2件、よくある小修正デモ集、リアルタイム計算する見積もりWebアプリ。" />
+  <meta property="og:title" content="Web制作ポートフォリオ｜LP5作品＋改修事例2件＋小修正デモ集＋見積もりWebアプリ＋絞り込み検索UI" />
+  <meta property="og:description" content="vanilla HTML / CSS / JS で制作した架空ブランドのLP5作品、既存サイトの改修事例2件、よくある小修正デモ集、リアルタイム計算する見積もりWebアプリ、条件で絞り込める賃貸物件検索UI。" />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -626,6 +626,7 @@
         <a href="#refresh">改修事例</a>
         <a href="#fixes">小修正</a>
         <a href="#apptool">ツール</a>
+        <a href="#catalog">カタログ</a>
         <a href="#tech">技術</a>
         <a href="https://crowdworks.jp/public/employees/3919155/" class="nav-cta" rel="noopener noreferrer" target="_blank">お問い合わせ</a>
       </nav>
@@ -980,6 +981,35 @@
       </div>
     </section>
 
+    <!-- ============ CATALOG (filterable list UI) ============ -->
+    <section class="fixes" id="catalog">
+      <div class="container">
+        <header class="section-head">
+          <p class="section-head__eyebrow">Catalog — Filterable List</p>
+          <h2 class="section-head__title">絞り込み検索のデータUI</h2>
+          <p class="section-head__lead">
+            たくさんの項目から、条件で素早く目的の1件へ。スクロール型のLPや1画面ツールとは別ジャンルの「一覧×絞り込み」を、データ駆動の業務プロダクトUIとして制作します。
+          </p>
+        </header>
+        <article class="fixes-card">
+          <div class="fixes-card__body">
+            <p class="fixes-card__catch">21件を、その場で絞り込む。</p>
+            <p class="fixes-card__desc">
+              架空の賃貸物件検索UI。家賃・間取り・面積・駅徒歩・築年数・こだわり条件で21件をリアルタイムに絞り込み、件数の即時更新・並べ替え・条件のURL保存・お気に入り保存に対応します。JavaScript無効でも全件を一覧できるプログレッシブエンハンスメント設計で、キーボード操作・スクリーンリーダー・モバイルのフィルタードロワーにも配慮した、データ駆動のプロダクトUIです。
+            </p>
+            <ul class="fixes-card__tags">
+              <li class="card__tag"># ファセット絞り込み</li>
+              <li class="card__tag"># 件数即時・並べ替え</li>
+              <li class="card__tag"># URL状態保存</li>
+              <li class="card__tag"># お気に入り(localStorage)</li>
+              <li class="card__tag"># プログレッシブエンハンスメント</li>
+            </ul>
+          </div>
+          <a class="refresh-card__link" href="./catalog/">カタログを開く</a>
+        </article>
+      </div>
+    </section>
+
     <!-- ============ TECH ============ -->
     <section class="tech" id="tech">
       <div class="container">
@@ -1027,6 +1057,7 @@
           <a href="./case-study-restaurant/">改修事例：食堂</a>
           <a href="./quick-fixes/">小修正デモ集</a>
           <a href="./estimator/">見積もりツール</a>
+          <a href="./catalog/">賃貸検索カタログ</a>
         </nav>
       </div>
       <div class="site-footer__bottom">
