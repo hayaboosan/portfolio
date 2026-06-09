@@ -732,6 +732,18 @@ ol {
   color: var(--color-accent);
   line-height: 1;
 }
+/* The before/after values reuse .stat__num for the count-up animation, but the
+   stats-bar sizing (display:block, ~3.6rem) overflows these compact cards.
+   Inherit the wrapping span's sizing so the result-card styles take effect. */
+.result-card .stat__num {
+  display: inline;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+}
 .result-card__note {
   margin-top: 1.4rem;
   font-size: 0.78rem;
