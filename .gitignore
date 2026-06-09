@@ -7,6 +7,7 @@ desktop.ini
 # Editor / tooling
 .vscode/
 .idea/
+.claude/
 
 # Node (npx serve 等を使った場合の取りこぼし防止)
 node_modules/

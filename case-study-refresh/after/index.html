@@ -1,0 +1,461 @@
+<!-- 【After（改修後）】サンプル -->
+<!DOCTYPE html>
+<html lang="ja" class="no-js">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Flag JS as available before paint so progressive-enhancement styles
+       (e.g. the mobile drawer) only engage when JS can actually drive them. -->
+  <script>
+    document.documentElement.classList.remove('no-js');
+    document.documentElement.classList.add('js');
+  </script>
+
+  <title>わかば整骨院｜わかば駅徒歩5分の整骨院・肩こり/腰痛/交通事故</title>
+  <meta name="description" content="東京・わかば駅東口より徒歩5分。肩こり・腰痛・スポーツ障害・交通事故のむち打ちに、国家資格者がていねいに対応する整骨院です。平日夜20時まで受付。Webからのご予約・お問い合わせはこちら。" />
+  <meta name="theme-color" content="#1F7A70" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="わかば整骨院" />
+  <meta property="og:title" content="わかば整骨院｜地域のからだ相談所" />
+  <meta property="og:description" content="わかば駅徒歩5分。肩こり・腰痛・交通事故のむち打ちに、国家資格者がていねいに対応。平日夜20時まで受付。" />
+  <meta property="og:image" content="https://picsum.photos/seed/wakaba-og/1200/630" />
+  <meta property="og:locale" content="ja_JP" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="わかば整骨院｜地域のからだ相談所" />
+  <meta name="twitter:description" content="わかば駅徒歩5分。肩こり・腰痛・交通事故のむち打ちに国家資格者が対応。平日夜20時まで受付。" />
+  <meta name="twitter:image" content="https://picsum.photos/seed/wakaba-og/1200/630" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Outfit:wght@500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">本文へスキップ</a>
+
+  <!-- ============ HEADER / NAV ============ -->
+  <header class="site-header" id="siteHeader">
+    <div class="container header__inner">
+      <a class="brand" href="#top" aria-label="わかば整骨院 トップへ">
+        <span class="brand__mark" aria-hidden="true">
+          <svg width="30" height="30" viewBox="0 0 32 32" fill="none">
+            <path d="M16 5c6 2 7.5 9 3 16-4-5.5-6.5-11-3-16Z" fill="currentColor" />
+            <path d="M16 9.5c.4 4.5.6 9 .8 12.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" />
+          </svg>
+        </span>
+        <span class="brand__text">
+          <span class="brand__name">わかば整骨院</span>
+          <span class="brand__sub">Wakaba Seikotsuin</span>
+        </span>
+      </a>
+
+      <nav class="nav" aria-label="メインナビゲーション">
+        <button
+          class="nav__toggle"
+          id="navToggle"
+          aria-expanded="false"
+          aria-controls="navMenu"
+          aria-label="メニューを開く"
+        >
+          <span class="nav__toggle-bar"></span>
+          <span class="nav__toggle-bar"></span>
+          <span class="nav__toggle-bar"></span>
+        </button>
+
+        <ul class="nav__menu" id="navMenu">
+          <li><a href="#aisatsu" class="nav__link">院長あいさつ</a></li>
+          <li><a href="#symptoms" class="nav__link">こんな症状に</a></li>
+          <li><a href="#jikan" class="nav__link">診療時間</a></li>
+          <li><a href="#ryokin" class="nav__link">料金案内</a></li>
+          <li><a href="#access" class="nav__link">アクセス</a></li>
+          <li><a href="#contact" class="nav__link nav__link--cta">ご予約・お問い合わせ</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="top">
+      <div class="hero__media" aria-hidden="true">
+        <img class="hero__img" id="heroImg" src="assets/hero.svg" alt="" loading="eager" width="1600" height="1100" />
+      </div>
+
+      <div class="container hero__inner">
+        <p class="hero__eyebrow reveal" data-reveal>
+          <span class="eyebrow-line" aria-hidden="true"></span>
+          わかば駅東口より徒歩5分・駐車場あり
+        </p>
+        <h1 class="hero__title reveal" data-reveal data-delay="80">
+          そのつらい痛み、<br />あきらめていませんか。
+        </h1>
+        <p class="hero__copy reveal" data-reveal data-delay="200">
+          肩こり・腰痛・スポーツのケガ・交通事故のむち打ちまで。国家資格を持つ柔道整復師が、お一人おひとりのお身体に合わせて、ていねいに施術します。「どこに行ってもよくならない」——そんな方も、まずは一度ご相談ください。
+        </p>
+        <div class="hero__actions reveal" data-reveal data-delay="320">
+          <a href="tel:0312345678" class="btn btn--primary">
+            <span class="btn__icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24 11.3 11.3 0 0 0 3.5.56 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.3 11.3 0 0 0 .56 3.5 1 1 0 0 1-.24 1Z"/></svg>
+            </span>
+            電話で予約する <span class="btn__sub">03-1234-5678</span>
+          </a>
+          <a href="#contact" class="btn btn--ghost">Webで問い合わせる</a>
+        </div>
+        <p class="hero__note reveal" data-reveal data-delay="420">受付時間 9:00–20:00 ／ 予約優先制（初めての方も歓迎）</p>
+      </div>
+    </section>
+
+    <!-- ============ お知らせ（marquee/blink の置き換え） ============ -->
+    <section class="notice" aria-label="お知らせ">
+      <div class="container notice__inner">
+        <span class="notice__badge">お知らせ</span>
+        <ul class="notice__list">
+          <li>ゴールデンウィークは5月3日〜5月6日まで休診いたします。</li>
+          <li>交通事故・むち打ちの施術も受け付けています（保険対応のご相談可）。</li>
+          <li>初めての方は問診のお時間をいただきます。余裕をもってお越しください。</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 院長あいさつ ============ -->
+    <section class="greeting section" id="aisatsu">
+      <div class="container greeting__inner">
+        <figure class="greeting__media reveal" data-reveal>
+          <img src="assets/interior.svg" alt="窓から自然光が入る、わかば整骨院の明るく清潔な施術室。白い施術ベッドと観葉植物が置かれている。" width="800" height="560" loading="lazy" />
+          <figcaption class="greeting__caption">明るく清潔な院内でお迎えします</figcaption>
+        </figure>
+
+        <div class="greeting__body reveal" data-reveal data-delay="140">
+          <p class="section__eyebrow">Message</p>
+          <h2 class="section__title">院長あいさつ</h2>
+          <p class="greeting__lead">「笑顔で毎日を過ごせるお手伝いを。」</p>
+          <p class="greeting__text">
+            はじめまして。わかば整骨院 院長の鈴木一郎と申します。当院は2008年の開業以来、地域のみなさまの健康を第一に、お一人おひとりの症状に合わせたていねいな施術を心がけてまいりました。
+          </p>
+          <p class="greeting__text">
+            柔道整復師の国家資格を持つスタッフが、肩こり・腰痛・関節痛・スポーツによるケガ・交通事故によるむち打ちまで、はば広い症状に対応します。「どこに行ってもよくならない」とお悩みの方も、どうぞ一度ご相談ください。スタッフ一同、心をこめて施術いたします。
+          </p>
+          <p class="greeting__sign">わかば整骨院　院長　<strong>鈴木 一郎</strong></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ こんな症状に（サイドバーのリストを格上げ） ============ -->
+    <section class="symptoms section" id="symptoms">
+      <div class="container">
+        <header class="section__head reveal" data-reveal>
+          <p class="section__eyebrow">Symptoms</p>
+          <h2 class="section__title">こんな症状にお応えします</h2>
+          <p class="section__lead">
+            日常の不調から事故後のケアまで。気になる症状があれば、お気軽にご相談ください。
+          </p>
+        </header>
+
+        <ul class="symptoms__grid">
+          <li class="symptom reveal" data-reveal>
+            <span class="symptom__icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="13" r="6"/><path d="M14 40c0-7 4.5-12 10-12s10 5 10 12"/><path d="M18 24l-4 6M30 24l4 6"/></svg>
+            </span>
+            <h3 class="symptom__title">肩こり・首の痛み</h3>
+            <p class="symptom__text">デスクワークやスマホ姿勢による、慢性的な肩・首のこわばりに。</p>
+          </li>
+          <li class="symptom reveal" data-reveal data-delay="80">
+            <span class="symptom__icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6v20"/><path d="M16 16l8 10 8-10"/><path d="M14 40c2-6 6-10 10-10s8 4 10 10"/></svg>
+            </span>
+            <h3 class="symptom__title">腰痛・ぎっくり腰</h3>
+            <p class="symptom__text">急な痛みも、繰り返す慢性腰痛も。再発しにくい身体づくりまで。</p>
+          </li>
+          <li class="symptom reveal" data-reveal data-delay="160">
+            <span class="symptom__icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="7"/><path d="M24 4v8M24 36v8M4 24h8M36 24h8"/></svg>
+            </span>
+            <h3 class="symptom__title">膝・関節の痛み</h3>
+            <p class="symptom__text">立ち上がりや階段がつらい、関節まわりの痛み・違和感に。</p>
+          </li>
+          <li class="symptom reveal" data-reveal data-delay="240">
+            <span class="symptom__icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 42l6-16 8 4-2 12"/><circle cx="27" cy="9" r="4"/><path d="M20 26l-6-4 8-8 8 6"/></svg>
+            </span>
+            <h3 class="symptom__title">スポーツによるケガ</h3>
+            <p class="symptom__text">捻挫・肉離れ・打撲など。競技復帰を見据えたサポートを。</p>
+          </li>
+          <li class="symptom reveal" data-reveal data-delay="320">
+            <span class="symptom__icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="20" width="32" height="12" rx="3"/><circle cx="16" cy="36" r="3"/><circle cx="32" cy="36" r="3"/><path d="M14 20l4-7h10l4 7"/></svg>
+            </span>
+            <h3 class="symptom__title">交通事故・むち打ち</h3>
+            <p class="symptom__text">事故後の首・腰の不調に。保険対応のご相談も承ります。</p>
+          </li>
+          <li class="symptom reveal" data-reveal data-delay="400">
+            <span class="symptom__icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 8c8 0 14 6 14 14 0 10-14 18-14 18S10 32 10 22c0-8 6-14 14-14Z"/><path d="M24 16v12M18 22h12"/></svg>
+            </span>
+            <h3 class="symptom__title">産後の骨盤のゆがみ</h3>
+            <p class="symptom__text">出産後の骨盤バランスの乱れや、体型の変化が気になる方に。</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 診療時間 ============ -->
+    <section class="hours section" id="jikan">
+      <div class="container">
+        <header class="section__head reveal" data-reveal>
+          <p class="section__eyebrow">Hours</p>
+          <h2 class="section__title">診療時間</h2>
+          <p class="section__lead">平日は夜20時まで受付。お仕事帰りにもお立ち寄りいただけます。</p>
+        </header>
+
+        <div class="hours__table-wrap reveal" data-reveal>
+          <table class="hours__table">
+            <caption class="visually-hidden">わかば整骨院の曜日別診療時間。丸は受付、バツは休診を表します。</caption>
+            <thead>
+              <tr>
+                <th scope="col">時間帯</th>
+                <th scope="col">月</th>
+                <th scope="col">火</th>
+                <th scope="col">水</th>
+                <th scope="col">木</th>
+                <th scope="col">金</th>
+                <th scope="col">土</th>
+                <th scope="col">日祝</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">午前 9:00–12:30</th>
+                <td><span class="mark mark--ok">○<span class="visually-hidden">受付</span></span></td>
+                <td><span class="mark mark--ok">○<span class="visually-hidden">受付</span></span></td>
+                <td><span class="mark mark--ok">○<span class="visually-hidden">受付</span></span></td>
+                <td><span class="mark mark--ok">○<span class="visually-hidden">受付</span></span></td>
+                <td><span class="mark mark--ok">○<span class="visually-hidden">受付</span></span></td>
+                <td><span class="mark mark--ok">○<span class="visually-hidden">受付</span></span></td>
+                <td><span class="mark mark--no">×<span class="visually-hidden">休診</span></span></td>
+              </tr>
+              <tr>
+                <th scope="row">午後 15:00–20:00</th>
+                <td><span class="mark mark--ok">○<span class="visually-hidden">受付</span></span></td>
+                <td><span class="mark mark--ok">○<span class="visually-hidden">受付</span></span></td>
+                <td><span class="mark mark--ok">○<span class="visually-hidden">受付</span></span></td>
+                <td><span class="mark mark--no">×<span class="visually-hidden">休診</span></span></td>
+                <td><span class="mark mark--ok">○<span class="visually-hidden">受付</span></span></td>
+                <td><span class="mark mark--no">×<span class="visually-hidden">休診</span></span></td>
+                <td><span class="mark mark--no">×<span class="visually-hidden">休診</span></span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="hours__note reveal" data-reveal>
+          ※木曜午後・土曜午後・日祝は休診です。祝日のある週は変則となる場合があります。最新の休診日はお電話でご確認ください。
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ 料金案内 ============ -->
+    <section class="pricing section" id="ryokin">
+      <div class="container">
+        <header class="section__head reveal" data-reveal>
+          <p class="section__eyebrow">Price</p>
+          <h2 class="section__title">料金案内</h2>
+          <p class="section__lead">表示はすべて税込です。症状によっては健康保険をご利用いただける場合があります。</p>
+        </header>
+
+        <ul class="pricing__list">
+          <li class="price reveal" data-reveal>
+            <span class="price__name">初診料</span>
+            <span class="price__amount">¥1,100</span>
+            <span class="price__note">問診・検査を含みます</span>
+          </li>
+          <li class="price reveal" data-reveal data-delay="80">
+            <span class="price__name">一般施術（保険外）</span>
+            <span class="price__amount">¥3,300</span>
+            <span class="price__note">手技を中心とした基本施術</span>
+          </li>
+          <li class="price price--featured reveal" data-reveal data-delay="160">
+            <span class="price__tag">人気</span>
+            <span class="price__name">骨盤矯正</span>
+            <span class="price__amount">¥4,400</span>
+            <span class="price__note">姿勢・産後のバランス調整に</span>
+          </li>
+          <li class="price reveal" data-reveal data-delay="240">
+            <span class="price__name">電気治療（追加）</span>
+            <span class="price__amount">¥550</span>
+            <span class="price__note">他メニューへのオプション</span>
+          </li>
+        </ul>
+        <p class="pricing__note reveal" data-reveal>
+          ※健康保険をご利用いただける場合があります。適用の可否は症状により異なりますので、受付またはお電話でお問い合わせください。
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ アクセス ============ -->
+    <section class="access section" id="access">
+      <div class="container">
+        <header class="section__head reveal" data-reveal>
+          <p class="section__eyebrow">Access</p>
+          <h2 class="section__title">アクセス</h2>
+          <p class="section__lead">わかば駅東口から徒歩5分。無料駐車場を2台ご用意しています。</p>
+        </header>
+
+        <div class="access__inner">
+          <div class="access__info reveal" data-reveal>
+            <dl class="access__list">
+              <div class="access__row">
+                <dt>所在地</dt>
+                <dd>〒123-4567<br />東京都みどり区わかば町1丁目2-3　わかばビル1F</dd>
+              </div>
+              <div class="access__row">
+                <dt>最寄り</dt>
+                <dd>わかば駅（東口）より徒歩5分<br />駐車場2台あり（無料）</dd>
+              </div>
+              <div class="access__row">
+                <dt>電話</dt>
+                <dd><a href="tel:0312345678" class="access__tel">03-1234-5678</a><br /><span class="access__sub">FAX：03-1234-5679</span></dd>
+              </div>
+              <div class="access__row">
+                <dt>受付</dt>
+                <dd>9:00–20:00（休診日を除く）</dd>
+              </div>
+            </dl>
+            <a href="#contact" class="btn btn--outline access__cta">ご予約・お問い合わせへ</a>
+          </div>
+
+          <figure class="access__map reveal" data-reveal data-delay="140">
+            <img src="assets/map.svg" alt="わかば整骨院の周辺地図。わかば駅東口から東へ進み、わかば公園を過ぎた大通り沿い、わかばビル1階にあります。建物前に無料駐車場が2台あります。" width="800" height="480" loading="lazy" />
+            <figcaption class="access__map-cap">わかば駅東口から徒歩5分／無料駐車場2台</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ お問い合わせ / 予約フォーム ============ -->
+    <section class="contact section" id="contact">
+      <div class="container contact__inner">
+        <div class="contact__copy reveal" data-reveal>
+          <p class="section__eyebrow section__eyebrow--light">Reservation</p>
+          <h2 class="contact__title">ご予約・お問い合わせ</h2>
+          <p class="contact__lead">
+            ご予約・ご相談はお電話、またはこちらのフォームからお気軽にどうぞ。予約優先制ですので、お待たせせずにご案内できます。
+          </p>
+
+          <ul class="contact__channels">
+            <li>
+              <span class="contact__label">お電話</span>
+              <a href="tel:0312345678" class="contact__tel">03-1234-5678</a>
+              <span class="contact__hours">受付 9:00–20:00（休診日を除く）</span>
+            </li>
+            <li>
+              <span class="contact__label">Web</span>
+              <span class="contact__value">下記フォームから24時間受付</span>
+              <span class="contact__hours">2営業日以内にご連絡します</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="contact__form-wrap reveal" data-reveal data-delay="150">
+          <form class="form" id="reserveForm" novalidate>
+            <p class="form__intro">予約・お問い合わせフォーム</p>
+
+            <div class="form__field">
+              <label class="form__label" for="name">お名前 <span class="form__req">必須</span></label>
+              <input class="form__input" type="text" id="name" name="name" autocomplete="name" placeholder="わかば 花子" aria-describedby="name-error" required />
+              <span class="form__error" id="name-error" aria-live="polite"></span>
+            </div>
+
+            <div class="form__field">
+              <label class="form__label" for="tel">電話番号 <span class="form__req">必須</span></label>
+              <input class="form__input" type="tel" id="tel" name="tel" autocomplete="tel" inputmode="tel" placeholder="090-1234-5678" aria-describedby="tel-error" required />
+              <span class="form__error" id="tel-error" aria-live="polite"></span>
+            </div>
+
+            <div class="form__field">
+              <label class="form__label" for="email">メールアドレス <span class="form__opt">任意</span></label>
+              <input class="form__input" type="email" id="email" name="email" autocomplete="email" placeholder="you@example.com" aria-describedby="email-error" />
+              <span class="form__error" id="email-error" aria-live="polite"></span>
+            </div>
+
+            <div class="form__field">
+              <label class="form__label" for="symptom">ご相談内容 <span class="form__opt">任意</span></label>
+              <select class="form__input form__select" id="symptom" name="symptom">
+                <option value="">選択してください</option>
+                <option>肩こり・首の痛み</option>
+                <option>腰痛・ぎっくり腰</option>
+                <option>膝・関節の痛み</option>
+                <option>スポーツによるケガ</option>
+                <option>交通事故・むち打ち</option>
+                <option>産後の骨盤矯正</option>
+                <option>その他</option>
+              </select>
+            </div>
+
+            <div class="form__field">
+              <label class="form__label" for="message">メッセージ <span class="form__opt">任意</span></label>
+              <textarea class="form__input form__textarea" id="message" name="message" rows="4" placeholder="ご希望の日時や、お悩みの内容などがあればお書きください。"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn--primary form__submit">この内容で送信する</button>
+
+            <p class="form__success" id="formSuccess" role="status" tabindex="-1" hidden>
+              お問い合わせありがとうございます。2営業日以内に、ご記入の連絡先へご連絡いたします。お急ぎの場合はお電話（03-1234-5678）でも承ります。
+            </p>
+            <p class="form__privacy">いただいた情報は、ご連絡の目的以外には使用いたしません。</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <span class="footer__mark" aria-hidden="true">
+          <svg width="34" height="34" viewBox="0 0 32 32" fill="none">
+            <path d="M16 5c6 2 7.5 9 3 16-4-5.5-6.5-11-3-16Z" fill="currentColor" />
+            <path d="M16 9.5c.4 4.5.6 9 .8 12.5" stroke="#0d3b36" stroke-width="1.5" stroke-linecap="round" />
+          </svg>
+        </span>
+        <p class="footer__name">わかば整骨院</p>
+        <p class="footer__tagline">地域のみなさまの健康を、全力でサポートします。</p>
+      </div>
+
+      <nav class="footer__nav" aria-label="フッターナビゲーション">
+        <ul>
+          <li><a href="#aisatsu">院長あいさつ</a></li>
+          <li><a href="#symptoms">こんな症状に</a></li>
+          <li><a href="#jikan">診療時間</a></li>
+          <li><a href="#ryokin">料金案内</a></li>
+          <li><a href="#access">アクセス</a></li>
+          <li><a href="#contact">ご予約・お問い合わせ</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer__info">
+        <p>〒123-4567 東京都みどり区わかば町1-2-3 わかばビル1F</p>
+        <p>TEL <a href="tel:0312345678" class="footer__tel">03-1234-5678</a> ／ 受付 9:00–20:00</p>
+        <p>わかば駅東口より徒歩5分・駐車場2台（無料）</p>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <div class="container">
+        <p class="footer__note">※これはサイト改修ビフォーアフター事例として制作した、架空の整骨院のサンプルです。</p>
+        <p class="footer__copy">© 2026 Wakaba Seikotsuin (fictional). All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

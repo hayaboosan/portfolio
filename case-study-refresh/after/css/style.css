@@ -1,0 +1,1007 @@
+/* =========================================================
+   わかば整骨院  |  style.css  （改修後 / After）
+   清潔・信頼・読みやすさ重視のクリニックデザイン
+   palette: teal / white / warm-gray（既存LPと重複しない配色）
+   ========================================================= */
+
+/* ---------- Custom Properties ---------- */
+:root {
+  /* color — すべて WCAG AA を満たす組み合わせで設計 */
+  --color-primary: #1F7A70;      /* 主役のティール（白文字でAA: 4.8:1） */
+  --color-primary-deep: #0D3B36; /* 濃ティール（見出し・フッター背景） */
+  --color-primary-ink: #16554E;  /* 白背景上の本文リンク用ティール（AA） */
+  --color-accent: #E07A5F;       /* 温かみのあるテラコッタ（差し色） */
+  --color-bg: #F4F8F7;           /* ごく淡いティールグレー */
+  --color-surface: #FFFFFF;
+  --color-text: #243B38;         /* 本文（bg上で 11:1 超） */
+  --color-text-soft: #4F6360;    /* 補助テキスト（bg上で約5.2:1 = AA） */
+  --color-line: #D5E4E1;
+  --color-ok: #1F7A70;
+  --color-no: #C2453B;           /* 休診バツ（白上で 4.7:1 = AA） */
+
+  /* typography */
+  --font-heading: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Yu Gothic", sans-serif;
+  --font-body: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif;
+  --font-en: "Outfit", "Segoe UI", sans-serif;
+
+  /* spacing */
+  --section-gap: clamp(3.5rem, 9vw, 7rem);
+  --container: 1080px;
+  --container-narrow: 760px;
+  --gutter: clamp(1.1rem, 5vw, 2.5rem);
+
+  /* radius & shadow */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --shadow-soft: 0 22px 50px -28px rgba(13, 59, 54, 0.28);
+  --shadow-card: 0 16px 40px -26px rgba(13, 59, 54, 0.32);
+
+  /* motion */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur: 0.7s;
+
+  --header-h: 72px;
+}
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + 12px);
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  /* readable base via clamp(): 16–17px, generous line-height */
+  font-size: clamp(1rem, 0.96rem + 0.25vw, 1.0625rem);
+  line-height: 1.85;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden; /* 念のための保険。各セクションでも clip 済み */
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+ul, ol { list-style: none; }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+
+/* ---------- Focus（キーボード操作で常に見える） ---------- */
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 50%;
+  top: -120px;
+  transform: translateX(-50%);
+  background: var(--color-primary-deep);
+  color: #fff;
+  padding: 0.8rem 1.5rem;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  z-index: 1000;
+  font-weight: 700;
+  transition: top 0.25s var(--ease);
+}
+.skip-link:focus { top: 0; }
+
+/* ---------- Layout helpers ---------- */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.section {
+  padding-block: var(--section-gap);
+  overflow-x: clip;
+}
+
+/* ---------- Section headers ---------- */
+.section__head {
+  max-width: 640px;
+  margin-bottom: clamp(2rem, 5vw, 3.5rem);
+}
+.section__eyebrow {
+  font-family: var(--font-en);
+  font-size: 0.9rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-weight: 600;
+}
+.section__eyebrow::before {
+  content: "";
+  width: 30px; height: 2px;
+  background: var(--color-primary);
+  border-radius: 2px;
+}
+.section__eyebrow--light { color: #fff; }
+.section__eyebrow--light::before { background: rgba(255,255,255,0.8); }
+
+.section__title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(1.6rem, 4.2vw, 2.6rem);
+  letter-spacing: 0.04em;
+  line-height: 1.45;
+  color: var(--color-primary-deep);
+}
+.section__lead {
+  margin-top: 1.1rem;
+  color: var(--color-text-soft);
+  font-size: clamp(1rem, 1.4vw, 1.08rem);
+  max-width: 46ch;
+}
+
+/* ---------- Buttons (tap target >= 44px) ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 52px;
+  padding: 0.85rem 1.8rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  line-height: 1.4;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  text-align: center;
+  transition: background-color 0.35s var(--ease), color 0.35s var(--ease),
+    border-color 0.35s var(--ease), transform 0.35s var(--ease),
+    box-shadow 0.35s var(--ease);
+}
+.btn__icon { display: inline-grid; place-items: center; }
+.btn__sub {
+  font-family: var(--font-en);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  font-size: 0.92em;
+  opacity: 0.92;
+}
+.btn--primary {
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 14px 30px -16px rgba(31, 122, 112, 0.7);
+}
+.btn--primary:hover {
+  background: var(--color-primary-deep);
+  transform: translateY(-2px);
+  box-shadow: 0 20px 38px -16px rgba(13, 59, 54, 0.6);
+}
+.btn--ghost {
+  background: rgba(255,255,255,0.9);
+  color: var(--color-primary-deep);
+  border-color: var(--color-primary);
+}
+.btn--ghost:hover {
+  background: #fff;
+  border-color: var(--color-primary-deep);
+  transform: translateY(-2px);
+}
+.btn--outline {
+  background: transparent;
+  color: var(--color-primary-deep);
+  border-color: var(--color-primary);
+}
+.btn--outline:hover {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 1px 0 var(--color-line);
+  transition: box-shadow 0.4s var(--ease);
+}
+.site-header.is-scrolled {
+  box-shadow: 0 6px 24px -16px rgba(13, 59, 54, 0.35);
+}
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--header-h);
+  gap: 1rem;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--color-primary-deep);
+}
+.brand__mark {
+  display: grid;
+  place-items: center;
+  color: var(--color-primary);
+}
+.brand__text { display: flex; flex-direction: column; line-height: 1.1; }
+.brand__name {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.22rem;
+  letter-spacing: 0.06em;
+}
+.brand__sub {
+  font-family: var(--font-en);
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text-soft);
+}
+
+/* nav */
+.nav__menu {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.8rem, 1.8vw, 1.8rem);
+}
+.nav__link {
+  position: relative;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  padding: 0.5rem 0.2rem;
+  color: var(--color-text);
+  transition: color 0.3s var(--ease);
+}
+.nav__link::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 100%; height: 2px;
+  background: var(--color-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s var(--ease);
+}
+.nav__link:hover { color: var(--color-primary); }
+.nav__link:hover::after { transform: scaleX(1); }
+.nav__link--cta {
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.55rem 1.1rem;
+  font-weight: 700;
+}
+.nav__link--cta::after { display: none; }
+.nav__link--cta:hover {
+  background: var(--color-primary-deep);
+  color: #fff;
+}
+
+/* hamburger (44px target) */
+.nav__toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 48px; height: 48px;
+  padding: 12px;
+  color: var(--color-primary-deep);
+  z-index: 110;
+}
+.nav__toggle-bar {
+  display: block;
+  width: 100%; height: 2.5px;
+  background: currentColor;
+  border-radius: 2px;
+  transition: transform 0.4s var(--ease), opacity 0.3s var(--ease);
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+.hero {
+  position: relative;
+  min-height: 88svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding-top: calc(var(--header-h) + 1.5rem);
+  padding-bottom: 2rem;
+}
+.hero__media { position: absolute; inset: 0; z-index: 0; }
+.hero__img {
+  width: 100%; height: 115%;
+  object-fit: cover;
+  will-change: transform;
+}
+.hero__media::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    100deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.8) 42%,
+    rgba(255, 255, 255, 0.35) 78%,
+    rgba(255, 255, 255, 0.15) 100%
+  );
+}
+.hero__inner {
+  position: relative;
+  z-index: 2;
+  max-width: 660px;
+  padding-block: clamp(2rem, 6vh, 4rem);
+}
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--color-primary);
+  margin-bottom: 1.2rem;
+}
+.eyebrow-line { width: 36px; height: 2px; background: var(--color-primary); border-radius: 2px; }
+.hero__title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(1.9rem, 6.5vw, 3.4rem);
+  letter-spacing: 0.03em;
+  line-height: 1.4;
+  color: var(--color-primary-deep);
+  margin-bottom: 1.3rem;
+}
+.hero__copy {
+  max-width: 44ch;
+  font-size: clamp(1rem, 1.6vw, 1.1rem);
+  line-height: 1.95;
+  color: var(--color-text);
+  margin-bottom: 1.9rem;
+}
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+}
+.hero__actions .btn--primary { flex-wrap: wrap; }
+.hero__note {
+  margin-top: 1.2rem;
+  font-size: 0.9rem;
+  color: var(--color-text-soft);
+  font-weight: 500;
+}
+
+/* =========================================================
+   NOTICE（旧 marquee / blink の置き換え）
+   ========================================================= */
+.notice {
+  background: var(--color-primary-deep);
+  color: #fff;
+}
+.notice__inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding-block: 1.1rem;
+  flex-wrap: wrap;
+}
+.notice__badge {
+  flex: 0 0 auto;
+  background: var(--color-accent);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  margin-top: 0.15rem;
+}
+.notice__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+.notice__list li {
+  position: relative;
+  padding-left: 1.1rem;
+  color: rgba(255, 255, 255, 0.95);
+}
+.notice__list li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0.7em;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+/* =========================================================
+   GREETING（院長あいさつ）
+   ========================================================= */
+.greeting__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.8rem, 5vw, 3.5rem);
+  align-items: center;
+}
+.greeting__media {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+.greeting__media img { width: 100%; }
+.greeting__caption {
+  position: absolute;
+  left: 0; bottom: 0;
+  background: rgba(13, 59, 54, 0.82);
+  color: #fff;
+  font-size: 0.82rem;
+  padding: 0.5rem 1rem;
+  border-top-right-radius: var(--radius-sm);
+}
+.greeting__lead {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(1.2rem, 2.6vw, 1.5rem);
+  color: var(--color-primary);
+  margin: 1.1rem 0 1.2rem;
+  line-height: 1.6;
+}
+.greeting__text { margin-bottom: 1rem; color: var(--color-text); }
+.greeting__sign {
+  margin-top: 1.4rem;
+  color: var(--color-text-soft);
+  font-size: 0.95rem;
+}
+.greeting__sign strong { color: var(--color-primary-deep); font-size: 1.08rem; }
+
+/* =========================================================
+   SYMPTOMS
+   ========================================================= */
+.symptoms { background: var(--color-surface); }
+.symptoms__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: clamp(1rem, 2.5vw, 1.5rem);
+}
+.symptom {
+  background: var(--color-bg);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  padding: clamp(1.4rem, 3vw, 1.8rem);
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease), border-color 0.4s var(--ease);
+}
+.symptom:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card);
+  border-color: var(--color-primary);
+}
+.symptom__icon {
+  display: grid;
+  place-items: center;
+  width: 56px; height: 56px;
+  border-radius: 14px;
+  background: rgba(31, 122, 112, 0.12);
+  color: var(--color-primary);
+  margin-bottom: 1.1rem;
+}
+.symptom__icon svg { width: 30px; height: 30px; }
+.symptom__title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.18rem;
+  color: var(--color-primary-deep);
+  margin-bottom: 0.55rem;
+  letter-spacing: 0.02em;
+}
+.symptom__text {
+  font-size: 0.95rem;
+  color: var(--color-text-soft);
+  line-height: 1.8;
+}
+
+/* =========================================================
+   HOURS（診療時間）
+   ========================================================= */
+.hours__table-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-line);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  -webkit-overflow-scrolling: touch;
+}
+.hours__table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 540px;
+  text-align: center;
+}
+.hours__table caption { text-align: left; }
+.hours__table th,
+.hours__table td {
+  padding: 0.95rem 0.6rem;
+  border-bottom: 1px solid var(--color-line);
+}
+.hours__table thead th {
+  background: var(--color-primary);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.98rem;
+}
+.hours__table thead th:first-child { text-align: left; padding-left: 1.1rem; }
+.hours__table tbody th {
+  text-align: left;
+  padding-left: 1.1rem;
+  font-weight: 700;
+  color: var(--color-primary-deep);
+  background: var(--color-bg);
+  white-space: nowrap;
+}
+.hours__table tbody tr:last-child th,
+.hours__table tbody tr:last-child td { border-bottom: none; }
+.mark { font-size: 1.15rem; font-weight: 700; }
+.mark--ok { color: var(--color-ok); }
+.mark--no { color: var(--color-no); }
+.hours__note {
+  margin-top: 1.1rem;
+  font-size: 0.9rem;
+  color: var(--color-text-soft);
+}
+
+/* =========================================================
+   PRICING（料金）
+   ========================================================= */
+.pricing { background: var(--color-surface); }
+.pricing__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+  gap: clamp(1rem, 2.5vw, 1.4rem);
+}
+.price {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  padding: clamp(1.4rem, 3vw, 1.8rem);
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+.price:hover { transform: translateY(-4px); box-shadow: var(--shadow-card); }
+.price--featured {
+  border-color: var(--color-primary);
+  border-width: 2px;
+  background: rgba(31, 122, 112, 0.06);
+}
+.price__tag {
+  position: absolute;
+  top: -12px; left: 1.4rem;
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 0.25rem 0.8rem;
+  border-radius: 999px;
+}
+.price__name {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--color-primary-deep);
+}
+.price__amount {
+  font-family: var(--font-en);
+  font-weight: 600;
+  font-size: 2rem;
+  color: var(--color-primary);
+  letter-spacing: 0.01em;
+}
+.price__note {
+  font-size: 0.85rem;
+  color: var(--color-text-soft);
+}
+.pricing__note {
+  margin-top: 1.4rem;
+  font-size: 0.9rem;
+  color: var(--color-text-soft);
+}
+
+/* =========================================================
+   ACCESS
+   ========================================================= */
+.access__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.8rem, 5vw, 3rem);
+  align-items: start;
+}
+.access__list { display: flex; flex-direction: column; }
+.access__row {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--color-line);
+}
+.access__row dt {
+  font-weight: 700;
+  color: var(--color-primary);
+  font-size: 0.95rem;
+}
+.access__row dd { color: var(--color-text); line-height: 1.75; }
+.access__tel {
+  font-family: var(--font-en);
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: var(--color-primary-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.access__tel:hover { color: var(--color-primary-deep); }
+.access__sub { font-size: 0.88rem; color: var(--color-text-soft); }
+.access__cta { margin-top: 1.5rem; }
+.access__map {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-line);
+}
+.access__map img { width: 100%; }
+.access__map-cap {
+  background: var(--color-surface);
+  color: var(--color-text-soft);
+  font-size: 0.85rem;
+  padding: 0.7rem 1rem;
+  text-align: center;
+}
+
+/* =========================================================
+   CONTACT / FORM
+   ========================================================= */
+.contact {
+  background: var(--color-primary-deep);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.contact::before {
+  content: "";
+  position: absolute;
+  top: -140px; right: -120px;
+  width: 360px; height: 360px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+}
+.contact__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+.contact__title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+  margin-bottom: 1.1rem;
+}
+.contact__lead {
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 44ch;
+  margin-bottom: 2rem;
+}
+.contact__channels { display: flex; flex-direction: column; gap: 1.2rem; }
+.contact__channels li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+}
+.contact__label {
+  font-family: var(--font-en);
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #FFD9CC;
+  font-weight: 600;
+}
+.contact__tel {
+  font-family: var(--font-en);
+  font-weight: 600;
+  font-size: 1.7rem;
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  width: fit-content;
+}
+.contact__value { font-size: 1.1rem; font-weight: 500; }
+.contact__hours { font-size: 0.85rem; color: rgba(255, 255, 255, 0.72); }
+
+/* form */
+.contact__form-wrap {
+  background: var(--color-bg);
+  color: var(--color-text);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  box-shadow: var(--shadow-soft);
+}
+.form__intro {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--color-primary-deep);
+  margin-bottom: 1.6rem;
+}
+.form__field { margin-bottom: 1.3rem; }
+.form__label {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--color-primary-deep);
+}
+.form__req, .form__opt {
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 700;
+}
+.form__req { background: var(--color-accent); color: #fff; }
+.form__opt { background: rgba(31, 122, 112, 0.14); color: var(--color-primary); }
+.form__input {
+  width: 100%;
+  min-height: 50px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-line);
+  border-radius: var(--radius-sm);
+  padding: 0.8rem 1rem;
+  transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+.form__input::placeholder { color: #8aa19d; }
+.form__input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(31, 122, 112, 0.2);
+}
+.form__select { appearance: none; background-image:
+  linear-gradient(45deg, transparent 50%, var(--color-primary) 50%),
+  linear-gradient(135deg, var(--color-primary) 50%, transparent 50%);
+  background-position: calc(100% - 20px) center, calc(100% - 14px) center;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  padding-right: 2.5rem;
+}
+.form__textarea { resize: vertical; min-height: 110px; }
+.form__input.is-invalid {
+  border-color: var(--color-no);
+  box-shadow: 0 0 0 3px rgba(194, 69, 59, 0.18);
+}
+.form__error {
+  display: block;
+  min-height: 1.1rem;
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #B23A30; /* bg上で AA を満たす赤 */
+}
+.form__submit { width: 100%; margin-top: 0.4rem; }
+.form__success {
+  margin-top: 1.2rem;
+  padding: 1rem 1.2rem;
+  background: rgba(31, 122, 112, 0.1);
+  border-left: 4px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  color: var(--color-primary-deep);
+  line-height: 1.8;
+}
+.form__privacy {
+  margin-top: 1rem;
+  font-size: 0.82rem;
+  color: var(--color-text-soft);
+  text-align: center;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.footer { background: var(--color-primary-deep); color: #fff; }
+.footer__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.8rem, 5vw, 3rem);
+  padding-block: clamp(2.5rem, 6vw, 4rem);
+}
+.footer__mark { display: inline-grid; place-items: center; color: #fff; margin-bottom: 0.8rem; }
+.footer__name {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.3rem;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.5rem;
+}
+.footer__tagline { font-size: 0.92rem; color: rgba(255, 255, 255, 0.78); }
+.footer__nav ul { display: flex; flex-direction: column; gap: 0.75rem; }
+.footer__nav a {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.88);
+  position: relative;
+  display: inline-block;
+  padding: 0.15rem 0;
+}
+.footer__nav a:hover { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+.footer__info p { font-size: 0.92rem; color: rgba(255, 255, 255, 0.8); margin-bottom: 0.6rem; line-height: 1.7; }
+.footer__tel {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-family: var(--font-en);
+  font-weight: 600;
+}
+.footer__bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  padding-block: 1.4rem;
+}
+.footer__bottom .container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.footer__note { font-size: 0.8rem; color: #FFD9CC; }
+.footer__copy {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: var(--font-en);
+  letter-spacing: 0.04em;
+}
+
+/* =========================================================
+   REVEAL ANIMATION
+   ========================================================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+/* JS無効時は段階表示を行えないため、全コンテンツを最初から表示する
+   （head のインラインスクリプトが no-js を外せていない＝JS不可の状態） */
+.no-js .reveal { opacity: 1; transform: none; }
+
+/* =========================================================
+   RESPONSIVE — mobile-first 拡張
+   ========================================================= */
+@media (min-width: 720px) {
+  .greeting__inner { grid-template-columns: 0.9fr 1.1fr; }
+  .access__inner { grid-template-columns: 1fr 1.1fr; }
+}
+
+@media (min-width: 880px) {
+  .contact__inner { grid-template-columns: 1fr 1.05fr; align-items: center; }
+  .footer__inner { grid-template-columns: 1.4fr 1fr 1.4fr; }
+}
+
+/* mobile nav drawer (<=760px) */
+@media (max-width: 760px) {
+  .nav__toggle { display: flex; }
+  .nav__menu {
+    position: fixed;
+    inset: 0 0 0 auto;
+    width: min(82vw, 330px);
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 1.4rem;
+    padding: 2rem var(--gutter);
+    background: var(--color-surface);
+    box-shadow: -20px 0 60px -30px rgba(13, 59, 54, 0.5);
+    transform: translateX(100%);
+    transition: transform 0.45s var(--ease);
+    z-index: 105;
+  }
+  /* JSが無い時はドロワー化せず、通常リストとして全項目を表示 */
+  .no-js .nav__menu {
+    position: static;
+    width: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    transform: none;
+    box-shadow: none;
+    padding: 0;
+    gap: 0.6rem 1rem;
+    background: transparent;
+    justify-content: flex-end;
+  }
+  .no-js .nav__toggle { display: none; }
+  .js .nav__menu.is-open { transform: translateX(0); }
+  .nav__link { font-size: 1.1rem; padding: 0.5rem 0; }
+  .no-js .nav__link { font-size: 0.85rem; }
+
+  /* hamburger -> X */
+  .nav__toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+  .nav__toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(2) { opacity: 0; }
+  .nav__toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+}
+
+@media (max-width: 480px) {
+  .hero__actions { flex-direction: column; align-items: stretch; }
+  .hero__actions .btn { width: 100%; }
+  .footer__bottom .container { flex-direction: column; }
+}
+
+/* body lock + backdrop for open nav */
+body.nav-open { overflow: hidden; }
+.nav-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(13, 59, 54, 0.42);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s var(--ease), visibility 0.4s var(--ease);
+  z-index: 104;
+}
+.nav-backdrop.is-active { opacity: 1; visibility: visible; }
+
+/* =========================================================
+   FORCED COLORS (Windows High Contrast)
+   ========================================================= */
+@media (forced-colors: active) {
+  .btn { border: 2px solid currentColor; }
+  .symptom, .price, .hours__table-wrap, .contact__form-wrap { border: 1px solid CanvasText; }
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .reveal { opacity: 1 !important; transform: none !important; }
+}

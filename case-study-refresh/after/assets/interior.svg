@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" role="img" aria-label="">
+  <defs>
+    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F4FBFA"/>
+      <stop offset="1" stop-color="#E2F1EF"/>
+    </linearGradient>
+    <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#EAD9C4"/>
+      <stop offset="1" stop-color="#DDC8AD"/>
+    </linearGradient>
+    <linearGradient id="bed" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#EAF4F3"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="560" fill="url(#wall)"/>
+  <rect y="380" width="800" height="180" fill="url(#floor)"/>
+
+  <!-- window with soft light -->
+  <rect x="70" y="70" width="220" height="170" rx="6" fill="#D4ECEA"/>
+  <rect x="70" y="70" width="220" height="170" rx="6" fill="none" stroke="#2C9C90" stroke-opacity="0.3" stroke-width="3"/>
+  <line x1="180" y1="70" x2="180" y2="240" stroke="#2C9C90" stroke-opacity="0.25" stroke-width="3"/>
+  <line x1="70" y1="155" x2="290" y2="155" stroke="#2C9C90" stroke-opacity="0.25" stroke-width="3"/>
+
+  <!-- plant -->
+  <rect x="120" y="300" width="60" height="80" rx="6" fill="#C9A07A"/>
+  <g fill="#2C9C90" fill-opacity="0.85">
+    <path d="M150 300 C 110 250, 120 200, 150 180 C 180 200, 190 250, 150 300 Z"/>
+    <path d="M150 300 C 190 260, 210 230, 230 222 C 222 260, 196 290, 150 300 Z" fill-opacity="0.7"/>
+    <path d="M150 300 C 110 262, 90 232, 70 224 C 78 262, 104 290, 150 300 Z" fill-opacity="0.7"/>
+  </g>
+
+  <!-- treatment bed -->
+  <rect x="360" y="300" width="380" height="60" rx="14" fill="url(#bed)"/>
+  <rect x="360" y="300" width="380" height="60" rx="14" fill="none" stroke="#2C9C90" stroke-opacity="0.18" stroke-width="2"/>
+  <rect x="360" y="300" width="120" height="60" rx="14" fill="#2C9C90" fill-opacity="0.1"/>
+  <rect x="380" y="360" width="16" height="80" fill="#C9B79E"/>
+  <rect x="704" y="360" width="16" height="80" fill="#C9B79E"/>
+
+  <!-- folded towel -->
+  <rect x="540" y="284" width="90" height="20" rx="6" fill="#2C9C90" fill-opacity="0.25"/>
+
+  <!-- wall shelf with rounded jars -->
+  <rect x="470" y="110" width="240" height="10" rx="4" fill="#C9B79E"/>
+  <circle cx="510" cy="95" r="16" fill="#2C9C90" fill-opacity="0.3"/>
+  <circle cx="560" cy="95" r="16" fill="#2C9C90" fill-opacity="0.18"/>
+  <circle cx="610" cy="95" r="16" fill="#2C9C90" fill-opacity="0.3"/>
+  <circle cx="660" cy="95" r="16" fill="#2C9C90" fill-opacity="0.18"/>
+</svg>

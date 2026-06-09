@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="ja" class="no-js">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Mark JS as available before render so progressive-enhancement styles
+       (e.g. collapsed FAQ panels) only apply when JS can actually open them. -->
+  <script>
+    document.documentElement.classList.remove('no-js');
+    document.documentElement.classList.add('js');
+  </script>
+  <title>臨界 -RINKAI-｜完全予約制パーソナルジム｜2ヶ月で、別人の自分へ。</title>
+  <meta name="description" content="東京・恵比寿の完全予約制パーソナルジム RINKAI（臨界）。専属トレーナーがマンツーマンで設計する2ヶ月集中プログラム。食事も、トレーニングも、数字で伴走。無料カウンセリング受付中。" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="臨界 -RINKAI- パーソナルジム" />
+  <meta property="og:description" content="2ヶ月で、別人の自分へ。恵比寿の完全予約制パーソナルジム。数字で伴走するマンツーマン。" />
+  <meta property="og:image" content="https://picsum.photos/seed/rinkai-og/1200/630" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">本文へスキップ</a>
+
+  <!-- ============ HEADER / NAV ============ -->
+  <header class="site-header" id="siteHeader">
+    <div class="container header__inner">
+      <a class="brand" href="#hero" aria-label="臨界 -RINKAI- パーソナルジム トップへ">
+        <span class="brand__mark" aria-hidden="true">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+            <rect x="2" y="2" width="26" height="26" rx="6" stroke="currentColor" stroke-width="2" />
+            <path d="M9 21V9h5.5a3.5 3.5 0 0 1 0 7H11M14 16l4.5 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </span>
+        <span class="brand__text">
+          <span class="brand__name">臨界</span>
+          <span class="brand__sub">RINKAI</span>
+        </span>
+      </a>
+
+      <nav class="nav" aria-label="メインナビゲーション">
+        <button
+          class="nav__toggle"
+          id="navToggle"
+          aria-expanded="false"
+          aria-controls="navMenu"
+          aria-label="メニューを開く"
+        >
+          <span class="nav__toggle-bar"></span>
+          <span class="nav__toggle-bar"></span>
+          <span class="nav__toggle-bar"></span>
+        </button>
+
+        <ul class="nav__menu" id="navMenu">
+          <li><a href="#features" class="nav__link">選ばれる理由</a></li>
+          <li><a href="#results" class="nav__link">実績</a></li>
+          <li><a href="#pricing" class="nav__link">料金プラン</a></li>
+          <li><a href="#voices" class="nav__link">お客様の声</a></li>
+          <li><a href="#faq" class="nav__link">よくある質問</a></li>
+          <li><a href="#cta" class="nav__link nav__link--cta">無料体験予約</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="hero">
+      <div class="hero__media" aria-hidden="true">
+        <img
+          class="hero__img"
+          id="heroImg"
+          src="assets/hero.svg"
+          alt=""
+          loading="eager"
+        />
+        <span class="hero__veil"></span>
+      </div>
+
+      <div class="container hero__inner">
+        <p class="hero__eyebrow reveal" data-reveal>
+          <span class="hero__eyebrow-dot" aria-hidden="true"></span>
+          恵比寿・完全予約制パーソナルジム
+        </p>
+        <h1 class="hero__title">
+          <span class="hero__title-line">2ヶ月で、</span>
+          <span class="hero__title-line hero__title-line--accent">別人の自分へ。</span>
+        </h1>
+        <p class="hero__copy reveal" data-reveal data-delay="200">
+          続かない理由は、意志ではなく「設計」です。RINKAI は、専属トレーナーがあなたの数字を毎週見ながら、トレーニングと食事をマンツーマンで組み立て直す完全個室ジム。根性論ではなく、データで結果まで伴走します。
+        </p>
+        <div class="hero__actions reveal" data-reveal data-delay="350">
+          <a href="#cta" class="btn btn--primary">無料カウンセリングを予約する</a>
+          <a href="#pricing" class="btn btn--ghost">料金プランを見る</a>
+        </div>
+        <ul class="hero__badges reveal" data-reveal data-delay="500">
+          <li class="hero__badge">完全個室・マンツーマン</li>
+          <li class="hero__badge">食事は毎日LINEで伴走</li>
+          <li class="hero__badge">30日間全額返金保証</li>
+        </ul>
+      </div>
+
+      <a href="#features" class="hero__scroll" aria-label="次のセクションへ">
+        <span class="hero__scroll-text">SCROLL</span>
+        <span class="hero__scroll-line" aria-hidden="true"></span>
+      </a>
+    </section>
+
+    <!-- ============ FEATURES / 選ばれる理由 ============ -->
+    <section class="features section" id="features">
+      <div class="container">
+        <header class="section__head reveal" data-reveal>
+          <p class="section__eyebrow">WHY RINKAI</p>
+          <h2 class="section__title">選ばれる<span class="section__title-accent">理由</span></h2>
+          <p class="section__lead">
+            ジムは数あれど、結果が変わるのは「仕組み」が違うから。RINKAI が結果にこだわれる、四つの理由。
+          </p>
+        </header>
+
+        <!-- 数字バー (カウントアップ) -->
+        <div class="stats reveal" data-reveal role="list" aria-label="RINKAI の実績数値（架空のサンプル）">
+          <div class="stat" role="listitem">
+            <span class="stat__num" data-count="98" data-suffix="%">98%</span>
+            <span class="stat__label">2ヶ月プログラム完走率</span>
+          </div>
+          <div class="stat" role="listitem">
+            <span class="stat__num" data-count="1240" data-suffix="名">1240名</span>
+            <span class="stat__label">のべ卒業生（開業からの累計）</span>
+          </div>
+          <div class="stat" role="listitem">
+            <span class="stat__num" data-count="4" data-prefix="-" data-suffix="kg">-4kg</span>
+            <span class="stat__label">体脂肪量の平均変化（2ヶ月）</span>
+          </div>
+          <div class="stat" role="listitem">
+            <span class="stat__num" data-count="16" data-suffix="名">16名</span>
+            <span class="stat__label">在籍トレーナー（全員有資格）</span>
+          </div>
+        </div>
+
+        <ul class="feature-grid">
+          <li class="feature-card reveal" data-reveal>
+            <span class="feature-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 30v-4M42 30v-4M12 32V16M36 32V16M12 24h24" />
+                <rect x="14" y="14" width="6" height="20" rx="2" />
+                <rect x="28" y="14" width="6" height="20" rx="2" />
+              </svg>
+            </span>
+            <span class="feature-card__num">01</span>
+            <h3 class="feature-card__title">完全マンツーマン設計</h3>
+            <p class="feature-card__text">
+              既製のメニューに体を合わせません。骨格・可動域・生活リズムを初回に計測し、あなた専用のプログラムを毎週アップデート。担当トレーナーは最後まで変わりません。
+            </p>
+          </li>
+
+          <li class="feature-card reveal" data-reveal data-delay="100">
+            <span class="feature-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M24 6v6M24 36v6M6 24h6M36 24h6" />
+                <circle cx="24" cy="24" r="12" />
+                <path d="M24 24l7-4" />
+              </svg>
+            </span>
+            <span class="feature-card__num">02</span>
+            <h3 class="feature-card__title">毎日の食事を数字で伴走</h3>
+            <p class="feature-card__text">
+              無理な糖質制限はしません。専属トレーナーが毎日の食事をLINEで確認し、PFCバランスを数値で調整。外食も、お酒も、付き合い方を一緒に設計します。
+            </p>
+          </li>
+
+          <li class="feature-card reveal" data-reveal data-delay="200">
+            <span class="feature-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 38l8-12 7 6 6-14 5 8 6-4" />
+                <path d="M8 10v28h32" />
+              </svg>
+            </span>
+            <span class="feature-card__num">03</span>
+            <h3 class="feature-card__title">体組成を見える化</h3>
+            <p class="feature-card__text">
+              体重だけを追いません。医療レベルの体組成計で筋肉量・体脂肪率・基礎代謝を毎週記録し、グラフで共有。「変わっている」を、数字で確信に変えます。
+            </p>
+          </li>
+
+          <li class="feature-card reveal" data-reveal data-delay="300">
+            <span class="feature-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M24 42s-14-8-14-20a14 14 0 0 1 28 0c0 12-14 20-14 20Z" />
+                <path d="M24 26a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z" />
+              </svg>
+            </span>
+            <span class="feature-card__num">04</span>
+            <h3 class="feature-card__title">続けられる完全個室</h3>
+            <p class="feature-card__text">
+              人目を気にせず追い込める完全個室。シャワー・アメニティ・ウェア・タオルは無料貸与で、手ぶらで通えます。仕事帰りの「ついで」を、習慣に。
+            </p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ RESULTS / ビフォーアフター実績 ============ -->
+    <section class="results section" id="results">
+      <div class="container">
+        <header class="section__head section__head--center reveal" data-reveal>
+          <p class="section__eyebrow">REAL RESULTS</p>
+          <h2 class="section__title">数字が語る、<span class="section__title-accent">2ヶ月の変化</span></h2>
+          <p class="section__lead section__lead--center">
+            RINKAI 卒業生の平均的な変化を、架空のサンプルとしてまとめました。すべてイメージです。
+          </p>
+        </header>
+
+        <div class="results__grid">
+          <article class="result-card reveal" data-reveal>
+            <p class="result-card__person">Aさん・38歳・男性 / 会社員</p>
+            <div class="result-card__rows">
+              <div class="result-card__row">
+                <span class="result-card__metric">体重</span>
+                <span class="result-card__num"><span class="stat__num" data-count="82" data-suffix="kg">82kg</span></span>
+                <span class="result-card__arrow" aria-hidden="true">→</span>
+                <span class="result-card__after"><span class="stat__num" data-count="71" data-suffix="kg">71kg</span></span>
+              </div>
+              <div class="result-card__row">
+                <span class="result-card__metric">体脂肪率</span>
+                <span class="result-card__num"><span class="stat__num" data-count="28" data-suffix="%">28%</span></span>
+                <span class="result-card__arrow" aria-hidden="true">→</span>
+                <span class="result-card__after"><span class="stat__num" data-count="18" data-suffix="%">18%</span></span>
+              </div>
+            </div>
+            <p class="result-card__note">2ヶ月・週2回プログラム</p>
+          </article>
+
+          <article class="result-card reveal" data-reveal data-delay="120">
+            <p class="result-card__person">Bさん・45歳・女性 / 経営者</p>
+            <div class="result-card__rows">
+              <div class="result-card__row">
+                <span class="result-card__metric">体重</span>
+                <span class="result-card__num"><span class="stat__num" data-count="64" data-suffix="kg">64kg</span></span>
+                <span class="result-card__arrow" aria-hidden="true">→</span>
+                <span class="result-card__after"><span class="stat__num" data-count="56" data-suffix="kg">56kg</span></span>
+              </div>
+              <div class="result-card__row">
+                <span class="result-card__metric">ウエスト</span>
+                <span class="result-card__num"><span class="stat__num" data-count="78" data-suffix="cm">78cm</span></span>
+                <span class="result-card__arrow" aria-hidden="true">→</span>
+                <span class="result-card__after"><span class="stat__num" data-count="66" data-suffix="cm">66cm</span></span>
+              </div>
+            </div>
+            <p class="result-card__note">3ヶ月・週2回プログラム</p>
+          </article>
+
+          <article class="result-card reveal" data-reveal data-delay="240">
+            <p class="result-card__person">Cさん・29歳・男性 / エンジニア</p>
+            <div class="result-card__rows">
+              <div class="result-card__row">
+                <span class="result-card__metric">筋肉量</span>
+                <span class="result-card__num"><span class="stat__num" data-count="52" data-suffix="kg">52kg</span></span>
+                <span class="result-card__arrow" aria-hidden="true">→</span>
+                <span class="result-card__after"><span class="stat__num" data-count="57" data-suffix="kg">57kg</span></span>
+              </div>
+              <div class="result-card__row">
+                <span class="result-card__metric">ベンチプレス</span>
+                <span class="result-card__num"><span class="stat__num" data-count="50" data-suffix="kg">50kg</span></span>
+                <span class="result-card__arrow" aria-hidden="true">→</span>
+                <span class="result-card__after"><span class="stat__num" data-count="80" data-suffix="kg">80kg</span></span>
+              </div>
+            </div>
+            <p class="result-card__note">2ヶ月・週3回プログラム</p>
+          </article>
+        </div>
+
+        <p class="results__disclaimer">
+          ※ 効果には個人差があります。掲載の数値・人物・体験談はすべてポートフォリオ用に作成した架空のサンプルであり、特定の成果を保証するものではありません。
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ PRICING ============ -->
+    <section class="pricing section" id="pricing">
+      <div class="container">
+        <header class="section__head section__head--center reveal" data-reveal>
+          <p class="section__eyebrow">PRICE PLAN</p>
+          <h2 class="section__title">料金<span class="section__title-accent">プラン</span></h2>
+          <p class="section__lead section__lead--center">
+            表示は全て税込。入会金55,000円が、いまなら全プラン無料。30日間全額返金保証つき。
+          </p>
+        </header>
+
+        <div class="pricing__grid">
+          <article class="plan reveal" data-reveal>
+            <header class="plan__head">
+              <p class="plan__label">START</p>
+              <h3 class="plan__name">2ヶ月集中</h3>
+              <p class="plan__price"><span class="plan__amount">¥198,000</span></p>
+              <p class="plan__note">全16回・週2回 / 8週間</p>
+            </header>
+            <ul class="plan__list">
+              <li>マンツーマントレーニング 全16回</li>
+              <li>専用プログラム設計</li>
+              <li>毎日の食事フィードバック（LINE）</li>
+              <li>週次の体組成測定</li>
+              <li>ウェア・タオル・水素水の無料貸与</li>
+            </ul>
+            <p class="plan__desc">まずは結果を出したい方へ。最短2ヶ月のスタンダード。</p>
+            <a href="#cta" class="btn btn--outline plan__cta">このプランで相談する</a>
+          </article>
+
+          <article class="plan plan--featured reveal" data-reveal data-delay="120">
+            <span class="plan__ribbon">人気No.1</span>
+            <header class="plan__head">
+              <p class="plan__label">BODY MAKE</p>
+              <h3 class="plan__name">3ヶ月本格</h3>
+              <p class="plan__price"><span class="plan__amount">¥278,000</span></p>
+              <p class="plan__note">全24回・週2回 / 12週間</p>
+            </header>
+            <ul class="plan__list">
+              <li>「2ヶ月集中」のすべて</li>
+              <li>マンツーマン 全24回に増量</li>
+              <li>姿勢・可動域改善プログラム</li>
+              <li>卒業後3ヶ月のリバウンド防止サポート</li>
+              <li>栄養士による献立サポート</li>
+            </ul>
+            <p class="plan__desc">体型をしっかり変え、維持まで。いちばん選ばれる王道。</p>
+            <a href="#cta" class="btn btn--primary plan__cta">このプランで相談する</a>
+          </article>
+
+          <article class="plan reveal" data-reveal data-delay="240">
+            <header class="plan__head">
+              <p class="plan__label">KEEP</p>
+              <h3 class="plan__name">月額メンテ</h3>
+              <p class="plan__price"><span class="plan__amount">¥34,800</span><span class="plan__unit">／月</span></p>
+              <p class="plan__note">卒業生向け・月4回</p>
+            </header>
+            <ul class="plan__list">
+              <li>マンツーマントレーニング 月4回</li>
+              <li>体組成測定 月1回</li>
+              <li>食事相談はいつでもLINEで</li>
+              <li>会員価格でのオプション追加</li>
+              <li>いつでも休会・再開OK</li>
+            </ul>
+            <p class="plan__desc">手に入れた体を、無理なく維持する。卒業後の定番。</p>
+            <a href="#cta" class="btn btn--outline plan__cta">このプランで相談する</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VOICES / お客様の声 ============ -->
+    <section class="voices section" id="voices">
+      <div class="container">
+        <header class="section__head reveal" data-reveal>
+          <p class="section__eyebrow">CUSTOMER VOICE</p>
+          <h2 class="section__title">お客様の<span class="section__title-accent">声</span></h2>
+          <p class="section__lead">
+            数字の裏にある、それぞれの2ヶ月。通ってくださった方々の声を（架空のサンプル）。
+          </p>
+        </header>
+
+        <div class="voices__grid">
+          <figure class="voice reveal" data-reveal>
+            <span class="voice__quote" aria-hidden="true">"</span>
+            <blockquote class="voice__text">
+              何度もジムで挫折してきましたが、毎日LINEで食事を見てもらえるのが効きました。「サボれない」のではなく「ひとりじゃない」。気づいたら、階段を駆け上がる体になっていました。
+            </blockquote>
+            <figcaption class="voice__person">
+              <span class="voice__avatar" aria-hidden="true">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="" loading="lazy" width="52" height="52" />
+              </span>
+              <span class="voice__meta">
+                <span class="voice__name">Aさん・38歳・男性</span>
+                <span class="voice__detail">会社員 / 2ヶ月集中</span>
+              </span>
+            </figcaption>
+          </figure>
+
+          <figure class="voice reveal" data-reveal data-delay="120">
+            <span class="voice__quote" aria-hidden="true">"</span>
+            <blockquote class="voice__text">
+              経営者で時間が取れない私に、完全予約制と完全個室は最高でした。週2回30分でも、設計が緻密だから結果が出る。ウエストが12cm変わって、スーツを全部仕立て直しました。
+            </blockquote>
+            <figcaption class="voice__person">
+              <span class="voice__avatar" aria-hidden="true">
+                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="" loading="lazy" width="52" height="52" />
+              </span>
+              <span class="voice__meta">
+                <span class="voice__name">Bさん・45歳・女性</span>
+                <span class="voice__detail">経営者 / 3ヶ月本格</span>
+              </span>
+            </figcaption>
+          </figure>
+
+          <figure class="voice reveal" data-reveal data-delay="240">
+            <span class="voice__quote" aria-hidden="true">"</span>
+            <blockquote class="voice__text">
+              デスクワークで猫背と肩こりがひどかったのが、可動域から直してくれて激変。ベンチプレスが50kgから80kgまで伸びて、毎週の数字を見るのが楽しみになりました。
+            </blockquote>
+            <figcaption class="voice__person">
+              <span class="voice__avatar" aria-hidden="true">
+                <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="" loading="lazy" width="52" height="52" />
+              </span>
+              <span class="voice__meta">
+                <span class="voice__name">Cさん・29歳・男性</span>
+                <span class="voice__detail">エンジニア / 2ヶ月集中</span>
+              </span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="faq section" id="faq">
+      <div class="container container--narrow">
+        <header class="section__head reveal" data-reveal>
+          <p class="section__eyebrow">FAQ</p>
+          <h2 class="section__title">よくある<span class="section__title-accent">質問</span></h2>
+          <p class="section__lead">
+            体験予約の前に、よく寄せられるご質問をまとめました。
+          </p>
+        </header>
+
+        <div class="accordion">
+          <div class="accordion__item reveal" data-reveal>
+            <h3 class="accordion__heading">
+              <button class="accordion__trigger" aria-expanded="false" aria-controls="faq-1" id="faq-btn-1">
+                <span class="accordion__q">運動経験がまったくないのですが大丈夫ですか？</span>
+                <span class="accordion__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="accordion__panel" id="faq-1" role="region" aria-labelledby="faq-btn-1">
+              <div class="accordion__inner">
+                <p>むしろ初心者の方が大半です。会員の約7割が「ジムは初めて」か「過去に挫折」した方。初回に可動域と体力を計測し、無理のない強度から専属トレーナーが組み立てます。フォームはマンツーマンで丁寧に指導します。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion__item reveal" data-reveal>
+            <h3 class="accordion__heading">
+              <button class="accordion__trigger" aria-expanded="false" aria-controls="faq-2" id="faq-btn-2">
+                <span class="accordion__q">仕事が忙しく、続けられるか不安です。</span>
+                <span class="accordion__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="accordion__panel" id="faq-2" role="region" aria-labelledby="faq-btn-2">
+              <div class="accordion__inner">
+                <p>完全予約制なので、前日まで予約変更が可能です。営業は朝7時〜夜23時。ウェア・タオル・シューズは無料貸与で手ぶらでOK。1回30〜45分に設計しているため、仕事帰りや出社前にも通いやすい構成です。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion__item reveal" data-reveal>
+            <h3 class="accordion__heading">
+              <button class="accordion__trigger" aria-expanded="false" aria-controls="faq-3" id="faq-btn-3">
+                <span class="accordion__q">食事制限がつらそうで踏み出せません。</span>
+                <span class="accordion__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="accordion__panel" id="faq-3" role="region" aria-labelledby="faq-btn-3">
+              <div class="accordion__inner">
+                <p>RINKAI は極端な糖質制限を行いません。3食しっかり食べながらPFCバランスを整えるのが基本方針です。外食・飲み会も、専属トレーナーが事前にメニューの選び方をアドバイス。我慢ではなく「選び方」を身につけていただきます。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion__item reveal" data-reveal>
+            <h3 class="accordion__heading">
+              <button class="accordion__trigger" aria-expanded="false" aria-controls="faq-4" id="faq-btn-4">
+                <span class="accordion__q">本当に効果が出るのか、続かなかったらどうなりますか？</span>
+                <span class="accordion__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="accordion__panel" id="faq-4" role="region" aria-labelledby="faq-btn-4">
+              <div class="accordion__inner">
+                <p>ご入会から30日以内であれば、理由を問わず全額返金いたします（30日間全額返金保証）。まずはリスクなくお試しください。なお効果には個人差があり、特定の成果を保証するものではありません。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion__item reveal" data-reveal>
+            <h3 class="accordion__heading">
+              <button class="accordion__trigger" aria-expanded="false" aria-controls="faq-5" id="faq-btn-5">
+                <span class="accordion__q">追加で費用がかかることはありますか？</span>
+                <span class="accordion__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="accordion__panel" id="faq-5" role="region" aria-labelledby="faq-btn-5">
+              <div class="accordion__inner">
+                <p>プラン料金以外に必須の費用はありません。プロテインやサプリの購入を強制することは一切なく、必要な方にのみご希望に応じてご案内します。分割払い（最大36回）にも対応しています。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion__item reveal" data-reveal>
+            <h3 class="accordion__heading">
+              <button class="accordion__trigger" aria-expanded="false" aria-controls="faq-6" id="faq-btn-6">
+                <span class="accordion__q">体験当日は何を持っていけばいいですか？</span>
+                <span class="accordion__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="accordion__panel" id="faq-6" role="region" aria-labelledby="faq-btn-6">
+              <div class="accordion__inner">
+                <p>手ぶらでお越しいただけます。ウェア・シューズ・タオル・水素水はすべて無料でご用意。無料カウンセリングでは体組成測定とヒアリングを行い、あなた専用のプランをその場でご提案します（所要約60分）。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA / FORM ============ -->
+    <section class="cta section" id="cta">
+      <div class="container cta__inner">
+        <div class="cta__copy reveal" data-reveal>
+          <p class="section__eyebrow section__eyebrow--light">FREE TRIAL</p>
+          <h2 class="cta__title">いまの自分を、<br />2ヶ月後に追い越す。</h2>
+          <p class="cta__lead">
+            まずは無料カウンセリング（約60分）から。体組成測定とヒアリングをもとに、あなた専用のプランをその場でご提案します。しつこい勧誘は一切ありません。
+          </p>
+
+          <ul class="cta__contact">
+            <li>
+              <span class="cta__contact-label">LINE</span>
+              <a href="#cta" class="cta__contact-value">空き状況を相談する</a>
+            </li>
+            <li>
+              <span class="cta__contact-label">TEL</span>
+              <a href="tel:0300000000" class="cta__contact-value">03-XXXX-XXXX</a>
+              <span class="cta__contact-hours">07:00–23:00 / 年中無休 / 完全予約制</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="cta__form-wrap reveal" data-reveal data-delay="150">
+          <form class="form" id="reserveForm" novalidate>
+            <p class="form__intro">無料カウンセリングのお申し込み</p>
+
+            <div class="form__field">
+              <label class="form__label" for="name">お名前 <span class="form__req">必須</span></label>
+              <input
+                class="form__input"
+                type="text"
+                id="name"
+                name="name"
+                autocomplete="name"
+                placeholder="臨界 太郎"
+                aria-describedby="name-error"
+                required
+              />
+              <span class="form__error" id="name-error" aria-live="polite"></span>
+            </div>
+
+            <div class="form__field">
+              <label class="form__label" for="email">メールアドレス <span class="form__req">必須</span></label>
+              <input
+                class="form__input"
+                type="email"
+                id="email"
+                name="email"
+                autocomplete="email"
+                placeholder="you@example.com"
+                aria-describedby="email-error"
+                required
+              />
+              <span class="form__error" id="email-error" aria-live="polite"></span>
+            </div>
+
+            <div class="form__field">
+              <label class="form__label" for="plan">ご希望プラン <span class="form__opt">任意</span></label>
+              <select class="form__input form__select" id="plan" name="plan">
+                <option value="">未定・相談したい</option>
+                <option value="start">2ヶ月集中</option>
+                <option value="bodymake">3ヶ月本格</option>
+                <option value="keep">月額メンテ</option>
+              </select>
+            </div>
+
+            <div class="form__field">
+              <label class="form__label" for="message">ご相談・目標 <span class="form__opt">任意</span></label>
+              <textarea
+                class="form__input form__textarea"
+                id="message"
+                name="message"
+                rows="3"
+                placeholder="目標体重や、いつまでに変わりたいかなどがあればお書きください。"
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn btn--primary form__submit">この内容で無料予約する</button>
+
+            <p class="form__success" id="formSuccess" role="status" hidden>
+              お申し込みありがとうございます。2営業日以内に、ご記入のメールアドレスへご連絡いたします。
+            </p>
+            <p class="form__privacy">送信いただいた情報は、ご連絡の目的以外には使用しません。</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <span class="footer__mark" aria-hidden="true">
+          <svg width="34" height="34" viewBox="0 0 30 30" fill="none">
+            <rect x="2" y="2" width="26" height="26" rx="6" stroke="currentColor" stroke-width="2" />
+            <path d="M9 21V9h5.5a3.5 3.5 0 0 1 0 7H11M14 16l4.5 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </span>
+        <p class="footer__name">臨界 -RINKAI-</p>
+        <p class="footer__tagline">2ヶ月で、別人の自分へ。</p>
+      </div>
+
+      <nav class="footer__nav" aria-label="フッターナビゲーション">
+        <ul>
+          <li><a href="#features">選ばれる理由</a></li>
+          <li><a href="#results">実績</a></li>
+          <li><a href="#pricing">料金プラン</a></li>
+          <li><a href="#voices">お客様の声</a></li>
+          <li><a href="#faq">よくある質問</a></li>
+          <li><a href="#cta">無料体験予約</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer__info">
+        <p>東京都渋谷区恵比寿 ◯-◯-◯（架空）</p>
+        <p>07:00–23:00 / 年中無休 / 完全予約制</p>
+        <p>03-XXXX-XXXX</p>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <div class="container">
+        <p class="footer__note">※これはポートフォリオ用に制作した架空のサンプルです。掲載のブランド・住所・電話番号・料金・お客様の声・実績数値はすべてフィクションです。</p>
+        <p class="footer__copy">© 2026 RINKAI (fictional). All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============ MOBILE STICKY CTA ============ -->
+  <a class="sticky-cta" href="#cta" aria-label="無料カウンセリングを予約する">
+    <span class="sticky-cta__text">無料カウンセリング予約</span>
+  </a>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Web制作ポートフォリオ｜架空ブランド3作品のLP</title>
-  <meta name="description" content="フレームワーク不使用のvanilla HTML / CSS / JS で制作した、架空ブランドのランディングページ3作品。オンラインスクール「Atelier Lumen」、コーヒー焙煎所「焙煎所 茜」、プライベートサロン「月白」。" />
+  <title>Web制作ポートフォリオ｜架空ブランドのLP4作品＋サイト改修事例</title>
+  <meta name="description" content="フレームワーク不使用のvanilla HTML / CSS / JS で制作した、架空ブランドのランディングページ4作品（オンラインスクール・コーヒー焙煎所・美容サロン・パーソナルジム）と、既存サイトのビフォーアフター改修事例をまとめたWeb制作ポートフォリオ。" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Web制作ポートフォリオ｜架空ブランド3作品のLP" />
-  <meta property="og:description" content="vanilla HTML / CSS / JS で制作した、架空ブランドのランディングページ3作品。" />
+  <meta property="og:title" content="Web制作ポートフォリオ｜架空ブランドのLP4作品＋サイト改修事例" />
+  <meta property="og:description" content="vanilla HTML / CSS / JS で制作した架空ブランドのLP4作品と、既存サイトのビフォーアフター改修事例。" />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -44,6 +44,10 @@
       --tsuki-primary: #1f2a28;
       --tsuki-accent: #a88b6a;
       --tsuki-bg: #f4f1eb;
+
+      --gym-primary: #17171b;
+      --gym-accent: #c8ff00;
+      --gym-bg: #101015;
 
       --serif: "Shippori Mincho B1", "Hiragino Mincho ProN", serif;
       --sans: "Zen Kaku Gothic New", "Hiragino Sans", "Noto Sans JP", sans-serif;
@@ -440,6 +444,57 @@
       --card-accent: var(--tsuki-accent);
       --card-grad: linear-gradient(150deg, #18211f 0%, #1f2a28 55%, #3a4d49 110%);
     }
+    .card--gym {
+      --card-primary: var(--gym-primary);
+      --card-accent: var(--gym-accent);
+      --card-grad: linear-gradient(150deg, #0b0b0e 0%, #17171b 55%, #21240c 130%);
+    }
+
+    /* ============ REFRESH (Before / After) ============ */
+    .refresh { padding-block: clamp(2rem, 5vw, 3rem) clamp(3.5rem, 8vw, 6rem); }
+    .refresh-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+    }
+    .refresh-card__grid { display: grid; grid-template-columns: 1fr auto 1fr; align-items: stretch; }
+    .refresh-panel { padding: clamp(1.4rem, 3.5vw, 2.4rem); }
+    .refresh-panel--before { background: #ece7dd; color: #4a4336; }
+    .refresh-panel--after { background: #0f3b38; color: #eaf4f2; }
+    .refresh-panel__tag {
+      display: inline-block; font-weight: 700; font-size: 0.76rem; letter-spacing: 0.14em;
+      padding: 0.25rem 0.72rem; border-radius: 999px;
+      background: rgba(74, 67, 54, 0.16); color: #5f5440;
+    }
+    .refresh-panel__tag--after { background: rgba(200, 255, 0, 0.16); color: #d6f56a; }
+    .refresh-panel__year { margin-top: 0.7rem; font-weight: 700; font-size: clamp(1rem, 2.4vw, 1.2rem); line-height: 1.5; }
+    .refresh-panel__list { margin-top: 0.9rem; padding-left: 1.15rem; font-size: 0.92rem; line-height: 1.85; }
+    .refresh-panel--before .refresh-panel__list { color: #5b5142; }
+    .refresh-arrow { display: grid; place-items: center; font-size: 1.5rem; color: var(--gold); background: var(--panel); padding-inline: 0.35rem; }
+    .refresh-card__foot {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 1rem 1.4rem; padding: clamp(1.2rem, 3vw, 1.7rem) clamp(1.4rem, 3.5vw, 2.4rem);
+      border-top: 1px solid var(--line);
+    }
+    .refresh-card__desc { flex: 1 1 320px; font-size: 0.9rem; color: rgba(26, 28, 34, 0.72); margin: 0; }
+    .refresh-card__actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .refresh-card__link {
+      display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none;
+      background: var(--bg-deep); color: #fff; padding: 0.72rem 1.35rem; border-radius: 999px;
+      font-weight: 700; font-size: 0.92rem; transition: filter 0.25s var(--ease), gap 0.25s var(--ease);
+    }
+    .refresh-card__link::after { content: "→"; transition: transform 0.25s var(--ease); }
+    .refresh-card__link:hover { filter: brightness(1.35); gap: 0.8rem; }
+    .refresh-card__link:hover::after { transform: translateX(3px); }
+    .refresh-card__sub { color: rgba(26, 28, 34, 0.64); font-size: 0.88rem; text-decoration: underline; text-underline-offset: 3px; }
+    .refresh-card__sub:hover { color: var(--bg-deep); }
+    @media (max-width: 680px) {
+      .refresh-card__grid { grid-template-columns: 1fr; }
+      .refresh-arrow { padding-block: 0.5rem; }
+      .refresh-arrow span { display: inline-block; transform: rotate(90deg); }
+    }
 
     /* ============ TECH ============ */
     .tech {
@@ -514,6 +569,12 @@
       * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
     }
   </style>
+  <noscript>
+    <style>
+      /* JavaScript 無効時もカードを確実に表示（スクロールイン演出のフォールバック） */
+      .card { opacity: 1 !important; transform: none !important; }
+    </style>
+  </noscript>
 </head>
 <body>
   <a class="skip-link" href="#works">作品一覧へスキップ</a>
@@ -536,8 +597,9 @@
       </a>
       <nav class="header__nav" aria-label="メインナビゲーション">
         <a href="#works">作品</a>
+        <a href="#refresh">改修事例</a>
         <a href="#tech">技術</a>
-        <a href="https://github.com/" class="nav-cta" rel="noopener">お問い合わせ</a>
+        <a href="https://crowdworks.jp/public/employees/3919155/" class="nav-cta" rel="noopener noreferrer" target="_blank">お問い合わせ</a>
       </nav>
     </div>
   </header>
@@ -549,7 +611,7 @@
         <p class="hero__eyebrow">Front-end / Landing Page Design</p>
         <h1 class="hero__title">ブランドの世界観を、<br /><em>そのまま画面に。</em></h1>
         <p class="hero__lead">
-          フレームワークに頼らず、vanilla な HTML / CSS / JavaScript だけで仕上げた、架空ブランドのランディングページ3作品です。
+          フレームワークに頼らず、vanilla な HTML / CSS / JavaScript だけで仕上げた、架空ブランドのランディングページ4作品です。
           コンセプト設計・コピー・配色・実装まで、一貫してデザインしました。気になる作品をご覧ください。
         </p>
         <ul class="hero__meta">
@@ -565,8 +627,8 @@
     <section class="works" id="works">
       <div class="container">
         <header class="section-head">
-          <p class="section-head__eyebrow">Works — 3 Brands</p>
-          <h2 class="section-head__title">3つの架空ブランドのLP</h2>
+          <p class="section-head__eyebrow">Works — 4 Brands</p>
+          <h2 class="section-head__title">4つの架空ブランドのLP</h2>
           <p class="section-head__lead">
             それぞれ業種・ターゲット・トーンの異なる架空ブランドを想定し、ブランドごとに固有の配色と書体、動きを設計しています。
           </p>
@@ -677,7 +739,89 @@
             </div>
           </article>
 
+          <!-- 04 臨界 RINKAI -->
+          <article class="card card--gym">
+            <div class="card__visual">
+              <span class="card__glow" aria-hidden="true"></span>
+              <span class="card__genre">パーソナルジム</span>
+              <svg viewBox="0 0 400 250" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+                <path d="M0 210 L70 210 L70 150 L140 150 L140 95 L210 95 L210 55 L280 55 L280 25 L400 25" fill="none" stroke="var(--gym-accent)" stroke-width="2" opacity="0.7" stroke-linejoin="round" />
+                <path d="M0 235 L80 235 L80 185 L160 185 L160 140 L240 140 L240 100 L320 100 L320 70 L400 70" fill="none" stroke="var(--gym-accent)" stroke-width="1" opacity="0.26" stroke-linejoin="round" />
+                <circle cx="280" cy="25" r="3.4" fill="var(--gym-accent)" />
+              </svg>
+              <div class="card__logo">
+                <svg class="card__logo-mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12.5v7M9 10.5v11M27 12.5v7M23 10.5v11" />
+                  <rect x="9" y="14.5" width="14" height="3" rx="1.2" fill="currentColor" stroke="none" />
+                </svg>
+                <span class="card__logo-name">臨界</span>
+                <span class="card__logo-en">RINKAI</span>
+              </div>
+            </div>
+            <div class="card__body">
+              <p class="card__catch">2ヶ月で、別人の自分へ。</p>
+              <p class="card__desc">
+                恵比寿の完全予約制パーソナルジムを想定したLP。漆黒×電光ライムの大胆な配色と数字のカウントアップで、「データで結果まで伴走する」高揚感とスピード感を表現しました。
+              </p>
+              <ul class="card__tags">
+                <li class="card__tag"># 数字カウントアップ</li>
+                <li class="card__tag"># ビフォーアフター実績</li>
+                <li class="card__tag"># スティッキー予約CTA</li>
+              </ul>
+              <a class="card__link" href="./personal-gym/">作品を見る</a>
+            </div>
+          </article>
+
         </div>
+      </div>
+    </section>
+
+    <!-- ============ REFRESH (Before / After) ============ -->
+    <section class="refresh" id="refresh">
+      <div class="container">
+        <header class="section-head">
+          <p class="section-head__eyebrow">Case Study — Site Refresh</p>
+          <h2 class="section-head__title">サイト改修 ビフォーアフター</h2>
+          <p class="section-head__lead">
+            古い作りのサイトを、スマホ対応・読みやすさ・アクセシビリティ・集客導線の観点で作り直すと何が変わるか。架空の整骨院サイトを題材に、改修前後を比較できる事例です。
+          </p>
+        </header>
+
+        <article class="refresh-card">
+          <div class="refresh-card__grid">
+            <div class="refresh-panel refresh-panel--before">
+              <span class="refresh-panel__tag">Before</span>
+              <p class="refresh-panel__year">2008年当時の作り</p>
+              <ul class="refresh-panel__list">
+                <li>スマホ非対応（横スクロール必須）</li>
+                <li>テーブルレイアウト・12pxの小さな文字</li>
+                <li>低コントラスト・古い演出（marquee 等）</li>
+                <li>電話番号がタップ発信できない</li>
+              </ul>
+            </div>
+            <div class="refresh-arrow" aria-hidden="true"><span>→</span></div>
+            <div class="refresh-panel refresh-panel--after">
+              <span class="refresh-panel__tag refresh-panel__tag--after">After</span>
+              <p class="refresh-panel__year">現行の標準（レスポンシブ）</p>
+              <ul class="refresh-panel__list">
+                <li>モバイルファースト・横スクロールなし</li>
+                <li>CSS Grid / Flex・clamp() で可読性向上</li>
+                <li>WCAG AA・セマンティックHTML5</li>
+                <li>tel: リンク＋24時間予約フォーム</li>
+              </ul>
+            </div>
+          </div>
+          <div class="refresh-card__foot">
+            <p class="refresh-card__desc">
+              「なぜその変更が来院・問い合わせにつながるのか」を一つひとつ言語化した、Before→After対応表つきの改修事例です。
+            </p>
+            <div class="refresh-card__actions">
+              <a class="refresh-card__link" href="./case-study-refresh/">改修事例を見る</a>
+              <a class="refresh-card__sub" href="./case-study-refresh/before/">改修前</a>
+              <a class="refresh-card__sub" href="./case-study-refresh/after/">改修後</a>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -722,6 +866,8 @@
           <a href="./online-school/">Atelier Lumen</a>
           <a href="./cafe/">焙煎所 茜</a>
           <a href="./beauty-salon/">月白</a>
+          <a href="./personal-gym/">臨界 RINKAI</a>
+          <a href="./case-study-refresh/">サイト改修事例</a>
         </nav>
       </div>
       <div class="site-footer__bottom">
