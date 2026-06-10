@@ -616,7 +616,7 @@ h1, h2, h3, h4 {
   position: absolute; inset: 0; z-index: -1;
   background:
     linear-gradient(150deg, rgba(34,22,14,0.92), rgba(58,42,30,0.96)),
-    url("https://picsum.photos/seed/akanecta88/1600/900") center / cover no-repeat;
+    linear-gradient(135deg, #2B1A12, #6B3A1F 55%, #C2632B);
 }
 .cta-section .section-title { color: var(--c-white); }
 .cta-section .section-lead { color: rgba(251,247,239,0.85); }
@@ -690,6 +690,18 @@ h1, h2, h3, h4 {
   text-align: center;
 }
 
+/* JS無効時の案内（noscript内で表示。送信ボタンの代わりに出す） */
+.form-nojs-note {
+  background: #F7EFE3;
+  border: 1.5px solid var(--c-secondary);
+  color: var(--c-primary);
+  border-radius: var(--radius);
+  padding: 1rem 1.2rem;
+  font-weight: 500;
+  font-size: 0.92rem;
+  text-align: center;
+}
+
 /* ============================================================
    Footer
    ============================================================ */
@@ -750,7 +762,8 @@ h1, h2, h3, h4 {
 /* ============================================================
    Reveal animation
    ============================================================ */
-.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
+/* JS有効時（html.js）のみ初期非表示にする。JS無効時は本文がそのまま見える */
+.js .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
 .reveal.is-visible { opacity: 1; transform: none; }
 /* stagger within a grid */
 .feature-grid .reveal.is-visible,
@@ -775,10 +788,12 @@ h1, h2, h3, h4 {
     padding: calc(var(--header-h) + 1.5rem) 1.75rem 2rem;
     box-shadow: -10px 0 40px rgba(0,0,0,0.18);
     transform: translateX(100%);
-    transition: transform 0.4s var(--ease);
+    /* 閉時は visibility も隠し、Tab/スクリーンリーダーから到達不可にする */
+    visibility: hidden;
+    transition: transform 0.4s var(--ease), visibility 0.4s var(--ease);
     overflow-y: auto;
   }
-  .nav-menu.open { transform: translateX(0); }
+  .nav-menu.open { transform: translateX(0); visibility: visible; }
   .nav-menu > li { width: 100%; }
   .nav-menu > li > a { display: block; color: var(--c-primary) !important; padding: 0.75rem 0; font-size: 1.05rem; border-bottom: 1px solid var(--c-line); }
   .nav-cta { display: inline-block; margin-top: 0.8rem; border-bottom: none !important; color: var(--c-white) !important; }

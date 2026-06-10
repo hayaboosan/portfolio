@@ -38,7 +38,7 @@
 
   <!-- abstract barbell mark, upper right -->
   <g transform="translate(1150 470)" stroke="#C8FF00" stroke-opacity="0.5" stroke-width="10" stroke-linecap="round" fill="none">
-    <line x1="-150" y1="0" x2="150" y2="0"/>
+    <line x1="-215" y1="0" x2="215" y2="0"/>
     <line x1="-150" y1="-55" x2="-150" y2="55"/>
     <line x1="150" y1="-55" x2="150" y2="55"/>
     <line x1="-195" y1="-35" x2="-195" y2="35"/>

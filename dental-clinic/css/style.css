@@ -310,6 +310,8 @@ table {
   align-items: center;
   gap: 0.6rem;
   color: var(--color-heading);
+  flex-shrink: 0;       /* ナビが詰まってもロゴ名を折り返さない */
+  white-space: nowrap;
 }
 .brand__mark {
   display: grid;
@@ -355,6 +357,7 @@ table {
   padding-block: 0.4rem;
   color: var(--color-text);
   transition: color 0.3s var(--ease);
+  white-space: nowrap; /* ラベル途中での折り返し防止（ヘッダーからのはみ出し事故防止） */
 }
 .nav__link::after {
   content: "";
@@ -1571,7 +1574,9 @@ a.reserve__contact-value:hover {
   }
 }
 
-@media (max-width: 760px) {
+/* モバイルドロワー（<=900px）
+   ※ ナビ7項目＋CTAが1行に収まる幅からデスクトップ表示（折り返し防止） */
+@media (max-width: 900px) {
   html {
     scroll-padding-top: 66px;
   }
@@ -1593,11 +1598,14 @@ a.reserve__contact-value:hover {
     background: #ffffff;
     box-shadow: -20px 0 60px -30px rgba(20, 60, 90, 0.5);
     transform: translateX(100%);
-    transition: transform 0.45s var(--ease);
+    /* 閉じている間は Tab・スクリーンリーダーからも隠す */
+    visibility: hidden;
+    transition: transform 0.45s var(--ease), visibility 0.45s var(--ease);
     z-index: 105;
   }
   .nav__menu.is-open {
     transform: translateX(0);
+    visibility: visible;
   }
   .nav__link {
     font-size: 1.1rem;

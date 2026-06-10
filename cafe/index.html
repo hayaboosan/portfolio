@@ -1,10 +1,25 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" class="no-js">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Mark JS as available before render so progressive-enhancement styles
+       (e.g. collapsed FAQ panels) only apply when JS can actually open them. -->
+  <script>
+    document.documentElement.classList.remove('no-js');
+    document.documentElement.classList.add('js');
+  </script>
   <title>焙煎所 茜 -AKANE ROASTERY- | 一杯に、夜明けの色を。</title>
   <meta name="description" content="スペシャルティコーヒーと自家製焼き菓子の焙煎所「茜」。毎朝この場所で焙煎する、香り立つ一杯を。" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23C2632B'/%3E%3Ctext x='16' y='22.5' font-family='Segoe UI,sans-serif' font-size='17' font-weight='700' fill='%23FFFFFF' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="焙煎所 茜 -AKANE ROASTERY-" />
+  <meta property="og:description" content="一杯に、夜明けの色を。スペシャルティコーヒーと自家製焼き菓子の焙煎所。" />
+  <meta property="og:image" content="https://hayaboosan.github.io/portfolio/assets/og/cafe.png" />
+  <link rel="canonical" href="https://hayaboosan.github.io/portfolio/cafe/" />
+  <meta property="og:url" content="https://hayaboosan.github.io/portfolio/cafe/" />
 
   <!-- Google Fonts: 日本語対応 / display=swap -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -53,7 +68,7 @@
     <!-- ============ ヒーロー ============ -->
     <section class="hero" id="hero">
       <div class="hero-media">
-        <img src="https://picsum.photos/seed/akanehero42/1600/1000" alt="薄暗い早朝の焙煎所。焙煎機から湯気が立ち、窓から茜色の朝日が差し込む店内。" loading="eager" />
+        <img src="assets/hero-roastery.svg" alt="薄暗い早朝の焙煎所。焙煎機から湯気が立ち、窓から茜色の朝日が差し込む店内。" loading="eager" />
         <div class="hero-overlay" aria-hidden="true"></div>
         <!-- 立ちのぼる湯気(装飾SVG) -->
         <svg class="hero-steam" viewBox="0 0 120 200" aria-hidden="true">
@@ -94,15 +109,15 @@
         <!-- 数字バー(カウントアップ) -->
         <div class="stats reveal" role="list">
           <div class="stat" role="listitem">
-            <span class="stat-num" data-count="48" data-suffix="h">0</span>
+            <span class="stat-num" data-count="48" data-suffix="h">48h</span>
             <span class="stat-label">焙煎後の提供基準</span>
           </div>
           <div class="stat" role="listitem">
-            <span class="stat-num" data-count="7" data-suffix="種">0</span>
+            <span class="stat-num" data-count="7" data-suffix="種">7種</span>
             <span class="stat-label">季節の豆ラインナップ</span>
           </div>
           <div class="stat" role="listitem">
-            <span class="stat-num" data-count="3" data-suffix="ヶ国">0</span>
+            <span class="stat-num" data-count="3" data-suffix="ヶ国">3ヶ国</span>
             <span class="stat-label">ダイレクトトレード産地</span>
           </div>
         </div>
@@ -131,7 +146,7 @@
               </svg>
             </span>
             <h3 class="feature-title">産地まで、顔の見える豆。</h3>
-            <p>エチオピア、グアテマラ、インドネシア。生産者と直接つながるダイレクトトレードの豆を、季節ごとに5〜7種類。すべて産地と農園名を明記しています。</p>
+            <p>エチオピア、グアテマラ、インドネシア。生産者と直接つながるダイレクトトレードの豆を、季節ごとに7種類。すべて産地と農園名を明記しています。</p>
           </li>
 
           <li class="feature-card reveal">
@@ -197,7 +212,7 @@
             <ul class="price-list">
               <li>本日のスペシャルティ豆から1種をハンドドリップ</li>
               <li>茜オリジナルブレンドも選択可</li>
-              <li>おかわり(同一豆)は¥300</li>
+              <li>おかわり（同一豆）は¥300</li>
             </ul>
             <a class="btn btn-outline" href="#cta">この一杯で行く</a>
           </article>
@@ -209,7 +224,7 @@
             <p class="price-amount"><span class="price-num">¥1,180</span></p>
             <ul class="price-list">
               <li>お好きなシングルオリジン1杯</li>
-              <li>本日の焼きたて菓子から1点(スコーン/パウンドケーキ等)</li>
+              <li>本日の焼きたて菓子から1点（スコーン/パウンドケーキ等）</li>
               <li>バリスタによる豆と菓子の組み合わせ提案つき</li>
             </ul>
             <a class="btn btn-primary" href="#cta">セットを予約する</a>
@@ -217,8 +232,8 @@
 
           <article class="price-card reveal">
             <p class="price-label">SUBSCRIPTION</p>
-            <h3 class="price-name">茜の定期便(月替わり)</h3>
-            <p class="price-amount"><span class="price-num">¥3,800</span><span class="price-unit">/月(送料込)</span></p>
+            <h3 class="price-name">茜の定期便（月替わり）</h3>
+            <p class="price-amount"><span class="price-num">¥3,800</span><span class="price-unit">/月（送料込）</span></p>
             <ul class="price-list">
               <li>毎月厳選した自家焙煎豆200g×2種を自宅へ</li>
               <li>テイスティングノートと抽出レシピカード同梱</li>
@@ -245,7 +260,7 @@
             <span class="quote-mark" aria-hidden="true">”</span>
             <blockquote>朝いちばんの一杯のために、わざわざ電車で。休日の朝、開店と同時に通っています。焙煎したての香りで満たされた店内に座ると、それだけで一週間の疲れがほどけていく。エチオピアの浅煎りが、私の定番です。</blockquote>
             <figcaption class="voice-person">
-              <img src="https://randomuser.me/api/portraits/women/12.jpg" alt="お客様 田村紗英さんのポートレート" loading="lazy" />
+              <img src="assets/avatar-1.svg" alt="" loading="lazy" />
               <span>
                 <span class="voice-name">田村 紗英 さん</span>
                 <span class="voice-role">38歳・グラフィックデザイナー</span>
@@ -257,7 +272,7 @@
             <span class="quote-mark" aria-hidden="true">”</span>
             <blockquote>コーヒーが苦手だった妻が、ここでファンになった。豆ごとに味がこんなに違うのかと驚きました。バリスタの方が好みを聞いて選んでくれるので、何を頼んでも外れがない。今は夫婦で月替わりの便を楽しんでいます。</blockquote>
             <figcaption class="voice-person">
-              <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="お客様 小林健悟さんのポートレート" loading="lazy" />
+              <img src="assets/avatar-2.svg" alt="" loading="lazy" />
               <span>
                 <span class="voice-name">小林 健悟 さん</span>
                 <span class="voice-role">42歳・会社員</span>
@@ -269,7 +284,7 @@
             <span class="quote-mark" aria-hidden="true">”</span>
             <blockquote>在宅ワークの“逃げ場”が、最高の仕事場になった。静かで長居しやすく、Wi-Fiも電源もある。何より一杯が本当に美味しいので、集中力が続きます。午後の煮詰まった頭を、ここの深煎りがいつもリセットしてくれます。</blockquote>
             <figcaption class="voice-person">
-              <img src="https://randomuser.me/api/portraits/women/90.jpg" alt="お客様 大野真琴さんのポートレート" loading="lazy" />
+              <img src="assets/avatar-3.svg" alt="" loading="lazy" />
               <span>
                 <span class="voice-name">大野 真琴 さん</span>
                 <span class="voice-role">34歳・フリーランス編集者</span>
@@ -377,7 +392,7 @@
           </p>
         </header>
 
-        <form class="contact-form reveal" id="contactForm" novalidate>
+        <form class="contact-form reveal" id="contactForm">
           <div class="field">
             <label for="name">お名前 <span class="req">必須</span></label>
             <input type="text" id="name" name="name" autocomplete="name" required aria-required="true" aria-describedby="err-name" placeholder="例：茜 太郎" />
@@ -411,6 +426,17 @@
             <!-- フォームから離脱させず、ご用件を「定期便」にプリセットして記入を継続させる -->
             <button type="button" class="btn btn-ghost-dark btn-block" id="presetSubscription">月替わりの定期便を始める</button>
           </div>
+
+          <!-- JS無効時のガード: デモ送信ガードが効かずGET送信で入力内容がURLに漏れるため、
+               送信ボタンを隠して案内を表示する -->
+          <noscript>
+            <style>
+              .cta-actions { display: none; }
+            </style>
+            <p class="form-nojs-note">
+              フォームの送信には JavaScript が必要です。お手数ですが、ブラウザの JavaScript を有効にしてご利用ください。店頭でも直接ご予約を承ります（営業時間 7:00 - 18:00 / 火曜定休）。
+            </p>
+          </noscript>
 
           <p class="form-success" id="formSuccess" role="status" hidden>
             ご送信ありがとうございます。担当より折り返しご連絡いたします。（※これはデモ送信です）

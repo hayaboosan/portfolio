@@ -80,7 +80,7 @@
     });
 
     window.addEventListener('resize', function () {
-      if (window.innerWidth > 760 && navMenu.classList.contains('is-open')) {
+      if (window.innerWidth > 900 && navMenu.classList.contains('is-open')) {
         closeNav();
       }
     });
@@ -334,6 +334,10 @@
      --------------------------------------------------------- */
   var form = document.getElementById('reserveForm');
   if (form) {
+    // JS有効時のみブラウザ標準の検証を止め、下記の独自検証に切り替える
+    // （静的に novalidate を付けると JS無効時に未検証のまま送信されるため）
+    form.setAttribute('novalidate', 'novalidate');
+
     var nameInput = document.getElementById('name');
     var telInput = document.getElementById('tel');
     var emailInput = document.getElementById('email');

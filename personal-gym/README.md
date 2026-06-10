@@ -55,7 +55,7 @@
   - ディスプレイ見出し：Anton
   - 見出し補助 / ラベル：Oswald
   - 本文：Noto Sans JP
-- **画像**：お客様の声のアバターは [randomuser.me](https://randomuser.me)、OGP は [picsum.photos](https://picsum.photos) の固定 seed URL（404 を出さない安定参照）+ `loading="lazy"`。ヒーロー背景・アイコン・装飾はインライン / 外部 SVG と CSS グラデーションで自作。
+- **画像**：お客様の声のアバターは自作の抽象シルエット SVG（`assets/avatar-1.svg`〜`avatar-3.svg`、実在人物の写真は不使用）+ `loading="lazy"`。OGP は自作 PNG（`/portfolio/assets/og/personal-gym.png`）。ヒーロー背景・アイコン・装飾はインライン / 外部 SVG と CSS グラデーションで自作。
 
 ### アクセシビリティ
 - 本文へのスキップリンク、`lang="ja"`
@@ -98,7 +98,8 @@ personal-gym/
 ├─ js/
 │  └─ main.js        … インタラクション（バニラ JS）
 ├─ assets/
-│  └─ hero.svg       … ヒーロー背景（自作 SVG）
+│  ├─ hero.svg       … ヒーロー背景（自作 SVG）
+│  └─ avatar-1.svg〜avatar-3.svg … お客様の声アバター（自作 SVG）
 └─ README.md         … このファイル
 ```
 
@@ -106,7 +107,7 @@ personal-gym/
 
 ## ローカルでの開き方
 
-外部依存（Google Fonts / randomuser.me / picsum.photos）の読み込みにインターネット接続が必要です。
+外部依存（Google Fonts）の読み込みにインターネット接続が必要です。
 
 ### 方法 A：ファイルを直接開く（最も簡単）
 `index.html` をダブルクリック、またはブラウザにドラッグ＆ドロップして開きます。

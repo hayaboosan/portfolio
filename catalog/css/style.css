@@ -652,11 +652,12 @@ input, select { font: inherit; color: inherit; }
     border: none;
     border-right: 1px solid var(--line);
     transform: translateX(-100%);
-    transition: transform 0.3s var(--ease);
+    visibility: hidden; /* 閉状態ではTab・スクリーンリーダーからも隠す */
+    transition: transform 0.3s var(--ease), visibility 0.3s var(--ease);
     z-index: 60;
     box-shadow: var(--shadow-md);
   }
-  .filters.is-open { transform: none; }
+  .filters.is-open { transform: none; visibility: visible; }
   .filters__head { display: flex; }
   .filters__apply { display: inline-flex; flex: 1; }
   .results__filter-toggle { display: inline-flex; }

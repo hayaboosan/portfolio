@@ -250,6 +250,10 @@
   }
 
   if (form) {
+    // JS有効時のみブラウザ標準の検証を無効化し、独自バリデーションに切り替える
+    // （HTML側に novalidate を直書きすると、JS無効時に未検証のまま送信されてしまうため）
+    form.setAttribute('novalidate', 'novalidate');
+
     var validatable = Array.prototype.slice.call(
       form.querySelectorAll('input[required], textarea[required], input[type="email"]')
     );

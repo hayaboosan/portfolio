@@ -138,7 +138,8 @@
     hash = hash.replace(/^#/, '');
     // 期待形式: r=...
     var m = /(?:^|&)r=([^&]*)/.exec(hash);
-    var payload = m ? decodeURIComponent(m[1]) : '';
+    // 不正な%エンコードで decodeURIComponent が URIError を投げても画面を壊さない
+    var payload = ''; if (m) { try { payload = decodeURIComponent(m[1]); } catch (e) { payload = ''; } }
     if (!payload) return next;
 
     payload.split('~').forEach(function (seg) {
@@ -170,24 +171,28 @@
 
   var suppressHashWrite = false;
   var hashWriteTimer = null;
+  // 即時にURLへ反映する版。コピー直前など「今の状態のURL」が必要な場面で使う
+  function writeHashNow() {
+    if (suppressHashWrite) return;
+    window.clearTimeout(hashWriteTimer);
+    var enc = encodeState();
+    var newHash = enc ? '#r=' + encodeURIComponent(enc) : '';
+    // 履歴を汚さず置換
+    var url = location.pathname + location.search + newHash;
+    try {
+      history.replaceState(null, '', url);
+    } catch (e) {
+      // file:// などで失敗する場合のフォールバック
+      if (location.hash !== newHash) location.hash = newHash;
+    }
+  }
   function writeHash() {
     if (suppressHashWrite) return;
     // スライダー連続入力で Safari の replaceState 回数制限(100回/30秒)に
     // 達しないようデバウンス。状態は発火時点で読むため、デバウンス中に
     // 戻る/進むが起きても現在のURLと同一内容の置換になり安全。
     window.clearTimeout(hashWriteTimer);
-    hashWriteTimer = window.setTimeout(function () {
-      var enc = encodeState();
-      var newHash = enc ? '#r=' + encodeURIComponent(enc) : '';
-      // 履歴を汚さず置換
-      var url = location.pathname + location.search + newHash;
-      try {
-        history.replaceState(null, '', url);
-      } catch (e) {
-        // file:// などで失敗する場合のフォールバック
-        if (location.hash !== newHash) location.hash = newHash;
-      }
-    }, 250);
+    hashWriteTimer = window.setTimeout(writeHashNow, 250);
   }
 
   /* ---------------------------------------------------------
@@ -703,6 +708,8 @@
       showCopyStatus('箇所を選んでからコピーしてください。', true);
       return;
     }
+    // デバウンス待ちの変更を共有URLへ即時反映してからコピー文面を作る
+    writeHashNow();
     var text = buildPlainText(lastResult);
     var labelSpan = elCopyBtn.querySelector('.btn__label');
     function onOk() {

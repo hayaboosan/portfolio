@@ -11,12 +11,15 @@
   </script>
   <title>臨界 -RINKAI-｜完全予約制パーソナルジム｜2ヶ月で、別人の自分へ。</title>
   <meta name="description" content="東京・恵比寿の完全予約制パーソナルジム RINKAI（臨界）。専属トレーナーがマンツーマンで設計する2ヶ月集中プログラム。食事も、トレーニングも、数字で伴走。無料カウンセリング受付中。" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23C6F53F'/%3E%3Ctext x='16' y='22.5' font-family='Segoe UI,sans-serif' font-size='17' font-weight='700' fill='%230C0C0C' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E" />
+  <link rel="canonical" href="https://hayaboosan.github.io/portfolio/personal-gym/" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://hayaboosan.github.io/portfolio/personal-gym/" />
   <meta property="og:title" content="臨界 -RINKAI- パーソナルジム" />
   <meta property="og:description" content="2ヶ月で、別人の自分へ。恵比寿の完全予約制パーソナルジム。数字で伴走するマンツーマン。" />
-  <meta property="og:image" content="https://picsum.photos/seed/rinkai-og/1200/630" />
+  <meta property="og:image" content="https://hayaboosan.github.io/portfolio/assets/og/personal-gym.png" />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -27,6 +30,13 @@
   />
 
   <link rel="stylesheet" href="css/style.css" />
+  <noscript>
+    <style>
+      /* JS無効時は送信処理（デモ）が動かず、GET送信で入力内容がURLに露出してしまうため
+         送信ボタンを隠し、フォーム内の案内（form__noscript）を表示する */
+      .form__submit { display: none !important; }
+    </style>
+  </noscript>
 </head>
 <body>
   <a class="skip-link" href="#main">本文へスキップ</a>
@@ -150,7 +160,7 @@
           <li class="feature-card reveal" data-reveal>
             <span class="feature-card__icon" aria-hidden="true">
               <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M6 30v-4M42 30v-4M12 32V16M36 32V16M12 24h24" />
+                <path d="M6 26v-4M42 26v-4M12 32V16M36 32V16M12 24h24" />
                 <rect x="14" y="14" width="6" height="20" rx="2" />
                 <rect x="28" y="14" width="6" height="20" rx="2" />
               </svg>
@@ -373,7 +383,7 @@
             </blockquote>
             <figcaption class="voice__person">
               <span class="voice__avatar" aria-hidden="true">
-                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="" loading="lazy" width="52" height="52" />
+                <img src="assets/avatar-1.svg" alt="" loading="lazy" width="52" height="52" />
               </span>
               <span class="voice__meta">
                 <span class="voice__name">Aさん・38歳・男性</span>
@@ -389,7 +399,7 @@
             </blockquote>
             <figcaption class="voice__person">
               <span class="voice__avatar" aria-hidden="true">
-                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="" loading="lazy" width="52" height="52" />
+                <img src="assets/avatar-2.svg" alt="" loading="lazy" width="52" height="52" />
               </span>
               <span class="voice__meta">
                 <span class="voice__name">Bさん・45歳・女性</span>
@@ -405,7 +415,7 @@
             </blockquote>
             <figcaption class="voice__person">
               <span class="voice__avatar" aria-hidden="true">
-                <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="" loading="lazy" width="52" height="52" />
+                <img src="assets/avatar-3.svg" alt="" loading="lazy" width="52" height="52" />
               </span>
               <span class="voice__meta">
                 <span class="voice__name">Cさん・29歳・男性</span>
@@ -533,14 +543,14 @@
             </li>
             <li>
               <span class="cta__contact-label">TEL</span>
-              <a href="tel:0300000000" class="cta__contact-value">03-XXXX-XXXX</a>
+              <a href="tel:0300000000" class="cta__contact-value">03-0000-0000</a>
               <span class="cta__contact-hours">07:00–23:00 / 年中無休 / 完全予約制</span>
             </li>
           </ul>
         </div>
 
         <div class="cta__form-wrap reveal" data-reveal data-delay="150">
-          <form class="form" id="reserveForm" novalidate>
+          <form class="form" id="reserveForm">
             <p class="form__intro">無料カウンセリングのお申し込み</p>
 
             <div class="form__field">
@@ -596,8 +606,15 @@
 
             <button type="submit" class="btn btn--primary form__submit">この内容で無料予約する</button>
 
+            <!-- JS無効時の案内（上の noscript スタイルで送信ボタンを隠した代わりに表示） -->
+            <noscript>
+              <p class="form__noscript">
+                フォームの送信には JavaScript が必要です。お手数ですが、お電話（<a href="tel:0300000000">03-0000-0000</a>）でも無料カウンセリングを承ります。
+              </p>
+            </noscript>
+
             <p class="form__success" id="formSuccess" role="status" hidden>
-              お申し込みありがとうございます。2営業日以内に、ご記入のメールアドレスへご連絡いたします。
+              お申し込みありがとうございます。2営業日以内に、ご記入のメールアドレスへご連絡いたします。（※これはデモのため、実際には送信されません）
             </p>
             <p class="form__privacy">送信いただいた情報は、ご連絡の目的以外には使用しません。</p>
           </form>
@@ -634,7 +651,7 @@
       <div class="footer__info">
         <p>東京都渋谷区恵比寿 ◯-◯-◯（架空）</p>
         <p>07:00–23:00 / 年中無休 / 完全予約制</p>
-        <p>03-XXXX-XXXX</p>
+        <p>03-0000-0000</p>
       </div>
     </div>
 

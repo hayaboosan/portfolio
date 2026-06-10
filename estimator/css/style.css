@@ -225,8 +225,15 @@ input { font-family: inherit; }
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
 }
 
+/* JS無効時の早見表：狭い画面でははみ出さず横スクロールで読めるようにする */
+.price-table-scroll { overflow-x: auto; }
+.price-table-scroll:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 2px;
+}
 .price-table {
   width: 100%;
+  min-width: 480px;
   border-collapse: collapse;
   font-size: 0.9rem;
 }

@@ -5,12 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Web制作ポートフォリオ｜LP5作品＋サイト改修事例2件＋小修正デモ集＋見積もりWebアプリ＋絞り込み検索UI</title>
   <meta name="description" content="フレームワーク不使用のvanilla HTML / CSS / JS で制作した、架空ブランドのランディングページ5作品（オンラインスクール・コーヒー焙煎所・美容サロン・パーソナルジム・歯科クリニック）、既存サイトのビフォーアフター改修事例2件、よくある小修正デモ集、リアルタイム計算する見積もりWebアプリ、そして条件で絞り込める賃貸物件検索UIまでをまとめたWeb制作ポートフォリオ。" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23B89149'/%3E%3Ctext x='16' y='22.5' font-family='Segoe UI,sans-serif' font-size='17' font-weight='700' fill='%2317150F' text-anchor='middle'%3EW%3C/text%3E%3C/svg%3E" />
+  <link rel="canonical" href="https://hayaboosan.github.io/portfolio/" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://hayaboosan.github.io/portfolio/" />
   <meta property="og:title" content="Web制作ポートフォリオ｜LP5作品＋改修事例2件＋小修正デモ集＋見積もりWebアプリ＋絞り込み検索UI" />
   <meta property="og:description" content="vanilla HTML / CSS / JS で制作した架空ブランドのLP5作品、既存サイトの改修事例2件、よくある小修正デモ集、リアルタイム計算する見積もりWebアプリ、条件で絞り込める賃貸物件検索UI。" />
-  <meta property="og:image" content="https://picsum.photos/seed/portfolio-og/1200/630" />
+  <meta property="og:image" content="https://hayaboosan.github.io/portfolio/assets/og/hub.png" />
+  <meta name="twitter:card" content="summary_large_image" />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -230,6 +234,10 @@
       z-index: -1;
       border-radius: 4px;
     }
+    /* 356px未満で nowrap の強調部分がはみ出さないよう縮小 */
+    @media (max-width: 360px) {
+      .hero__title { font-size: clamp(1.8rem, 10.4vw, 2.4rem); }
+    }
     .hero__lead {
       font-size: clamp(0.98rem, 1.6vw, 1.12rem);
       color: var(--ink-soft);
@@ -277,7 +285,7 @@
 
     .work-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr));
       gap: clamp(1.4rem, 2.6vw, 2rem);
     }
 
@@ -827,14 +835,14 @@
               <span class="card__genre">プライベートサロン</span>
               <svg viewBox="0 0 400 250" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
                 <circle cx="300" cy="70" r="60" fill="none" stroke="var(--tsuki-accent)" stroke-width="1.2" opacity="0.4" />
-                <path d="M300 18 a52 52 0 0 0 0 104 38 38 0 0 1 0-104Z" fill="var(--tsuki-accent)" opacity="0.18" />
+                <path d="M300 18 a52 52 0 0 0 0 104 70 70 0 0 1 0-104Z" fill="var(--tsuki-accent)" opacity="0.18" />
                 <line x1="0" y1="180" x2="400" y2="155" stroke="var(--tsuki-accent)" stroke-width="0.8" opacity="0.25" />
                 <line x1="0" y1="205" x2="400" y2="185" stroke="var(--tsuki-accent)" stroke-width="0.8" opacity="0.18" />
               </svg>
               <div class="card__logo">
                 <svg class="card__logo-mark" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
                   <circle cx="13" cy="13" r="9" />
-                  <path d="M13 4a9 9 0 0 0 0 18 6.5 6.5 0 0 1 0-18Z" fill="currentColor" stroke="none" />
+                  <path d="M13 4a9 9 0 0 0 0 18 12 12 0 0 1 0-18Z" fill="currentColor" stroke="none" />
                 </svg>
                 <span class="card__logo-name">月白</span>
                 <span class="card__logo-en">Tsukishiro Atelier</span>
@@ -979,8 +987,8 @@
               <ul class="refresh-panel__list">
                 <li>お品書きが画像1枚（読めない・更新できない）</li>
                 <li>固定幅でスマホは横スクロール必須</li>
-                <li>営業時間・定休日が低コントラストで読めない</li>
-                <li>電話のみ・タップ発信不可／地図なし</li>
+                <li>定休日の説明が極小・低コントラストの注記のみ</li>
+                <li>電話のみ・タップ発信不可（tel: リンクなし）</li>
               </ul>
             </div>
             <div class="refresh-arrow" aria-hidden="true"><span>→</span></div>

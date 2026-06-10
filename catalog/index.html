@@ -5,12 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>賃貸物件検索｜まどり不動産｜Web制作ポートフォリオ</title>
   <meta name="description" content="家賃・間取り・面積・駅徒歩・築年数・こだわり条件で、21件の賃貸物件をその場で絞り込めるデータ駆動の検索UI。並べ替え・件数のリアルタイム更新・条件のURL保存・お気に入り保存に対応。フレームワーク不使用のvanilla HTML/CSS/JSで、JavaScript無効でも全件を一覧できるプログレッシブエンハンスメント設計。" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232E7D5B'/%3E%3Ctext x='16' y='22.5' font-family='Segoe UI,sans-serif' font-size='17' font-weight='700' fill='%23FFFFFF' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
+  <link rel="canonical" href="https://hayaboosan.github.io/portfolio/catalog/" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="賃貸物件検索｜まどり不動産" />
   <meta property="og:description" content="家賃・間取り・面積・駅徒歩・こだわり条件で賃貸物件をリアルタイムに絞り込める検索UI。並べ替え・URL保存・お気に入りに対応。vanilla JSで実装。" />
   <meta property="og:locale" content="ja_JP" />
+  <meta property="og:url" content="https://hayaboosan.github.io/portfolio/catalog/" />
+  <meta property="og:image" content="https://hayaboosan.github.io/portfolio/assets/og/catalog.png" />
   <meta name="twitter:card" content="summary" />
 
   <meta name="theme-color" content="#0c7a5e" />
@@ -197,6 +201,7 @@
 
       <!-- ========== 検索結果 ========== -->
       <section class="results" id="results" aria-label="検索結果">
+        <h2 class="sr-only">検索結果</h2>
         <p class="nojs-note">絞り込み・並べ替えには JavaScript が必要です。お使いの環境では無効のため、全21件をそのまま表示しています。</p>
         <div class="results__bar">
           <div class="results__count">
@@ -249,7 +254,7 @@
             <svg class="bukken__thumb" viewBox="0 0 120 90" fill="none" stroke="#ffffff" stroke-width="1.4" aria-hidden="true" preserveAspectRatio="xMidYMid slice"><rect x="16" y="14" width="88" height="62" rx="2"/><line x1="60" y1="14" x2="60" y2="76"/><line x1="16" y1="46" x2="60" y2="46"/><rect x="70" y="24" width="24" height="18"/><line x1="60" y1="60" x2="104" y2="60"/></svg>
             <span class="bukken__layout-label">1LDK</span>
             <button type="button" class="bukken__fav" data-id="b01" aria-pressed="false" aria-label="「グランドメゾンみどり野」をお気に入りに追加">
-              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.6 2 5 5.4 5c2 0 3.4 1.2 4.6 2.6C11.2 6.2 12.6 5 14.6 5 18 5 19.5 8.6 18 11.8 15.5 16.4 12 21 12 21Z"/></svg>
+              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8.4-5-10-9.2C.6 8.6 2.4 5 5.8 5c2.4 0 4.6 1.4 6.2 3.6C13.6 6.4 15.8 5 18.2 5c3.4 0 5.2 3.6 3.8 6.8C20.4 16 12 21 12 21Z"/></svg>
             </button>
           </div>
           <div class="bukken__main">
@@ -286,12 +291,12 @@
             <p class="bukken__deposit">敷1 / 礼1</p>
           </div>
         </article>
-        <article class="bukken" data-id="b02" data-name="コーポ桜並木" data-rent="54000" data-admin="3000" data-layout="1K" data-size="22.4" data-walk="12" data-floor="2" data-age="22" data-area="sakura" data-dir="東" data-listed="5" data-feat="sep flat" data-search="コーポ桜並木 桜並木駅 まどり線 1K 鉄骨造 東向き バス・トイレ別 フローリング">
+        <article class="bukken" data-id="b02" data-name="コーポ桜並木" data-rent="54000" data-admin="3000" data-layout="1K" data-size="22.4" data-walk="12" data-floor="2" data-age="22" data-area="sakura" data-dir="東" data-listed="5" data-feat="sep flat reform" data-search="コーポ桜並木 桜並木駅 まどり線 1K 鉄骨造 東向き バス・トイレ別 フローリング リフォーム済">
           <div class="bukken__media bukken__media--b">
             <svg class="bukken__thumb" viewBox="0 0 120 90" fill="none" stroke="#ffffff" stroke-width="1.4" aria-hidden="true" preserveAspectRatio="xMidYMid slice"><rect x="16" y="14" width="88" height="62" rx="2"/><line x1="60" y1="14" x2="60" y2="76"/><line x1="16" y1="46" x2="60" y2="46"/><rect x="70" y="24" width="24" height="18"/><line x1="60" y1="60" x2="104" y2="60"/></svg>
             <span class="bukken__layout-label">1K</span>
             <button type="button" class="bukken__fav" data-id="b02" aria-pressed="false" aria-label="「コーポ桜並木」をお気に入りに追加">
-              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.6 2 5 5.4 5c2 0 3.4 1.2 4.6 2.6C11.2 6.2 12.6 5 14.6 5 18 5 19.5 8.6 18 11.8 15.5 16.4 12 21 12 21Z"/></svg>
+              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8.4-5-10-9.2C.6 8.6 2.4 5 5.8 5c2.4 0 4.6 1.4 6.2 3.6C13.6 6.4 15.8 5 18.2 5c3.4 0 5.2 3.6 3.8 6.8C20.4 16 12 21 12 21Z"/></svg>
             </button>
           </div>
           <div class="bukken__main">
@@ -316,7 +321,7 @@
                 <div><dt>入居可能日</dt><dd>即入居可</dd></div>
                 <div><dt>構造</dt><dd>鉄骨造</dd></div>
                 <div><dt>向き</dt><dd>東向き</dd></div>
-                <div class="bukken__detail-full"><dt>設備・条件</dt><dd>2階以上／バス・トイレ別／フローリング</dd></div>
+                <div class="bukken__detail-full"><dt>設備・条件</dt><dd>2階以上／バス・トイレ別／フローリング／リフォーム済</dd></div>
               </dl>
             </details>
           </div>
@@ -331,7 +336,7 @@
             <svg class="bukken__thumb" viewBox="0 0 120 90" fill="none" stroke="#ffffff" stroke-width="1.4" aria-hidden="true" preserveAspectRatio="xMidYMid slice"><rect x="16" y="14" width="88" height="62" rx="2"/><line x1="60" y1="14" x2="60" y2="76"/><line x1="16" y1="46" x2="60" y2="46"/><rect x="70" y="24" width="24" height="18"/><line x1="60" y1="60" x2="104" y2="60"/></svg>
             <span class="bukken__layout-label">2LDK</span>
             <button type="button" class="bukken__fav" data-id="b03" aria-pressed="false" aria-label="「リバーサイド川辺」をお気に入りに追加">
-              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.6 2 5 5.4 5c2 0 3.4 1.2 4.6 2.6C11.2 6.2 12.6 5 14.6 5 18 5 19.5 8.6 18 11.8 15.5 16.4 12 21 12 21Z"/></svg>
+              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8.4-5-10-9.2C.6 8.6 2.4 5 5.8 5c2.4 0 4.6 1.4 6.2 3.6C13.6 6.4 15.8 5 18.2 5c3.4 0 5.2 3.6 3.8 6.8C20.4 16 12 21 12 21Z"/></svg>
             </button>
           </div>
           <div class="bukken__main">
@@ -373,7 +378,7 @@
             <svg class="bukken__thumb" viewBox="0 0 120 90" fill="none" stroke="#ffffff" stroke-width="1.4" aria-hidden="true" preserveAspectRatio="xMidYMid slice"><rect x="16" y="14" width="88" height="62" rx="2"/><line x1="60" y1="14" x2="60" y2="76"/><line x1="16" y1="46" x2="60" y2="46"/><rect x="70" y="24" width="24" height="18"/><line x1="60" y1="60" x2="104" y2="60"/></svg>
             <span class="bukken__layout-label">1R</span>
             <button type="button" class="bukken__fav" data-id="b04" aria-pressed="false" aria-label="「高台ハイツ」をお気に入りに追加">
-              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.6 2 5 5.4 5c2 0 3.4 1.2 4.6 2.6C11.2 6.2 12.6 5 14.6 5 18 5 19.5 8.6 18 11.8 15.5 16.4 12 21 12 21Z"/></svg>
+              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8.4-5-10-9.2C.6 8.6 2.4 5 5.8 5c2.4 0 4.6 1.4 6.2 3.6C13.6 6.4 15.8 5 18.2 5c3.4 0 5.2 3.6 3.8 6.8C20.4 16 12 21 12 21Z"/></svg>
             </button>
           </div>
           <div class="bukken__main">
@@ -407,13 +412,13 @@
             <p class="bukken__deposit">敷なし / 礼なし</p>
           </div>
         </article>
-        <article class="bukken" data-id="b05" data-name="パークサイド中央" data-rent="138000" data-admin="12000" data-layout="2LDK" data-size="64.8" data-walk="3" data-floor="8" data-age="2" data-area="chuo" data-dir="南東" data-listed="18" data-feat="sep auto wash deli park corner reform" data-search="パークサイド中央 中央公園前駅 みなと線 2LDK RC（鉄筋コンクリート） 南東向き バス・トイレ別 オートロック 独立洗面台 宅配ボックス 駐車場あり 角部屋 リフォーム済">
+        <article class="bukken" data-id="b05" data-name="パークサイド中央" data-rent="138000" data-admin="12000" data-layout="2LDK" data-size="64.8" data-walk="3" data-floor="8" data-age="2" data-area="chuo" data-dir="南東" data-listed="18" data-feat="sep auto wash deli park corner" data-search="パークサイド中央 中央公園前駅 みなと線 2LDK RC（鉄筋コンクリート） 南東向き バス・トイレ別 オートロック 独立洗面台 宅配ボックス 駐車場あり 角部屋">
           <div class="bukken__media bukken__media--c">
             <svg class="bukken__thumb" viewBox="0 0 120 90" fill="none" stroke="#ffffff" stroke-width="1.4" aria-hidden="true" preserveAspectRatio="xMidYMid slice"><rect x="16" y="14" width="88" height="62" rx="2"/><line x1="60" y1="14" x2="60" y2="76"/><line x1="16" y1="46" x2="60" y2="46"/><rect x="70" y="24" width="24" height="18"/><line x1="60" y1="60" x2="104" y2="60"/></svg>
             <span class="bukken__layout-label">2LDK</span>
         <span class="bukken__badge">新着</span>
             <button type="button" class="bukken__fav" data-id="b05" aria-pressed="false" aria-label="「パークサイド中央」をお気に入りに追加">
-              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.6 2 5 5.4 5c2 0 3.4 1.2 4.6 2.6C11.2 6.2 12.6 5 14.6 5 18 5 19.5 8.6 18 11.8 15.5 16.4 12 21 12 21Z"/></svg>
+              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8.4-5-10-9.2C.6 8.6 2.4 5 5.8 5c2.4 0 4.6 1.4 6.2 3.6C13.6 6.4 15.8 5 18.2 5c3.4 0 5.2 3.6 3.8 6.8C20.4 16 12 21 12 21Z"/></svg>
             </button>
           </div>
           <div class="bukken__main">
@@ -440,7 +445,7 @@
                 <div><dt>入居可能日</dt><dd>即入居可</dd></div>
                 <div><dt>構造</dt><dd>RC（鉄筋コンクリート）</dd></div>
                 <div><dt>向き</dt><dd>南東向き</dd></div>
-                <div class="bukken__detail-full"><dt>設備・条件</dt><dd>南向き／2階以上／バス・トイレ別／オートロック／独立洗面台／宅配ボックス／駐車場あり／角部屋／リフォーム済</dd></div>
+                <div class="bukken__detail-full"><dt>設備・条件</dt><dd>南向き／2階以上／バス・トイレ別／オートロック／独立洗面台／宅配ボックス／駐車場あり／角部屋</dd></div>
               </dl>
             </details>
           </div>
@@ -455,7 +460,7 @@
             <svg class="bukken__thumb" viewBox="0 0 120 90" fill="none" stroke="#ffffff" stroke-width="1.4" aria-hidden="true" preserveAspectRatio="xMidYMid slice"><rect x="16" y="14" width="88" height="62" rx="2"/><line x1="60" y1="14" x2="60" y2="76"/><line x1="16" y1="46" x2="60" y2="46"/><rect x="70" y="24" width="24" height="18"/><line x1="60" y1="60" x2="104" y2="60"/></svg>
             <span class="bukken__layout-label">1DK</span>
             <button type="button" class="bukken__fav" data-id="b06" aria-pressed="false" aria-label="「メゾン学園」をお気に入りに追加">
-              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.6 2 5 5.4 5c2 0 3.4 1.2 4.6 2.6C11.2 6.2 12.6 5 14.6 5 18 5 19.5 8.6 18 11.8 15.5 16.4 12 21 12 21Z"/></svg>
+              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8.4-5-10-9.2C.6 8.6 2.4 5 5.8 5c2.4 0 4.6 1.4 6.2 3.6C13.6 6.4 15.8 5 18.2 5c3.4 0 5.2 3.6 3.8 6.8C20.4 16 12 21 12 21Z"/></svg>
             </button>
           </div>
           <div class="bukken__main">
@@ -498,7 +503,7 @@
             <span class="bukken__layout-label">3LDK</span>
         <span class="bukken__badge bukken__badge--new2">新築</span>
             <button type="button" class="bukken__fav" data-id="b07" aria-pressed="false" aria-label="「港見テラス」をお気に入りに追加">
-              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.6 2 5 5.4 5c2 0 3.4 1.2 4.6 2.6C11.2 6.2 12.6 5 14.6 5 18 5 19.5 8.6 18 11.8 15.5 16.4 12 21 12 21Z"/></svg>
+              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8.4-5-10-9.2C.6 8.6 2.4 5 5.8 5c2.4 0 4.6 1.4 6.2 3.6C13.6 6.4 15.8 5 18.2 5c3.4 0 5.2 3.6 3.8 6.8C20.4 16 12 21 12 21Z"/></svg>
             </button>
           </div>
           <div class="bukken__main">
@@ -540,7 +545,7 @@
             <svg class="bukken__thumb" viewBox="0 0 120 90" fill="none" stroke="#ffffff" stroke-width="1.4" aria-hidden="true" preserveAspectRatio="xMidYMid slice"><rect x="16" y="14" width="88" height="62" rx="2"/><line x1="60" y1="14" x2="60" y2="76"/><line x1="16" y1="46" x2="60" y2="46"/><rect x="70" y="24" width="24" height="18"/><line x1="60" y1="60" x2="104" y2="60"/></svg>
             <span class="bukken__layout-label">1K</span>
             <button type="button" class="bukken__fav" data-id="b08" aria-pressed="false" aria-label="「月見ヶ丘コート」をお気に入りに追加">
-              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.6 2 5 5.4 5c2 0 3.4 1.2 4.6 2.6C11.2 6.2 12.6 5 14.6 5 18 5 19.5 8.6 18 11.8 15.5 16.4 12 21 12 21Z"/></svg>
+              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8.4-5-10-9.2C.6 8.6 2.4 5 5.8 5c2.4 0 4.6 1.4 6.2 3.6C13.6 6.4 15.8 5 18.2 5c3.4 0 5.2 3.6 3.8 6.8C20.4 16 12 21 12 21Z"/></svg>
             </button>
           </div>
           <div class="bukken__main">
@@ -582,7 +587,7 @@
             <span class="bukken__layout-label">1LDK</span>
         <span class="bukken__badge">新着</span>
             <button type="button" class="bukken__fav" data-id="b09" aria-pressed="false" aria-label="「みどり野ステーションレジデンス」をお気に入りに追加">
-              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.6 2 5 5.4 5c2 0 3.4 1.2 4.6 2.6C11.2 6.2 12.6 5 14.6 5 18 5 19.5 8.6 18 11.8 15.5 16.4 12 21 12 21Z"/></svg>
+              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8.4-5-10-9.2C.6 8.6 2.4 5 5.8 5c2.4 0 4.6 1.4 6.2 3.6C13.6 6.4 15.8 5 18.2 5c3.4 0 5.2 3.6 3.8 6.8C20.4 16 12 21 12 21Z"/></svg>
             </button>
           </div>
           <div class="bukken__main">
@@ -624,7 +629,7 @@
             <svg class="bukken__thumb" viewBox="0 0 120 90" fill="none" stroke="#ffffff" stroke-width="1.4" aria-hidden="true" preserveAspectRatio="xMidYMid slice"><rect x="16" y="14" width="88" height="62" rx="2"/><line x1="60" y1="14" x2="60" y2="76"/><line x1="16" y1="46" x2="60" y2="46"/><rect x="70" y="24" width="24" height="18"/><line x1="60" y1="60" x2="104" y2="60"/></svg>
             <span class="bukken__layout-label">2DK</span>
             <button type="button" class="bukken__fav" data-id="b10" aria-pressed="false" aria-label="「さくらガーデンハウス」をお気に入りに追加">
-              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.6 2 5 5.4 5c2 0 3.4 1.2 4.6 2.6C11.2 6.2 12.6 5 14.6 5 18 5 19.5 8.6 18 11.8 15.5 16.4 12 21 12 21Z"/></svg>
+              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8.4-5-10-9.2C.6 8.6 2.4 5 5.8 5c2.4 0 4.6 1.4 6.2 3.6C13.6 6.4 15.8 5 18.2 5c3.4 0 5.2 3.6 3.8 6.8C20.4 16 12 21 12 21Z"/></svg>
             </button>
           </div>
           <div class="bukken__main">
@@ -661,12 +666,12 @@
             <p class="bukken__deposit">敷2 / 礼1</p>
           </div>
         </article>
-        <article class="bukken" data-id="b11" data-name="川辺ロイヤルハイツ" data-rent="49000" data-admin="2500" data-layout="1K" data-size="20.8" data-walk="14" data-floor="4" data-age="26" data-area="kawabe" data-dir="北" data-listed="3" data-feat="sep" data-search="川辺ロイヤルハイツ 川辺町駅 なごみ線 1K 鉄骨造 北向き バス・トイレ別">
+        <article class="bukken" data-id="b11" data-name="川辺ロイヤルハイツ" data-rent="49000" data-admin="2500" data-layout="1K" data-size="20.8" data-walk="14" data-floor="4" data-age="26" data-area="kawabe" data-dir="北" data-listed="3" data-feat="sep reform" data-search="川辺ロイヤルハイツ 川辺町駅 なごみ線 1K 鉄骨造 北向き バス・トイレ別 リフォーム済">
           <div class="bukken__media bukken__media--b">
             <svg class="bukken__thumb" viewBox="0 0 120 90" fill="none" stroke="#ffffff" stroke-width="1.4" aria-hidden="true" preserveAspectRatio="xMidYMid slice"><rect x="16" y="14" width="88" height="62" rx="2"/><line x1="60" y1="14" x2="60" y2="76"/><line x1="16" y1="46" x2="60" y2="46"/><rect x="70" y="24" width="24" height="18"/><line x1="60" y1="60" x2="104" y2="60"/></svg>
             <span class="bukken__layout-label">1K</span>
             <button type="button" class="bukken__fav" data-id="b11" aria-pressed="false" aria-label="「川辺ロイヤルハイツ」をお気に入りに追加">
-              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.6 2 5 5.4 5c2 0 3.4 1.2 4.6 2.6C11.2 6.2 12.6 5 14.6 5 18 5 19.5 8.6 18 11.8 15.5 16.4 12 21 12 21Z"/></svg>
+              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8.4-5-10-9.2C.6 8.6 2.4 5 5.8 5c2.4 0 4.6 1.4 6.2 3.6C13.6 6.4 15.8 5 18.2 5c3.4 0 5.2 3.6 3.8 6.8C20.4 16 12 21 12 21Z"/></svg>
             </button>
           </div>
           <div class="bukken__main">
@@ -690,7 +695,7 @@
                 <div><dt>入居可能日</dt><dd>即入居可</dd></div>
                 <div><dt>構造</dt><dd>鉄骨造</dd></div>
                 <div><dt>向き</dt><dd>北向き</dd></div>
-                <div class="bukken__detail-full"><dt>設備・条件</dt><dd>2階以上／バス・トイレ別</dd></div>
+                <div class="bukken__detail-full"><dt>設備・条件</dt><dd>2階以上／バス・トイレ別／リフォーム済</dd></div>
               </dl>
             </details>
           </div>
@@ -705,7 +710,7 @@
             <svg class="bukken__thumb" viewBox="0 0 120 90" fill="none" stroke="#ffffff" stroke-width="1.4" aria-hidden="true" preserveAspectRatio="xMidYMid slice"><rect x="16" y="14" width="88" height="62" rx="2"/><line x1="60" y1="14" x2="60" y2="76"/><line x1="16" y1="46" x2="60" y2="46"/><rect x="70" y="24" width="24" height="18"/><line x1="60" y1="60" x2="104" y2="60"/></svg>
             <span class="bukken__layout-label">1LDK</span>
             <button type="button" class="bukken__fav" data-id="b12" aria-pressed="false" aria-label="「中央公園プレイス」をお気に入りに追加">
-              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.6 2 5 5.4 5c2 0 3.4 1.2 4.6 2.6C11.2 6.2 12.6 5 14.6 5 18 5 19.5 8.6 18 11.8 15.5 16.4 12 21 12 21Z"/></svg>
+              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8.4-5-10-9.2C.6 8.6 2.4 5 5.8 5c2.4 0 4.6 1.4 6.2 3.6C13.6 6.4 15.8 5 18.2 5c3.4 0 5.2 3.6 3.8 6.8C20.4 16 12 21 12 21Z"/></svg>
             </button>
           </div>
           <div class="bukken__main">
@@ -747,7 +752,7 @@
             <svg class="bukken__thumb" viewBox="0 0 120 90" fill="none" stroke="#ffffff" stroke-width="1.4" aria-hidden="true" preserveAspectRatio="xMidYMid slice"><rect x="16" y="14" width="88" height="62" rx="2"/><line x1="60" y1="14" x2="60" y2="76"/><line x1="16" y1="46" x2="60" y2="46"/><rect x="70" y="24" width="24" height="18"/><line x1="60" y1="60" x2="104" y2="60"/></svg>
             <span class="bukken__layout-label">1R</span>
             <button type="button" class="bukken__fav" data-id="b13" aria-pressed="false" aria-label="「学園前フラット」をお気に入りに追加">
-              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.6 2 5 5.4 5c2 0 3.4 1.2 4.6 2.6C11.2 6.2 12.6 5 14.6 5 18 5 19.5 8.6 18 11.8 15.5 16.4 12 21 12 21Z"/></svg>
+              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8.4-5-10-9.2C.6 8.6 2.4 5 5.8 5c2.4 0 4.6 1.4 6.2 3.6C13.6 6.4 15.8 5 18.2 5c3.4 0 5.2 3.6 3.8 6.8C20.4 16 12 21 12 21Z"/></svg>
             </button>
           </div>
           <div class="bukken__main">
@@ -787,7 +792,7 @@
             <svg class="bukken__thumb" viewBox="0 0 120 90" fill="none" stroke="#ffffff" stroke-width="1.4" aria-hidden="true" preserveAspectRatio="xMidYMid slice"><rect x="16" y="14" width="88" height="62" rx="2"/><line x1="60" y1="14" x2="60" y2="76"/><line x1="16" y1="46" x2="60" y2="46"/><rect x="70" y="24" width="24" height="18"/><line x1="60" y1="60" x2="104" y2="60"/></svg>
             <span class="bukken__layout-label">2K</span>
             <button type="button" class="bukken__fav" data-id="b14" aria-pressed="false" aria-label="「高台グリーンコート」をお気に入りに追加">
-              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.6 2 5 5.4 5c2 0 3.4 1.2 4.6 2.6C11.2 6.2 12.6 5 14.6 5 18 5 19.5 8.6 18 11.8 15.5 16.4 12 21 12 21Z"/></svg>
+              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8.4-5-10-9.2C.6 8.6 2.4 5 5.8 5c2.4 0 4.6 1.4 6.2 3.6C13.6 6.4 15.8 5 18.2 5c3.4 0 5.2 3.6 3.8 6.8C20.4 16 12 21 12 21Z"/></svg>
             </button>
           </div>
           <div class="bukken__main">
@@ -824,13 +829,13 @@
             <p class="bukken__deposit">敷1 / 礼1</p>
           </div>
         </article>
-        <article class="bukken" data-id="b15" data-name="ポートヒルズ港見" data-rent="158000" data-admin="13000" data-layout="2LDK" data-size="61" data-walk="4" data-floor="11" data-age="1" data-area="minatomi" data-dir="南" data-listed="20" data-feat="sep auto wash deli park corner reform" data-search="ポートヒルズ港見 港見駅 みなと線 2LDK RC（鉄筋コンクリート） 南向き バス・トイレ別 オートロック 独立洗面台 宅配ボックス 駐車場あり 角部屋 リフォーム済">
+        <article class="bukken" data-id="b15" data-name="ポートヒルズ港見" data-rent="158000" data-admin="13000" data-layout="2LDK" data-size="61" data-walk="4" data-floor="11" data-age="1" data-area="minatomi" data-dir="南" data-listed="20" data-feat="sep auto wash deli park corner" data-search="ポートヒルズ港見 港見駅 みなと線 2LDK RC（鉄筋コンクリート） 南向き バス・トイレ別 オートロック 独立洗面台 宅配ボックス 駐車場あり 角部屋">
           <div class="bukken__media bukken__media--c">
             <svg class="bukken__thumb" viewBox="0 0 120 90" fill="none" stroke="#ffffff" stroke-width="1.4" aria-hidden="true" preserveAspectRatio="xMidYMid slice"><rect x="16" y="14" width="88" height="62" rx="2"/><line x1="60" y1="14" x2="60" y2="76"/><line x1="16" y1="46" x2="60" y2="46"/><rect x="70" y="24" width="24" height="18"/><line x1="60" y1="60" x2="104" y2="60"/></svg>
             <span class="bukken__layout-label">2LDK</span>
         <span class="bukken__badge">新着</span>
             <button type="button" class="bukken__fav" data-id="b15" aria-pressed="false" aria-label="「ポートヒルズ港見」をお気に入りに追加">
-              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.6 2 5 5.4 5c2 0 3.4 1.2 4.6 2.6C11.2 6.2 12.6 5 14.6 5 18 5 19.5 8.6 18 11.8 15.5 16.4 12 21 12 21Z"/></svg>
+              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8.4-5-10-9.2C.6 8.6 2.4 5 5.8 5c2.4 0 4.6 1.4 6.2 3.6C13.6 6.4 15.8 5 18.2 5c3.4 0 5.2 3.6 3.8 6.8C20.4 16 12 21 12 21Z"/></svg>
             </button>
           </div>
           <div class="bukken__main">
@@ -857,7 +862,7 @@
                 <div><dt>入居可能日</dt><dd>2026年7月</dd></div>
                 <div><dt>構造</dt><dd>RC（鉄筋コンクリート）</dd></div>
                 <div><dt>向き</dt><dd>南向き</dd></div>
-                <div class="bukken__detail-full"><dt>設備・条件</dt><dd>南向き／2階以上／バス・トイレ別／オートロック／独立洗面台／宅配ボックス／駐車場あり／角部屋／リフォーム済</dd></div>
+                <div class="bukken__detail-full"><dt>設備・条件</dt><dd>南向き／2階以上／バス・トイレ別／オートロック／独立洗面台／宅配ボックス／駐車場あり／角部屋</dd></div>
               </dl>
             </details>
           </div>
@@ -872,7 +877,7 @@
             <svg class="bukken__thumb" viewBox="0 0 120 90" fill="none" stroke="#ffffff" stroke-width="1.4" aria-hidden="true" preserveAspectRatio="xMidYMid slice"><rect x="16" y="14" width="88" height="62" rx="2"/><line x1="60" y1="14" x2="60" y2="76"/><line x1="16" y1="46" x2="60" y2="46"/><rect x="70" y="24" width="24" height="18"/><line x1="60" y1="60" x2="104" y2="60"/></svg>
             <span class="bukken__layout-label">1LDK</span>
             <button type="button" class="bukken__fav" data-id="b16" aria-pressed="false" aria-label="「桜並木スカイ」をお気に入りに追加">
-              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.6 2 5 5.4 5c2 0 3.4 1.2 4.6 2.6C11.2 6.2 12.6 5 14.6 5 18 5 19.5 8.6 18 11.8 15.5 16.4 12 21 12 21Z"/></svg>
+              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8.4-5-10-9.2C.6 8.6 2.4 5 5.8 5c2.4 0 4.6 1.4 6.2 3.6C13.6 6.4 15.8 5 18.2 5c3.4 0 5.2 3.6 3.8 6.8C20.4 16 12 21 12 21Z"/></svg>
             </button>
           </div>
           <div class="bukken__main">
@@ -914,7 +919,7 @@
             <svg class="bukken__thumb" viewBox="0 0 120 90" fill="none" stroke="#ffffff" stroke-width="1.4" aria-hidden="true" preserveAspectRatio="xMidYMid slice"><rect x="16" y="14" width="88" height="62" rx="2"/><line x1="60" y1="14" x2="60" y2="76"/><line x1="16" y1="46" x2="60" y2="46"/><rect x="70" y="24" width="24" height="18"/><line x1="60" y1="60" x2="104" y2="60"/></svg>
             <span class="bukken__layout-label">1DK</span>
             <button type="button" class="bukken__fav" data-id="b17" aria-pressed="false" aria-label="「みどり野コーポラス」をお気に入りに追加">
-              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.6 2 5 5.4 5c2 0 3.4 1.2 4.6 2.6C11.2 6.2 12.6 5 14.6 5 18 5 19.5 8.6 18 11.8 15.5 16.4 12 21 12 21Z"/></svg>
+              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8.4-5-10-9.2C.6 8.6 2.4 5 5.8 5c2.4 0 4.6 1.4 6.2 3.6C13.6 6.4 15.8 5 18.2 5c3.4 0 5.2 3.6 3.8 6.8C20.4 16 12 21 12 21Z"/></svg>
             </button>
           </div>
           <div class="bukken__main">
@@ -955,7 +960,7 @@
             <svg class="bukken__thumb" viewBox="0 0 120 90" fill="none" stroke="#ffffff" stroke-width="1.4" aria-hidden="true" preserveAspectRatio="xMidYMid slice"><rect x="16" y="14" width="88" height="62" rx="2"/><line x1="60" y1="14" x2="60" y2="76"/><line x1="16" y1="46" x2="60" y2="46"/><rect x="70" y="24" width="24" height="18"/><line x1="60" y1="60" x2="104" y2="60"/></svg>
             <span class="bukken__layout-label">2LDK</span>
             <button type="button" class="bukken__fav" data-id="b18" aria-pressed="false" aria-label="「月見ヶ丘パークマンション」をお気に入りに追加">
-              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.6 2 5 5.4 5c2 0 3.4 1.2 4.6 2.6C11.2 6.2 12.6 5 14.6 5 18 5 19.5 8.6 18 11.8 15.5 16.4 12 21 12 21Z"/></svg>
+              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8.4-5-10-9.2C.6 8.6 2.4 5 5.8 5c2.4 0 4.6 1.4 6.2 3.6C13.6 6.4 15.8 5 18.2 5c3.4 0 5.2 3.6 3.8 6.8C20.4 16 12 21 12 21Z"/></svg>
             </button>
           </div>
           <div class="bukken__main">
@@ -998,7 +1003,7 @@
             <span class="bukken__layout-label">2LDK</span>
         <span class="bukken__badge">新着</span>
             <button type="button" class="bukken__fav" data-id="b19" aria-pressed="false" aria-label="「中央レジデンスタワー」をお気に入りに追加">
-              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.6 2 5 5.4 5c2 0 3.4 1.2 4.6 2.6C11.2 6.2 12.6 5 14.6 5 18 5 19.5 8.6 18 11.8 15.5 16.4 12 21 12 21Z"/></svg>
+              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8.4-5-10-9.2C.6 8.6 2.4 5 5.8 5c2.4 0 4.6 1.4 6.2 3.6C13.6 6.4 15.8 5 18.2 5c3.4 0 5.2 3.6 3.8 6.8C20.4 16 12 21 12 21Z"/></svg>
             </button>
           </div>
           <div class="bukken__main">
@@ -1040,7 +1045,7 @@
             <svg class="bukken__thumb" viewBox="0 0 120 90" fill="none" stroke="#ffffff" stroke-width="1.4" aria-hidden="true" preserveAspectRatio="xMidYMid slice"><rect x="16" y="14" width="88" height="62" rx="2"/><line x1="60" y1="14" x2="60" y2="76"/><line x1="16" y1="46" x2="60" y2="46"/><rect x="70" y="24" width="24" height="18"/><line x1="60" y1="60" x2="104" y2="60"/></svg>
             <span class="bukken__layout-label">2DK</span>
             <button type="button" class="bukken__fav" data-id="b20" aria-pressed="false" aria-label="「学園グリーンヴィラ」をお気に入りに追加">
-              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.6 2 5 5.4 5c2 0 3.4 1.2 4.6 2.6C11.2 6.2 12.6 5 14.6 5 18 5 19.5 8.6 18 11.8 15.5 16.4 12 21 12 21Z"/></svg>
+              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8.4-5-10-9.2C.6 8.6 2.4 5 5.8 5c2.4 0 4.6 1.4 6.2 3.6C13.6 6.4 15.8 5 18.2 5c3.4 0 5.2 3.6 3.8 6.8C20.4 16 12 21 12 21Z"/></svg>
             </button>
           </div>
           <div class="bukken__main">
@@ -1082,7 +1087,7 @@
             <svg class="bukken__thumb" viewBox="0 0 120 90" fill="none" stroke="#ffffff" stroke-width="1.4" aria-hidden="true" preserveAspectRatio="xMidYMid slice"><rect x="16" y="14" width="88" height="62" rx="2"/><line x1="60" y1="14" x2="60" y2="76"/><line x1="16" y1="46" x2="60" y2="46"/><rect x="70" y="24" width="24" height="18"/><line x1="60" y1="60" x2="104" y2="60"/></svg>
             <span class="bukken__layout-label">1K</span>
             <button type="button" class="bukken__fav" data-id="b21" aria-pressed="false" aria-label="「川辺ニューハイツ」をお気に入りに追加">
-              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.6 2 5 5.4 5c2 0 3.4 1.2 4.6 2.6C11.2 6.2 12.6 5 14.6 5 18 5 19.5 8.6 18 11.8 15.5 16.4 12 21 12 21Z"/></svg>
+              <svg class="bukken__fav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8.4-5-10-9.2C.6 8.6 2.4 5 5.8 5c2.4 0 4.6 1.4 6.2 3.6C13.6 6.4 15.8 5 18.2 5c3.4 0 5.2 3.6 3.8 6.8C20.4 16 12 21 12 21Z"/></svg>
             </button>
           </div>
           <div class="bukken__main">

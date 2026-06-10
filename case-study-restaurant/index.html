@@ -5,11 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>サイト改修 ビフォーアフター事例｜ますだ食堂（架空）｜Web制作ポートフォリオ</title>
   <meta name="description" content="古い作りの個人飲食店サイトを、スマホ対応・メニューの可読性・アクセシビリティ・予約導線の観点で作り直すと何が変わるか。架空の大衆食堂サイトを題材にした、Before→After対応表つきのサイト改修事例。" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231B3A5B'/%3E%3Ctext x='16' y='22.5' font-family='Segoe UI,sans-serif' font-size='17' font-weight='700' fill='%23FFFFFF' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
+  <link rel="canonical" href="https://hayaboosan.github.io/portfolio/case-study-restaurant/" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="サイト改修 ビフォーアフター事例｜ますだ食堂（架空）" />
   <meta property="og:description" content="2008年当時の作りの飲食店サイトを現行標準へ改修。画像メニューを読めるHTMLメニューに、電話のみの予約を24時間フォームに。なぜその変更が来店・予約につながるのかを言語化した事例です。" />
+  <meta property="og:url" content="https://hayaboosan.github.io/portfolio/case-study-restaurant/" />
+  <meta property="og:image" content="https://hayaboosan.github.io/portfolio/assets/og/case-restaurant.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
 
   <meta name="theme-color" content="#112740" />
 
@@ -191,7 +198,7 @@
             <ul class="pane__list">
               <li>スマホ非対応（横スクロール・ピンチズーム必須）</li>
               <li>メニューが画像1枚に文字を焼き込み・更新不能</li>
-              <li>低コントラストで営業時間・定休日が読めない</li>
+              <li>定休日の説明が極小・低コントラストの注記のみ（約2.8:1）</li>
               <li>marquee・blink・偽カウンターなど古い演出</li>
               <li>電話番号がタップ発信できない・予約は電話のみ</li>
               <li>OGP・説明文なしでSNS共有・検索に弱い</li>
@@ -231,7 +238,7 @@
               <tr><td class="col-before">スマホで横スクロール必須</td><td class="col-after">&lt;meta viewport&gt; 追加＋モバイルファースト設計。固定800px幅を撤廃</td><td>幅320pxでも横スクロールなし。スマホでそのまま読める</td></tr>
               <tr><td class="col-before">メニューが画像で更新不能</td><td class="col-after">画像メニューを、価格付きのHTMLメニューカードへ。説明文も付与</td><td>店主が自分で更新でき、読み上げ・検索・コピーにも対応</td></tr>
               <tr><td class="col-before">価格が画像内で不明瞭</td><td class="col-after">各メニューに税込価格を明記。人気・名物にラベル付け</td><td>来店前に予算がわかり、「思ったより高い」離脱を防ぐ</td></tr>
-              <tr><td class="col-before">営業時間・定休日が読めない</td><td class="col-after">曜日別の営業時間テーブル化＋定休日（水・日）を明示</td><td>「開いている日」を取り違えての来店トラブルを防ぐ</td></tr>
+              <tr><td class="col-before">定休日が×印と低コントラスト注記のみ</td><td class="col-after">営業時間テーブルを高コントラスト・スマホ幅対応に再設計し「定休日 水・日」を本文で明示</td><td>「開いている日」を取り違えての来店トラブルを防ぐ</td></tr>
               <tr><td class="col-before">marquee/blink/偽カウンター</td><td class="col-after">静的な「お知らせ」リスト＋落ち着いた藍基調へ刷新</td><td>「きちんと営業している店」という第一印象</td></tr>
               <tr><td class="col-before">&lt;font&gt;・align・alt無し画像</td><td class="col-after">セマンティックHTML5＋全画像に説明的alt</td><td>読み上げ・SEO・画像非表示時にも内容が伝わる</td></tr>
               <tr><td class="col-before">タップ発信できない電話番号</td><td class="col-after">すべて tel: リンク化。タップ領域44px以上</td><td>スマホからワンタップで予約電話。離脱を防ぐ</td></tr>

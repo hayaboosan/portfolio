@@ -5,11 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>よくある小修正デモ集｜触って分かるBefore→After｜Web制作ポートフォリオ</title>
   <meta name="description" content="既存サイトの単発小修正案件に直結する「よくある困りごと」を、実際に動くBefore→Afterのデモで紹介。スマホ対応化（横スクロール解消）、問い合わせフォームのバリデーション、画像最適化によるCLS解消、コントラスト改善、電話番号のtel:リンク化、レイアウト崩れ修正を、フレームワーク不使用のvanilla HTML/CSS/JSで実演します。" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23B89149'/%3E%3Ctext x='16' y='22.5' font-family='Segoe UI,sans-serif' font-size='17' font-weight='700' fill='%2317150F' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E" />
+  <link rel="canonical" href="https://hayaboosan.github.io/portfolio/quick-fixes/" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://hayaboosan.github.io/portfolio/quick-fixes/" />
   <meta property="og:title" content="よくある小修正デモ集｜触って分かるBefore→After" />
   <meta property="og:description" content="スマホ対応化・フォームバリデーション・画像最適化・コントラスト改善・tel:リンク化・レイアウト崩れ修正。既存サイトの単発小修正を、実際に動くデモで見せる営業ページ。" />
+  <meta property="og:image" content="https://hayaboosan.github.io/portfolio/assets/og/quick-fixes.png" />
   <meta property="og:locale" content="ja_JP" />
   <meta name="twitter:card" content="summary" />
 
@@ -797,12 +801,12 @@
             <div class="ba-grid ba-grid--2col">
               <div>
                 <span class="ba-col__tag ba-col__tag--before">Before：固定幅ではみ出す</span>
-                <iframe class="frame frame-resizable" id="vpBefore" title="Before：固定幅レイアウトのプレビュー" loading="lazy" srcdoc="&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset='utf-8'&gt;&lt;style&gt;body{margin:0;font-family:sans-serif;background:#fff}.wrap{width:560px;padding:16px}h3{font-size:20px;margin:0 0 10px;color:#222}p{font-size:15px;line-height:1.7;color:#444}table{border-collapse:collapse;width:560px}td,th{border:1px solid #ccc;padding:8px 12px;font-size:14px;white-space:nowrap}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class='wrap'&gt;&lt;h3&gt;診療時間のご案内&lt;/h3&gt;&lt;p&gt;固定幅560pxで作られた古いレイアウトです。狭い画面では右側がはみ出します。&lt;/p&gt;&lt;table&gt;&lt;tr&gt;&lt;th&gt;曜日&lt;/th&gt;&lt;th&gt;午前&lt;/th&gt;&lt;th&gt;午後&lt;/th&gt;&lt;th&gt;夜間&lt;/th&gt;&lt;th&gt;備考&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;月〜金&lt;/td&gt;&lt;td&gt;9:00-12:00&lt;/td&gt;&lt;td&gt;15:00-18:00&lt;/td&gt;&lt;td&gt;19:00-21:00&lt;/td&gt;&lt;td&gt;予約優先&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe>
+                <iframe class="frame frame-resizable" id="vpBefore" title="Before：固定幅レイアウトのプレビュー" loading="lazy" srcdoc="&lt;!DOCTYPE html&gt;&lt;html lang='ja'&gt;&lt;head&gt;&lt;meta charset='utf-8'&gt;&lt;style&gt;body{margin:0;font-family:sans-serif;background:#fff}.wrap{width:560px;padding:16px}h3{font-size:20px;margin:0 0 10px;color:#222}p{font-size:15px;line-height:1.7;color:#444}table{border-collapse:collapse;width:560px}td,th{border:1px solid #ccc;padding:8px 12px;font-size:14px;white-space:nowrap}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class='wrap'&gt;&lt;h3&gt;診療時間のご案内&lt;/h3&gt;&lt;p&gt;固定幅560pxで作られた古いレイアウトです。狭い画面では右側がはみ出します。&lt;/p&gt;&lt;table&gt;&lt;tr&gt;&lt;th&gt;曜日&lt;/th&gt;&lt;th&gt;午前&lt;/th&gt;&lt;th&gt;午後&lt;/th&gt;&lt;th&gt;夜間&lt;/th&gt;&lt;th&gt;備考&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;月〜金&lt;/td&gt;&lt;td&gt;9:00-12:00&lt;/td&gt;&lt;td&gt;15:00-18:00&lt;/td&gt;&lt;td&gt;19:00-21:00&lt;/td&gt;&lt;td&gt;予約優先&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe>
                 <p class="frame-label">枠を狭めると横スクロールが出ます</p>
               </div>
               <div>
                 <span class="ba-col__tag ba-col__tag--after">After：幅に合わせて収まる</span>
-                <iframe class="frame frame-resizable" id="vpAfter" title="After：レスポンシブ化したプレビュー" loading="lazy" srcdoc="&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset='utf-8'&gt;&lt;meta name='viewport' content='width=device-width,initial-scale=1'&gt;&lt;style&gt;body{margin:0;font-family:sans-serif;background:#fff}.wrap{max-width:100%;padding:16px;box-sizing:border-box}h3{font-size:clamp(17px,5vw,20px);margin:0 0 10px;color:#222}p{font-size:15px;line-height:1.8;color:#444}.cards{display:grid;gap:8px}.row{display:flex;justify-content:space-between;gap:8px;border:1px solid #ccc;border-radius:8px;padding:8px 12px;font-size:14px;flex-wrap:wrap}.row b{color:#0f6b62}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class='wrap'&gt;&lt;h3&gt;診療時間のご案内&lt;/h3&gt;&lt;p&gt;max-width:100%とFlex/Gridで、どんな幅でも折り返して収まります。&lt;/p&gt;&lt;div class='cards'&gt;&lt;div class='row'&gt;&lt;span&gt;月〜金 午前&lt;/span&gt;&lt;b&gt;9:00-12:00&lt;/b&gt;&lt;/div&gt;&lt;div class='row'&gt;&lt;span&gt;月〜金 午後&lt;/span&gt;&lt;b&gt;15:00-18:00&lt;/b&gt;&lt;/div&gt;&lt;div class='row'&gt;&lt;span&gt;月〜金 夜間&lt;/span&gt;&lt;b&gt;19:00-21:00&lt;/b&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe>
+                <iframe class="frame frame-resizable" id="vpAfter" title="After：レスポンシブ化したプレビュー" loading="lazy" srcdoc="&lt;!DOCTYPE html&gt;&lt;html lang='ja'&gt;&lt;head&gt;&lt;meta charset='utf-8'&gt;&lt;meta name='viewport' content='width=device-width,initial-scale=1'&gt;&lt;style&gt;body{margin:0;font-family:sans-serif;background:#fff}.wrap{max-width:100%;padding:16px;box-sizing:border-box}h3{font-size:clamp(17px,5vw,20px);margin:0 0 10px;color:#222}p{font-size:15px;line-height:1.8;color:#444}.cards{display:grid;gap:8px}.row{display:flex;justify-content:space-between;gap:8px;border:1px solid #ccc;border-radius:8px;padding:8px 12px;font-size:14px;flex-wrap:wrap}.row b{color:#0f6b62}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class='wrap'&gt;&lt;h3&gt;診療時間のご案内&lt;/h3&gt;&lt;p&gt;max-width:100%とFlex/Gridで、どんな幅でも折り返して収まります。&lt;/p&gt;&lt;div class='cards'&gt;&lt;div class='row'&gt;&lt;span&gt;月〜金 午前&lt;/span&gt;&lt;b&gt;9:00-12:00&lt;/b&gt;&lt;/div&gt;&lt;div class='row'&gt;&lt;span&gt;月〜金 午後&lt;/span&gt;&lt;b&gt;15:00-18:00&lt;/b&gt;&lt;/div&gt;&lt;div class='row'&gt;&lt;span&gt;月〜金 夜間&lt;/span&gt;&lt;b&gt;19:00-21:00&lt;/b&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe>
                 <p class="frame-label">同じ幅でも横スクロールなし</p>
               </div>
             </div>
@@ -915,7 +919,7 @@
               </div>
             </div>
             <p style="margin-top:1.2rem;font-size:0.84rem;color:var(--ink-soft)">コード差分（要点）：</p>
-            <code class="code" aria-label="画像最適化のコード差分"><span class="cmt">/* Before：寸法もloadingもない */</span>
+            <code class="code"><span class="cmt">/* Before：寸法もloadingもない */</span>
 <span class="del">- &lt;img src="hero.jpg"&gt;</span>
 
 <span class="cmt">/* After：寸法を伝え、遅延読込・縦横比を固定 */</span>
@@ -957,7 +961,7 @@
               <div class="contrast-demo contrast-demo--before">
                 <p class="contrast-demo__h">当院について</p>
                 <p class="contrast-demo__body">夜間も診療しております。保険適用の有無は症状により異なりますので、受付までお問い合わせください。休診日は祝日と第2・第4日曜です。<a class="contrast-demo__link" href="#fix-contrast" onclick="return false">アクセスはこちら</a></p>
-                <span class="contrast-demo__ratio">コントラスト比 約 2.8 : 1（AA不適合）</span>
+                <span class="contrast-demo__ratio">コントラスト比 本文 約 1.9 : 1（AA基準 4.5 : 1 に不適合）</span>
               </div>
             </div>
             <div class="toggle-panel" data-panel="after" hidden>
@@ -965,7 +969,7 @@
               <div class="contrast-demo contrast-demo--after">
                 <p class="contrast-demo__h">当院について</p>
                 <p class="contrast-demo__body">夜間も診療しております。保険適用の有無は症状により異なりますので、受付までお問い合わせください。休診日は祝日と第2・第4日曜です。<a class="contrast-demo__link" href="#fix-contrast" onclick="return false">アクセスはこちら</a></p>
-                <span class="contrast-demo__ratio">コントラスト比 約 7 : 1（AAA水準）</span>
+                <span class="contrast-demo__ratio">コントラスト比 本文 約 13.6 : 1・リンク 約 8.4 : 1（AAA基準 7 : 1 をクリア）</span>
               </div>
             </div>
           </div>
@@ -1012,7 +1016,7 @@
               </div>
             </div>
             <p style="margin-top:1.2rem;font-size:0.84rem;color:var(--ink-soft)">コード差分（要点）：</p>
-            <code class="code" aria-label="tel リンクのコード差分"><span class="del">- TEL：03-1234-5678</span>
+            <code class="code"><span class="del">- TEL：03-1234-5678</span>
 <span class="add">+ &lt;a href="tel:+81312345678"&gt;03-1234-5678 に発信&lt;/a&gt;</span>
 <span class="cmt">/* CSS: タップ領域を確保 */</span>
 <span class="add">+ a[href^="tel:"] { display:inline-flex; min-height:44px;</span>

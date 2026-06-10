@@ -259,6 +259,11 @@
 
     // カウントアップ
     var countEls = document.querySelectorAll(".stat-num");
+    // HTMLはJS無効時に備えて最終値を静的表示しているため、観測開始前に0へリセット
+    // （リセットしないと表示済みの最終値が0に戻るフラッシュが起きる）
+    countEls.forEach(function (el) {
+      el.textContent = "0" + (el.getAttribute("data-suffix") || "");
+    });
     var countObserver = new IntersectionObserver(
       function (entries, obs) {
         entries.forEach(function (entry) {
@@ -332,6 +337,10 @@
   }
 
   if (form) {
+    // JS有効時のみブラウザ標準検証を切り、独自バリデーションに切り替える
+    // （静的に novalidate を置くと、JS無効時に標準検証まで失われるため）
+    form.setAttribute("novalidate", "novalidate");
+
     var fields = [
       document.getElementById("name"),
       document.getElementById("email"),

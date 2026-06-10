@@ -333,6 +333,10 @@
      --------------------------------------------------------- */
   var form = document.getElementById('reserveForm');
   if (form) {
+    // JS有効時のみネイティブ検証を止めて独自検証に切り替える
+    // （HTML側に novalidate を書かないことで、JS無効時はネイティブ検証が生きる）
+    form.setAttribute('novalidate', 'novalidate');
+
     var nameInput = document.getElementById('name');
     var emailInput = document.getElementById('email');
     var successMsg = document.getElementById('formSuccess');

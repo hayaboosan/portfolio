@@ -1097,6 +1097,16 @@ ol {
   color: var(--color-text-soft);
   text-align: center;
 }
+/* JS無効時の案内（noscript 内で送信ボタンの代わりに表示） */
+.form__nojs {
+  margin-top: 0.5rem;
+  padding: 1rem 1.2rem;
+  background: rgba(31, 42, 40, 0.06);
+  border-left: 3px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  font-size: 0.92rem;
+  color: var(--color-text);
+}
 
 /* =========================================================
    FOOTER
@@ -1248,11 +1258,14 @@ ol {
     background: var(--color-bg);
     box-shadow: -20px 0 60px -30px rgba(0, 0, 0, 0.5);
     transform: translateX(100%);
-    transition: transform 0.5s var(--ease);
+    /* 閉状態は visibility も隠し、Tab/スクリーンリーダーが画面外メニューに到達しないようにする */
+    visibility: hidden;
+    transition: transform 0.5s var(--ease), visibility 0.5s var(--ease);
     z-index: 105;
   }
   .nav__menu.is-open {
     transform: translateX(0);
+    visibility: visible;
   }
   .nav__link,
   .site-header:not(.is-scrolled) .nav__link {

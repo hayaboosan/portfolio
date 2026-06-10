@@ -248,6 +248,8 @@ ul, ol { list-style: none; }
   align-items: center;
   gap: 0.6rem;
   color: var(--color-primary-deep);
+  flex-shrink: 0;       /* ナビが詰まってもロゴ名を折り返さない */
+  white-space: nowrap;
 }
 .brand__mark {
   display: grid;
@@ -283,6 +285,7 @@ ul, ol { list-style: none; }
   padding: 0.5rem 0.2rem;
   color: var(--color-text);
   transition: color 0.3s var(--ease);
+  white-space: nowrap; /* ラベル途中での折り返し防止（CTAがヘッダーからはみ出す事故の再発防止） */
 }
 .nav__link::after {
   content: "";
@@ -930,8 +933,9 @@ ul, ol { list-style: none; }
   .footer__inner { grid-template-columns: 1.4fr 1fr 1.4fr; }
 }
 
-/* mobile nav drawer (<=760px) */
-@media (max-width: 760px) {
+/* mobile nav drawer (<=860px)
+   ※ デスクトップ表示はナビ6項目＋CTAが1行に収まる幅から（折り返し防止） */
+@media (max-width: 860px) {
   .nav__toggle { display: flex; position: relative; }
   .nav__menu {
     position: fixed;
@@ -945,7 +949,9 @@ ul, ol { list-style: none; }
     background: var(--color-surface);
     box-shadow: -20px 0 60px -30px rgba(13, 59, 54, 0.5);
     transform: translateX(100%);
-    transition: transform 0.45s var(--ease);
+    /* 閉状態は visibility も隠し、Tab移動・スクリーンリーダーから外す */
+    visibility: hidden;
+    transition: transform 0.45s var(--ease), visibility 0.45s var(--ease);
     z-index: 105;
   }
   .js .nav__menu { height: 100vh; height: 100dvh; }
@@ -956,6 +962,7 @@ ul, ol { list-style: none; }
     flex-direction: row;
     flex-wrap: wrap;
     transform: none;
+    visibility: visible;
     box-shadow: none;
     padding: 0;
     gap: 0.6rem 1rem;
@@ -963,7 +970,7 @@ ul, ol { list-style: none; }
     justify-content: flex-end;
   }
   .no-js .nav__toggle { display: none; }
-  .js .nav__menu.is-open { transform: translateX(0); }
+  .js .nav__menu.is-open { transform: translateX(0); visibility: visible; }
   .nav__link { font-size: 1.1rem; padding: 0.5rem 0; }
   .no-js .nav__link { font-size: 0.85rem; }
 

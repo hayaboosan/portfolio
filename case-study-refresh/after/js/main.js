@@ -68,7 +68,7 @@
     });
 
     window.addEventListener('resize', function () {
-      if (window.innerWidth > 760 && navMenu.classList.contains('is-open')) {
+      if (window.innerWidth > 860 && navMenu.classList.contains('is-open')) {
         closeNav();
       }
     });
@@ -172,6 +172,10 @@
      --------------------------------------------------------- */
   var form = document.getElementById('reserveForm');
   if (form) {
+    // JS有効時のみブラウザ標準の検証を止め、下記の独自検証に切り替える
+    // （JS無効時は novalidate が付かず、標準のバリデーションが働く）
+    form.setAttribute('novalidate', 'novalidate');
+
     var nameInput = document.getElementById('name');
     var telInput = document.getElementById('tel');
     var emailInput = document.getElementById('email');
@@ -179,8 +183,8 @@
 
     // 緩めの形式チェック。サーバ側検証の代わりにはならない簡易確認。
     var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    // 日本の電話番号：ハイフン許容、数字10〜11桁を想定した緩いチェック。
-    var telRe = /^[0-9０-９+\-（）()\s]{10,17}$/;
+    // 日本の電話番号：ハイフン・括弧等を許容しつつ、数字（全角含む）10桁以上を要求する。
+    var telRe = /^(?=(?:[^0-9０-９]*[0-9０-９]){10})[0-9０-９+\-（）()\s]{10,17}$/;
 
     function setError(input, message) {
       var errEl = document.getElementById(input.getAttribute('aria-describedby'));

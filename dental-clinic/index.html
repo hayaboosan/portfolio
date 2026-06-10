@@ -11,13 +11,16 @@
   </script>
   <title>そよかぜ歯科・矯正歯科｜みどり野駅すぐの歯医者さん｜痛みに配慮した、通いやすい歯科</title>
   <meta name="description" content="みどり野駅 北口から徒歩3分の「そよかぜ歯科・矯正歯科」。一般歯科・小児歯科・予防・ホワイトニング・矯正まで。痛みに配慮した治療と、土曜も診療・キッズスペース完備で家族みんなが通いやすい歯医者さん。24時間Web予約受付中。" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232F9BD6'/%3E%3Ctext x='16' y='22.5' font-family='Segoe UI,sans-serif' font-size='17' font-weight='700' fill='%23FFFFFF' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E" />
   <meta name="theme-color" content="#2f9bd6" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="そよかぜ歯科・矯正歯科｜みどり野駅すぐの歯医者さん" />
   <meta property="og:description" content="痛みに配慮した、通いやすい歯科。土曜診療・キッズスペース完備。24時間Web予約受付中。" />
-  <meta property="og:image" content="https://picsum.photos/seed/soyokaze-og/1200/630" />
+  <meta property="og:image" content="https://hayaboosan.github.io/portfolio/assets/og/dental-clinic.png" />
+  <link rel="canonical" href="https://hayaboosan.github.io/portfolio/dental-clinic/" />
+  <meta property="og:url" content="https://hayaboosan.github.io/portfolio/dental-clinic/" />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -28,6 +31,13 @@
   />
 
   <link rel="stylesheet" href="css/style.css" />
+  <noscript>
+    <style>
+      /* JS無効時は送信ガードが効かず、GET送信で入力内容がURLに載ってしまうため
+         デモの送信ボタンを隠す（案内はフォーム内の noscript で表示） */
+      .form__submit { display: none !important; }
+    </style>
+  </noscript>
 </head>
 <body>
   <a class="skip-link" href="#main">本文へスキップ</a>
@@ -38,8 +48,8 @@
       <a class="brand" href="#hero" aria-label="そよかぜ歯科・矯正歯科 トップへ">
         <span class="brand__mark" aria-hidden="true">
           <svg width="30" height="30" viewBox="0 0 32 32" fill="none">
-            <path d="M16 6c-3-3-8-3-10 0-1.6 2.4-1.2 5.6-.4 9 .8 3.4 2 8 3.8 8 1.4 0 1.6-3.4 2.8-3.4s1.4 3.4 2.8 3.4c1.8 0 3-4.6 3.8-8 .8-3.4 1.2-6.6-.4-9-2-3-7-3-10 0Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="rgba(255,255,255,0.6)" />
-            <path d="M12 11c1.4-1 3.6-1 5 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            <path d="M16 6c-3.4-2.4-7.6-1.4-7.6 3.4 0 2.9 1 4.8 1.7 8.2.5 2.2.7 4.8 2.1 4.8 1.3 0 1.4-1.9 1.9-3.8.3-1 .8-1.7 1.9-1.7s1.6.7 1.9 1.7c.5 1.9.6 3.8 1.9 3.8 1.4 0 1.6-2.6 2.1-4.8.7-3.4 1.7-5.3 1.7-8.2C23.6 4.6 19.4 3.6 16 6Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="rgba(255,255,255,0.6)" />
+            <path d="M13.5 11c1.4-1 3.6-1 5 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
           </svg>
         </span>
         <span class="brand__text">
@@ -102,13 +112,13 @@
         </p>
         <div class="hero__actions reveal" data-reveal data-delay="350">
           <a href="#reserve" class="btn btn--primary">24時間Web予約はこちら</a>
-          <a href="tel:0120000000" class="btn btn--ghost btn--tel">
+          <a href="tel:0300000000" class="btn btn--ghost btn--tel">
             <span class="btn__tel-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M5 4h4l2 5-3 2a12 12 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z" />
               </svg>
             </span>
-            0120-000-000
+            03-0000-0000
           </a>
         </div>
         <ul class="hero__badges reveal" data-reveal data-delay="500">
@@ -155,8 +165,8 @@
           <li class="reason-card reveal" data-reveal>
             <span class="reason-card__icon" aria-hidden="true">
               <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M24 8c-5-4-12-3-14 2-2 4-1 9 0 14 1 6 3 12 5 12 2 0 2-5 4-5s2 5 4 5c2 0 4-6 5-12 1-5 2-10 0-14-2-5-9-6-14-2Z" />
-                <path d="M18 16c2-2 4-2 6 0" />
+                <path d="M24 9c-5.1-3.6-11.4-2.1-11.4 5.1 0 4.35 1.5 7.2 2.55 12.3.75 3.3 1.05 7.2 3.15 7.2 1.95 0 2.1-2.85 2.85-5.7.45-1.5 1.2-2.55 2.85-2.55s2.4 1.05 2.85 2.55c.75 2.85.9 5.7 2.85 5.7 2.1 0 2.4-3.9 3.15-7.2 1.05-5.1 2.55-7.95 2.55-12.3C35.4 6.9 29.1 5.4 24 9Z" />
+                <path d="M21 16c2-2 4-2 6 0" />
               </svg>
             </span>
             <span class="reason-card__num">01</span>
@@ -254,7 +264,7 @@
           <article class="service-card reveal" data-reveal>
             <span class="service-card__icon" aria-hidden="true">
               <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M24 8c-5-4-12-3-14 2-2 4-1 9 0 14 1 6 3 12 5 12 2 0 2-5 4-5s2 5 4 5c2 0 4-6 5-12 1-5 2-10 0-14-2-5-9-6-14-2Z" />
+                <path d="M24 9c-5.1-3.6-11.4-2.1-11.4 5.1 0 4.35 1.5 7.2 2.55 12.3.75 3.3 1.05 7.2 3.15 7.2 1.95 0 2.1-2.85 2.85-5.7.45-1.5 1.2-2.55 2.85-2.55s2.4 1.05 2.85 2.55c.75 2.85.9 5.7 2.85 5.7 2.1 0 2.4-3.9 3.15-7.2 1.05-5.1 2.55-7.95 2.55-12.3C35.4 6.9 29.1 5.4 24 9Z" />
               </svg>
             </span>
             <h3 class="service-card__title">一般歯科</h3>
@@ -286,7 +296,7 @@
           <article class="service-card reveal" data-reveal data-delay="240">
             <span class="service-card__icon" aria-hidden="true">
               <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M24 8c-5-4-12-3-14 2-2 4-1 9 0 14 1 6 3 12 5 12 2 0 2-5 4-5s2 5 4 5c2 0 4-6 5-12 1-5 2-10 0-14-2-5-9-6-14-2Z" />
+                <path d="M24 9c-5.1-3.6-11.4-2.1-11.4 5.1 0 4.35 1.5 7.2 2.55 12.3.75 3.3 1.05 7.2 3.15 7.2 1.95 0 2.1-2.85 2.85-5.7.45-1.5 1.2-2.55 2.85-2.55s2.4 1.05 2.85 2.55c.75 2.85.9 5.7 2.85 5.7 2.1 0 2.4-3.9 3.15-7.2 1.05-5.1 2.55-7.95 2.55-12.3C35.4 6.9 29.1 5.4 24 9Z" />
                 <path d="M30 12l3-3M34 16l4-2M35 22l4 0" />
               </svg>
             </span>
@@ -334,8 +344,8 @@
         <div class="staff__lead reveal" data-reveal data-delay="100">
           <div class="staff__photo">
             <img
-              src="https://picsum.photos/seed/soyokaze-doctor/640/720"
-              alt="そよかぜ歯科・矯正歯科の院長 風間そよか（架空の人物）のイメージ写真"
+              src="assets/doctor.svg"
+              alt="院長 風間そよか（架空の人物）のイラストポートレート"
               loading="lazy"
               width="640"
               height="720"
@@ -358,7 +368,7 @@
         <ul class="staff__members">
           <li class="staff-member reveal" data-reveal>
             <span class="staff-member__avatar" aria-hidden="true">
-              <img src="https://randomuser.me/api/portraits/women/47.jpg" alt="" loading="lazy" width="72" height="72" />
+              <img src="assets/avatar-1.svg" alt="" loading="lazy" width="72" height="72" />
             </span>
             <span class="staff-member__role">歯科衛生士</span>
             <span class="staff-member__name">みなみ</span>
@@ -366,7 +376,7 @@
           </li>
           <li class="staff-member reveal" data-reveal data-delay="80">
             <span class="staff-member__avatar" aria-hidden="true">
-              <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="" loading="lazy" width="72" height="72" />
+              <img src="assets/avatar-2.svg" alt="" loading="lazy" width="72" height="72" />
             </span>
             <span class="staff-member__role">歯科衛生士</span>
             <span class="staff-member__name">あおい</span>
@@ -374,7 +384,7 @@
           </li>
           <li class="staff-member reveal" data-reveal data-delay="160">
             <span class="staff-member__avatar" aria-hidden="true">
-              <img src="https://randomuser.me/api/portraits/men/52.jpg" alt="" loading="lazy" width="72" height="72" />
+              <img src="assets/avatar-3.svg" alt="" loading="lazy" width="72" height="72" />
             </span>
             <span class="staff-member__role">歯科助手</span>
             <span class="staff-member__name">けんと</span>
@@ -382,7 +392,7 @@
           </li>
           <li class="staff-member reveal" data-reveal data-delay="240">
             <span class="staff-member__avatar" aria-hidden="true">
-              <img src="https://randomuser.me/api/portraits/women/12.jpg" alt="" loading="lazy" width="72" height="72" />
+              <img src="assets/avatar-4.svg" alt="" loading="lazy" width="72" height="72" />
             </span>
             <span class="staff-member__role">トリートメントコーディネーター</span>
             <span class="staff-member__name">ゆい</span>
@@ -472,7 +482,7 @@
             </blockquote>
             <figcaption class="voice__person">
               <span class="voice__avatar" aria-hidden="true">
-                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="" loading="lazy" width="52" height="52" />
+                <img src="assets/avatar-5.svg" alt="" loading="lazy" width="52" height="52" />
               </span>
               <span class="voice__meta">
                 <span class="voice__name">Tさん・40代・男性</span>
@@ -488,7 +498,7 @@
             </blockquote>
             <figcaption class="voice__person">
               <span class="voice__avatar" aria-hidden="true">
-                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="" loading="lazy" width="52" height="52" />
+                <img src="assets/avatar-6.svg" alt="" loading="lazy" width="52" height="52" />
               </span>
               <span class="voice__meta">
                 <span class="voice__name">Mさん・30代・女性</span>
@@ -504,7 +514,7 @@
             </blockquote>
             <figcaption class="voice__person">
               <span class="voice__avatar" aria-hidden="true">
-                <img src="https://randomuser.me/api/portraits/women/24.jpg" alt="" loading="lazy" width="52" height="52" />
+                <img src="assets/avatar-7.svg" alt="" loading="lazy" width="52" height="52" />
               </span>
               <span class="voice__meta">
                 <span class="voice__name">Kさん・20代・女性</span>
@@ -540,7 +550,7 @@
               </div>
               <div class="access__item">
                 <dt>電話</dt>
-                <dd><a href="tel:0120000000" class="access__tel">0120-000-000</a><br /><span class="access__small">初診のご予約・お問い合わせはこちら</span></dd>
+                <dd><a href="tel:0300000000" class="access__tel">03-0000-0000</a><br /><span class="access__small">初診のご予約・お問い合わせはこちら</span></dd>
               </div>
               <div class="access__item">
                 <dt>アクセス</dt>
@@ -717,7 +727,7 @@
           <ul class="reserve__contact">
             <li>
               <span class="reserve__contact-label">TEL</span>
-              <a href="tel:0120000000" class="reserve__contact-value">0120-000-000</a>
+              <a href="tel:0300000000" class="reserve__contact-value">03-0000-0000</a>
               <span class="reserve__contact-hours">平日 9:00–18:00 / 土 9:00–17:00 ／ 木・日午後・祝 休診</span>
             </li>
             <li>
@@ -728,7 +738,7 @@
         </div>
 
         <div class="reserve__form-wrap reveal" data-reveal data-delay="150">
-          <form class="form" id="reserveForm" novalidate>
+          <form class="form" id="reserveForm">
             <p class="form__intro">Web予約・お問い合わせ</p>
 
             <div class="form__field">
@@ -801,8 +811,15 @@
 
             <button type="submit" class="btn btn--primary form__submit">この内容で予約を申し込む</button>
 
+            <!-- JS無効時は送信ボタンを隠し（head 内の noscript スタイル）、電話での予約をご案内する -->
+            <noscript>
+              <p class="form__noscript">
+                フォームの送信には JavaScript が必要です。お電話でも承ります：<a href="tel:0300000000">03-0000-0000</a>
+              </p>
+            </noscript>
+
             <p class="form__success" id="formSuccess" role="status" hidden>
-              ご予約のお申し込みありがとうございます。2営業日以内に、ご記入のお電話番号へご連絡いたします。
+              ご予約のお申し込みありがとうございます。2営業日以内に、ご記入のお電話番号へご連絡いたします。（※これはデモのため、実際には送信されません）
             </p>
             <p class="form__privacy">いただいた情報は、ご連絡とご予約の目的以外には使用しません。</p>
           </form>
@@ -817,8 +834,8 @@
       <div class="footer__brand">
         <span class="footer__mark" aria-hidden="true">
           <svg width="36" height="36" viewBox="0 0 32 32" fill="none">
-            <path d="M16 6c-3-3-8-3-10 0-1.6 2.4-1.2 5.6-.4 9 .8 3.4 2 8 3.8 8 1.4 0 1.6-3.4 2.8-3.4s1.4 3.4 2.8 3.4c1.8 0 3-4.6 3.8-8 .8-3.4 1.2-6.6-.4-9-2-3-7-3-10 0Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="rgba(255,255,255,0.5)" />
-            <path d="M12 11c1.4-1 3.6-1 5 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            <path d="M16 6c-3.4-2.4-7.6-1.4-7.6 3.4 0 2.9 1 4.8 1.7 8.2.5 2.2.7 4.8 2.1 4.8 1.3 0 1.4-1.9 1.9-3.8.3-1 .8-1.7 1.9-1.7s1.6.7 1.9 1.7c.5 1.9.6 3.8 1.9 3.8 1.4 0 1.6-2.6 2.1-4.8.7-3.4 1.7-5.3 1.7-8.2C23.6 4.6 19.4 3.6 16 6Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="rgba(255,255,255,0.5)" />
+            <path d="M13.5 11c1.4-1 3.6-1 5 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
           </svg>
         </span>
         <p class="footer__name">そよかぜ歯科・矯正歯科</p>
@@ -841,7 +858,7 @@
         <p>みどり県そよかぜ市みどり野1-2-3 けやきビル2F（架空）</p>
         <p>平日 9:00–18:00 / 土 9:00–17:00</p>
         <p>木曜・日曜午後・祝日 休診</p>
-        <p><a href="tel:0120000000">0120-000-000</a></p>
+        <p><a href="tel:0300000000">03-0000-0000</a></p>
       </div>
     </div>
 
@@ -855,7 +872,7 @@
 
   <!-- ============ MOBILE STICKY CTA ============ -->
   <div class="sticky-cta" aria-label="予約のショートカット">
-    <a class="sticky-cta__btn sticky-cta__btn--tel" href="tel:0120000000" aria-label="電話で予約する 0120-000-000">
+    <a class="sticky-cta__btn sticky-cta__btn--tel" href="tel:0300000000" aria-label="電話で予約する 03-0000-0000">
       <span class="sticky-cta__icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M5 4h4l2 5-3 2a12 12 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z" />

@@ -1241,6 +1241,21 @@ ol {
   line-height: 1.7;
   color: var(--color-text);
 }
+/* JS無効時の案内（noscript 内で送信ボタンの代わりに表示） */
+.form__noscript {
+  margin-top: 1.2rem;
+  padding: 1rem 1.2rem;
+  background: rgba(200, 255, 0, 0.1);
+  border-left: 3px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--color-text);
+}
+.form__noscript a {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
 .form__privacy {
   margin-top: 1rem;
   font-size: 0.78rem;
@@ -1424,11 +1439,15 @@ ol {
     background: var(--color-surface);
     box-shadow: -20px 0 60px -30px rgba(0, 0, 0, 0.8);
     transform: translateX(100%);
-    transition: transform 0.45s var(--ease);
+    /* 閉時は Tab / スクリーンリーダーからも隠す（visibility は transition 中
+       visible に補間されるため開閉アニメは壊れない） */
+    visibility: hidden;
+    transition: transform 0.45s var(--ease), visibility 0.45s var(--ease);
     z-index: 105;
   }
   .nav__menu.is-open {
     transform: translateX(0);
+    visibility: visible;
   }
   .nav__link {
     font-size: 1.15rem;

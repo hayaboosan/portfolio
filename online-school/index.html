@@ -6,7 +6,16 @@
   <!-- JSが使える時だけ折りたたみFAQの初期非表示(.js)を適用（描画前にマーク） -->
   <script>document.documentElement.classList.add('js');</script>
   <meta name="description" content="Atelier Lumen（アトリエ・ルーメン）は、1クラス最大12名の少人数制オンライン創造学校。現役プロの伴走と週次の個別添削で、デザイン・ライティング・データ・マーケティングなどの創造的スキルを体系的に学び直せます。" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2316213E'/%3E%3Ctext x='16' y='22.5' font-family='Segoe UI,sans-serif' font-size='17' font-weight='700' fill='%23D4A94E' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E" />
   <title>Atelier Lumen（アトリエ・ルーメン）｜学びを、灯す。少人数制オンライン創造学校</title>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Atelier Lumen（アトリエ・ルーメン）｜少人数制オンライン創造学校" />
+  <meta property="og:description" content="学びを、灯す。1クラス最大12名・現役プロの伴走と週次添削で学び直すオンラインスクール。" />
+  <meta property="og:image" content="https://hayaboosan.github.io/portfolio/assets/og/online-school.png" />
+  <meta property="og:url" content="https://hayaboosan.github.io/portfolio/online-school/" />
+  <link rel="canonical" href="https://hayaboosan.github.io/portfolio/online-school/" />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -14,6 +23,24 @@
   <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="css/style.css" />
+
+  <noscript>
+    <style>
+      /* JS無効時はデモの送信ガードが効かず、GET送信で入力内容がURLに露出するため送信ボタンを隠す */
+      .form__submit { display: none !important; }
+      /* 代替案内（フォーム内の noscript 要素。JS無効時のみ表示される） */
+      .form__noscript {
+        margin-top: 4px;
+        padding: 16px;
+        border: 1px solid var(--accent);
+        border-radius: var(--radius-sharp);
+        background: rgba(232, 176, 75, 0.12);
+        font-size: 0.9rem;
+        line-height: 1.7;
+      }
+      .form__noscript a { text-decoration: underline; text-underline-offset: 3px; color: var(--accent); }
+    </style>
+  </noscript>
 </head>
 <body>
   <!-- スクロール進捗バー -->
@@ -144,7 +171,7 @@
         <div class="hero__visual reveal">
           <figure class="hero__figure">
             <img
-              src="https://picsum.photos/seed/lumenstudio7/900/1100"
+              src="assets/study-desk.svg"
               width="900" height="1100"
               alt="自然光の差し込むアトリエの机。万年筆、紙のノート、コーヒーと書籍が置かれた手元のカット"
               loading="eager" />
@@ -294,7 +321,7 @@
           <figure class="voice reveal">
             <blockquote class="voice__quote">独学で2年くすぶっていたのが嘘みたい。週1の添削で「なぜダメか」が初めて言語化され、3ヶ月で初案件を受注しました。</blockquote>
             <figcaption class="voice__person">
-              <img class="voice__avatar" src="https://randomuser.me/api/portraits/women/65.jpg" width="160" height="160" alt="田村 涼子さんのポートレート" loading="lazy" />
+              <img class="voice__avatar" src="assets/avatar-1.svg" width="160" height="160" alt="" loading="lazy" />
               <span class="voice__meta">
                 <span class="voice__name">田村 涼子さん</span>
                 <span class="voice__role">34歳・元事務職／現 Web デザイナー・Standard 受講</span>
@@ -305,7 +332,7 @@
           <figure class="voice reveal">
             <blockquote class="voice__quote">12名クラスだから、的外れな質問でも気軽に聞けた。講師が現役の方なので、答えに「現場の温度」があるんです。</blockquote>
             <figcaption class="voice__person">
-              <img class="voice__avatar" src="https://randomuser.me/api/portraits/men/52.jpg" width="160" height="160" alt="佐久間 健さんのポートレート" loading="lazy" />
+              <img class="voice__avatar" src="assets/avatar-2.svg" width="160" height="160" alt="" loading="lazy" />
               <span class="voice__meta">
                 <span class="voice__name">佐久間 健さん</span>
                 <span class="voice__role">41歳・メーカー勤務／副業ライター・Light 受講</span>
@@ -316,7 +343,7 @@
           <figure class="voice reveal">
             <blockquote class="voice__quote">キャリア面談で「自分の強みの売り方」まで設計してもらえた。卒業4ヶ月でフリーランスとして独立できました。</blockquote>
             <figcaption class="voice__person">
-              <img class="voice__avatar" src="https://randomuser.me/api/portraits/women/33.jpg" width="160" height="160" alt="中村 美波さんのポートレート" loading="lazy" />
+              <img class="voice__avatar" src="assets/avatar-3.svg" width="160" height="160" alt="" loading="lazy" />
               <span class="voice__meta">
                 <span class="voice__name">中村 美波さん</span>
                 <span class="voice__role">29歳・元販売職／現 UX デザイナー・Pro 受講</span>
@@ -402,7 +429,7 @@
         </div>
 
         <div class="cta__form-wrap reveal">
-          <form class="form" id="contactForm" novalidate>
+          <form class="form" id="contactForm">
             <p class="form__title">無料体験レッスンに申し込む</p>
 
             <div class="field">
@@ -435,7 +462,11 @@
               <p class="field__error" id="message-error" role="alert"></p>
             </div>
 
-            <button type="submit" class="btn btn--primary btn--block">無料体験レッスンを予約する</button>
+            <button type="submit" class="btn btn--primary btn--block form__submit">無料体験レッスンを予約する</button>
+            <!-- JS無効時の案内（送信ボタンは head 内の noscript スタイルで非表示にする） -->
+            <noscript>
+              <p class="form__noscript">フォームの送信には JavaScript が必要です。お手数ですが、メール（<a href="mailto:hello@atelier-lumen.example">hello@atelier-lumen.example</a>）でも無料体験のご相談を承ります。</p>
+            </noscript>
             <a href="#pricing" class="form__sub-link">まずは料金プランを見る</a>
 
             <p class="form__success" id="formSuccess" role="status" hidden>

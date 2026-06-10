@@ -13,21 +13,24 @@
 
   <title>わかば整骨院｜わかば駅徒歩5分の整骨院・肩こり/腰痛/交通事故</title>
   <meta name="description" content="東京・わかば駅東口より徒歩5分。肩こり・腰痛・スポーツ障害・交通事故のむち打ちに、国家資格者がていねいに対応する整骨院です。平日夜20時まで受付（木曜は午前のみ）。Webからのご予約・お問い合わせはこちら。" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231F7A70'/%3E%3Ctext x='16' y='22.5' font-family='Segoe UI,sans-serif' font-size='17' font-weight='700' fill='%23FFFFFF' text-anchor='middle'%3EW%3C/text%3E%3C/svg%3E" />
+  <link rel="canonical" href="https://hayaboosan.github.io/portfolio/case-study-refresh/after/" />
   <meta name="theme-color" content="#1F7A70" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="わかば整骨院" />
-  <meta property="og:title" content="わかば整骨院｜地域のからだ相談所" />
+  <meta property="og:url" content="https://hayaboosan.github.io/portfolio/case-study-refresh/after/" />
+  <meta property="og:title" content="わかば整骨院｜わかば駅徒歩5分の整骨院" />
   <meta property="og:description" content="わかば駅徒歩5分。肩こり・腰痛・交通事故のむち打ちに、国家資格者がていねいに対応。平日夜20時まで受付（木曜は午前のみ）。" />
-  <meta property="og:image" content="https://picsum.photos/seed/wakaba-og/1200/630" />
+  <meta property="og:image" content="https://hayaboosan.github.io/portfolio/assets/og/wakaba.png" />
   <meta property="og:locale" content="ja_JP" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="わかば整骨院｜地域のからだ相談所" />
+  <meta name="twitter:title" content="わかば整骨院｜わかば駅徒歩5分の整骨院" />
   <meta name="twitter:description" content="わかば駅徒歩5分。肩こり・腰痛・交通事故のむち打ちに国家資格者が対応。平日夜20時まで受付（木曜は午前のみ）。" />
-  <meta name="twitter:image" content="https://picsum.photos/seed/wakaba-og/1200/630" />
+  <meta name="twitter:image" content="https://hayaboosan.github.io/portfolio/assets/og/wakaba.png" />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -38,6 +41,13 @@
   />
 
   <link rel="stylesheet" href="css/style.css" />
+  <noscript>
+    <style>
+      /* JS無効時はデモ用の送信ガードが効かず、GET送信で入力内容がURLに載ってしまうため
+         送信ボタンを隠す（案内はフォーム内の <noscript> で表示） */
+      .form__submit { display: none !important; }
+    </style>
+  </noscript>
 </head>
 <body>
   <a class="skip-link" href="#main">本文へスキップ</a>
@@ -332,7 +342,7 @@
           </div>
 
           <figure class="access__map reveal" data-reveal data-delay="140">
-            <img src="assets/map.svg" alt="わかば整骨院の周辺地図。わかば駅東口から東へ進み、わかば公園を過ぎた大通り沿い、わかばビル1階にあります。建物前に無料駐車場が2台あります。" width="800" height="480" loading="lazy" />
+            <img src="assets/map.svg" alt="わかば整骨院の周辺地図。わかば駅東口から大通りを東へ進み、わかば公園を過ぎた先、わかばビル1階にあります。建物のとなりに無料駐車場が2台あります。" width="800" height="480" loading="lazy" />
             <figcaption class="access__map-cap">わかば駅東口から徒歩5分／無料駐車場2台</figcaption>
           </figure>
         </div>
@@ -364,7 +374,7 @@
         </div>
 
         <div class="contact__form-wrap reveal" data-reveal data-delay="150">
-          <form class="form" id="reserveForm" novalidate>
+          <form class="form" id="reserveForm">
             <p class="form__intro">予約・お問い合わせフォーム</p>
 
             <div class="form__field">
@@ -406,8 +416,15 @@
 
             <button type="submit" class="btn btn--primary form__submit">この内容で送信する</button>
 
+            <!-- JS無効時の案内（送信ボタンは head の noscript スタイルで非表示） -->
+            <noscript>
+              <p class="form__noscript">
+                フォームの送信には JavaScript が必要です。ご予約・お問い合わせはお電話（<a href="tel:0312345678">03-1234-5678</a>）でも承ります。
+              </p>
+            </noscript>
+
             <p class="form__success" id="formSuccess" role="status" tabindex="-1" hidden>
-              お問い合わせありがとうございます。2営業日以内に、ご記入の連絡先へご連絡いたします。お急ぎの場合はお電話（03-1234-5678）でも承ります。
+              お問い合わせありがとうございます。2営業日以内に、ご記入の連絡先へご連絡いたします。お急ぎの場合はお電話（03-1234-5678）でも承ります。（※これはデモのため、実際には送信されません）
             </p>
             <p class="form__privacy">いただいた情報は、ご連絡の目的以外には使用いたしません。</p>
           </form>

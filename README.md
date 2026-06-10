@@ -109,7 +109,7 @@ LP（マーケティング）・見積もりアプリ（ツール）に続く第
 - **演出**: `IntersectionObserver` によるスクロール出現、カウントアップ、CSS アニメーション
 - **アクセシビリティ**: スキップリンク、ARIA属性、キーボード操作対応、`prefers-reduced-motion` への配慮
 - **フォント**: Google Fonts（Shippori Mincho B1 / Zen Kaku Gothic New / Noto Sans JP / Cormorant Garamond など）
-- **画像**: ヒーロー等の写真は [picsum.photos](https://picsum.photos)、お客様の声のアバターは [randomuser.me](https://randomuser.me) の人物写真、美容サロンのヒーロー背景とカフェの装飾は**自作のインラインSVG**（各 `assets/` 配下）を使用
+- **画像**: ヒーロー等の写真は [picsum.photos](https://picsum.photos)、お客様の声などの人物アバターは**自作SVG（イニシャル/シルエット）**、美容サロンのヒーロー背景とカフェの装飾は**自作のインラインSVG**（各 `assets/` 配下）を使用
 
 ### ディレクトリ構成
 
@@ -257,4 +257,4 @@ git push -u origin main
 
 - 本リポジトリは制作スキルを示すためのポートフォリオです。
 - 掲載ブランド・実績・口コミ・価格はすべて架空であり、商用利用を目的としたものではありません。
-- フォントは Google Fonts、写真は picsum.photos / randomuser.me の各規約に従います。装飾SVGは本ポートフォリオのために制作したオリジナルです。
+- フォントは Google Fonts、写真は picsum.photos の規約に従います。お客様の声などの人物アバター（イニシャル/シルエットの自作SVG）と装飾SVGは本ポートフォリオのために制作したオリジナルです。
