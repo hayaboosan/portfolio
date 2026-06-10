@@ -357,6 +357,44 @@ input, select { font: inherit; color: inherit; }
 .results__count-text { font-size: 0.95rem; color: var(--ink-soft); }
 .results__count-text output { font-size: 1.4rem; font-weight: 900; color: var(--brand-deep); }
 .results__count-sub { margin-left: 0.4em; font-size: 0.85em; color: var(--ink-soft); }
+
+/* ページ送り */
+.pager {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 1.5rem;
+}
+.pager__btn {
+  min-width: 42px;
+  min-height: 42px;
+  padding: 0 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--control-border);
+  border-radius: 10px;
+  background: var(--panel);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 0.92rem;
+  cursor: pointer;
+  transition: border-color 0.2s var(--ease), background-color 0.2s var(--ease), color 0.2s var(--ease);
+}
+.pager__btn:hover:not(:disabled):not([aria-current]) {
+  border-color: var(--brand);
+  color: var(--brand-deep);
+  background: var(--brand-soft);
+}
+.pager__btn[aria-current="page"] {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: #fff;
+  cursor: default;
+}
+.pager__btn:disabled { opacity: 0.4; cursor: default; }
 .results__tools { display: flex; align-items: center; gap: 0.7rem 1rem; flex-wrap: wrap; }
 .results__sort { display: flex; align-items: center; gap: 0.5rem; }
 .results__sort-label { font-size: 0.8rem; color: var(--ink-soft); white-space: nowrap; }
@@ -557,6 +595,9 @@ input, select { font: inherit; color: inherit; }
   transition: transform 0.2s var(--ease);
 }
 .bukken__more[open] .bukken__more-summary::before { transform: rotate(-135deg); }
+/* 開いている間はラベルを「閉じる」表現に切り替える（CSSのみ・JS不要） */
+.bukken__more[open] .bukken__more-label--open { display: none; }
+.bukken__more:not([open]) .bukken__more-label--close { display: none; }
 .bukken__detail {
   display: grid;
   grid-template-columns: 1fr 1fr;

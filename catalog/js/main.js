@@ -34,8 +34,11 @@
   var sortSelect = document.getElementById('sortSelect');
   var perPage = document.getElementById('perPage');
   var shownEl = document.getElementById('resultShown');
+  var pagerEl = document.getElementById('pager');
   var fFavOnly = document.getElementById('fFavOnly');
   if (!form || !listEl) return;
+
+  var page = 1; // 現在のページ（絞り込み・並べ替え・表示件数の変更で1に戻す）
 
   // ----- 物件データを DOM から1度だけ読む -----
   var items = Array.prototype.map.call(listEl.querySelectorAll('.bukken'), function (el, i) {
@@ -178,26 +181,38 @@
     var s = readState();
     if (s.sort !== lastSort) { applySort(s); lastSort = s.sort; }
 
-    // 表示順（並べ替え後）の先頭から、表示件数の上限までを表示する
-    var limit = s.pp || Infinity;
+    // 表示順（並べ替え後）の一致分を、表示件数×ページ位置で切り出して表示する
+    var limit = isFinite(s.pp) && s.pp > 0 ? s.pp : Infinity;
     var matched = 0;
+    orderedItems.forEach(function (it) { if (matches(it, s)) matched++; });
+    var totalPages = isFinite(limit) ? Math.max(1, Math.ceil(matched / limit)) : 1;
+    if (page > totalPages) page = totalPages; // 絞り込みでページ数が減った場合は末尾へ寄せる
+    if (page < 1) page = 1;
+    var start = isFinite(limit) ? (page - 1) * limit : 0;
+    var end = isFinite(limit) ? page * limit : matched;
+    var seen = 0;
     orderedItems.forEach(function (it) {
       var ok = matches(it, s);
-      if (ok) matched++;
-      it.el.classList.toggle('is-hidden', !(ok && matched <= limit));
+      var show = false;
+      if (ok) { show = seen >= start && seen < end; seen++; }
+      it.el.classList.toggle('is-hidden', !show);
     });
-    var shown = Math.min(matched, limit);
+    var first = matched === 0 ? 0 : start + 1;
+    var last = Math.min(end, matched);
 
     if (countEl) countEl.textContent = String(matched);
-    if (shownEl) shownEl.textContent = matched > limit ? '（上位' + shown + '件を表示）' : '';
+    if (shownEl) shownEl.textContent = totalPages > 1 ? '（' + first + '〜' + last + '件目を表示）' : '';
     if (applyCountEl) applyCountEl.textContent = String(matched);
-    if (statusEl) statusEl.textContent = matched + '件の物件' + (matched > limit ? '、うち上位' + shown + '件を表示中' : '');
+    if (statusEl) statusEl.textContent = matched + '件の物件' + (totalPages > 1 ? '、' + totalPages + 'ページ中' + page + 'ページ目（' + first + '〜' + last + '件目）を表示中' : '');
     if (emptyEl) emptyEl.hidden = matched !== 0;
     listEl.hidden = matched === 0;
+    renderPager(totalPages);
 
     renderChips(s);
     if (!opts || opts.url !== false) writeURL(s);
   }
+  // 条件・並べ替え・表示件数が変わったときは1ページ目から表示し直す
+  function applyFresh() { page = 1; apply(); }
 
   // ----- アクティブ条件チップ -----
   function renderChips(s) {
@@ -253,8 +268,45 @@
       var box = form.querySelector('input[name="' + kind + '"][value="' + value + '"]');
       if (box) box.checked = false;
     }
-    apply();
+    applyFresh();
   }
+
+  // ----- ページ送り -----
+  function renderPager(totalPages) {
+    if (!pagerEl) return;
+    pagerEl.innerHTML = '';
+    if (totalPages <= 1) { pagerEl.hidden = true; return; }
+    pagerEl.hidden = false;
+    var mk = function (label, target, ariaLabel) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'pager__btn';
+      b.textContent = label;
+      if (ariaLabel) b.setAttribute('aria-label', ariaLabel);
+      if (target === null) b.disabled = true;
+      else b.setAttribute('data-page', String(target));
+      return b;
+    };
+    pagerEl.appendChild(mk('前へ', page > 1 ? page - 1 : null, '前のページへ'));
+    for (var i = 1; i <= totalPages; i++) {
+      var num = mk(String(i), i, i + 'ページ目へ');
+      if (i === page) { num.setAttribute('aria-current', 'page'); num.removeAttribute('data-page'); }
+      pagerEl.appendChild(num);
+    }
+    pagerEl.appendChild(mk('次へ', page < totalPages ? page + 1 : null, '次のページへ'));
+  }
+  if (pagerEl) pagerEl.addEventListener('click', function (e) {
+    var btn = e.target.closest('button[data-page]');
+    if (!btn) return;
+    page = parseInt(btn.getAttribute('data-page'), 10) || 1;
+    apply();
+    // ページ送り後は結果一覧の先頭へ（モーション設定を尊重）
+    var bar = document.querySelector('.results__bar');
+    if (bar) bar.scrollIntoView({
+      block: 'start',
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+    });
+  });
   function setVal(name, v) {
     var el = form.querySelector('[name="' + name + '"]');
     if (el) el.value = v;
@@ -283,7 +335,7 @@
   // すべてのリセット経路（フッター/空状態/チップ全解除）を resetAll に集約。
   // form.reset() 後は値が戻るのが次tickのため setTimeout で再計算する。
   form.addEventListener('reset', function () {
-    window.setTimeout(apply, 0);
+    window.setTimeout(applyFresh, 0);
   });
   var resetBtn = document.getElementById('resetBtn');
   if (resetBtn) resetBtn.addEventListener('click', resetAll);
@@ -304,6 +356,7 @@
     if (s.fav) p.set('fav', '1');
     if (s.sort) p.set('sort', s.sort);
     if (s.pp && s.pp !== 20 && isFinite(s.pp)) p.set('pp', String(s.pp));
+    if (page > 1) p.set('page', String(page));
     if (view === 'grid') p.set('view', 'grid');
     var str = p.toString();
     var url = (str ? location.pathname + '?' + str : location.pathname) + location.hash;
@@ -331,6 +384,8 @@
     if (p.get('fav') === '1' && fFavOnly) fFavOnly.checked = true;
     if (p.get('sort') && sortSelect) sortSelect.value = p.get('sort');
     if (perPage && ['10', '20', '40'].indexOf(p.get('pp') || '') !== -1) perPage.value = p.get('pp');
+    var pg = parseInt(p.get('page') || '1', 10);
+    if (pg > 1) page = pg; // 範囲外は apply() 側でページ数に丸める
     if (p.get('view') === 'grid') setView('grid', false);
   }
 
@@ -341,11 +396,11 @@
   var kwInput = form.querySelector('[name="q"]');
   if (kwInput) kwInput.addEventListener('input', function () {
     window.clearTimeout(t);
-    t = window.setTimeout(apply, 160);
+    t = window.setTimeout(applyFresh, 160);
   });
-  form.addEventListener('change', apply);
-  if (sortSelect) sortSelect.addEventListener('change', apply);
-  if (perPage) perPage.addEventListener('change', apply);
+  form.addEventListener('change', applyFresh);
+  if (sortSelect) sortSelect.addEventListener('change', applyFresh);
+  if (perPage) perPage.addEventListener('change', applyFresh);
 
   // ----- 表示切替（リスト / グリッド） -----
   var view = 'list';
