@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Web制作ポートフォリオ｜LP5作品＋サイト改修事例2件＋小修正デモ集＋見積もりWebアプリ＋絞り込み検索UI</title>
-  <meta name="description" content="フレームワーク不使用のvanilla HTML / CSS / JS で制作した、架空ブランドのランディングページ5作品（オンラインスクール・コーヒー焙煎所・美容サロン・パーソナルジム・歯科クリニック）、既存サイトのビフォーアフター改修事例2件、よくある小修正デモ集、リアルタイム計算する見積もりWebアプリ、そして条件で絞り込める賃貸物件検索UIまでをまとめたWeb制作ポートフォリオ。" />
+  <title>Web制作ポートフォリオ｜LP5作品＋サイト改修事例2件＋小修正/検索対応デモ＋見積もりWebアプリ＋絞り込み検索UI</title>
+  <meta name="description" content="フレームワーク不使用のvanilla HTML / CSS / JS で制作した、架空ブランドのランディングページ5作品（オンラインスクール・コーヒー焙煎所・美容サロン・パーソナルジム・歯科クリニック）、既存サイトのビフォーアフター改修事例2件、よくある小修正デモ集、検索エンジン対応・Q&A設置デモ、リアルタイム計算する見積もりWebアプリ、そして条件で絞り込める賃貸物件検索UIまでをまとめたWeb制作ポートフォリオ。" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23B89149'/%3E%3Ctext x='16' y='22.5' font-family='Segoe UI,sans-serif' font-size='17' font-weight='700' fill='%2317150F' text-anchor='middle'%3EW%3C/text%3E%3C/svg%3E" />
   <link rel="canonical" href="https://hayaboosan.github.io/portfolio/" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://hayaboosan.github.io/portfolio/" />
-  <meta property="og:title" content="Web制作ポートフォリオ｜LP5作品＋改修事例2件＋小修正デモ集＋見積もりWebアプリ＋絞り込み検索UI" />
-  <meta property="og:description" content="vanilla HTML / CSS / JS で制作した架空ブランドのLP5作品、既存サイトの改修事例2件、よくある小修正デモ集、リアルタイム計算する見積もりWebアプリ、条件で絞り込める賃貸物件検索UI。" />
+  <meta property="og:title" content="Web制作ポートフォリオ｜LP5作品＋改修事例2件＋小修正/検索対応デモ＋見積もりWebアプリ＋絞り込み検索UI" />
+  <meta property="og:description" content="vanilla HTML / CSS / JS で制作した架空ブランドのLP5作品、既存サイトの改修事例2件、よくある小修正デモ集、検索エンジン対応・Q&A設置デモ、リアルタイム計算する見積もりWebアプリ、条件で絞り込める賃貸物件検索UI。" />
   <meta property="og:image" content="https://hayaboosan.github.io/portfolio/assets/og/hub.png" />
   <meta name="twitter:card" content="summary_large_image" />
 
@@ -166,7 +166,8 @@
       transition: background 0.25s var(--ease), color 0.25s var(--ease);
     }
     .header__nav .nav-cta:hover { background: var(--ink); color: #fff; }
-    @media (max-width: 940px) {
+    /* ナビ項目8つ＋CTAが1行に収まらない幅では CTA のみ表示 */
+    @media (max-width: 1060px) {
       .header__nav a:not(.nav-cta) { display: none; }
     }
 
@@ -717,6 +718,7 @@
         <a href="#works">作品</a>
         <a href="#refresh">改修事例</a>
         <a href="#fixes">小修正</a>
+        <a href="#seo">検索対応</a>
         <a href="#apptool">ツール</a>
         <a href="#catalog">カタログ</a>
         <a href="#tech">技術</a>
@@ -1047,6 +1049,34 @@
       </div>
     </section>
 
+    <!-- ============ SEO & FAQ (search readiness demo) ============ -->
+    <section class="fixes" id="seo">
+      <div class="container">
+        <header class="section-head">
+          <p class="section-head__eyebrow">Search — SEO &amp; FAQ</p>
+          <h2 class="section-head__title">検索エンジン対応・Q&amp;A設置デモ</h2>
+          <p class="section-head__lead">
+            「サイトを作ったのに検索に出てこない」「お客様向けのQ&amp;Aを置きたい」というご相談向けに、検索結果の見え方の Before→After と、確認すべき設定、構造化データつきのQ&amp;A実装をデモにまとめました。
+          </p>
+        </header>
+        <article class="fixes-card">
+          <div class="fixes-card__body">
+            <p class="fixes-card__catch">「検索に出ない」を、設定から直す。</p>
+            <p class="fixes-card__desc">
+              title・meta description で検索結果の一行がどう変わるかの比較、検索に出ないときに確認する7項目のチェックリスト、JS無効でも動くQ&amp;A（よくある質問）の実装と FAQPage 構造化データ（JSON-LD）。リッチリザルトの現状など「できること・できないこと」も正直に書いた、検索まわりの整備のデモページです。
+            </p>
+            <ul class="fixes-card__tags">
+              <li class="card__tag"># 検索結果の見え方</li>
+              <li class="card__tag"># インデックス登録チェック</li>
+              <li class="card__tag"># Search Console / sitemap</li>
+              <li class="card__tag"># FAQPage 構造化データ</li>
+            </ul>
+          </div>
+          <a class="refresh-card__link" href="./seo-faq/">デモを見る</a>
+        </article>
+      </div>
+    </section>
+
     <!-- ============ APP TOOL (interactive web app) ============ -->
     <section class="fixes" id="apptool">
       <div class="container">
@@ -1151,7 +1181,7 @@
           <div class="do-grid">
             <div class="do-card">
               <h4>既存サイトの修正・改修</h4>
-              <p>スマホ対応・表示崩れの修正・問い合わせフォーム設置・表示速度／画像の最適化・文字の見やすさ（コントラスト）改善・電話番号のタップ発信（tel:）・文言や画像の差し替え。</p>
+              <p>スマホ対応・表示崩れの修正・問い合わせフォーム設置・表示速度／画像の最適化・文字の見やすさ（コントラスト）改善・電話番号のタップ発信（tel:）・文言や画像の差し替え・検索エンジン対応（SEO基礎設定・Q&amp;A設置）。</p>
             </div>
             <div class="do-card">
               <h4>LP・小規模サイトの制作</h4>
@@ -1176,6 +1206,7 @@
               <tr><td>お問い合わせフォーム設置</td><td>10,000円〜</td></tr>
               <tr><td>スマホ対応化（レスポンシブ）</td><td>10,000円〜</td></tr>
               <tr><td>表示速度・画像最適化／コントラスト改善</td><td>10,000円〜</td></tr>
+              <tr><td>検索エンジン対応の基礎整備／Q&amp;A設置（構造化データ）</td><td>10,000円〜</td></tr>
               <tr><td>LP 1枚コーディング（デザイン支給）</td><td>30,000円〜</td></tr>
               <tr><td>小規模サイト（数ページ）</td><td>50,000円〜</td></tr>
             </tbody>
@@ -1216,6 +1247,7 @@
           <a href="./case-study-refresh/">改修事例：整骨院</a>
           <a href="./case-study-restaurant/">改修事例：食堂</a>
           <a href="./quick-fixes/">小修正デモ集</a>
+          <a href="./seo-faq/">検索対応・Q&amp;Aデモ</a>
           <a href="./estimator/">見積もりツール</a>
           <a href="./catalog/">賃貸検索カタログ</a>
         </nav>

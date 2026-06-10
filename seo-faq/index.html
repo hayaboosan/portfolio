@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="ja" class="no-js">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>document.documentElement.classList.replace('no-js', 'js');</script>
+  <title>検索エンジン対応・Q&amp;A設置デモ｜サイトが検索に出ないときの整備｜Web制作ポートフォリオ</title>
+  <meta name="description" content="「Canva・STUDIO・Wix などで作ったサイトが検索に出ない」「ECサイトにQ&Aを置きたい」というご相談向けのデモページ。title・meta descriptionで検索結果の見え方がどう変わるか、インデックス登録の確認7項目、JS無効でも動くQ&A実装とFAQPage構造化データ（JSON-LD）を、実際に動く形で紹介します。" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23B89149'/%3E%3Ctext x='16' y='22.5' font-family='Segoe UI,sans-serif' font-size='17' font-weight='700' fill='%2317150F' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E" />
+  <link rel="canonical" href="https://hayaboosan.github.io/portfolio/seo-faq/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://hayaboosan.github.io/portfolio/seo-faq/" />
+  <meta property="og:title" content="検索エンジン対応・Q&A設置デモ｜サイトが検索に出ないときの整備" />
+  <meta property="og:description" content="title・descriptionで検索結果の見え方がどう変わるか、検索に出ないときの確認7項目、Q&A設置とFAQPage構造化データ。実際に動くデモで紹介します。" />
+  <meta property="og:image" content="https://hayaboosan.github.io/portfolio/assets/og/seo-faq.png" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="theme-color" content="#14161c" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <!-- FAQPage 構造化データ（下部「ご依頼に関するQ&A」と同一内容） -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "検索順位が上がること・検索結果に出ることは保証されますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "いいえ、順位や流入の保証はできません（「上位表示保証」を謳う業者にはご注意ください）。対応するのは、noindexの解除やサイトマップ送信、title・説明文の整備など、検索エンジンにサイトの内容が正しく伝わる状態までの技術的な整備です。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "CanvaやSTUDIOなど、ノーコードツールで作ったサイトでも依頼できますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "はい、ご相談いただけます。ツールごとに設定できる範囲が異なるため、まず現状を拝見し、設定画面からできること・ツールの制約上できないことを切り分けて、現実的な対応案と費用をご提示します。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Q&A（よくある質問）の設置だけをお願いできますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "はい。既存サイトへのQ&Aセクションの追加や、FAQPage構造化データの実装だけのご依頼も承ります。「何を質問項目にすべきか」の整理からでもお手伝いできます。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "FAQの構造化データを入れると、検索結果は必ず変わりますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "いいえ。FAQのリッチリザルト（検索結果でのQ&A開閉表示）は2023年8月に対象が大きく制限され、2026年5月にはGoogle検索での表示自体が終了しています。現在は「検索結果の見た目を変える機能」ではなく、ページの内容を検索エンジンへ正確に伝えるための整備とお考えください。実装の正しさはschema.org公式の検証ツールで確認したうえで納品します。"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    /* ============================================================
+       検索エンジン対応・Q&A設置デモ
+       単一ファイル完結 / フレームワーク不使用 / vanilla
+       配色・書体はハブ(index.html)に準拠
+       ============================================================ */
+
+    :root {
+      --ink: #1a1c22;
+      --ink-soft: #555a66;
+      --ink-faint: #6b7080; /* 小サイズ実テキストにも使うため AA(4.5:1) を満たす濃さ */
+      --bg: #f5f3ee;
+      --bg-deep: #14161c;
+      --panel: #fbfaf6;
+      --line: rgba(26, 28, 34, 0.1);
+      --gold: #b89149;
+      --gold-text: #8a6a2f; /* 明るい背景上の金色テキスト用（AA 4.5:1） */
+      --teal: #0f6b62;
+
+      /* 検索結果モック用（実際のSERPに寄せた配色） */
+      --serp-link: #1a0dab;
+      --serp-url: #4d5156;
+
+      /* 架空ショップ「コトリ雑貨店」用アクセント */
+      --kotori: #9c4a26;
+      --kotori-bg: #fdf8f3;
+
+      --before-bg: #ece7dd;
+      --before-ink: #574e40;
+
+      --serif: "Shippori Mincho B1", "Hiragino Mincho ProN", serif;
+      --sans: "Zen Kaku Gothic New", "Hiragino Sans", "Noto Sans JP", sans-serif;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --radius: 18px;
+      --shadow-sm: 0 6px 20px -10px rgba(20, 22, 28, 0.25);
+      --shadow-md: 0 26px 60px -34px rgba(20, 22, 28, 0.45);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; -webkit-text-size-adjust: 100%; }
+
+    body {
+      font-family: var(--sans);
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.85;
+      letter-spacing: 0.02em;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; text-decoration: none; }
+    ul, ol { list-style: none; }
+
+    .container { width: min(1080px, 100% - 2.2rem); margin-inline: auto; }
+
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: -3rem;
+      z-index: 200;
+      background: var(--ink);
+      color: #fff;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      transition: top 0.2s var(--ease);
+    }
+    .skip-link:focus { top: 1rem; }
+
+    :focus-visible { outline: 3px solid var(--teal); outline-offset: 2px; }
+    /* 暗色パネル上ではフォーカスリングを明るい色にして 3:1 を確保 */
+    .honest :focus-visible, .cta-panel :focus-visible, .site-footer :focus-visible, .shopdemo__bar :focus-visible { outline-color: #5fd4c4; }
+    /* details の overflow:hidden にリングが切られないよう summary は内側に描く */
+    .faq summary:focus-visible { outline-offset: -3px; }
+
+    /* ============ HEADER ============ */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+      background: rgba(245, 243, 238, 0.85);
+      border-bottom: 1px solid var(--line);
+    }
+    .site-header__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-block: 0.9rem;
+    }
+    .top__home {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      color: var(--ink);
+      font-size: 0.92rem;
+    }
+    .top__home::before { content: "←"; color: var(--gold); }
+    .top__home:hover { color: var(--teal); }
+    .top__tag {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      color: var(--ink-faint);
+      text-transform: uppercase;
+    }
+    @media (max-width: 560px) { .top__tag { display: none; } }
+
+    /* ============ HERO ============ */
+    .hero {
+      position: relative;
+      padding-block: clamp(3rem, 9vw, 5.5rem) clamp(2rem, 6vw, 3.5rem);
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 420px; height: 420px;
+      top: -160px; right: -120px;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.5;
+      background: radial-gradient(circle, rgba(232, 176, 75, 0.4), transparent 70%);
+      z-index: 0;
+    }
+    .hero__inner { position: relative; z-index: 1; max-width: 740px; }
+    .hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.74rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 1.3rem;
+    }
+    .hero__eyebrow::before { content: ""; width: 34px; height: 1px; background: var(--gold); }
+    .hero__title {
+      font-family: var(--serif);
+      font-weight: 700;
+      font-size: clamp(1.9rem, 5.6vw, 3.4rem);
+      line-height: 1.35;
+      letter-spacing: 0.02em;
+      margin-bottom: 1.3rem;
+    }
+    .hero__title em {
+      font-style: normal;
+      position: relative;
+      white-space: nowrap;
+    }
+    .hero__title em::after {
+      content: "";
+      position: absolute;
+      left: -2%; right: -2%;
+      bottom: 0.08em;
+      height: 0.42em;
+      background: linear-gradient(90deg, rgba(232, 176, 75, 0.55), rgba(15, 107, 98, 0.28));
+      z-index: -1;
+      border-radius: 4px;
+    }
+    /* 380px以下では nowrap の強調部分が収まる固定サイズへ（vw に依存しない） */
+    @media (max-width: 380px) {
+      .hero__title { font-size: 1.7rem; }
+    }
+    .hero__lead {
+      font-size: clamp(0.98rem, 1.6vw, 1.1rem);
+      color: var(--ink-soft);
+      max-width: 58ch;
+      margin-bottom: 1.6rem;
+    }
+    .hero__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem 1.6rem;
+      font-size: 0.82rem;
+      color: var(--ink-faint);
+    }
+    .hero__meta li { display: flex; align-items: center; gap: 0.5rem; }
+    .hero__meta li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+
+    .note {
+      margin-top: 1.5rem;
+      padding: 0.85rem 1.1rem;
+      background: rgba(184, 145, 73, 0.1);
+      border: 1px solid rgba(184, 145, 73, 0.32);
+      border-radius: 12px;
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+      max-width: 64ch;
+    }
+
+    /* ============ TOC（目次） ============ */
+    .toc { padding-block: clamp(1.5rem, 4vw, 2.5rem); }
+    .toc__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.8rem;
+    }
+    .toc__item {
+      display: flex;
+      align-items: baseline;
+      gap: 0.7rem;
+      padding: 0.9rem 1.1rem;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.25s var(--ease), border-color 0.25s var(--ease);
+    }
+    .toc__item:hover { transform: translateY(-3px); border-color: var(--gold); }
+    .toc__num {
+      font-family: var(--serif);
+      font-weight: 700;
+      color: var(--gold-text);
+      font-size: 0.95rem;
+      flex-shrink: 0;
+    }
+    .toc__label { font-size: 0.9rem; font-weight: 500; }
+
+    /* ============ SECTION 共通 ============ */
+    .section { padding-block: clamp(2.2rem, 6vw, 4rem); }
+    .section + .section { border-top: 1px solid var(--line); }
+    .section-head { margin-bottom: clamp(1.8rem, 4vw, 2.6rem); max-width: 760px; }
+    .section-head__eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold-text);
+      margin-bottom: 0.7rem;
+    }
+    .section-head__title {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: clamp(1.4rem, 3.2vw, 1.9rem);
+      letter-spacing: 0.03em;
+      line-height: 1.5;
+    }
+    .section-head__lead {
+      margin-top: 0.8rem;
+      color: var(--ink-soft);
+      font-size: 0.95rem;
+    }
+
+    /* ============ 1. SERP Before / After ============ */
+    .serp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+      gap: clamp(1.2rem, 2.6vw, 1.8rem);
+      align-items: stretch;
+    }
+    .serp-card {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--panel);
+      box-shadow: var(--shadow-sm);
+    }
+    .serp-card__head {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.8rem 1.2rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    .serp-card--before .serp-card__head { background: var(--before-bg); color: var(--before-ink); }
+    .serp-card--after .serp-card__head { background: #0f3b38; color: #eaf4f2; }
+    .serp-card__badge {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      padding: 0.15rem 0.65rem;
+      border-radius: 999px;
+      flex-shrink: 0;
+    }
+    .serp-card--before .serp-card__badge { background: rgba(87, 78, 64, 0.16); }
+    .serp-card--after .serp-card__badge { background: rgba(200, 255, 0, 0.16); color: #d6f56a; }
+
+    /* 検索結果のモック（表示イメージ） */
+    .serp-mock {
+      margin: 1.1rem 1.2rem;
+      padding: 1.1rem 1.2rem 1.2rem;
+      background: #fff;
+      border: 1px solid #dadce0;
+      border-radius: 12px;
+      font-family: Arial, "Hiragino Sans", "Zen Kaku Gothic New", sans-serif;
+      line-height: 1.6;
+    }
+    .serp-mock__url {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-size: 0.78rem;
+      color: var(--serp-url);
+      overflow-wrap: anywhere;
+    }
+    .serp-mock__favicon {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: #f1f3f4;
+      display: grid;
+      place-items: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--serp-url);
+      flex-shrink: 0;
+    }
+    .serp-mock__title {
+      margin-top: 0.45rem;
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--serp-link);
+      line-height: 1.4;
+      overflow-wrap: anywhere;
+    }
+    .serp-mock__desc {
+      margin-top: 0.35rem;
+      font-size: 0.84rem;
+      color: var(--serp-url);
+      overflow-wrap: anywhere;
+    }
+    .serp-card__points {
+      list-style: none;
+      margin: 0 1.2rem 1.3rem;
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+      display: grid;
+      gap: 0.35rem;
+    }
+    .serp-card__points li { display: flex; gap: 0.55rem; }
+    .serp-card__points li::before { flex-shrink: 0; }
+    .serp-card--before .serp-card__points li::before { content: "✕"; color: #a8442f; font-weight: 700; }
+    .serp-card--after .serp-card__points li::before { content: "✓"; color: var(--teal); font-weight: 700; }
+
+    .serp-caption {
+      margin-top: 1.1rem;
+      font-size: 0.8rem;
+      color: var(--ink-faint);
+    }
+    .serp-actions {
+      margin-top: 1.6rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+    }
+    .serp-actions__label { font-weight: 700; color: var(--ink); margin-right: 0.3rem; }
+    .chip {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--panel);
+      font-size: 0.8rem;
+      color: var(--ink-soft);
+    }
+
+    .visually-hidden {
+      position: absolute !important; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+    }
+
+    /* ============ 2. チェックリスト ============ */
+    .check-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+      gap: 1rem;
+      counter-reset: checkitem;
+    }
+    .check-card {
+      padding: 1.3rem 1.4rem 1.4rem;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+    .check-card::before {
+      counter-increment: checkitem;
+      content: counter(checkitem, decimal-leading-zero);
+      font-family: var(--serif);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--gold-text);
+      display: block;
+      margin-bottom: 0.45rem;
+    }
+    .check-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.6;
+      margin-bottom: 0.5rem;
+    }
+    .check-card p { font-size: 0.88rem; color: var(--ink-soft); }
+    .check-card a { color: var(--teal); text-decoration: underline; text-underline-offset: 3px; }
+    .check-card a:hover { color: var(--ink); }
+
+    /* ============ 3. Q&A 設置デモ ============ */
+    .shopdemo {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--kotori-bg);
+      box-shadow: var(--shadow-md);
+    }
+    .shopdemo__bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.4rem 1rem;
+      padding: 0.7rem 1.3rem;
+      background: var(--bg-deep);
+      color: rgba(245, 243, 238, 0.85);
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+    }
+    .shopdemo__inner { padding: clamp(1.4rem, 4vw, 2.4rem); }
+    .shopdemo__brand {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 0.4rem;
+    }
+    .shopdemo__mark {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: var(--kotori);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+    .shopdemo__name {
+      font-family: var(--serif);
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--kotori);
+    }
+    .shopdemo__title {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: clamp(1.15rem, 2.6vw, 1.45rem);
+      margin-block: 0.8rem 0.4rem;
+    }
+    .shopdemo__lead { font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 1.4rem; }
+
+    .faq { display: grid; gap: 0.7rem; max-width: 720px; }
+    .faq details {
+      background: #fff;
+      border: 1px solid rgba(156, 74, 38, 0.22);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .faq summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: baseline;
+      gap: 0.7rem;
+      padding: 0.95rem 1.15rem;
+      font-weight: 700;
+      font-size: 0.95rem;
+      line-height: 1.65;
+      transition: background 0.2s var(--ease);
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary:hover { background: rgba(156, 74, 38, 0.05); }
+    .faq summary::before {
+      content: "Q";
+      font-family: var(--serif);
+      font-weight: 700;
+      color: var(--kotori);
+      flex-shrink: 0;
+    }
+    .faq summary::after {
+      content: "＋" / ""; /* 代替テキスト構文で開閉状態の二重読み上げを防止（非対応環境は通常表示） */
+      margin-left: auto;
+      color: var(--kotori);
+      font-weight: 400;
+      flex-shrink: 0;
+      transition: transform 0.25s var(--ease);
+    }
+    .faq details[open] summary::after { content: "－" / ""; }
+    .faq .faq__a {
+      display: flex;
+      gap: 0.7rem;
+      padding: 0 1.15rem 1.05rem;
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+    }
+    .faq .faq__a::before {
+      content: "A";
+      font-family: var(--serif);
+      font-weight: 700;
+      color: var(--teal);
+      flex-shrink: 0;
+    }
+
+    /* ご依頼Q&A（地の配色版） */
+    .faq--site details { border-color: var(--line); }
+    .faq--site summary::before { color: var(--gold); }
+    .faq--site summary::after { color: var(--gold); }
+    .faq--site summary:hover { background: rgba(184, 145, 73, 0.06); }
+
+    .shopdemo__points {
+      margin-top: 1.4rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    /* 正直パネル */
+    .honest {
+      margin-top: clamp(1.6rem, 4vw, 2.2rem);
+      padding: clamp(1.2rem, 3vw, 1.6rem) clamp(1.3rem, 3.4vw, 1.8rem);
+      background: var(--bg-deep);
+      color: rgba(245, 243, 238, 0.88);
+      border-radius: var(--radius);
+    }
+    .honest h3 {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+    }
+    .honest p { font-size: 0.9rem; }
+    .honest p + p { margin-top: 0.6rem; }
+
+    /* コード表示 */
+    .codeblock { margin-top: clamp(1.6rem, 4vw, 2.2rem); }
+    .codeblock__head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      margin-bottom: 0.6rem;
+    }
+    .codeblock__title { font-size: 0.92rem; font-weight: 700; }
+    .codeblock pre {
+      background: #1d2026;
+      color: #d7dae0;
+      border-radius: 12px;
+      padding: 1.1rem 1.2rem;
+      font-size: 0.78rem;
+      line-height: 1.7;
+      /* 長い日本語の回答行を横スクロールさせず折り返して読めるように */
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      overflow-x: auto;
+      tab-size: 2;
+    }
+    .codeblock code { font-family: Consolas, "Courier New", monospace; }
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--ink);
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0.35rem 0.95rem;
+      cursor: pointer;
+      transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
+    }
+    .copy-btn:hover { border-color: var(--gold); background: #fff; }
+    .no-js .copy-btn { display: none; }
+    .copy-status { font-size: 0.8rem; color: var(--teal); min-height: 1.2em; margin-top: 0.4rem; }
+    .verify-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      margin-top: 0.9rem;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--teal);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .verify-link:hover { color: var(--ink); }
+    .verify-link::after { content: "↗"; font-weight: 400; }
+
+    /* ============ 4. ご依頼Q&A・メニュー ============ */
+    .menu-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; max-width: 760px; }
+    .menu-table caption { text-align: left; }
+    .menu-table th, .menu-table td { text-align: left; padding: 0.85rem 0.9rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+    .menu-table thead th { color: var(--ink-faint); font-weight: 500; font-size: 0.78rem; letter-spacing: 0.06em; }
+    .menu-table td:last-child, .menu-table thead th:last-child { text-align: right; white-space: nowrap; }
+    .menu-table tbody td:last-child { font-weight: 700; color: var(--ink); }
+    .menu-note { margin-top: 0.9rem; font-size: 0.82rem; color: var(--ink-faint); max-width: 76ch; }
+
+    .cta-panel {
+      margin-top: clamp(2rem, 5vw, 2.8rem);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem 1.4rem;
+      padding: clamp(1.4rem, 3.5vw, 2rem);
+      border-radius: var(--radius);
+      background: var(--bg-deep);
+      color: rgba(245, 243, 238, 0.92);
+    }
+    .cta-panel p { flex: 1 1 320px; font-size: 0.95rem; }
+    .cta-panel__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--gold);
+      color: #1a1410;
+      font-weight: 700;
+      padding: 0.85rem 1.6rem;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      transition: filter 0.25s var(--ease), gap 0.25s var(--ease);
+    }
+    .cta-panel__btn::after { content: "→"; transition: transform 0.25s var(--ease); }
+    .cta-panel__btn:hover { filter: brightness(1.08); gap: 0.85rem; }
+    .cta-panel__btn:hover::after { transform: translateX(3px); }
+
+    /* ============ FOOTER ============ */
+    .site-footer {
+      margin-top: clamp(2.5rem, 6vw, 4rem);
+      padding-block: clamp(2rem, 4.5vw, 3rem) 1.6rem;
+      background: #0e1015;
+      color: rgba(245, 243, 238, 0.7);
+    }
+    .site-footer__inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem 2.5rem;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 1.6rem;
+      border-bottom: 1px solid rgba(245, 243, 238, 0.1);
+    }
+    .site-footer__tagline {
+      font-family: var(--serif);
+      font-size: 0.95rem;
+      color: rgba(245, 243, 238, 0.85);
+    }
+    .site-footer__links { display: flex; flex-wrap: wrap; gap: 1.2rem; }
+    .site-footer__links a {
+      font-size: 0.84rem;
+      color: rgba(245, 243, 238, 0.75);
+      transition: color 0.2s var(--ease);
+    }
+    .site-footer__links a:hover { color: var(--gold); }
+    .site-footer__bottom {
+      padding-top: 1.4rem;
+      font-size: 0.76rem;
+      color: rgba(245, 243, 238, 0.6);
+      letter-spacing: 0.03em;
+    }
+    .site-footer__bottom p + p { margin-top: 0.3rem; }
+
+    /* ============ Reduced motion ============ */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">本文へスキップ</a>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="top__home" href="../">ポートフォリオTOP</a>
+      <p class="top__tag">SEO &amp; FAQ — Demo</p>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="container hero__inner">
+        <p class="hero__eyebrow">Search Engine Readiness</p>
+        <h1 class="hero__title">「検索に出ない」を、<br /><em>設定から直す。</em></h1>
+        <p class="hero__lead">
+          せっかく作ったサイトも、検索エンジンに内容が正しく伝わっていなければ見つけてもらえません。
+          ノーコードツール（Canva・STUDIO・Wix など）や手組みのサイトが「検索に出ない」ときに確認する設定と、
+          お客様の不安に先回りするQ&amp;A（よくある質問）の設置を、実際に動くデモでご紹介します。
+        </p>
+        <ul class="hero__meta">
+          <li>順位の保証ではなく「正しく伝わる状態」の整備</li>
+          <li>Search Console・サイトマップ</li>
+          <li>FAQPage 構造化データ（JSON-LD）</li>
+          <li>実装は検証ツールで確認して納品</li>
+        </ul>
+        <p class="note">※ 本ページに登場するショップ「コトリ雑貨店」と検索結果の表示例は、デモ用に制作した架空のサンプルです。</p>
+      </div>
+    </section>
+
+    <!-- ============ TOC ============ -->
+    <nav class="toc" aria-label="ページ内目次">
+      <div class="container toc__grid">
+        <a class="toc__item" href="#serp"><span class="toc__num">01</span><span class="toc__label">検索結果での見え方</span></a>
+        <a class="toc__item" href="#checklist"><span class="toc__num">02</span><span class="toc__label">検索に出ないときの確認 7項目</span></a>
+        <a class="toc__item" href="#faq-demo"><span class="toc__num">03</span><span class="toc__label">Q&amp;A設置と構造化データ</span></a>
+        <a class="toc__item" href="#for-clients"><span class="toc__num">04</span><span class="toc__label">ご依頼に関するQ&amp;A・目安</span></a>
+      </div>
+    </nav>
+
+    <!-- ============ 1. SERP Before / After ============ -->
+    <section class="section" id="serp">
+      <div class="container">
+        <header class="section-head">
+          <p class="section-head__eyebrow">01 — Search Result Preview</p>
+          <h2 class="section-head__title">「検索結果での見え方」が変わる</h2>
+          <p class="section-head__lead">
+            同じページでも、<code>title</code> と <code>meta description</code> を整えるだけで検索結果の一行はこう変わります。
+            架空の雑貨店のオンラインショップを例にした比較です。
+          </p>
+        </header>
+
+        <div class="serp-grid">
+          <article class="serp-card serp-card--before">
+            <h3 class="serp-card__head"><span class="serp-card__badge">Before</span>初期設定のまま</h3>
+            <div class="serp-mock" lang="ja">
+              <p class="serp-mock__url"><span class="serp-mock__favicon" aria-hidden="true">?</span>my-site-12345.example-builder.site</p>
+              <p class="serp-mock__title">ホーム | my-site-12345</p>
+              <p class="serp-mock__desc">ホーム 商品一覧 ご利用ガイド カート お問い合わせ 会社概要 特定商取引法に基づく表記 Copyright ...</p>
+            </div>
+            <ul class="serp-card__points">
+              <li>何のサイトか、タイトルから分からない</li>
+              <li>説明文がページ先頭の文字列の機械的な抜粋</li>
+              <li>ツール発行の共有URLのままで覚えられない</li>
+            </ul>
+          </article>
+
+          <article class="serp-card serp-card--after">
+            <h3 class="serp-card__head"><span class="serp-card__badge">After</span>基本設定を整備</h3>
+            <div class="serp-mock" lang="ja">
+              <p class="serp-mock__url"><span class="serp-mock__favicon" aria-hidden="true">コ</span>kotori-zakka.example.jp</p>
+              <p class="serp-mock__title">コトリ雑貨店｜北欧テイストの手づくり雑貨通販</p>
+              <p class="serp-mock__desc">一点ものの陶器とテキスタイル雑貨を全国へお届けする小さなオンラインショップ。5,500円以上で送料無料・ラッピング無料。平日15時までのご注文で当日発送します。</p>
+            </div>
+            <ul class="serp-card__points">
+              <li>店名と「何を売っているか」が一目で伝わる</li>
+              <li>選ぶ理由（送料・ラッピング・発送）が書いてある</li>
+              <li>独自ドメインで信頼感・再訪しやすさが上がる</li>
+            </ul>
+          </article>
+        </div>
+
+        <p class="serp-caption">※ 検索結果の表示イメージです。実際の見た目や採用される文言は Google 側の仕様・判断によって変わります（description が常にそのまま表示されるとは限りません）。</p>
+
+        <p class="serp-actions">
+          <span class="serp-actions__label">このために設定するもの：</span>
+          <span class="chip">&lt;title&gt;</span>
+          <span class="chip">meta description</span>
+          <span class="chip">canonical（正規URL）</span>
+          <span class="chip">OGP（SNSでの見え方）</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ 2. チェックリスト ============ -->
+    <section class="section" id="checklist">
+      <div class="container">
+        <header class="section-head">
+          <p class="section-head__eyebrow">02 — Indexing Checklist</p>
+          <h2 class="section-head__title">検索に出ないとき、まず確認する7項目</h2>
+          <p class="section-head__lead">
+            「ツールでサイトを作ったのに、店名で検索しても出てこない」というご相談の多くは、次のどれかに当たります。
+            上から順に確認していくのが近道です。
+          </p>
+        </header>
+
+        <ol class="check-grid">
+          <li class="check-card">
+            <h3>noindex（検索に載せない設定）が残っていないか</h3>
+            <p>制作中に設定した「検索結果に表示しない」が、公開後もそのまま残っているケースは意外と多いです。HTML の meta robots、またはツールの公開設定を確認します。</p>
+          </li>
+          <li class="check-card">
+            <h3>Google Search Console に登録したか</h3>
+            <p>インデックス状況やエラーを確認できる Google の無料ツールです。サイトの所有権を確認し、URL検査から登録（インデックス）をリクエストできます。</p>
+          </li>
+          <li class="check-card">
+            <h3>サイトマップ（sitemap.xml）を送信したか</h3>
+            <p>サイトにどんなページがあるかを検索エンジンへ知らせる一覧ファイルです。Search Console から送信します。<a href="../sitemap.xml">このポートフォリオ自体にも設置しています</a>。</p>
+          </li>
+          <li class="check-card">
+            <h3>title がページの内容を表しているか</h3>
+            <p>「ホーム」「無題のページ」のままでは、何のサイトか伝わりません。ページごとに固有の、内容を要約したタイトルへ変更します。</p>
+          </li>
+          <li class="check-card">
+            <h3>meta description はあるか</h3>
+            <p>無い・全ページ共通のままだと、検索結果の説明文が意図しない抜粋になりがちです。ページごとに「クリックする理由」が伝わる説明文を用意します。</p>
+          </li>
+          <li class="check-card">
+            <h3>独自ドメインと正規URL（canonical）</h3>
+            <p>ツール発行の共有URLと独自ドメインが混在すると、評価が分散したり意図しない方が表示されたりします。「正」のURLを1つに揃えます。</p>
+          </li>
+          <li class="check-card">
+            <h3>公開直後・孤立ページではないか</h3>
+            <p>公開から日が浅いと、登録されるまで時間がかかることがあります。また、どこからもリンクされていないページは見つけてもらいにくいため、導線を整えます。</p>
+          </li>
+        </ol>
+
+        <p class="note">
+          ノーコードツール（Canva・STUDIO・Wix など）は、設定画面から変更できる範囲がツールごとに異なります。
+          まず現状を拝見し、「設定でできること」「ツールの制約上できないこと」を切り分けて、現実的な対応案をご提示します。
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ 3. Q&A設置デモ ============ -->
+    <section class="section" id="faq-demo">
+      <div class="container">
+        <header class="section-head">
+          <p class="section-head__eyebrow">03 — FAQ Implementation</p>
+          <h2 class="section-head__title">Q&amp;A（よくある質問）の設置</h2>
+          <p class="section-head__lead">
+            Q&amp;Aは、お客様の不安への「先回り」です。送料・納期・返品といった購入前の小さな疑問にその場で答えて離脱と問い合わせの手間を減らし、
+            検索エンジンにも「何について書かれたページか」を正しく伝えます。下のデモは実際に開閉できます。
+          </p>
+        </header>
+
+        <div class="shopdemo">
+          <p class="shopdemo__bar"><span>架空ショップのQ&amp;A設置デモ</span><span>JavaScript無効でも動作します</span></p>
+          <div class="shopdemo__inner">
+            <p class="shopdemo__brand">
+              <span class="shopdemo__mark" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 13c0-4 3-7 7.5-7 2 0 3 1.4 3 2.8 0 0 1.5-.8 3 .2l-1.8 1.6c.2.7.3 1.4.3 2.4 0 4-3.5 6-7 6H4l3-3" />
+                  <circle cx="13.4" cy="8.6" r="0.9" fill="currentColor" stroke="none" />
+                </svg>
+              </span>
+              <span class="shopdemo__name">コトリ雑貨店</span>
+            </p>
+            <h3 class="shopdemo__title">よくあるご質問</h3>
+            <p class="shopdemo__lead">ご注文の前に、よくいただくご質問をまとめました。</p>
+
+            <div class="faq">
+              <details>
+                <summary>送料はいくらですか？</summary>
+                <p class="faq__a">全国一律660円（税込）です。5,500円（税込）以上のご注文で送料無料になります。</p>
+              </details>
+              <details>
+                <summary>注文してからどのくらいで届きますか？</summary>
+                <p class="faq__a">平日15時までのご注文は当日発送、それ以降は翌営業日の発送です。発送から1〜3日程度でお届けします。</p>
+              </details>
+              <details>
+                <summary>ギフトラッピングはできますか？</summary>
+                <p class="faq__a">はい、無料で承ります。ご注文時に「ラッピングを希望する」をお選びください。のし・メッセージカードにも対応しています。</p>
+              </details>
+              <details>
+                <summary>返品・交換はできますか？</summary>
+                <p class="faq__a">商品到着後7日以内にご連絡ください。不良品・誤配送は送料当店負担でお取り替えします。お客様都合の返品は未使用品に限ります。</p>
+              </details>
+            </div>
+
+            <p class="shopdemo__points">
+              <span class="chip">ネイティブの &lt;details&gt; で JS 無効でも開閉</span>
+              <span class="chip">キーボード操作対応</span>
+              <span class="chip">既存サイトのデザインに合わせて実装</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="honest">
+          <h3>正直にお伝えしたいこと — FAQ構造化データの「いま」</h3>
+          <p>
+            FAQ のリッチリザルト（検索結果上でQ&amp;Aが開閉表示される機能）は、2023年8月に表示対象が権威ある行政・医療系サイト中心へ制限され、
+            <strong>2026年5月7日以降は Google 検索での表示そのものが終了</strong>しました。「FAQの構造化データを入れれば検索結果が豪華になる」は、もう過去の話です。
+          </p>
+          <p>
+            それでも、FAQPage マークアップは schema.org の共通仕様として引き続き有効で、ページの内容を機械可読な形で検索エンジンや AI 検索のクローラーへ正確に伝える整備としての価値と、
+            Q&amp;Aそのものがお客様の不安を減らす接客としての価値は変わりません。
+            私は、効果がなくなったものは「なくなった」とお伝えしたうえで、いま意味のある整備をご提案します。
+          </p>
+        </div>
+
+        <div class="codeblock">
+          <div class="codeblock__head">
+            <h3 class="codeblock__title">実装の抜粋 — FAQPage 構造化データ（JSON-LD）</h3>
+            <button type="button" class="copy-btn" id="copyJsonld">コードをコピー</button>
+          </div>
+          <pre tabindex="0" role="region" aria-label="FAQPage構造化データのコードサンプル"><code id="jsonldSample">&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "検索順位が上がること・検索結果に出ることは保証されますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "いいえ、順位や流入の保証はできません（「上位表示保証」を謳う業者にはご注意ください）。対応するのは、noindexの解除やサイトマップ送信、title・説明文の整備など、検索エンジンにサイトの内容が正しく伝わる状態までの技術的な整備です。"
+      }
+    }
+  ]
+}
+&lt;/script&gt;</code></pre>
+          <p class="serp-caption">※ 表示しているのは4件中1件の抜粋です。このページの <code>&lt;head&gt;</code> には、下の「ご依頼に関するQ&amp;A」4件すべてを同じ形式で記述しています。</p>
+          <p class="copy-status" id="copyStatus" role="status" aria-live="polite"></p>
+          <a class="verify-link" href="https://validator.schema.org/#url=https%3A%2F%2Fhayaboosan.github.io%2Fportfolio%2Fseo-faq%2F" target="_blank" rel="noopener noreferrer">このページを schema.org 公式バリデーターで検証する</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4. ご依頼に関するQ&A・メニュー ============ -->
+    <section class="section" id="for-clients">
+      <div class="container">
+        <header class="section-head">
+          <p class="section-head__eyebrow">04 — For Clients</p>
+          <h2 class="section-head__title">ご依頼に関するQ&amp;A</h2>
+          <p class="section-head__lead">
+            検索エンジン対応・Q&amp;A設置のご依頼で、よくいただくご質問です。
+            この4件が、上で紹介した FAQPage 構造化データの中身そのものです。
+          </p>
+        </header>
+
+        <div class="faq faq--site">
+          <details>
+            <summary>検索順位が上がること・検索結果に出ることは保証されますか？</summary>
+            <p class="faq__a">いいえ、順位や流入の保証はできません（「上位表示保証」を謳う業者にはご注意ください）。対応するのは、noindexの解除やサイトマップ送信、title・説明文の整備など、検索エンジンにサイトの内容が正しく伝わる状態までの技術的な整備です。</p>
+          </details>
+          <details>
+            <summary>CanvaやSTUDIOなど、ノーコードツールで作ったサイトでも依頼できますか？</summary>
+            <p class="faq__a">はい、ご相談いただけます。ツールごとに設定できる範囲が異なるため、まず現状を拝見し、設定画面からできること・ツールの制約上できないことを切り分けて、現実的な対応案と費用をご提示します。</p>
+          </details>
+          <details>
+            <summary>Q&amp;A（よくある質問）の設置だけをお願いできますか？</summary>
+            <p class="faq__a">はい。既存サイトへのQ&amp;Aセクションの追加や、FAQPage構造化データの実装だけのご依頼も承ります。「何を質問項目にすべきか」の整理からでもお手伝いできます。</p>
+          </details>
+          <details>
+            <summary>FAQの構造化データを入れると、検索結果は必ず変わりますか？</summary>
+            <p class="faq__a">いいえ。FAQのリッチリザルト（検索結果でのQ&amp;A開閉表示）は2023年8月に対象が大きく制限され、2026年5月にはGoogle検索での表示自体が終了しています。現在は「検索結果の見た目を変える機能」ではなく、ページの内容を検索エンジンへ正確に伝えるための整備とお考えください。実装の正しさはschema.org公式の検証ツールで確認したうえで納品します。</p>
+          </details>
+        </div>
+
+        <div class="section-head" style="margin-top: clamp(2.4rem, 6vw, 3.4rem);">
+          <h2 class="section-head__title" id="menu">対応メニューと目安</h2>
+        </div>
+        <table class="menu-table" aria-describedby="menu-note">
+          <caption class="visually-hidden">検索エンジン対応・Q&amp;A設置の対応メニューと料金の目安</caption>
+          <thead>
+            <tr><th scope="col">内容</th><th scope="col">目安（税抜・〜から）</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>現状チェックレポート（どこに問題があるか・対応の優先順を整理）</td>
+              <td>5,000円〜</td>
+            </tr>
+            <tr>
+              <td>検索エンジン対応の基礎整備（title・description・OGP・canonical・サイトマップ・Search Console 登録サポート）</td>
+              <td>10,000円〜</td>
+            </tr>
+            <tr>
+              <td>Q&amp;A（よくある質問）の設置＋FAQPage構造化データの実装</td>
+              <td>10,000円〜</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="menu-note" id="menu-note">
+          ※ ページ数・ツールの種類・文面作成の有無によって変わります。確定金額は、内容を伺ったうえで無料でお見積もりします。
+          そのほかの料金は<a href="../#offer" style="color: var(--teal); text-decoration: underline; text-underline-offset: 3px;">ご依頼について（ポートフォリオTOP）</a>をご覧ください。
+        </p>
+
+        <div class="cta-panel">
+          <p>ご相談・お見積もりは無料です。「検索に出ない」状況の確認だけでも、お気軽にどうぞ。</p>
+          <a class="cta-panel__btn" href="https://crowdworks.jp/public/employees/3919155/" rel="noopener noreferrer" target="_blank">クラウドワークスで相談する</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="site-footer__inner">
+        <p class="site-footer__tagline">「検索に出ない」を、設定から直す。</p>
+        <nav class="site-footer__links" aria-label="フッターナビゲーション">
+          <a href="../">ポートフォリオTOP</a>
+          <a href="../quick-fixes/">小修正デモ集</a>
+          <a href="../#offer">ご依頼について</a>
+        </nav>
+      </div>
+      <div class="site-footer__bottom">
+        <p>© 2026 Web Production Portfolio.</p>
+        <p>※「コトリ雑貨店」および検索結果の表示例は、本デモのために制作した架空のサンプルです。実在の店舗・サービスとは関係ありません。</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // JSON-LD のコピー（クリップボードAPI非対応・失敗時は案内を表示）
+    (function () {
+      var btn = document.getElementById('copyJsonld');
+      var status = document.getElementById('copyStatus');
+      if (!btn || !status) return;
+      btn.addEventListener('click', function () {
+        var text = document.getElementById('jsonldSample').textContent;
+        function ok() { status.textContent = 'コピーしました。'; }
+        function ng() { status.textContent = 'コピーできませんでした。コードを選択して手動でコピーしてください。'; }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(ok, ng);
+        } else {
+          ng();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
