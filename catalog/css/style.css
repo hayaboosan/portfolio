@@ -168,7 +168,11 @@ input, select { font: inherit; color: inherit; }
   max-height: calc(100vh - 5rem);
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  /* hidden だとフォーカス移動や scrollIntoView がこの箱自体を「見えないスクロール位置」へ
+     スクロールさせてしまい、中身が丸ごと枠外に消える（スクロールバーが無いので戻せない）。
+     clip はプログラムによるスクロールも禁止するため安全。内部スクロールは .filters__scroll が担う */
+  overflow: hidden; /* overflow: clip 未対応ブラウザ向けフォールバック */
+  overflow: clip;
   box-shadow: var(--shadow-sm);
 }
 .filters__head {
@@ -352,6 +356,7 @@ input, select { font: inherit; color: inherit; }
 }
 .results__count-text { font-size: 0.95rem; color: var(--ink-soft); }
 .results__count-text output { font-size: 1.4rem; font-weight: 900; color: var(--brand-deep); }
+.results__count-sub { margin-left: 0.4em; font-size: 0.85em; color: var(--ink-soft); }
 .results__tools { display: flex; align-items: center; gap: 0.7rem 1rem; flex-wrap: wrap; }
 .results__sort { display: flex; align-items: center; gap: 0.5rem; }
 .results__sort-label { font-size: 0.8rem; color: var(--ink-soft); white-space: nowrap; }

@@ -32,6 +32,8 @@
   var applyCountEl = document.getElementById('applyCount');
   var statusEl = document.getElementById('countStatus');
   var sortSelect = document.getElementById('sortSelect');
+  var perPage = document.getElementById('perPage');
+  var shownEl = document.getElementById('resultShown');
   var fFavOnly = document.getElementById('fFavOnly');
   if (!form || !listEl) return;
 
@@ -112,6 +114,7 @@
       feat: checked('feat'),
       fav: !!(fFavOnly && fFavOnly.checked),
       sort: sortSelect ? sortSelect.value : '',
+      pp: perPage ? (parseInt(perPage.value, 10) || 20) : Infinity,
     };
   }
 
@@ -151,6 +154,7 @@
     age_asc: function (a, b) { return a.age - b.age; },
     new: function (a, b) { return b.listed - a.listed; },
   };
+  var orderedItems = items.slice(); // 現在の表示順（表示件数の上限はこの順で先頭から数える）
   function applySort(s) {
     var cmp = SORTERS[s.sort];
     var ordered = items.slice();
@@ -165,6 +169,7 @@
     var frag = document.createDocumentFragment();
     ordered.forEach(function (it) { frag.appendChild(it.el); });
     listEl.appendChild(frag);
+    orderedItems = ordered;
   }
 
   // ----- 適用（絞り込み＋件数＋空状態＋チップ＋URL） -----
@@ -173,18 +178,22 @@
     var s = readState();
     if (s.sort !== lastSort) { applySort(s); lastSort = s.sort; }
 
-    var visible = 0;
-    items.forEach(function (it) {
+    // 表示順（並べ替え後）の先頭から、表示件数の上限までを表示する
+    var limit = s.pp || Infinity;
+    var matched = 0;
+    orderedItems.forEach(function (it) {
       var ok = matches(it, s);
-      it.el.classList.toggle('is-hidden', !ok);
-      if (ok) visible++;
+      if (ok) matched++;
+      it.el.classList.toggle('is-hidden', !(ok && matched <= limit));
     });
+    var shown = Math.min(matched, limit);
 
-    if (countEl) countEl.textContent = String(visible);
-    if (applyCountEl) applyCountEl.textContent = String(visible);
-    if (statusEl) statusEl.textContent = visible + '件の物件';
-    if (emptyEl) emptyEl.hidden = visible !== 0;
-    listEl.hidden = visible === 0;
+    if (countEl) countEl.textContent = String(matched);
+    if (shownEl) shownEl.textContent = matched > limit ? '（上位' + shown + '件を表示）' : '';
+    if (applyCountEl) applyCountEl.textContent = String(matched);
+    if (statusEl) statusEl.textContent = matched + '件の物件' + (matched > limit ? '、うち上位' + shown + '件を表示中' : '');
+    if (emptyEl) emptyEl.hidden = matched !== 0;
+    listEl.hidden = matched === 0;
 
     renderChips(s);
     if (!opts || opts.url !== false) writeURL(s);
@@ -294,6 +303,7 @@
     if (s.feat.length) p.set('feat', s.feat.join(','));
     if (s.fav) p.set('fav', '1');
     if (s.sort) p.set('sort', s.sort);
+    if (s.pp && s.pp !== 20 && isFinite(s.pp)) p.set('pp', String(s.pp));
     if (view === 'grid') p.set('view', 'grid');
     var str = p.toString();
     var url = (str ? location.pathname + '?' + str : location.pathname) + location.hash;
@@ -320,6 +330,7 @@
     setBoxes('feat', p.get('feat'));
     if (p.get('fav') === '1' && fFavOnly) fFavOnly.checked = true;
     if (p.get('sort') && sortSelect) sortSelect.value = p.get('sort');
+    if (perPage && ['10', '20', '40'].indexOf(p.get('pp') || '') !== -1) perPage.value = p.get('pp');
     if (p.get('view') === 'grid') setView('grid', false);
   }
 
@@ -334,6 +345,7 @@
   });
   form.addEventListener('change', apply);
   if (sortSelect) sortSelect.addEventListener('change', apply);
+  if (perPage) perPage.addEventListener('change', apply);
 
   // ----- 表示切替（リスト / グリッド） -----
   var view = 'list';

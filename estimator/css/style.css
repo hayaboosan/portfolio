@@ -615,6 +615,11 @@ input { font-family: inherit; }
    ESTIMATE PANEL (right)
    ========================================================= */
 .estimate { min-width: 0; }
+@media (min-width: 901px) {
+  /* 親グリッドが align-items:start のため、右カラムを行いっぱいに伸ばさないと
+     .estimate__sticky の可動域がゼロになり、スクロールに追従しない */
+  .estimate { align-self: stretch; }
+}
 .estimate__sticky {
   position: sticky;
   top: calc(var(--header-h) + 1rem);

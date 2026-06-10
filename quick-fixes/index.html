@@ -580,7 +580,16 @@
     .tel-after__hint { font-size: 0.82rem; color: var(--teal); margin-top: 0.55rem; font-weight: 500; }
 
     /* ====== Demo 6: layout ====== */
-    .layout-demo { border-radius: 12px; padding: 1.2rem; background: #f0efe9; }
+    /* Before / After を「同じ幅の枠」で見せるための共通ステージ（スマホ想定330px）。
+       同条件で比べないと「はみ出す → 収まる」の違いが伝わらないため、枠幅は固定 */
+    .layout-demo {
+      width: min(330px, 100%);
+      box-sizing: border-box;
+      border: 2px dashed #cfc7b2;
+      border-radius: 12px;
+      padding: 1.2rem;
+      background: #f0efe9;
+    }
     .pricing-card {
       background: #fff;
       border-radius: 12px;
@@ -1051,7 +1060,7 @@
           </div>
           <div class="demo__stage" data-toggle-host="layout">
             <div class="toggle-panel" data-panel="before">
-              <span class="ba-col__tag ba-col__tag--before">Before：固定幅ではみ出し・崩れる</span>
+              <span class="ba-col__tag ba-col__tag--before">Before：固定幅が枠からはみ出す</span>
               <div class="layout-demo layout-demo--broken">
                 <div class="pricing-card">
                   <div class="pricing-card__head">
@@ -1063,10 +1072,10 @@
                   <span class="pricing-card__btn">このプランを予約する</span>
                 </div>
               </div>
-              <p class="frame-label" style="text-align:left">幅380px固定とボタン320px固定で、狭い枠だと右にはみ出して横スクロールが発生します。</p>
+              <p class="frame-label" style="text-align:left">点線＝幅330pxの表示枠（スマホ想定・Before/After共通）。カード幅380px・ボタン320pxの固定指定が枠より広いため右にはみ出し、横スクロールが発生しています（枠内を横にスクロールしてみてください）。</p>
             </div>
             <div class="toggle-panel" data-panel="after" hidden>
-              <span class="ba-col__tag ba-col__tag--after">After：min-width:0・折り返しで収まる</span>
+              <span class="ba-col__tag ba-col__tag--after">After：同じ枠でも折り返して収まる</span>
               <div class="layout-demo layout-demo--fixed">
                 <div class="pricing-card">
                   <div class="pricing-card__head">
@@ -1078,7 +1087,7 @@
                   <span class="pricing-card__btn">このプランを予約する</span>
                 </div>
               </div>
-              <p class="frame-label" style="text-align:left">どの幅でも枠内に収まり、行もボタンも折り返して整います。</p>
+              <p class="frame-label" style="text-align:left">Beforeと同じ幅330pxの枠です。<code>min-width:0</code> と折り返しの指定で、カードもボタンも枠内に収まります。</p>
             </div>
           </div>
         </div>

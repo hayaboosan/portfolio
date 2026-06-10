@@ -202,7 +202,7 @@
       <!-- ========== 検索結果 ========== -->
       <section class="results" id="results" aria-label="検索結果">
         <h2 class="sr-only">検索結果</h2>
-        <p class="nojs-note">絞り込み・並べ替えには JavaScript が必要です。お使いの環境では無効のため、全21件をそのまま表示しています。</p>
+        <p class="nojs-note">絞り込み・並べ替え・表示件数の変更には JavaScript が必要です。お使いの環境では無効のため、全21件をそのまま表示しています。</p>
         <div class="results__bar">
           <div class="results__count">
             <button type="button" class="results__filter-toggle" id="filterOpen" aria-expanded="false" aria-controls="filters">
@@ -210,7 +210,7 @@
               絞り込み
             </button>
             <p class="results__count-text">
-              <output id="resultCount" for="filters">21</output> 件の物件
+              <output id="resultCount" for="filters">21</output> 件の物件<span class="results__count-sub" id="resultShown"></span>
             </p>
           </div>
           <div class="results__tools">
@@ -225,6 +225,16 @@
                   <option value="walk_asc">駅から近い順</option>
                   <option value="age_asc">築年数が浅い順</option>
                   <option value="new">新着順</option>
+                </select>
+              </div>
+            </div>
+            <div class="results__sort">
+              <label for="perPage" class="results__sort-label">表示件数</label>
+              <div class="filter-select filter-select--sm">
+                <select id="perPage" name="pp">
+                  <option value="10">10件</option>
+                  <option value="20" selected>20件</option>
+                  <option value="40">40件</option>
                 </select>
               </div>
             </div>
