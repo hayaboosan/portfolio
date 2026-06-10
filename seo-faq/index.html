@@ -20,10 +20,11 @@
 
   <meta name="theme-color" content="#14161c" />
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts（非同期読み込み＝最初の描画をブロックしない。JS無効時は noscript 側で通常読み込み） -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet" /></noscript>
 
   <!-- FAQPage 構造化データ（下部「ご依頼に関するQ&A」と同一内容） -->
   <script type="application/ld+json">
@@ -315,6 +316,7 @@
       color: var(--ink-soft);
       font-size: 0.95rem;
     }
+    .section-head--spaced { margin-top: clamp(2.4rem, 6vw, 3.4rem); }
 
     /* ============ 1. SERP Before / After ============ */
     .serp-grid {
@@ -556,7 +558,6 @@
       color: var(--kotori);
       font-weight: 400;
       flex-shrink: 0;
-      transition: transform 0.25s var(--ease);
     }
     .faq details[open] summary::after { content: "－" / ""; }
     .faq .faq__a {
@@ -670,6 +671,8 @@
     .menu-table td:last-child, .menu-table thead th:last-child { text-align: right; white-space: nowrap; }
     .menu-table tbody td:last-child { font-weight: 700; color: var(--ink); }
     .menu-note { margin-top: 0.9rem; font-size: 0.82rem; color: var(--ink-faint); max-width: 76ch; }
+    .menu-note a { color: var(--teal); text-decoration: underline; text-underline-offset: 3px; }
+    .menu-note a:hover { color: var(--ink); }
 
     .cta-panel {
       margin-top: clamp(2rem, 5vw, 2.8rem);
@@ -717,6 +720,7 @@
     }
     .site-footer__tagline {
       font-family: var(--serif);
+      font-weight: 600; /* 読み込むウェイト(600/700)に合わせて明示。500は本ページ未使用のため読み込み対象外 */
       font-size: 0.95rem;
       color: rgba(245, 243, 238, 0.85);
     }
@@ -1014,7 +1018,7 @@
           </details>
         </div>
 
-        <div class="section-head" style="margin-top: clamp(2.4rem, 6vw, 3.4rem);">
+        <div class="section-head section-head--spaced">
           <h2 class="section-head__title" id="menu">対応メニューと目安</h2>
         </div>
         <table class="menu-table" aria-describedby="menu-note">
@@ -1039,7 +1043,7 @@
         </table>
         <p class="menu-note" id="menu-note">
           ※ ページ数・ツールの種類・文面作成の有無によって変わります。確定金額は、内容を伺ったうえで無料でお見積もりします。
-          そのほかの料金は<a href="../#offer" style="color: var(--teal); text-decoration: underline; text-underline-offset: 3px;">ご依頼について（ポートフォリオTOP）</a>をご覧ください。
+          そのほかの料金は<a href="../#offer">ご依頼について（ポートフォリオTOP）</a>をご覧ください。
         </p>
 
         <div class="cta-panel">
