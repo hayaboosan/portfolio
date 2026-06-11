@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://hayaboosan.github.io/portfolio/</loc>
-    <lastmod>2026-06-10</lastmod>
+    <lastmod>2026-06-11</lastmod>
   </url>
   <url>
     <loc>https://hayaboosan.github.io/portfolio/online-school/</loc>
@@ -46,6 +46,10 @@
   </url>
   <url>
     <loc>https://hayaboosan.github.io/portfolio/seo-faq/</loc>
+    <lastmod>2026-06-11</lastmod>
+  </url>
+  <url>
+    <loc>https://hayaboosan.github.io/portfolio/case-study-wp/</loc>
     <lastmod>2026-06-11</lastmod>
   </url>
 </urlset>

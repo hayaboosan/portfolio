@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Web制作ポートフォリオ｜LP5作品＋サイト改修事例2件＋小修正/検索対応デモ＋見積もりWebアプリ＋絞り込み検索UI</title>
-  <meta name="description" content="フレームワーク不使用のvanilla HTML / CSS / JS で制作した、架空ブランドのランディングページ5作品（オンラインスクール・コーヒー焙煎所・美容サロン・パーソナルジム・歯科クリニック）、既存サイトのビフォーアフター改修事例2件、よくある小修正デモ集、検索エンジン対応・Q&A設置デモ、リアルタイム計算する見積もりWebアプリ、そして条件で絞り込める賃貸物件検索UIまでをまとめたWeb制作ポートフォリオ。" />
+  <title>Web制作ポートフォリオ｜LP5作品＋サイト改修事例2件＋WordPress改修デモ＋小修正/検索対応デモ＋見積もりWebアプリ＋絞り込み検索UI</title>
+  <meta name="description" content="フレームワーク不使用のvanilla HTML / CSS / JS で制作した、架空ブランドのランディングページ5作品（オンラインスクール・コーヒー焙煎所・美容サロン・パーソナルジム・歯科クリニック）、既存サイトのビフォーアフター改修事例2件、WordPress子テーマ改修デモ、よくある小修正デモ集、検索エンジン対応・Q&A設置デモ、リアルタイム計算する見積もりWebアプリ、そして条件で絞り込める賃貸物件検索UIまでをまとめたWeb制作ポートフォリオ。" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23B89149'/%3E%3Ctext x='16' y='22.5' font-family='Segoe UI,sans-serif' font-size='17' font-weight='700' fill='%2317150F' text-anchor='middle'%3EW%3C/text%3E%3C/svg%3E" />
   <link rel="canonical" href="https://hayaboosan.github.io/portfolio/" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://hayaboosan.github.io/portfolio/" />
-  <meta property="og:title" content="Web制作ポートフォリオ｜LP5作品＋改修事例2件＋小修正/検索対応デモ＋見積もりWebアプリ＋絞り込み検索UI" />
-  <meta property="og:description" content="vanilla HTML / CSS / JS で制作した架空ブランドのLP5作品、既存サイトの改修事例2件、よくある小修正デモ集、検索エンジン対応・Q&A設置デモ、リアルタイム計算する見積もりWebアプリ、条件で絞り込める賃貸物件検索UI。" />
+  <meta property="og:title" content="Web制作ポートフォリオ｜LP5作品＋改修事例2件＋WordPress改修デモ＋小修正/検索対応デモ＋見積もりWebアプリ＋絞り込み検索UI" />
+  <meta property="og:description" content="vanilla HTML / CSS / JS で制作した架空ブランドのLP5作品、既存サイトの改修事例2件、WordPress子テーマ改修デモ、よくある小修正デモ集、検索エンジン対応・Q&A設置デモ、リアルタイム計算する見積もりWebアプリ、条件で絞り込める賃貸物件検索UI。" />
   <meta property="og:image" content="https://hayaboosan.github.io/portfolio/assets/og/hub.png" />
   <meta name="twitter:card" content="summary_large_image" />
 
@@ -166,8 +166,8 @@
       transition: background 0.25s var(--ease), color 0.25s var(--ease);
     }
     .header__nav .nav-cta:hover { background: var(--ink); color: #fff; }
-    /* ナビ項目8つ＋CTAが1行に収まらない幅では CTA のみ表示 */
-    @media (max-width: 1060px) {
+    /* ナビ項目9つ＋CTAが1行に収まらない幅では CTA のみ表示 */
+    @media (max-width: 1150px) {
       .header__nav a:not(.nav-cta) { display: none; }
     }
 
@@ -717,6 +717,7 @@
       <nav class="header__nav" aria-label="メインナビゲーション">
         <a href="#works">作品</a>
         <a href="#refresh">改修事例</a>
+        <a href="#wp">WP改修</a>
         <a href="#fixes">小修正</a>
         <a href="#seo">検索対応</a>
         <a href="#apptool">ツール</a>
@@ -1019,6 +1020,34 @@
       </div>
     </section>
 
+    <!-- ============ WORDPRESS (child theme case study) ============ -->
+    <section class="fixes" id="wp">
+      <div class="container">
+        <header class="section-head">
+          <p class="section-head__eyebrow">WordPress — Child Theme</p>
+          <h2 class="section-head__title">WordPress 改修デモ（子テーマ・コード層）</h2>
+          <p class="section-head__lead">
+            既存のWordPressサイトの修正・機能追加にも対応しています。ページビルダーではなく、子テーマ・functions.php・自作ブロックという「コード」で改修するデモを、実際に動くWordPressごと公開しました。
+          </p>
+        </header>
+        <article class="fixes-card">
+          <div class="fixes-card__body">
+            <p class="fixes-card__catch">ビルダーに頼らず、コードで直す。</p>
+            <p class="fixes-card__desc">
+              架空の動物病院サイト（テーマ：Lightning）を題材に、tel: 化＋モバイル固定CTA・診療時間表のショートコード・お知らせ機能（カスタム投稿＋自作ブロック）・速度改善（JavaScript をローカル実測で96%削減）を子テーマだけで実装。親テーマに手を入れないのでアップデートで改修が消えません。コードはGitHubで公開、1コマンドで手元で動かせます。
+            </p>
+            <ul class="fixes-card__tags">
+              <li class="card__tag"># 子テーマ・CSS調整</li>
+              <li class="card__tag"># functions.php フック</li>
+              <li class="card__tag"># カスタム投稿・自作ブロック</li>
+              <li class="card__tag"># 速度改善（実測値つき）</li>
+            </ul>
+          </div>
+          <a class="refresh-card__link" href="./case-study-wp/">事例を見る</a>
+        </article>
+      </div>
+    </section>
+
     <!-- ============ FIXES (Quick Fixes catalog) ============ -->
     <section class="fixes" id="fixes">
       <div class="container">
@@ -1141,7 +1170,7 @@
           <p class="section-head__eyebrow">Tech &amp; Approach</p>
           <h2 class="section-head__title">技術構成とこだわり</h2>
           <p class="section-head__lead">
-            すべての作品をフレームワーク・ビルドツールなしで構築。HTMLファイルを開くだけで動き、静的ホスティングにそのまま載せられます。
+            掲載しているLP・デモはすべてフレームワーク・ビルドツールなしで構築。HTMLファイルを開くだけで動き、静的ホスティングにそのまま載せられます（WordPress改修デモのみ別リポジトリで、WordPress Playground 上で動きます）。
           </p>
         </header>
         <div class="tech-grid">
@@ -1191,6 +1220,10 @@
               <h4>動くツール・一覧UI</h4>
               <p>入力に応じて計算するツールや、条件で絞り込める一覧など、JavaScript で動く小さなUIも制作します。</p>
             </div>
+            <div class="do-card">
+              <h4>WordPress の修正・機能追加（コード層）</h4>
+              <p>子テーマでのCSS調整・レイアウト崩れ修正・スマホ対応、functions.php での機能追加（お知らせなどのカスタム投稿・ショートコード・自作ブロック）、コード層の表示速度改善、デザインデータ支給×既製テーマでのコーディング。※Elementor 等ページビルダーでの構築・ゼロからのデザイン制作は対象外です。</p>
+            </div>
           </div>
         </div>
 
@@ -1207,6 +1240,7 @@
               <tr><td>スマホ対応化（レスポンシブ）</td><td>10,000円〜</td></tr>
               <tr><td>表示速度・画像最適化／コントラスト改善</td><td>10,000円〜</td></tr>
               <tr><td>検索エンジン対応の基礎整備／Q&amp;A設置（構造化データ）</td><td>10,000円〜</td></tr>
+              <tr><td>WordPress の軽微修正・機能追加（子テーマ・コード層）</td><td>10,000円〜</td></tr>
               <tr><td>LP 1枚コーディング（デザイン支給）</td><td>30,000円〜</td></tr>
               <tr><td>小規模サイト（数ページ）</td><td>50,000円〜</td></tr>
             </tbody>
@@ -1246,6 +1280,7 @@
           <a href="./dental-clinic/">そよかぜ歯科</a>
           <a href="./case-study-refresh/">改修事例：整骨院</a>
           <a href="./case-study-restaurant/">改修事例：食堂</a>
+          <a href="./case-study-wp/">WordPress改修デモ</a>
           <a href="./quick-fixes/">小修正デモ集</a>
           <a href="./seo-faq/">検索対応・Q&amp;Aデモ</a>
           <a href="./estimator/">見積もりツール</a>
