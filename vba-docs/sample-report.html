@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>解読レポート（見本）｜請求書作成.xlsm（架空）｜Excel VBA 納品文書サンプル</title>
+  <meta name="description" content="Excelマクロ（VBA）の解読・引き継ぎサービスで納品する「解読レポート」の実物見本。架空の請求書作成マクロを題材に、処理の流れ・設定値・注意箇所・リスクを日本語で文書化しています。" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231D6F42'/%3E%3Ctext x='16' y='22.5' font-family='Segoe UI,sans-serif' font-size='15' font-weight='700' fill='%23FFFFFF' text-anchor='middle'%3EVB%3C/text%3E%3C/svg%3E" />
+  <link rel="canonical" href="https://hayaboosan.github.io/portfolio/vba-docs/sample-report.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://hayaboosan.github.io/portfolio/vba-docs/sample-report.html" />
+  <meta property="og:title" content="解読レポート（見本）｜Excel VBA 納品文書サンプル" />
+  <meta property="og:description" content="「作った人がいなくなったマクロ」を日本語にする解読レポートの実物見本。題材は架空の請求書作成マクロです。" />
+  <meta name="theme-color" content="#143d27" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" /></noscript>
+
+  <style>
+    :root {
+      --ink: #16241c;
+      --body: #243329;
+      --soft: #4c5f53;
+      --accent: #1d6f42;
+      --accent-deep: #143d27;
+      --bg: #e8efe9;
+      --paper: #ffffff;
+      --line: rgba(22, 36, 28, 0.16);
+      --sans: "Zen Kaku Gothic New", "Noto Sans JP", "Hiragino Sans", sans-serif;
+      --mono: ui-monospace, "Cascadia Code", "Consolas", monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-text-size-adjust: 100%; overflow-x: clip; }
+    body {
+      font-family: var(--sans);
+      color: var(--body);
+      background: var(--bg);
+      line-height: 1.8;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .toolbar {
+      background: var(--accent-deep); color: #cfe5d6;
+      padding: 0.7rem 0; font-size: 0.85rem;
+    }
+    .toolbar .wrap { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .toolbar a { color: #fff; }
+    .wrap { width: min(860px, 94%); margin-inline: auto; }
+
+    .sample-banner {
+      background: #fff8e8; border-bottom: 1px solid #e7d9ae;
+      color: #5d4f25; font-size: 0.85rem; padding: 0.6rem 0;
+    }
+
+    .sheet {
+      background: var(--paper);
+      margin: 1.6rem auto 2.2rem;
+      padding: 2.6rem 2.8rem;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      box-shadow: 0 18px 50px -30px rgba(20, 61, 39, 0.5);
+      max-width: 860px;
+      width: 94%;
+    }
+    .doc-head { border-bottom: 3px solid var(--accent); padding-bottom: 1rem; margin-bottom: 1.4rem; }
+    .doc-head h1 { font-size: 1.45rem; color: var(--ink); letter-spacing: 0.02em; }
+    .doc-head .doc-sub { color: var(--soft); font-size: 0.85rem; margin-top: 0.2rem; }
+    .doc-meta { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin: 0 0 1.6rem; }
+    .doc-meta th, .doc-meta td { border: 1px solid var(--line); padding: 0.45em 0.8em; text-align: left; }
+    .doc-meta th { background: #eef5f0; white-space: nowrap; width: 11em; font-weight: 700; color: var(--accent-deep); }
+
+    h2 {
+      font-size: 1.05rem; color: var(--accent-deep);
+      border-left: 5px solid var(--accent);
+      padding-left: 0.6em; margin: 1.8rem 0 0.7rem;
+    }
+    p { margin-bottom: 0.7rem; }
+    ul, ol { padding-left: 1.5em; margin-bottom: 0.7rem; }
+    li { margin-bottom: 0.25em; }
+
+    table.grid { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin: 0.4rem 0 0.9rem; }
+    table.grid th, table.grid td { border: 1px solid var(--line); padding: 0.5em 0.7em; text-align: left; vertical-align: top; }
+    table.grid th { background: #eef5f0; font-weight: 700; color: var(--accent-deep); }
+    .table-wrap { overflow-x: auto; }
+
+    code { font-family: var(--mono); font-size: 0.85em; background: #eef3ef; padding: 0.1em 0.4em; border-radius: 4px; }
+
+    .flow { background: #f4f8f5; border: 1px solid var(--line); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 0.9rem; }
+    .flow__name { font-weight: 700; color: var(--accent-deep); margin-bottom: 0.3rem; font-size: 0.95rem; }
+    .flow__name code { font-size: 0.82em; }
+    .flow ol { margin-bottom: 0; }
+
+    .callout { border: 1px solid var(--line); border-radius: 8px; padding: 0.8rem 1rem; margin: 0.6rem 0 0.9rem; font-size: 0.92rem; }
+    .callout--ok { background: #eef7f0; border-color: #bcd9c5; }
+    .callout--ng { background: #fdf1ef; border-color: #e7c2ba; }
+    .callout--risk { background: #fff8e8; border-color: #e7d9ae; }
+    .callout strong { display: block; margin-bottom: 0.2rem; }
+    .callout--ok strong { color: #1d6f42; }
+    .callout--ng strong { color: #a8402f; }
+    .callout--risk strong { color: #8a6d1a; }
+
+    .doc-foot { border-top: 1px solid var(--line); margin-top: 2rem; padding-top: 0.9rem; font-size: 0.82rem; color: var(--soft); }
+
+    @media (max-width: 640px) {
+      .sheet { padding: 1.6rem 1.2rem; }
+      body { font-size: 14px; }
+    }
+    @media print {
+      .toolbar, .sample-banner { display: none; }
+      body { background: #fff; }
+      .sheet { box-shadow: none; border: none; margin: 0; padding: 0; width: 100%; max-width: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <div class="wrap">
+      <span>納品文書サンプル 01 — 解読レポート</span>
+      <span><a href="./">サンプル一覧</a>　<a href="../">ポートフォリオTOP</a></span>
+    </div>
+  </div>
+  <div class="sample-banner">
+    <div class="wrap">
+      この文書は<strong>見本</strong>です。題材は見本用に自作した架空のマクロで、実際のお客様のファイル・データは一切使用していません。
+    </div>
+  </div>
+
+  <main class="sheet">
+    <header class="doc-head">
+      <h1>解読レポート</h1>
+      <p class="doc-sub">— このブックのマクロが「何を・どの順で・どうしているか」の説明書 —</p>
+    </header>
+
+    <table class="doc-meta">
+      <tbody>
+        <tr><th scope="row">対象ブック</th><td>請求書作成.xlsm（2026-06-01 お預かり版）</td></tr>
+        <tr><th scope="row">ご依頼内容</th><td>作成担当者の退職に伴う、マクロの内容の文書化（引き継ぎ用）</td></tr>
+        <tr><th scope="row">マクロの規模</th><td>標準モジュール2本＋ブックモジュール1本／全コード 約420行（コメント・空行込み）／ボタン3個</td></tr>
+        <tr><th scope="row">作成日</th><td>2026-06-13</td></tr>
+        <tr><th scope="row">作業方法</th><td>ブックは変更していません（コピーを読み取りのみで調査）</td></tr>
+      </tbody>
+    </table>
+
+    <h2>1. このブックがやっていること（全体像）</h2>
+    <p>
+      このブックは、<strong>「受注一覧」シートに入力した受注データから、お客様ごとの請求書を作ってPDFで保存する</strong>ためのものです。
+      請求書の見た目は「請求書テンプレ」シートで管理し、請求書番号や保存先などの設定は「設定」シートにまとまっています。
+    </p>
+
+    <h2>2. ボタンと処理の対応</h2>
+    <div class="table-wrap">
+      <table class="grid">
+        <thead>
+          <tr><th>操作（ボタン）</th><th>動くマクロ</th><th>起きること</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>「選択した行の請求書を作成」<br />（受注一覧シート）</td>
+            <td><code>CreateInvoiceSelected</code></td>
+            <td>いま選択している1件の請求書PDFを作成し、保存先フォルダに保存。受注一覧の「発行日」列に日付が入る</td>
+          </tr>
+          <tr>
+            <td>「今月分をまとめて作成」<br />（受注一覧シート）</td>
+            <td><code>CreateInvoicesMonthly</code></td>
+            <td>当月の「発行日が空欄」の行すべてについて、上と同じ処理を順番に実行</td>
+          </tr>
+          <tr>
+            <td>「発行済みの行を整理」<br />（受注一覧シート）</td>
+            <td><code>ArchiveIssuedRows</code></td>
+            <td>発行済みの行を「処理済み」シートの末尾に移動し、受注一覧から削除</td>
+          </tr>
+          <tr>
+            <td>（ブックを開いたとき・自動）</td>
+            <td><code>Workbook_Open</code></td>
+            <td>受注一覧の表示を当月分に絞り込む（データは消えていません。フィルタです）</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>3. 処理の流れ（主要マクロ）</h2>
+
+    <div class="flow">
+      <p class="flow__name">請求書の作成 <code>CreateInvoiceSelected</code>（メイン処理）</p>
+      <ol>
+        <li>選択中の行が請求書を作れる行か確認（顧客名・金額が空ならメッセージを出して中止）</li>
+        <li>「設定」シートから次の請求書番号を取得（<code>NextInvoiceNo</code>）</li>
+        <li>「請求書テンプレ」シートに、顧客名・住所・明細・合計金額を転記</li>
+        <li>テンプレシートをPDFとして出力（保存先：設定シートに書かれたフォルダ＋「年月」フォルダ）</li>
+        <li>受注一覧の「発行日」列に今日の日付、「請求書No」列に発行した番号を記録</li>
+        <li>「設定」シートの請求書番号を1つ進める</li>
+      </ol>
+    </div>
+
+    <div class="flow">
+      <p class="flow__name">まとめて作成 <code>CreateInvoicesMonthly</code></p>
+      <ol>
+        <li>受注一覧を上から順に見て、「当月」かつ「発行日が空欄」の行を探す</li>
+        <li>見つかった行ごとに、上の「請求書の作成」と同じ処理を実行</li>
+        <li>最後に「○件作成しました」と表示</li>
+      </ol>
+    </div>
+
+    <div class="flow">
+      <p class="flow__name">発行済みの整理 <code>ArchiveIssuedRows</code></p>
+      <ol>
+        <li>発行日が入っている行をまとめて「処理済み」シートの末尾へコピー</li>
+        <li>コピーが終わってから、受注一覧側の該当行を削除</li>
+      </ol>
+    </div>
+
+    <h2>4. 設定値 — 変えてよい場所／いけない場所</h2>
+    <div class="callout callout--ok">
+      <strong>⭕ 変えてよい（運用で触る場所）</strong>
+      <ul>
+        <li>「設定」シート <code>B3</code>：PDFの保存先フォルダ（例 <code>C:\請求書</code>）</li>
+        <li>「設定」シート <code>B4</code>：自社名・振込先などの差し込み文言</li>
+        <li>「受注一覧」シートへの行の追加・入力（表の途中への列の挿入はNG・下記参照）</li>
+      </ul>
+    </div>
+    <div class="callout callout--ng">
+      <strong>❌ 変えてはいけない（マクロが壊れる場所）</strong>
+      <ul>
+        <li>シート名「受注一覧」「請求書テンプレ」「設定」「処理済み」（マクロが名前で参照しています）</li>
+        <li>受注一覧の<strong>列の並び順</strong>（A:受注日〜H:請求書No。列を挿入・削除すると転記がずれます）</li>
+        <li>「設定」シート <code>B2</code>：次の請求書番号（手で書き換えると番号が重複します）</li>
+        <li>請求書テンプレの転記先セル（<code>B5</code>〜<code>G20</code> 付近。レイアウト変更はマクロ修正とセットで）</li>
+      </ul>
+    </div>
+
+    <h2>5. 調査で気づいた点（ご参考）</h2>
+    <div class="callout callout--risk">
+      <strong>⚠ 今は動いていますが、将来つまずきやすい箇所</strong>
+      <ul>
+        <li>保存先フォルダが存在しないとエラーで止まります（フォルダを自動作成する作りになっていません）。PC入れ替え時は「設定」シートB3の見直しが必要です</li>
+        <li>「まとめて作成」を同じ月に2回実行しても発行済みの行はスキップされますが、<strong>発行日を手で消すと同じ請求が再発行されます</strong>（重複防止は発行日欄だけが頼りです）</li>
+        <li>請求書番号は「設定」シートのB2だけで管理されています。このセルが壊れた場合に備え、処理済みシートの「請求書No」列が復元の手がかりになります</li>
+      </ul>
+    </div>
+    <p>
+      上記はいずれも現状のままでも運用可能です。改修をご希望の場合は別途お見積もりします。
+    </p>
+
+    <footer class="doc-foot">
+      <p>
+        本レポートは見本です（題材は架空のマクロ）。実際の納品では、ソースコード一式（テキストファイル）と
+        「ソースの保管方法」のご案内、規模に応じて引き継ぎ手順書を併せてお渡しします。
+      </p>
+    </footer>
+  </main>
+</body>
+</html>
