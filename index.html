@@ -3,6 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f5f3ee" id="themeColorMeta" />
+  <!-- 配色テーマ（ダーク/ライト）の初期化：描画前に data-theme を確定し、ちらつき（FOUC）を防ぐ -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('portfolio-theme');
+        var theme = (saved === 'dark' || saved === 'light')
+          ? saved
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+        var m = document.getElementById('themeColorMeta');
+        if (m) m.setAttribute('content', theme === 'dark' ? '#14161b' : '#f5f3ee');
+      } catch (e) {}
+    })();
+  </script>
   <title>Web制作ポートフォリオ｜LP5作品＋サイト改修事例2件＋WordPress改修デモ＋小修正/検索対応デモ＋見積もりWebアプリ＋絞り込み検索UI＋VBA納品文書サンプル</title>
   <meta name="description" content="フレームワーク不使用のvanilla HTML / CSS / JS で制作した、架空ブランドのランディングページ5作品（オンラインスクール・コーヒー焙煎所・美容サロン・パーソナルジム・歯科クリニック）、既存サイトのビフォーアフター改修事例2件、WordPress子テーマ改修デモ、よくある小修正デモ集、検索エンジン対応・Q&A設置デモ、リアルタイム計算する見積もりWebアプリ、条件で絞り込める賃貸物件検索UI、そしてExcel VBA保守の納品文書サンプルまでをまとめたWeb制作ポートフォリオ。" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23B89149'/%3E%3Ctext x='16' y='22.5' font-family='Segoe UI,sans-serif' font-size='17' font-weight='700' fill='%2317150F' text-anchor='middle'%3EW%3C/text%3E%3C/svg%3E" />
@@ -37,6 +52,14 @@
       --line: rgba(26, 28, 34, 0.1);
       --gold: #b89149;
 
+      /* テーマで切り替える派生トークン */
+      --header-bg: rgba(245, 243, 238, 0.78);
+      --header-bg-scrolled: rgba(245, 243, 238, 0.92);
+      --btn-bg: #14161c;
+      --btn-fg: #ffffff;
+      --hero-glow: 0.5;
+      --tag-bg: rgba(0, 0, 0, 0.015);
+
       /* 各作品のブランドカラー */
       --lumen-primary: #1b2a4a;
       --lumen-accent: #e8b04b;
@@ -65,6 +88,47 @@
       --shadow-sm: 0 6px 20px -10px rgba(20, 22, 28, 0.25);
       --shadow-md: 0 26px 60px -34px rgba(20, 22, 28, 0.45);
       --shadow-lg: 0 40px 90px -42px rgba(20, 22, 28, 0.55);
+    }
+
+    /* ============ ダークテーマ ============
+       data-theme="dark"（保存設定 or OS設定から JS が付与）。
+       JS 無効時の自動ダークは下の @media フォールバックで担保する。 */
+    :root[data-theme="dark"] {
+      --ink: #e9e7e0;
+      --ink-soft: #b6b3aa;
+      --ink-faint: #9498a3;
+      --bg: #14161b;
+      --bg-deep: #191c22;
+      --panel: #1c1f27;
+      --line: rgba(233, 231, 224, 0.13);
+      --gold: #cda55c;
+
+      --header-bg: rgba(20, 22, 27, 0.72);
+      --header-bg-scrolled: rgba(20, 22, 27, 0.9);
+      --btn-bg: #e9e7e0;
+      --btn-fg: #14161c;
+      --hero-glow: 0.3;
+      --tag-bg: rgba(233, 231, 224, 0.05);
+    }
+
+    /* JS 無効でも OS がダーク設定なら自動でダークに（data-theme 未付与時のみ適用）*/
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]):not([data-theme="dark"]) {
+        --ink: #e9e7e0;
+        --ink-soft: #b6b3aa;
+        --ink-faint: #9498a3;
+        --bg: #14161b;
+        --bg-deep: #191c22;
+        --panel: #1c1f27;
+        --line: rgba(233, 231, 224, 0.13);
+        --gold: #cda55c;
+        --header-bg: rgba(20, 22, 27, 0.72);
+        --header-bg-scrolled: rgba(20, 22, 27, 0.9);
+        --btn-bg: #e9e7e0;
+        --btn-fg: #14161c;
+        --hero-glow: 0.3;
+        --tag-bg: rgba(233, 231, 224, 0.05);
+      }
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -98,7 +162,7 @@
       top: -3rem;
       z-index: 200;
       background: var(--ink);
-      color: #fff;
+      color: var(--bg);
       padding: 0.6rem 1rem;
       border-radius: 8px;
       transition: top 0.2s var(--ease);
@@ -111,13 +175,13 @@
       top: 0;
       z-index: 100;
       backdrop-filter: blur(12px);
-      background: rgba(245, 243, 238, 0.78);
+      background: var(--header-bg);
       border-bottom: 1px solid transparent;
       transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
     }
     .site-header.scrolled {
       border-bottom-color: var(--line);
-      background: rgba(245, 243, 238, 0.92);
+      background: var(--header-bg-scrolled);
     }
     .site-header__inner {
       display: flex;
@@ -165,7 +229,21 @@
       color: var(--ink);
       transition: background 0.25s var(--ease), color 0.25s var(--ease);
     }
-    .header__nav .nav-cta:hover { background: var(--ink); color: #fff; }
+    .header__nav .nav-cta:hover { background: var(--ink); color: var(--bg); }
+
+    /* 配色テーマ切り替えボタン */
+    .theme-toggle {
+      display: inline-grid; place-items: center; width: 38px; height: 38px; flex-shrink: 0;
+      border: 1px solid var(--line); border-radius: 50%; background: transparent;
+      color: var(--ink-soft); cursor: pointer; padding: 0;
+      transition: color 0.2s var(--ease), border-color 0.2s var(--ease), background 0.2s var(--ease);
+    }
+    .theme-toggle:hover { color: var(--ink); border-color: var(--ink-faint); }
+    .theme-toggle:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .theme-toggle svg { width: 19px; height: 19px; display: block; }
+    .theme-toggle .icon-sun { display: none; }
+    :root[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+    :root[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
     /* ナビ項目9つ＋CTAが1行に収まらない幅では CTA のみ表示 */
     @media (max-width: 1150px) {
       .header__nav a:not(.nav-cta) { display: none; }
@@ -183,7 +261,7 @@
       position: absolute;
       border-radius: 50%;
       filter: blur(80px);
-      opacity: 0.5;
+      opacity: var(--hero-glow);
       z-index: 0;
     }
     .hero::before {
@@ -415,7 +493,7 @@
       padding: 0.28rem 0.7rem;
       border: 1px solid var(--line);
       border-radius: 999px;
-      background: rgba(0, 0, 0, 0.015);
+      background: var(--tag-bg);
     }
     .card__link {
       display: inline-flex;
@@ -444,6 +522,8 @@
        ボタンサイズに縮み、カード全体が押せなくなる。ホバー感は card の浮き＋矢印スライドで十分。 */
     .card:hover .card__link { gap: 0.9rem; }
     .card:hover .card__link::after { transform: translateX(3px); }
+    /* ダーク時：ブランド配色の濃いボタンが暗い面に埋もれないよう微かな縁取り */
+    :root[data-theme="dark"] .card__link { box-shadow: inset 0 0 0 1px rgba(233, 231, 224, 0.26); }
 
     /* カード全体をクリック可能に（stretched link）。
        リンクの当たり判定をカード全面へ拡張し、ホバーで浮く演出と操作対象を一致させる。
@@ -511,18 +591,18 @@
       gap: 1rem 1.4rem; padding: clamp(1.2rem, 3vw, 1.7rem) clamp(1.4rem, 3.5vw, 2.4rem);
       border-top: 1px solid var(--line);
     }
-    .refresh-card__desc { flex: 1 1 320px; font-size: 0.9rem; color: rgba(26, 28, 34, 0.72); margin: 0; }
+    .refresh-card__desc { flex: 1 1 320px; font-size: 0.9rem; color: var(--ink-soft); margin: 0; }
     .refresh-card__actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
     .refresh-card__link {
       display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none;
-      background: var(--bg-deep); color: #fff; padding: 0.72rem 1.35rem; border-radius: 999px;
+      background: var(--btn-bg); color: var(--btn-fg); padding: 0.72rem 1.35rem; border-radius: 999px;
       font-weight: 700; font-size: 0.92rem; transition: filter 0.25s var(--ease), gap 0.25s var(--ease);
     }
     .refresh-card__link::after { content: "→"; transition: transform 0.25s var(--ease); }
     .refresh-card__link:hover { filter: brightness(1.35); gap: 0.8rem; }
     .refresh-card__link:hover::after { transform: translateX(3px); }
-    .refresh-card__sub { color: rgba(26, 28, 34, 0.64); font-size: 0.88rem; text-decoration: underline; text-underline-offset: 3px; }
-    .refresh-card__sub:hover { color: var(--bg-deep); }
+    .refresh-card__sub { color: var(--ink-soft); font-size: 0.88rem; text-decoration: underline; text-underline-offset: 3px; }
+    .refresh-card__sub:hover { color: var(--ink); }
     @media (max-width: 680px) {
       .refresh-card__grid { grid-template-columns: 1fr; }
       .refresh-arrow { padding-block: 0.5rem; }
@@ -582,6 +662,7 @@
       padding-block: clamp(2.5rem, 5vw, 3.5rem) 1.6rem;
       background: #0e1015;
       color: rgba(245, 243, 238, 0.7);
+      border-top: 1px solid var(--line);
     }
     .site-footer__inner {
       display: flex;
@@ -607,7 +688,7 @@
     .site-footer__bottom {
       padding-top: 1.4rem;
       font-size: 0.76rem;
-      color: rgba(245, 243, 238, 0.45);
+      color: rgba(245, 243, 238, 0.6);
       letter-spacing: 0.03em;
     }
     .site-footer__bottom p + p { margin-top: 0.3rem; }
@@ -616,7 +697,7 @@
     .hero__cta-wrap { margin-bottom: 2rem; }
     .hero__cta {
       display: inline-flex; align-items: center; gap: 0.6rem;
-      background: var(--bg-deep); color: #fff;
+      background: var(--btn-bg); color: var(--btn-fg);
       padding: 0.8rem 1.5rem; border-radius: 999px;
       font-size: 0.9rem; font-weight: 500; letter-spacing: 0.04em;
       transition: gap 0.25s var(--ease), filter 0.25s var(--ease);
@@ -725,6 +806,15 @@
         <a href="#vba">VBA文書</a>
         <a href="#tech">技術</a>
         <a href="#offer">ご依頼</a>
+        <button type="button" class="theme-toggle" id="themeToggle" aria-label="配色テーマを切り替える" title="ダークモード / ライトモード" hidden>
+          <svg class="theme-toggle__icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z" />
+          </svg>
+          <svg class="theme-toggle__icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4.2" />
+            <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+          </svg>
+        </button>
         <a href="https://crowdworks.jp/public/employees/3919155/" class="nav-cta" rel="noopener noreferrer" target="_blank">お問い合わせ</a>
       </nav>
     </div>
@@ -1334,6 +1424,46 @@
       };
       window.addEventListener('scroll', onScroll, { passive: true });
       onScroll();
+    })();
+
+    // 配色テーマ（ダーク/ライト）の切り替え
+    (function () {
+      var KEY = 'portfolio-theme';
+      var root = document.documentElement;
+      var btn = document.getElementById('themeToggle');
+      var meta = document.getElementById('themeColorMeta');
+      var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+      var metaColor = { light: '#f5f3ee', dark: '#14161b' };
+
+      function current() {
+        return root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      }
+      function apply(theme) {
+        root.setAttribute('data-theme', theme);
+        if (meta) meta.setAttribute('content', metaColor[theme]);
+        if (btn) btn.setAttribute('aria-label', theme === 'dark' ? 'ライトモードに切り替える' : 'ダークモードに切り替える');
+      }
+
+      apply(current());
+
+      if (btn) {
+        btn.hidden = false;
+        btn.addEventListener('click', function () {
+          var next = current() === 'dark' ? 'light' : 'dark';
+          apply(next);
+          try { localStorage.setItem(KEY, next); } catch (e) {}
+        });
+      }
+
+      if (mq) {
+        var onChange = function (e) {
+          var saved = null;
+          try { saved = localStorage.getItem(KEY); } catch (err) {}
+          if (saved !== 'dark' && saved !== 'light') apply(e.matches ? 'dark' : 'light');
+        };
+        if (mq.addEventListener) mq.addEventListener('change', onChange);
+        else if (mq.addListener) mq.addListener(onChange);
+      }
     })();
 
     // カードのスクロールイン表示
