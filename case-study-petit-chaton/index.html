@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>サイト改修 事例｜実在のジュエリーブランドサイトを静的化（Vue SPA → Astro）｜Web制作ポートフォリオ</title>
+  <meta name="description" content="実際に公開・運用されているジュエリーブランドのサイトを、デザインを保ったまま全面再構築した事例。Vue/Vite製のSPA（CSR）を完全な静的HTML（Astro）へ作り直し、Lighthouse Performance 62→97・CLS 0.95→0・SEO 91→100。ホスティングも Firebase＋Cloudflare から GitHub Pages へ移行しました。" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%236f7038'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='16' font-weight='700' fill='%23F6F4EC' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E" />
+  <link rel="canonical" href="https://hayaboosan.github.io/portfolio/case-study-petit-chaton/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="サイト改修 事例｜実在サイトを静的化（Vue SPA → Astro 静的）" />
+  <meta property="og:description" content="実在の公開サイトを、デザインそのままで静的化。Lighthouse 62→97、CLS 0.95→0、SEO 91→100、ホスティングも GitHub Pages へ移行した実作業の記録です。" />
+  <meta property="og:url" content="https://hayaboosan.github.io/portfolio/case-study-petit-chaton/" />
+  <meta property="og:image" content="https://hayaboosan.github.io/portfolio/case-study-petit-chaton/assets/PCwebsite-main.jpg" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="theme-color" content="#4f5026" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital@0;1&family=Shippori+Mincho+B1:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --ink: #33312a;
+      --body: #3c3a31;
+      --soft: #6b6a5c;
+      --olive: #6f7038;        /* アクセシブルなオリーブ（文字・アクセント） */
+      --olive-deep: #4f5026;
+      --olive-brand: #abac70;  /* 元のブランドオリーブ（装飾のみ） */
+      --gold: #b89149;
+      --bg: #f6f4ec;
+      --panel: #fffdf7;
+      --line: rgba(51, 49, 40, 0.13);
+      --before-bg: #ece7da;
+      --before-ink: #5c5849;
+      --before-soft: #6e6852;
+      --radius: 16px;
+      --shadow: 0 24px 60px -36px rgba(51, 49, 40, 0.5);
+      --serif: "EB Garamond", "Shippori Mincho B1", "Hiragino Mincho ProN", serif;
+      --sans: "Zen Kaku Gothic New", "Noto Sans JP", "Hiragino Sans", sans-serif;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: var(--sans);
+      color: var(--body);
+      background: var(--bg);
+      line-height: 1.85;
+      letter-spacing: 0.01em;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container { width: min(1040px, 92%); margin-inline: auto; }
+    img { display: block; max-width: 100%; height: auto; }
+    a { color: var(--olive); }
+
+    .skip-link {
+      position: absolute; left: 0.5rem; top: -3rem;
+      background: var(--olive-deep); color: #fff;
+      padding: 0.6rem 1rem; border-radius: 8px; text-decoration: none; z-index: 50;
+      transition: top 0.2s var(--ease);
+    }
+    .skip-link:focus { top: 0.5rem; }
+    :focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; border-radius: 4px; }
+
+    /* Header */
+    .top {
+      border-bottom: 1px solid var(--line);
+      background: rgba(246, 244, 236, 0.9);
+      backdrop-filter: saturate(1.2) blur(6px);
+      position: sticky; top: 0; z-index: 20;
+    }
+    .top__inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 0.85rem; }
+    .top__home { display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 700; color: var(--ink); text-decoration: none; font-size: 0.95rem; }
+    .top__home::before { content: "←"; color: var(--olive); }
+    .top__tag { font-size: 0.76rem; letter-spacing: 0.12em; color: var(--soft); text-transform: uppercase; }
+
+    /* Hero */
+    .hero { background: linear-gradient(158deg, #3c3d1d 0%, #4f5026 58%, #6f7038 132%); color: #f4f2e6; padding-block: clamp(2.6rem, 7vw, 4.6rem); }
+    .hero__eyebrow { font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: #e3d8a8; font-weight: 700; }
+    .hero__title { font-family: var(--serif); font-size: clamp(1.85rem, 5.4vw, 3rem); font-weight: 700; line-height: 1.32; margin-top: 0.7rem; letter-spacing: 0.01em; }
+    .hero__lead { margin-top: 1.1rem; max-width: 58ch; color: #e9e5d2; font-size: clamp(0.98rem, 2.2vw, 1.08rem); }
+    .badge-real {
+      display: inline-flex; align-items: center; gap: 0.45rem; margin-bottom: 1.1rem;
+      font-size: 0.76rem; font-weight: 700; letter-spacing: 0.08em;
+      padding: 0.3rem 0.8rem; border-radius: 999px;
+      background: rgba(227, 216, 168, 0.18); border: 1px solid rgba(227, 216, 168, 0.45); color: #f0ead0;
+    }
+    .badge-real::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #e3d8a8; }
+    .note {
+      margin-top: 1.4rem; padding: 0.9rem 1.1rem;
+      background: rgba(255, 255, 255, 0.09); border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 12px; font-size: 0.88rem; color: #f4f2e6; max-width: 62ch;
+    }
+    .actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 1.7rem; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 1.5rem; border-radius: 999px; font-weight: 700; font-size: 0.96rem;
+      text-decoration: none; transition: transform 0.2s var(--ease), filter 0.2s var(--ease);
+    }
+    .btn--after { background: var(--gold); color: #2c2208; }
+    .btn--after::after { content: "↗"; }
+    .btn--ghost { background: transparent; color: #f4f2e6; border: 1.5px solid rgba(255, 255, 255, 0.5); }
+    .btn:hover { transform: translateY(-2px); filter: brightness(1.06); }
+    .btn:focus-visible { outline-offset: 4px; }
+
+    /* Sections */
+    .section { padding-block: clamp(2.4rem, 6vw, 4rem); }
+    .section--alt { background: var(--panel); border-block: 1px solid var(--line); }
+    .section__head { max-width: 62ch; margin-bottom: 1.8rem; }
+    .section__eyebrow { font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--olive); font-weight: 700; }
+    .section__title { font-family: var(--serif); font-size: clamp(1.4rem, 3.6vw, 2rem); font-weight: 700; color: var(--ink); margin-top: 0.4rem; line-height: 1.4; }
+    .section__lead { margin-top: 0.7rem; color: var(--soft); }
+
+    .lead-body { max-width: 64ch; }
+    .lead-body p + p { margin-top: 1rem; }
+    .lead-body strong { color: var(--olive-deep); }
+
+    /* Before / After compare */
+    .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .pane { border-radius: var(--radius); padding: clamp(1.3rem, 3.4vw, 2rem); box-shadow: var(--shadow); }
+    .pane--before { background: var(--before-bg); color: var(--before-ink); }
+    .pane--after { background: var(--olive-deep); color: #f4f2e6; }
+    .pane__tag { display: inline-block; font-weight: 700; font-size: 0.76rem; letter-spacing: 0.14em; padding: 0.25rem 0.75rem; border-radius: 999px; }
+    .pane--before .pane__tag { background: rgba(92, 88, 73, 0.16); color: #5c5747; }
+    .pane--after .pane__tag { background: rgba(227, 216, 168, 0.2); color: #ece2b4; }
+    .pane__year { font-weight: 700; font-size: clamp(1.02rem, 2.6vw, 1.22rem); margin-top: 0.7rem; }
+    .pane__list { list-style: none; margin-top: 1rem; display: grid; gap: 0.6rem; }
+    .pane__list li { position: relative; padding-left: 1.5rem; font-size: 0.92rem; line-height: 1.72; }
+    .pane--before .pane__list li { color: var(--before-soft); }
+    .pane--before .pane__list li::before { content: "×"; position: absolute; left: 0; color: #a8593f; font-weight: 700; }
+    .pane--after .pane__list li::before { content: "✓"; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
+
+    /* Score cards */
+    .scores { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1rem; }
+    .score {
+      border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel);
+      padding: 1.3rem 1.4rem; box-shadow: var(--shadow);
+    }
+    .score__name { font-size: 0.82rem; letter-spacing: 0.06em; color: var(--soft); font-weight: 700; }
+    .score__row { display: flex; align-items: baseline; gap: 0.55rem; margin-top: 0.55rem; }
+    .score__from { font-size: 1.05rem; font-weight: 700; color: #a8593f; text-decoration: line-through; text-decoration-thickness: 1.5px; }
+    .score__arrow { color: var(--soft); font-size: 0.9rem; }
+    .score__to { font-family: var(--serif); font-size: 2.1rem; font-weight: 700; line-height: 1; color: var(--olive-deep); }
+    .score__unit { font-size: 0.78rem; color: var(--soft); margin-top: 0.5rem; }
+
+    /* Tables */
+    .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); box-shadow: var(--shadow); }
+    table { width: 100%; border-collapse: collapse; min-width: 560px; }
+    caption { text-align: left; padding: 0.9rem 1rem; font-weight: 700; color: var(--ink); border-bottom: 1px solid var(--line); }
+    th, td { text-align: left; padding: 0.85rem 1rem; border-bottom: 1px solid var(--line); font-size: 0.92rem; vertical-align: top; }
+    thead th { color: var(--soft); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.04em; }
+    tbody tr:last-child td { border-bottom: none; }
+    .col-before { color: #8a4a36; }
+    .col-after { color: var(--olive-deep); font-weight: 600; }
+    td strong { color: var(--olive-deep); }
+
+    /* Stage ladder */
+    .stages { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; counter-reset: stg; }
+    .stage { border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); padding: 1.4rem 1.4rem 1.5rem; }
+    .stage::before {
+      counter-increment: stg; content: counter(stg);
+      display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%;
+      background: var(--olive-deep); color: #f4f2e6; font-weight: 700; font-size: 0.92rem; margin-bottom: 0.8rem;
+    }
+    .stage h3 { font-family: var(--serif); font-size: 1.12rem; color: var(--ink); margin-bottom: 0.5rem; }
+    .stage p { font-size: 0.88rem; color: var(--soft); }
+
+    /* Design showcase */
+    .shot { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); background: var(--panel); }
+    .shot img { width: 100%; height: auto; }
+    .shot__cap { padding: 0.85rem 1.1rem; font-size: 0.85rem; color: var(--soft); border-top: 1px solid var(--line); }
+    .shot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+
+    /* Tags */
+    .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.4rem; }
+    .tag { font-size: 0.78rem; color: var(--olive-deep); padding: 0.3rem 0.78rem; border: 1px solid var(--line); border-radius: 999px; background: rgba(111, 112, 56, 0.06); }
+
+    /* End */
+    .end { text-align: center; max-width: 60ch; margin-inline: auto; }
+    .end h2 { font-family: var(--serif); font-size: clamp(1.3rem, 3.4vw, 1.8rem); color: var(--ink); line-height: 1.45; }
+    .end p { margin-top: 0.8rem; color: var(--soft); }
+    .end .actions { justify-content: center; }
+
+    /* Footer */
+    .foot { background: #2a2a1c; color: rgba(244, 242, 230, 0.75); padding-block: 2.2rem; }
+    .foot__row { display: flex; flex-wrap: wrap; gap: 0.7rem 1.5rem; align-items: center; justify-content: space-between; font-size: 0.84rem; }
+    .foot__row a { color: var(--gold); }
+
+    @media (max-width: 680px) {
+      .compare { grid-template-columns: 1fr; }
+      .shot-grid { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">本文へスキップ</a>
+
+  <header class="top">
+    <div class="container top__inner">
+      <a class="top__home" href="../">ポートフォリオ トップ</a>
+      <span class="top__tag">Case Study — Real Site</span>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <span class="badge-real">実在サイトでの実作業（架空サンプルではありません）</span>
+        <p class="hero__eyebrow">Case Study — Site Replatform</p>
+        <h1 class="hero__title">デザインはそのまま。<br />中身を、保守できる静的サイトへ。</h1>
+        <p class="hero__lead">
+          実際に公開・運用されているジュエリーブランドのサイトを、<strong>見た目を変えずに</strong>作り直した事例です。学習目的で Vue/Vite の SPA（クライアントサイドレンダリング）で作られていたサイトは、1ページのブランドLPに対して構成が重く、所有者が自分で保守できない状態でした。デザインを1px単位で踏襲したまま、中身を完全な静的HTMLへ置き換え、表示崩れ・SEO・速度・保守性・ホスティングをまとめて立て直しました。
+        </p>
+        <div class="note">
+          見た目は意図的に同一です。だからこの事例の主役は「変わって見えるもの」ではなく、<strong>計測できる中身の差</strong>（Lighthouse スコア・CLS・SEO・構造）です。数値はすべて実在サイトの実測値です。
+        </div>
+        <div class="actions">
+          <a class="btn btn--after" href="https://petit-chaton.com" target="_blank" rel="noopener noreferrer">公開中のサイトを見る</a>
+          <a class="btn btn--ghost" href="#metrics">計測結果へ</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 概要 -->
+    <section class="section">
+      <div class="container">
+        <div class="section__head">
+          <p class="section__eyebrow">Overview</p>
+          <h2 class="section__title">何をした事例か</h2>
+        </div>
+        <div class="lead-body">
+          <p>
+            対象は、猫モチーフのジュエリーブランドの1ページ構成のサイト。初期HTMLは <code>&lt;div id="app"&gt;&lt;/div&gt;</code> の空シェルで、本文はすべて JavaScript が描画する <strong>SPA（CSR）</strong> でした。軽量ではあったものの、本文がHTMLに存在しないため <strong>検索エンジンやSNSのクローラが内容を読めず</strong>、見出し構造や <code>lang</code>・OGP などの基本も欠けていました。そして何より、<strong>1ページのLPにビルドを伴うSPA</strong>という過剰な構成のため、所有者がもう自分で更新できなくなっていました。
+          </p>
+          <p>
+            方針は「<strong>デザインは1pxも変えない／中身を作り直す</strong>」。リニューアルというと見た目を一新しがちですが、このブランドの世界観は完成していたので、あえて<strong>見た目を完全保存</strong>し、土台だけを現代的な静的サイトへ載せ替えました。作業は2段階に分け、まず「小さな修正だけでどこまで改善するか」を実演し、続いて「全面再構築でどこまで到達できるか」を示しています。
+          </p>
+        </div>
+        <div class="stages" style="margin-top:1.6rem">
+          <div class="stage">
+            <h3>現状（Before）</h3>
+            <p>Vue/Vite の SPA。本文がJS依存・h1なし・lang誤り・OGPなし・robots/sitemap不在。表示時に画像がガタつく（CLS 0.95）。所有者が保守不能。</p>
+          </div>
+          <div class="stage">
+            <h3>Stage 1：小さな修正</h3>
+            <p>Vue本体に触れず、<code>&lt;head&gt;</code> と静的ファイル追加だけで改善。lang・description・OGP・favicon・robots.txt・sitemap を整備。SEO 91→100。</p>
+          </div>
+          <div class="stage">
+            <h3>Stage 2：静的化（本命）</h3>
+            <p>Astro（SSG）で完全な静的HTMLへ再構築。CSR撤廃・h1新設・構造化データ・画像最適化で速度と保守性を確立。Performance 62→97、CLS→0。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Before / After -->
+    <section class="section section--alt">
+      <div class="container">
+        <div class="section__head">
+          <p class="section__eyebrow">Before / After</p>
+          <h2 class="section__title">変わったのは「見えない部分」</h2>
+          <p class="section__lead">見た目は据え置き。下のリストはすべて、ユーザーには見えにくいが集客・保守・信頼に効く部分です。</p>
+        </div>
+        <div class="compare">
+          <article class="pane pane--before">
+            <span class="pane__tag">Before</span>
+            <p class="pane__year">Vue / Vite の SPA（CSR）</p>
+            <ul class="pane__list">
+              <li>本文がJS依存。SNS・一部クローラが内容を読めない</li>
+              <li><code>&lt;html lang="en"&gt;</code>（日本語サイトなのに英語指定）</li>
+              <li>h1 が 0 個・見出しが h3 から始まる</li>
+              <li>meta description / OGP / Twitter Card なし</li>
+              <li>robots.txt・sitemap.xml 実質不在／soft-404</li>
+              <li>画像に width/height がなく表示がガタつく（CLS 0.95）</li>
+              <li>1ページLPにSPA＝所有者が自分で保守できない</li>
+            </ul>
+          </article>
+          <article class="pane pane--after">
+            <span class="pane__tag">After</span>
+            <p class="pane__year">Astro による完全な静的HTML（SSG）</p>
+            <ul class="pane__list">
+              <li>本文がHTMLに存在＝検索・SNS・クローラすべて対応</li>
+              <li><code>lang="ja"</code>＋セマンティックな見出し構造へ</li>
+              <li>h1 を新設し h1→h2→h3 の階層に整理</li>
+              <li>description・OGP・Twitter Card・canonical・構造化データ(JSON-LD)</li>
+              <li>robots.txt＋sitemap を静的内包／正しい404</li>
+              <li>全画像に width/height を指定し CLS を 0 に</li>
+              <li>素のCSS（依存最小）で所有者でも手を入れやすい構成</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 計測結果 -->
+    <section class="section" id="metrics">
+      <div class="container">
+        <div class="section__head">
+          <p class="section__eyebrow">Measured — Real Numbers</p>
+          <h2 class="section__title">計測できる改善（実測値）</h2>
+          <p class="section__lead">Lighthouse（モバイル）での実測。Before＝公開中だった旧サイト、After＝本番相当ビルドのローカル計測（2026-06-14）。</p>
+        </div>
+
+        <div class="scores">
+          <div class="score">
+            <p class="score__name">Performance</p>
+            <p class="score__row"><span class="score__from">62</span><span class="score__arrow">→</span><span class="score__to">97</span></p>
+            <p class="score__unit">CSR撤廃・画像最適化で大幅改善</p>
+          </div>
+          <div class="score">
+            <p class="score__name">Accessibility</p>
+            <p class="score__row"><span class="score__from">92</span><span class="score__arrow">→</span><span class="score__to">100</span></p>
+            <p class="score__unit">lang・見出し・alt・コントラスト</p>
+          </div>
+          <div class="score">
+            <p class="score__name">Best Practices</p>
+            <p class="score__row"><span class="score__to">100</span></p>
+            <p class="score__unit">据え置きで満点を維持</p>
+          </div>
+          <div class="score">
+            <p class="score__name">SEO</p>
+            <p class="score__row"><span class="score__from">91</span><span class="score__arrow">→</span><span class="score__to">100</span></p>
+            <p class="score__unit">静的HTML・構造化・sitemap</p>
+          </div>
+        </div>
+
+        <div class="table-wrap" style="margin-top:1.4rem">
+          <table>
+            <caption>3段階のスコア推移（Lighthouse モバイル）</caption>
+            <thead>
+              <tr>
+                <th scope="col">カテゴリ</th>
+                <th scope="col">現状（Vue SPA）</th>
+                <th scope="col">Stage 1（小修正）</th>
+                <th scope="col">Stage 2（静的）</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Performance</td><td class="col-before">62</td><td>67</td><td class="col-after">97</td></tr>
+              <tr><td>Accessibility</td><td class="col-before">92</td><td>92</td><td class="col-after">100</td></tr>
+              <tr><td>Best Practices</td><td>100</td><td>100</td><td class="col-after">100</td></tr>
+              <tr><td>SEO</td><td class="col-before">91</td><td>100</td><td class="col-after">100</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="table-wrap" style="margin-top:1.2rem">
+          <table>
+            <caption>主要指標（Core Web Vitals 関連）</caption>
+            <thead>
+              <tr><th scope="col">指標</th><th scope="col">Before</th><th scope="col">After</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>FCP（初回描画）</td><td class="col-before">2.1s</td><td class="col-after">1.5s</td></tr>
+              <tr><td>LCP（主要描画）</td><td class="col-before">3.8s</td><td class="col-after">2.5s</td></tr>
+              <tr><td>CLS（表示の安定性）</td><td class="col-before">0.95</td><td class="col-after"><strong>0</strong>（全画像に width/height）</td></tr>
+              <tr><td>TBT（操作ブロック）</td><td>0ms</td><td>0ms</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 対応表 -->
+    <section class="section section--alt">
+      <div class="container">
+        <div class="section__head">
+          <p class="section__eyebrow">What changed</p>
+          <h2 class="section__title">改修内容（Before → After 対応表）</h2>
+          <p class="section__lead">見た目を変えずに、一つひとつの変更が「検索・共有・保守・体感速度」にどう効くかをセットで設計しました。</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <caption>課題ごとの改修と効果</caption>
+            <thead>
+              <tr><th scope="col">課題</th><th scope="col">改修（After で行ったこと）</th><th scope="col">効果</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="col-before">本文がJSでしか出ない（CSR）</td><td class="col-after">Astro(SSG) で本文を静的HTML化</td><td>検索エンジン・SNSのクローラが確実に内容を読める</td></tr>
+              <tr><td class="col-before">lang が en・h1 が無い</td><td class="col-after"><code>lang="ja"</code>＋h1新設で h1→h2→h3 に</td><td>読み上げ・検索の文脈理解が正しくなる</td></tr>
+              <tr><td class="col-before">OGP / Twitter Card 無し</td><td class="col-after">OGP・Twitter Card・canonical・JSON-LD を整備</td><td>SNS共有でサムネと説明が出て、クリックされやすい</td></tr>
+              <tr><td class="col-before">robots.txt・sitemap 不在</td><td class="col-after">robots.txt＋sitemap を静的内包</td><td>検索エンジンが巡回・登録しやすくなる</td></tr>
+              <tr><td class="col-before">表示がガタつく（CLS 0.95）</td><td class="col-after">全画像に width/height を指定</td><td>読み込み中のレイアウト崩れが消える（CLS 0）</td></tr>
+              <tr><td class="col-before">画像が単一形式</td><td class="col-after"><code>&lt;picture&gt;</code> で avif→webp→jpg 出し分け</td><td>対応ブラウザで軽い形式を配信し体感が速い</td></tr>
+              <tr><td class="col-before">未使用フォントを2重読込</td><td class="col-after">重複@importを解消し使用フォントのみに</td><td>描画ブロックを減らし初期表示を軽く</td></tr>
+              <tr><td class="col-before">淡いオリーブ文字が低コントラスト</td><td class="col-after">文字色を <code>#ABAC70</code>→<code>#6f7038</code>（AA合格）に</td><td>読みやすさと配慮を確保（色味の印象は維持）</td></tr>
+              <tr><td class="col-before">1ページLPにSPA（保守不能）</td><td class="col-after">素のCSSの静的サイトへ（依存最小）</td><td>所有者でも更新でき、長く維持できる</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 技術・ホスティング -->
+    <section class="section">
+      <div class="container">
+        <div class="section__head">
+          <p class="section__eyebrow">Stack &amp; Hosting</p>
+          <h2 class="section__title">技術スタックとホスティング移行</h2>
+        </div>
+        <div class="lead-body">
+          <p>
+            再構築は <strong>Astro 6（SSG）</strong>＋<strong>素のCSS</strong>（Tailwind 等のフレームワーク不使用で依存を最小化し、保守を容易に）。画像はビルド済みの avif・webp・jpg を <code>&lt;picture&gt;</code> で出し分けています。サイトマップは <code>@astrojs/sitemap</code> で自動生成。
+          </p>
+          <p>
+            ホスティングも併せて見直し、<strong>Firebase Hosting＋Cloudflare</strong> から <strong>GitHub Pages</strong> へ移行しました。GitHub へ push すると <strong>GitHub Actions が自動でビルド・デプロイ</strong>する構成です。独自ドメインはDNSのAレコードを GitHub Pages に向け替え、<strong>メール（MXレコード）は一切変更せず保全</strong>。HTTPS証明書は GitHub Pages が自動発行します。
+          </p>
+        </div>
+        <div class="tags">
+          <span class="tag"># Astro 6 / SSG</span>
+          <span class="tag"># 素のCSS（依存最小）</span>
+          <span class="tag"># picture avif/webp/jpg</span>
+          <span class="tag"># JSON-LD 構造化データ</span>
+          <span class="tag"># GitHub Pages / Actions</span>
+          <span class="tag"># DNS切替（MX保全）</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- デザイン据え置きの実物 -->
+    <section class="section section--alt">
+      <div class="container">
+        <div class="section__head">
+          <p class="section__eyebrow">Design — Preserved</p>
+          <h2 class="section__title">デザインは Before / After で同一</h2>
+          <p class="section__lead">下はリニューアル後の実画面です。ブランドの世界観はそのまま。変えたのは中身だけ、という事例の主旨を示すために掲載しています。</p>
+        </div>
+        <figure class="shot">
+          <picture>
+            <source srcset="./assets/PCwebsite-main.avif" type="image/avif" />
+            <source srcset="./assets/PCwebsite-main.webp" type="image/webp" />
+            <img src="./assets/PCwebsite-main.jpg" width="1400" height="700" alt="リニューアル後のブランドビジュアル（ヒーロー）。デザインは改修前と同一。" loading="lazy" />
+          </picture>
+          <figcaption class="shot__cap">ヒーロー：ブランドビジュアル（改修前後で同一）</figcaption>
+        </figure>
+        <div class="shot-grid">
+          <figure class="shot">
+            <picture>
+              <source srcset="./assets/PCwebsite-PC002.avif" type="image/avif" />
+              <source srcset="./assets/PCwebsite-PC002.webp" type="image/webp" />
+              <img src="./assets/PCwebsite-PC002.jpg" width="700" height="700" alt="商品写真：蝶モチーフのネックレス。" loading="lazy" />
+            </picture>
+            <figcaption class="shot__cap">COLLECTION の商品写真（avif/webp/jpg を出し分け）</figcaption>
+          </figure>
+          <figure class="shot">
+            <picture>
+              <source srcset="./assets/PCwebsite-PC003.avif" type="image/avif" />
+              <source srcset="./assets/PCwebsite-PC003.webp" type="image/webp" />
+              <img src="./assets/PCwebsite-PC003.jpg" width="700" height="700" alt="商品写真：三日月に座る猫モチーフのネックレス。" loading="lazy" />
+            </picture>
+            <figcaption class="shot__cap">同上。width/height 指定で CLS を 0 に</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- END CTA -->
+    <section class="section">
+      <div class="container">
+        <div class="end">
+          <h2>「見た目はそのまま、中身だけ作り直す」<br />— 実在サイトで実際に行った作業です。</h2>
+          <p>架空サンプルではなく、公開・運用中のサイトでの実作業の記録です。公開中のサイトをご覧ください。</p>
+          <div class="actions">
+            <a class="btn btn--after" href="https://petit-chaton.com" target="_blank" rel="noopener noreferrer">公開中のサイトを見る</a>
+            <a class="btn btn--ghost" href="../#refresh" style="color:var(--olive);border-color:var(--line)">ほかの改修事例</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="container foot__row">
+      <p>© 2026 Web制作ポートフォリオ ／ 実在サイトのリプラットフォーム事例</p>
+      <p><a href="../">← ポートフォリオ トップへ戻る</a></p>
+    </div>
+  </footer>
+</body>
+</html>

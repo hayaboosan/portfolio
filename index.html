@@ -18,16 +18,16 @@
       } catch (e) {}
     })();
   </script>
-  <title>Web制作ポートフォリオ｜LP5作品＋サイト改修事例2件＋WordPress改修デモ＋小修正/検索対応デモ＋見積もりWebアプリ＋絞り込み検索UI＋VBA納品文書サンプル</title>
-  <meta name="description" content="フレームワーク不使用のvanilla HTML / CSS / JS で制作した、架空ブランドのランディングページ5作品（オンラインスクール・コーヒー焙煎所・美容サロン・パーソナルジム・歯科クリニック）、既存サイトのビフォーアフター改修事例2件、WordPress子テーマ改修デモ、よくある小修正デモ集、検索エンジン対応・Q&A設置デモ、リアルタイム計算する見積もりWebアプリ、条件で絞り込める賃貸物件検索UI、そしてExcel VBA保守の納品文書サンプルまでをまとめたWeb制作ポートフォリオ。" />
+  <title>Web制作ポートフォリオ｜LP5作品＋サイト改修事例3件（実在1件含む）＋WordPress改修デモ＋小修正/検索対応デモ＋見積もりWebアプリ＋絞り込み検索UI＋VBA納品文書サンプル</title>
+  <meta name="description" content="フレームワーク不使用のvanilla HTML / CSS / JS で制作した、架空ブランドのランディングページ5作品（オンラインスクール・コーヒー焙煎所・美容サロン・パーソナルジム・歯科クリニック）、既存サイトのビフォーアフター改修事例3件（実在1件含む）、WordPress子テーマ改修デモ、よくある小修正デモ集、検索エンジン対応・Q&A設置デモ、リアルタイム計算する見積もりWebアプリ、条件で絞り込める賃貸物件検索UI、そしてExcel VBA保守の納品文書サンプルまでをまとめたWeb制作ポートフォリオ。" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23B89149'/%3E%3Ctext x='16' y='22.5' font-family='Segoe UI,sans-serif' font-size='17' font-weight='700' fill='%2317150F' text-anchor='middle'%3EW%3C/text%3E%3C/svg%3E" />
   <link rel="canonical" href="https://hayaboosan.github.io/portfolio/" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://hayaboosan.github.io/portfolio/" />
-  <meta property="og:title" content="Web制作ポートフォリオ｜LP5作品＋改修事例2件＋WordPress改修デモ＋小修正/検索対応デモ＋見積もりWebアプリ＋絞り込み検索UI" />
-  <meta property="og:description" content="vanilla HTML / CSS / JS で制作した架空ブランドのLP5作品、既存サイトの改修事例2件、WordPress子テーマ改修デモ、よくある小修正デモ集、検索エンジン対応・Q&A設置デモ、リアルタイム計算する見積もりWebアプリ、条件で絞り込める賃貸物件検索UI、Excel VBA保守の納品文書サンプル。" />
+  <meta property="og:title" content="Web制作ポートフォリオ｜LP5作品＋改修事例3件（実在1件含む）＋WordPress改修デモ＋小修正/検索対応デモ＋見積もりWebアプリ＋絞り込み検索UI" />
+  <meta property="og:description" content="vanilla HTML / CSS / JS で制作した架空ブランドのLP5作品、既存サイトの改修事例3件（実在1件含む）、WordPress子テーマ改修デモ、よくある小修正デモ集、検索エンジン対応・Q&A設置デモ、リアルタイム計算する見積もりWebアプリ、条件で絞り込める賃貸物件検索UI、Excel VBA保守の納品文書サンプル。" />
   <meta property="og:image" content="https://hayaboosan.github.io/portfolio/assets/og/hub.png" />
   <meta name="twitter:card" content="summary_large_image" />
 
@@ -612,6 +612,18 @@
     .refresh-card--indigo .refresh-panel--after { background: #16263d; color: #eaf0f7; }
     .refresh-card--indigo .refresh-panel__tag--after { background: rgba(216, 154, 46, 0.18); color: #f0c878; }
     .refresh-card--indigo .refresh-arrow { color: #c4452f; }
+    /* petit-chaton（実在サイト）用：オリーブ配色 */
+    .refresh-card--olive .refresh-panel--after { background: #4f5026; color: #f1efe2; }
+    .refresh-card--olive .refresh-panel__tag--after { background: rgba(227, 216, 168, 0.2); color: #ece2b4; }
+    .refresh-card--olive .refresh-arrow { color: #6f7038; }
+    .refresh-card__badge {
+      display: inline-flex; align-items: center; gap: 0.4rem; vertical-align: 1px;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; margin-right: 0.55rem;
+      padding: 0.22rem 0.66rem; border-radius: 999px;
+      background: rgba(111, 112, 56, 0.12); color: #5c5d2e; border: 1px solid rgba(111, 112, 56, 0.28);
+    }
+    .refresh-card__badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+    :root[data-theme="dark"] .refresh-card__badge { background: rgba(205, 165, 92, 0.16); color: #d8b974; border-color: rgba(205, 165, 92, 0.32); }
 
     /* ============ FIXES (Quick Fixes catalog) ============ */
     .fixes { padding-block: clamp(1rem, 3vw, 2rem) clamp(3.5rem, 8vw, 6rem); }
@@ -1031,11 +1043,46 @@
       <div class="container">
         <header class="section-head">
           <p class="section-head__eyebrow">Case Studies — Site Refresh</p>
-          <h2 class="section-head__title">サイト改修 ビフォーアフター（2業種）</h2>
+          <h2 class="section-head__title">サイト改修 ビフォーアフター（実在1件＋架空2件）</h2>
           <p class="section-head__lead">
-            古い作りのサイトを、スマホ対応・読みやすさ・アクセシビリティ・集客導線の観点で作り直すと何が変わるか。架空の整骨院と個人食堂の2サイトを題材に、改修前後を比較できる事例です。
+            古い作りや過剰な構成のサイトを作り直すと何が変わるか。<strong>実際に公開・運用されている実在サイト1件</strong>と、架空の整骨院・個人食堂2件を題材に、改修前後を比較できる事例です。
           </p>
         </header>
+
+        <article class="refresh-card refresh-card--olive">
+          <div class="refresh-card__grid">
+            <div class="refresh-panel refresh-panel--before">
+              <span class="refresh-panel__tag">Before</span>
+              <p class="refresh-panel__year">Vue / Vite の SPA（CSR）</p>
+              <ul class="refresh-panel__list">
+                <li>本文がJS依存でクローラが読めない・h1なし</li>
+                <li>lang=en／OGP・sitemap なし（SEO 91）</li>
+                <li>画像がガタつく（CLS 0.95）・Performance 62</li>
+                <li>1ページLPにSPA＝所有者が保守不能</li>
+              </ul>
+            </div>
+            <div class="refresh-arrow" aria-hidden="true"><span>→</span></div>
+            <div class="refresh-panel refresh-panel--after">
+              <span class="refresh-panel__tag refresh-panel__tag--after">After</span>
+              <p class="refresh-panel__year">Astro による完全な静的HTML</p>
+              <ul class="refresh-panel__list">
+                <li>静的HTML化で検索・SNS対応・h1新設（SEO 100）</li>
+                <li>OGP・構造化データ・sitemap を整備</li>
+                <li>CLS 0・Performance 97（実測）</li>
+                <li>素のCSSで保守容易＋GitHub Pages へ移行</li>
+              </ul>
+            </div>
+          </div>
+          <div class="refresh-card__foot">
+            <p class="refresh-card__desc">
+              <span class="refresh-card__badge">実在サイト</span>架空サンプルではなく、公開・運用中のサイトでの実作業。<strong>デザインは1pxも変えず</strong>、中身だけを静的サイトへ。Lighthouse 62→97・CLS 0.95→0 を実測で達成した事例です。
+            </p>
+            <div class="refresh-card__actions">
+              <a class="refresh-card__link" href="./case-study-petit-chaton/">改修事例を見る</a>
+              <a class="refresh-card__sub" href="https://petit-chaton.com" target="_blank" rel="noopener noreferrer">公開サイト ↗</a>
+            </div>
+          </div>
+        </article>
 
         <article class="refresh-card">
           <div class="refresh-card__grid">
