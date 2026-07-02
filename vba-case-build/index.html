@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Excel VBA 新規開発の事例｜月次売上レポート自動集計ツール（架空題材のデモ）｜Web制作ポートフォリオ</title>
+  <meta name="description" content="Excelマクロ（VBA）新規開発の進め方を見ていただくための自主制作デモ。日次売上CSV 61ファイル・4,312行の取込から月次レポート自動生成までを実測 約1.1秒で処理。定数集約・エラー処理・Dictionary集計など「読ませるコード」の実物抜粋つき。題材は架空の雑貨卸です。" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231D6F42'/%3E%3Ctext x='16' y='22.5' font-family='Segoe UI,sans-serif' font-size='15' font-weight='700' fill='%23FFFFFF' text-anchor='middle'%3EVB%3C/text%3E%3C/svg%3E" />
+  <link rel="canonical" href="https://portfolio.tegumi.dev/vba-case-build/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://portfolio.tegumi.dev/vba-case-build/" />
+  <meta property="og:title" content="Excel VBA 新規開発の事例｜月次売上レポート自動集計ツール" />
+  <meta property="og:description" content="日次売上CSV 61ファイル・4,312行の取込から月次レポート自動生成までを実測 約1.1秒で処理するデモ。コードの実物抜粋つき。題材はすべて架空です。" />
+  <meta property="og:image" content="https://portfolio.tegumi.dev/vba-case-build/assets/03_monthly-report.png" />
+
+  <meta name="theme-color" content="#143d27" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" /></noscript>
+
+  <style>
+    :root {
+      --ink: #16241c;
+      --body: #243329;
+      --soft: #4c5f53;
+      --accent: #1d6f42;
+      --accent-deep: #143d27;
+      --bg: #f2f7f3;
+      --panel: #ffffff;
+      --line: rgba(22, 36, 28, 0.14);
+      --radius: 16px;
+      --shadow: 0 24px 60px -36px rgba(20, 61, 39, 0.45);
+      --sans: "Zen Kaku Gothic New", "Noto Sans JP", "Hiragino Sans", sans-serif;
+      --mono: ui-monospace, "Cascadia Code", "Consolas", monospace;
+      --code-bg: #10241a;
+      --code-fg: #d9e6dd;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: clip; }
+    body {
+      font-family: var(--sans);
+      color: var(--body);
+      background: var(--bg);
+      line-height: 1.85;
+      letter-spacing: 0.01em;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container { width: min(960px, 92%); margin-inline: auto; }
+    a { color: var(--accent); }
+    img { max-width: 100%; height: auto; display: block; }
+
+    .skip-link {
+      position: absolute; left: -9999px; top: 0;
+      background: var(--accent-deep); color: #fff; padding: 0.6em 1em; z-index: 100;
+    }
+    .skip-link:focus { left: 0; }
+
+    .page-header {
+      background: var(--accent-deep);
+      color: #f2f7f3;
+      padding: 0.9rem 0;
+    }
+    .page-header .container { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .page-header a { color: #cfe5d6; text-decoration: none; font-size: 0.88rem; }
+    .page-header a:hover { color: #fff; text-decoration: underline; }
+    .page-header__brand { font-weight: 700; letter-spacing: 0.04em; }
+
+    /* 架空見本バナー */
+    .fiction-banner {
+      background: #fff8e8;
+      border-bottom: 1px solid #e7d9ae;
+      color: #5d4f25;
+      font-size: 0.86rem;
+      padding: 0.65rem 0;
+    }
+    .fiction-banner .container { display: flex; gap: 0.6em; align-items: baseline; }
+    .fiction-banner strong { color: #4c3f16; }
+
+    .hero { padding: 3.2rem 0 2.2rem; }
+    .hero__eyebrow {
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 0.16em;
+      color: var(--accent); text-transform: uppercase; margin-bottom: 0.7rem;
+    }
+    .hero h1 { font-size: clamp(1.45rem, 4vw, 2.05rem); color: var(--ink); line-height: 1.55; margin-bottom: 1rem; }
+    .hero__lead { max-width: 46em; color: var(--soft); }
+    .hero__lead + .hero__lead { margin-top: 0.7em; }
+
+    .note {
+      margin: 1.4rem 0 0;
+      padding: 0.85rem 1.1rem;
+      background: #fff8e8;
+      border: 1px solid #e7d9ae;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      color: #5d4f25;
+    }
+
+    /* KPIカード */
+    .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; padding: 0.6rem 0 0; }
+    .kpi {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.1rem 1.3rem 1rem;
+    }
+    .kpi__label { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; color: var(--accent); }
+    .kpi__value { font-size: 1.45rem; font-weight: 700; color: var(--ink); line-height: 1.4; }
+    .kpi__note { font-size: 0.8rem; color: var(--soft); }
+
+    /* セクション共通 */
+    section.block { padding: 2.4rem 0 0.6rem; }
+    .block__eyebrow {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.16em;
+      color: var(--accent); text-transform: uppercase; margin-bottom: 0.4rem;
+    }
+    .block h2 { font-size: clamp(1.2rem, 3vw, 1.5rem); color: var(--ink); line-height: 1.5; margin-bottom: 1rem; }
+    .block > .container > p { max-width: 46em; }
+    .block p + p { margin-top: 0.7em; }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.6rem 1.7rem;
+    }
+
+    /* 処理フロー */
+    .flow-io {
+      display: inline-block;
+      font-size: 0.85rem; font-weight: 700;
+      color: var(--accent-deep);
+      background: #e7f1ea;
+      border: 1px solid rgba(29, 111, 66, 0.25);
+      border-radius: 999px;
+      padding: 0.3em 1.1em;
+    }
+    .flow { list-style: none; margin: 1.1rem 0; }
+    .flow li {
+      position: relative;
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 0 1rem;
+      padding-bottom: 1.5rem;
+    }
+    .flow li:last-child { padding-bottom: 0.4rem; }
+    .flow li:not(:last-child)::before {
+      content: "";
+      position: absolute; left: 21px; top: 46px; bottom: 2px;
+      width: 2px; background: rgba(29, 111, 66, 0.25);
+    }
+    .flow__num {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--accent); color: #fff;
+      font-weight: 700; font-size: 1.05rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .flow h3 { font-size: 1.02rem; color: var(--ink); line-height: 1.5; display: flex; flex-wrap: wrap; gap: 0.5em; align-items: baseline; }
+    .flow__mod {
+      font-family: var(--mono); font-size: 0.75rem; font-weight: 400;
+      color: var(--accent-deep); background: #e7f1ea;
+      border-radius: 6px; padding: 0.1em 0.55em;
+    }
+    .flow p { font-size: 0.92rem; color: var(--soft); max-width: 44em; }
+
+    /* 比較表 */
+    .table-wrap { overflow-x: auto; border-radius: 12px; margin-top: 1.2rem; }
+    table.compare {
+      width: 100%; border-collapse: collapse; background: var(--panel);
+      border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
+      font-size: 0.92rem;
+    }
+    .compare th, .compare td { padding: 0.7em 0.9em; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    .compare thead th { background: #e7f1ea; color: var(--accent-deep); font-weight: 700; white-space: nowrap; }
+    .compare tbody th { font-weight: 500; }
+    .compare tr:last-child td, .compare tr:last-child th { border-bottom: none; }
+    .compare .compare-total th, .compare .compare-total td { background: #f4f9f5; font-weight: 700; color: var(--ink); }
+    .compare .is-fast { color: var(--accent-deep); font-weight: 700; }
+    .table-note { font-size: 0.82rem; color: var(--soft); margin-top: 0.6rem; max-width: 48em; }
+
+    /* コードカード */
+    .code-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-top: 1.4rem;
+    }
+    .code-card__intro { padding: 1.3rem 1.6rem 1.1rem; }
+    .code-card__intro h3 { font-size: 1.08rem; color: var(--ink); line-height: 1.55; margin-bottom: 0.35rem; }
+    .code-card__intro p { font-size: 0.93rem; color: var(--soft); max-width: 50em; }
+    .code-card__bar {
+      display: flex; align-items: center; gap: 0.7em;
+      background: #0b1b13;
+      color: #9fbfab;
+      font-family: var(--mono); font-size: 0.78rem;
+      padding: 0.5em 1.2em;
+    }
+    .code-card__bar::before {
+      content: "";
+      width: 9px; height: 9px; border-radius: 50%;
+      background: #35a165; flex: none;
+    }
+    .code-card pre {
+      background: var(--code-bg);
+      color: var(--code-fg);
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      line-height: 1.75;
+      padding: 1.1rem 1.3rem 1.2rem;
+      overflow-x: auto;
+      tab-size: 4;
+    }
+    code.vba .kw  { color: #8fd9a8; }
+    code.vba .fn  { color: #6fc7d6; }
+    code.vba .str { color: #f0c987; }
+    code.vba .num { color: #a7c9f5; }
+    code.vba .cmt { color: #7d9a88; font-style: italic; }
+    .code-note { font-size: 0.82rem; color: var(--soft); margin-top: 0.8rem; }
+
+    /* 読みどころ一覧 */
+    .highlights { margin-top: 1.6rem; }
+    .highlights h3 { font-size: 1.02rem; color: var(--ink); margin-bottom: 0.6rem; }
+    .highlights ul { list-style: none; display: grid; gap: 0.45rem; }
+    .highlights li {
+      font-size: 0.9rem;
+      padding-left: 1.4em;
+      position: relative;
+    }
+    .highlights li::before {
+      content: "✓";
+      position: absolute; left: 0; top: 0;
+      color: var(--accent); font-weight: 700;
+    }
+    .highlights code {
+      font-family: var(--mono); font-size: 0.82em;
+      background: #e7f1ea; color: var(--accent-deep);
+      border-radius: 5px; padding: 0.08em 0.45em;
+    }
+
+    /* 開発メモ */
+    .devnote {
+      margin-top: 1.6rem;
+      border-left: 4px solid var(--accent);
+      background: var(--panel);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      border-top: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 1.2rem 1.5rem;
+    }
+    .devnote h3 { font-size: 0.98rem; color: var(--ink); margin-bottom: 0.4rem; }
+    .devnote p { font-size: 0.9rem; color: var(--soft); }
+    .devnote code { font-family: var(--mono); font-size: 0.85em; background: #e7f1ea; color: var(--accent-deep); border-radius: 5px; padding: 0.08em 0.45em; }
+
+    /* Before / After */
+    .ba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-top: 1.2rem; align-items: start; }
+    .ba-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .ba-card__badge {
+      display: inline-block;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em;
+      color: #fff; background: var(--soft);
+      border-radius: 999px; padding: 0.15em 1em;
+      margin: 1.1rem 0 0.5rem 1.3rem;
+    }
+    .ba-card--after .ba-card__badge { background: var(--accent); }
+    .ba-card h3 { font-size: 1rem; color: var(--ink); padding: 0 1.3rem; line-height: 1.5; }
+    .ba-card > p { font-size: 0.86rem; color: var(--soft); padding: 0.3rem 1.3rem 0.9rem; }
+    .ba-card figure { margin: 0; padding: 0 1.3rem 1.2rem; }
+    .ba-card figcaption, .shot figcaption { font-size: 0.8rem; color: var(--soft); margin-top: 0.5rem; }
+    .ba-card img, .shot img { border: 1px solid var(--line); border-radius: 8px; }
+    .ba-card--after img { max-width: 480px; margin-inline: auto; }
+    .csv-sample {
+      margin: 0 1.3rem 1.2rem;
+      background: var(--code-bg); color: var(--code-fg);
+      font-family: var(--mono); font-size: 0.74rem; line-height: 1.7;
+      border-radius: 8px; padding: 0.9rem 1rem;
+      overflow-x: auto;
+    }
+    .csv-sample .csv-head { color: #8fd9a8; }
+    .csv-sample .csv-dim { color: #7d9a88; font-style: italic; }
+
+    .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-top: 1.2rem; }
+    .shot {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.2rem 1.3rem;
+      margin: 0;
+    }
+    .shot--wide { grid-column: 1 / -1; }
+    .shot--narrow img { max-width: 380px; margin-inline: auto; }
+    /* グリッドアイテムのmin-content由来の横ブローアウト防止（モバイル） */
+    .shots > figure, .ba-grid > *, .links-grid > * { min-width: 0; }
+    .shot img, .ba-card img { width: 100%; }
+
+    /* ソース・動画・納品 */
+    .links-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-top: 1.2rem; }
+    .link-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.5rem 1.6rem;
+      display: grid; gap: 0.7rem; align-content: start;
+    }
+    .link-card h3 { font-size: 1.05rem; color: var(--ink); line-height: 1.5; }
+    .link-card p { font-size: 0.9rem; color: var(--soft); }
+    .link-card ul { list-style: none; font-size: 0.85rem; color: var(--soft); display: grid; gap: 0.2rem; }
+    .link-card ul code { font-family: var(--mono); font-size: 0.86em; background: #e7f1ea; color: var(--accent-deep); border-radius: 5px; padding: 0.08em 0.45em; }
+    .link-card__btn {
+      justify-self: start;
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 0.65em 1.5em;
+      border-radius: 999px;
+      transition: background 0.2s;
+    }
+    .link-card__btn:hover, .link-card__btn:focus-visible { background: var(--accent-deep); }
+    .link-card--pending { border-style: dashed; box-shadow: none; background: #fbfdfb; }
+    .link-card--pending .link-card__btn {
+      background: #cdd8d0; color: #5b6a60; cursor: default; pointer-events: none;
+    }
+    .delivery-note {
+      margin-top: 1.4rem;
+      padding: 1rem 1.3rem;
+      background: #e7f1ea;
+      border: 1px solid rgba(29, 111, 66, 0.25);
+      border-radius: 10px;
+      font-size: 0.92rem;
+      color: var(--accent-deep);
+    }
+    .delivery-note strong { color: var(--accent-deep); }
+
+    .closing { padding: 1.6rem 0 3rem; }
+
+    .site-footer {
+      background: var(--accent-deep); color: #cfe5d6;
+      padding: 1.6rem 0; font-size: 0.85rem;
+    }
+    .site-footer .container { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .site-footer a { color: #fff; }
+
+    @media (max-width: 720px) {
+      .kpis { grid-template-columns: 1fr; }
+      .ba-grid, .shots, .links-grid { grid-template-columns: 1fr; }
+      .panel { padding: 1.3rem 1.2rem; }
+      .code-card__intro { padding: 1.2rem 1.2rem 1rem; }
+      .code-card pre { font-size: 0.76rem; padding: 1rem; }
+    }
+
+    @media print {
+      .skip-link, .page-header a, .site-footer a { display: none; }
+      body { background: #fff; }
+      .panel, .kpi, .code-card, .ba-card, .shot, .link-card { box-shadow: none; break-inside: avoid; }
+      .code-card pre, .csv-sample { white-space: pre-wrap; word-break: break-all; }
+      .hero { padding-top: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">本文へスキップ</a>
+  <header class="page-header">
+    <div class="container">
+      <span class="page-header__brand">Excel VBA 新規開発の事例</span>
+      <a href="../">← ポートフォリオTOPへ戻る</a>
+    </div>
+  </header>
+
+  <div class="fiction-banner" role="note">
+    <div class="container">
+      <span aria-hidden="true">⚠️</span>
+      <span><strong>この事例は架空の見本です。</strong>登場する社名「コトリ商事」・支店・商品・売上数値はすべてこのデモのために作成した架空の見本値で、実在の企業・実務データとは一切関係ありません。<strong>処理時間のみ実測値</strong>です。</span>
+    </div>
+  </div>
+
+  <main id="main">
+    <section class="hero">
+      <div class="container">
+        <p class="hero__eyebrow">Excel VBA — Case Study / 新規開発</p>
+        <h1>月次売上レポートの自動集計：<br />毎月 約2〜3時間の手作業を、ボタン1つ・約1.1秒に。</h1>
+        <p class="hero__lead">
+          本業では、社内のExcelマクロ群の開発・保守・改修（新規作成を含む）を担当しています。
+          そのコードは公開できないため、「新しくツールを作るとき、どんな進め方で・どんなコードを書くのか」を
+          そのまま見ていただけるように、架空の題材でツールを1本、新規に開発しました。
+        </p>
+        <p class="hero__lead">
+          題材は、架空の雑貨卸「コトリ商事」の月次売上レポート作成業務。
+          フォルダに溜まった日次売上CSVをボタン1つで一括取込し、月次集計からA4印刷用レポートの生成までを自動化します。
+        </p>
+        <p class="note">
+          ※「約2〜3時間」は手作業で行った場合の<strong>作業内訳からの想定値</strong>（内訳は下の比較表に記載）、
+          「約1.1秒」はこのデモでの<strong>実測値</strong>（複数回実行で1.07〜1.46秒）です。
+        </p>
+      </div>
+    </section>
+
+    <section class="block" aria-label="概要">
+      <div class="container kpis">
+        <div class="kpi">
+          <p class="kpi__label">INPUT</p>
+          <p class="kpi__value">CSV 61ファイル<br />4,312行</p>
+          <p class="kpi__note">当月30＋前月比較用の前月31ファイル（架空データ）</p>
+        </div>
+        <div class="kpi">
+          <p class="kpi__label">処理時間（実測）</p>
+          <p class="kpi__value">約1.1秒</p>
+          <p class="kpi__note">取込〜レポート完成まで。VBA内Timer計測 1.07〜1.46秒</p>
+        </div>
+        <div class="kpi">
+          <p class="kpi__label">OUTPUT</p>
+          <p class="kpi__value">A4縦1枚の<br />月次レポート</p>
+          <p class="kpi__note">前月比・支店別・カテゴリ別・Top10・グラフ＋印刷設定済み</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="problem">
+      <div class="container">
+        <p class="block__eyebrow">01 — Problem</p>
+        <h2>背景と問題：毎月のCSVコピペ集計、「ミスが怖い」まま続いていた</h2>
+        <p>
+          想定したのは、多くの会社で実際に起きている状況です。各支店の日次売上はCSVで共有フォルダに溜まっていく。
+          月初になると担当者がそれを1つずつ開き、集計ブックへコピペし、ピボットで支店別・カテゴリ別に集計し、
+          前月比を電卓や手入力の式で計算して、A4のレポートに整形する——。
+        </p>
+        <p>
+          ファイル数は前月分も合わせると60を超えます。時間がかかるのはもちろんですが、本当の問題は
+          「貼り付け漏れ・二重貼り付け・行ズレにその場で気づけない」こと。
+          数字が合わない月は原因探しでさらに時間が溶け、レポートの数字そのものへの信頼が揺らぎます。
+        </p>
+      </div>
+    </section>
+
+    <section class="block" id="solution">
+      <div class="container">
+        <p class="block__eyebrow">02 — Solution</p>
+        <h2>打ち手：フォルダ一括取込 → 集計 → A4レポート自動生成</h2>
+        <p>
+          「操作はボタン1つだけ。判断も入力もさせない」を方針に、処理を4段階に分けて自動化しました。
+          モジュールも処理の段階ごとに分割しています（全7モジュール）。
+        </p>
+
+        <div class="panel" style="margin-top: 1.2rem;">
+          <p><span class="flow-io">INPUT：フォルダに溜まった日次売上CSV（sales_*.csv・61ファイル）</span></p>
+          <ol class="flow">
+            <li>
+              <span class="flow__num" aria-hidden="true">1</span>
+              <div>
+                <h3>CSV一括取込 <span class="flow__mod">modImport.bas</span></h3>
+                <p>対象CSVを全件・ファイル名順に読み込み。列数が合わない行は取り込まずにスキップし、ファイルごとの取込行数・スキップ行数を「取込ログ」シートに記録します（＝貼り付け漏れが起きない・起きても見える）。</p>
+              </div>
+            </li>
+            <li>
+              <span class="flow__num" aria-hidden="true">2</span>
+              <div>
+                <h3>月次集計 <span class="flow__mod">modAggregate.bas</span></h3>
+                <p>Dictionaryを使ったピボット相当の集計。4,312行を1回走査するだけで、月別合計・支店×月・カテゴリ×月・商品×月をまとめて集計します。</p>
+              </div>
+            </li>
+            <li>
+              <span class="flow__num" aria-hidden="true">3</span>
+              <div>
+                <h3>レポート組立 <span class="flow__mod">modReport.bas</span></h3>
+                <p>KPI帯（当月・前月・前月比・数量）、支店別／カテゴリ別の内訳表、売上上位商品Top10、支店別の当月・前月比較グラフを生成。A4縦1ページに収まる印刷設定まで自動で行います。</p>
+              </div>
+            </li>
+            <li>
+              <span class="flow__num" aria-hidden="true">4</span>
+              <div>
+                <h3>結果の記録 <span class="flow__mod">modMain.bas</span></h3>
+                <p>処理時間と取込件数を操作パネルに書き残します。「前回いつ・何件処理したか」が後から確認できます。</p>
+              </div>
+            </li>
+          </ol>
+          <p><span class="flow-io">OUTPUT：A4縦1枚の月次レポート（そのまま印刷・PDF化できる状態）</span></p>
+        </div>
+
+        <div class="table-wrap">
+          <table class="compare">
+            <caption style="position:absolute;left:-9999px;">手作業とツールの比較</caption>
+            <thead>
+              <tr>
+                <th scope="col">作業</th>
+                <th scope="col">手作業の場合（想定）</th>
+                <th scope="col">このツール</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">① 61ファイルのCSVを開いて集計ブックへ転記</th>
+                <td>1ファイル1分強 × 61 ≒ 70分</td>
+                <td>自動（取込ログつき）</td>
+              </tr>
+              <tr>
+                <th scope="row">② 支店×カテゴリ×商品のピボット集計・前月比計算</th>
+                <td>30〜60分</td>
+                <td>自動（Dictionary集計）</td>
+              </tr>
+              <tr>
+                <th scope="row">③ A4レポートの表・グラフ整形</th>
+                <td>30〜60分</td>
+                <td>自動（印刷設定込み）</td>
+              </tr>
+              <tr class="compare-total">
+                <th scope="row">合計</th>
+                <td>約2〜3時間／月</td>
+                <td class="is-fast">実測 約1.1秒</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">
+          ※手作業の時間は上記内訳による想定値です。ツールの処理時間は、このデモの見本データ（61ファイル・4,312行）での実測値で、
+          VBA内のTimer計測で1.07〜1.46秒（複数回実行）、外部からのストップウォッチ計測でもほぼ同値（約1.1〜1.5秒）でした。
+        </p>
+      </div>
+    </section>
+
+    <section class="block" id="code">
+      <div class="container">
+        <p class="block__eyebrow">03 — Code</p>
+        <h2>コードで見る実装品質：「読ませるコード」の実物抜粋</h2>
+        <p>
+          納品したコードは、作った本人がいなくても読める必要があります。
+          このデモのソースから、普段どおりの書き方をそのまま3か所抜粋しました
+          （全文は<a href="#source">ページ末尾のソース一式</a>で読めます。中略した箇所はコメントで明示しています）。
+        </p>
+
+        <article class="code-card">
+          <div class="code-card__intro">
+            <h3>抜粋1：「変わりうる値」はコードに埋め込まない — 定数の一元管理</h3>
+            <p>
+              シート名の変更やフォルダの移動は、運用の中で必ず起きる仕様変更です。
+              シート名・パス・色などを modConfig に集約してあるため、その手の変更はこのモジュール1か所の修正で済みます。
+              各定数に「なぜこの値か」のコメントを添えるのも普段どおりです。
+            </p>
+          </div>
+          <div class="code-card__bar">src/modConfig.bas（抜粋）</div>
+          <pre><code class="vba">'=====================================================================
+' modConfig : 定数集約モジュール
+'---------------------------------------------------------------------
+' シート名・フォルダ名・色などの「変わりうる値」をここに集約する。
+' 仕様変更（シート名変更・フォルダ移動など）はこのモジュールの修正
+' だけで済むようにしておく。
+'=====================================================================
+
+'--- シート名 ---------------------------------------------------------
+Public Const SHEET_MENU As String = "操作パネル"
+Public Const SHEET_RAW As String = "生データ"
+Public Const SHEET_LOG As String = "取込ログ"
+Public Const SHEET_REPORT As String = "月次レポート"
+
+'--- CSV取込設定 ------------------------------------------------------
+' ブックと同じ階層から見た相対パス（見つからない場合はフォルダ選択にフォールバック）
+Public Const CSV_FOLDER_RELATIVE As String = "sample-data\csv"
+Public Const CSV_FILE_PATTERN As String = "sales_*.csv"
+Public Const CSV_COL_COUNT As Long = 8        ' 日付,支店,カテゴリ,商品コード,商品名,数量,単価,金額
+
+'--- 色定数（RGB値は Const にできないため Long 直値で保持） -----------
+Public Const COLOR_POSITIVE As Long = 25600       ' RGB(0, 100, 0)     緑（前月比プラス）
+Public Const COLOR_NEGATIVE As Long = 192         ' RGB(192, 0, 0)     赤（前月比マイナス）</code></pre>
+        </article>
+
+        <article class="code-card">
+          <div class="code-card__intro">
+            <h3>抜粋2：エラーで落ちても、Excelを「壊れた状態」にしない</h3>
+            <p>
+              高速化のために止めた画面更新・自動計算は、途中でエラーが起きても必ず元に戻します（SpeedUp / RestoreAppState の対）。
+              また、MsgBox をこの関数から出さないことで、ボタン実行と外部からの自動実行（COM）の両方に同じ本体を使えます。
+              「マクロを実行したらExcelの画面が固まったまま・自動計算が切れたまま」という定番トラブルを設計で防ぐ書き方です。
+            </p>
+          </div>
+          <div class="code-card__bar">src/modMain.bas（抜粋）</div>
+          <pre><code class="vba">'---------------------------------------------------------------------
+' レポート生成の本体
+'   戻り値: 処理時間（秒）。エラー時は -1
+'   ※MsgBoxを出さないため、COM自動実行からはこちらを直接呼べる
+'---------------------------------------------------------------------
+Public Function RunReport() As Double
+    Dim startTime As Single
+    startTime = Timer
+    mLastError = ""
+
+    On Error GoTo ErrHandler
+    SpeedUp
+
+    ' 1) CSV一括取込
+    Dim fileCount As Long, rowCount As Long
+    Dim rawData As Variant
+    rawData = ImportAllCsv(fileCount, rowCount)
+
+    ' 2) 月次集計
+    Aggregate rawData
+
+    ' 3) レポート生成
+    BuildReport fileCount, rowCount
+
+    RestoreAppState
+
+    ' 実行結果を操作パネルに記録
+    Dim elapsed As Double
+    elapsed = Timer - startTime
+    If elapsed &lt; 0 Then elapsed = elapsed + 86400   ' 日付またぎ対策
+    WriteResultToMenu fileCount, rowCount, elapsed
+
+    RunReport = elapsed
+    Exit Function
+
+ErrHandler:
+    ' MsgBoxはここでは出さない（COM自動実行時にダイアログで止まるのを防ぐ）
+    mLastError = Err.Description
+    RestoreAppState
+    RunReport = -1
+End Function</code></pre>
+        </article>
+
+        <article class="code-card">
+          <div class="code-card__intro">
+            <h3>抜粋3：Dictionaryによるピボット相当の集計 — 4,312行を1回の走査で</h3>
+            <p>
+              セルにいちいち書き込みながら集計するのではなく、配列を1回なめて Dictionary に集計してから、最後に一括で書き出します。
+              「月×支店」「月×カテゴリ」「月×商品」をキー文字列で持つことで、前月比の計算も同じ仕組みでそのまま引けます。
+              Dictionary は実行時バインディングにして、納品先のPCで参照設定が不要になるようにしています。
+            </p>
+          </div>
+          <div class="code-card__bar">src/modAggregate.bas（抜粋）</div>
+          <pre><code class="vba">'---------------------------------------------------------------------
+' 生データ配列 (1 To N, 1 To 8) を集計する
+'   列: 1=日付 2=支店 3=カテゴリ 4=商品コード 5=商品名 6=数量 7=単価 8=金額
+'---------------------------------------------------------------------
+Public Sub Aggregate(ByRef rawData As Variant)
+    Set mDictMonth = CreateObject("Scripting.Dictionary")
+    ' …（残り6つの Dictionary も同様に初期化。中略）…
+
+    Dim r As Long
+    For r = LBound(rawData, 1) To UBound(rawData, 1)
+        Dim ym As String
+        ym = Format$(rawData(r, 1), "yyyymm")
+        Dim amount As Double, qty As Long
+        amount = rawData(r, 8)
+        qty = rawData(r, 6)
+
+        AddTo mDictMonth, ym, amount
+        AddTo mDictQtyMonth, ym, CDbl(qty)
+        AddTo mDictBranch, ym &amp; KEY_SEP &amp; rawData(r, 2), amount
+        AddTo mDictCategory, ym &amp; KEY_SEP &amp; rawData(r, 3), amount
+        AddTo mDictProductAmt, ym &amp; KEY_SEP &amp; rawData(r, 4), amount
+        AddTo mDictProductQty, ym &amp; KEY_SEP &amp; rawData(r, 4), CDbl(qty)
+    Next r
+    ' …（対象月＝データ中の最新月の決定処理。中略）…
+End Sub
+
+'---------------------------------------------------------------------
+' Dictionary への加算ヘルパ
+'---------------------------------------------------------------------
+Private Sub AddTo(ByVal dict As Object, ByVal key As String, ByVal value As Double)
+    If dict.Exists(key) Then
+        dict(key) = dict(key) + value
+    Else
+        dict.Add key, value
+    End If
+End Sub</code></pre>
+        </article>
+
+        <div class="highlights panel">
+          <h3>このほかの読みどころ（ソース一式で確認できます）</h3>
+          <ul>
+            <li>セルへの逐次書き込みをしない<strong>配列一括転記</strong> — <code>modImport.bas / WriteRawSheet</code></li>
+            <li>列数が合わない行は<strong>スキップして取込ログに件数を記録</strong>（黙って握りつぶさない） — <code>modImport.bas / ReadOneCsv</code></li>
+            <li>前月比の<strong>符号つき表示形式</strong> <code>+0.0%;-0.0%</code> とプラス緑／マイナス赤の色分け — <code>modReport.bas</code></li>
+            <li>前月データが無い月は前月比を「―」表示（0除算を起こさない） — <code>modReport.bas / RatioText</code></li>
+            <li>二重呼び出しでも計算モードを壊さない <code>SpeedUp / RestoreAppState</code> の対称設計 — <code>modUtil.bas</code></li>
+            <li>プリンタ未接続環境でも印刷設定で処理が止まらないガード — <code>modReport.bas / SetupPrintLayout</code></li>
+          </ul>
+        </div>
+
+        <aside class="devnote">
+          <h3>開発メモ：スクリーンショットの自動化でハマった話</h3>
+          <p>
+            このページのスクリーンショット自体も <code>Range.CopyPicture</code> ／ <code>Chart.Export</code> で自動生成しています。
+            当初はレポート生成マクロと同じ実行の中で画像化まで行っていましたが、マクロ実行中の CopyPicture → 貼り付けは
+            OLEの遅延レンダリングが処理されず<strong>白紙のPNGになる</strong>環境があり、DoEvents や Sleep では回避できませんでした。
+            最終的に「ブック生成」と「画像出力（別のExcelセッション・読み取り専用で開く）」の2フェーズに分離して解決。
+            この制約と回避策は <code>modExport.bas</code> のコメントと README にそのまま書き残してあります——
+            ハマりどころを次の人のために記録しておくのも、コードの品質のうちだと考えています。
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="block" id="evidence">
+      <div class="container">
+        <p class="block__eyebrow">04 — Before / After</p>
+        <h2>視覚的証拠：入力のCSVから、完成レポートまで</h2>
+        <p>
+          画像はすべてこのデモの実物です（数値は架空の見本値）。クリック（タップ）で原寸のPNGが開きます。
+        </p>
+
+        <div class="ba-grid">
+          <div class="ba-card">
+            <span class="ba-card__badge">BEFORE</span>
+            <h3>入力：フォルダに溜まった日次売上CSV</h3>
+            <p>sales_20260501.csv 〜 sales_20260630.csv の61ファイル・計4,312行。文字コードは実務で最も一般的な cp932（Shift_JIS）です。</p>
+            <pre class="csv-sample"><span class="csv-dim">sample-data\csv\sales_20260601.csv（61ファイルのうちの1つ）</span>
+<span class="csv-head">日付,支店,カテゴリ,商品コード,商品名,数量,単価,金額</span>
+2026/06/01,東京本店,キッチン雑貨,KT-001,木製カッティングボード,30,1480,44400
+2026/06/01,東京本店,キッチン雑貨,KT-002,ホーロー保存容器 3点セット,28,1980,55440
+2026/06/01,東京本店,キッチン雑貨,KT-003,シリコン調理スプーン,56,520,29120
+<span class="csv-dim">（…以下続く。これが61ファイル）</span></pre>
+            <figure>
+              <a href="./assets/02_raw-data.png">
+                <img src="./assets/02_raw-data.png" width="930" height="780" loading="lazy"
+                     alt="取込直後の生データシート。日付・支店・カテゴリ・商品コード・商品名・数量・単価・金額の8列にオートフィルタが設定されている" />
+              </a>
+              <figcaption>取込直後の「生データ」シート。61ファイル分を1シートに集約し、オートフィルタつきでそのまま確認できます。</figcaption>
+            </figure>
+          </div>
+
+          <div class="ba-card ba-card--after">
+            <span class="ba-card__badge">AFTER</span>
+            <h3>出力：ボタン1つで生成される月次レポート</h3>
+            <p>KPI帯・支店別／カテゴリ別内訳（前月比は＋緑／−赤）・Top10・比較グラフ。A4縦1枚の印刷設定済みで、そのまま提出できる状態です。</p>
+            <figure>
+              <a href="./assets/03_monthly-report.png">
+                <img src="./assets/03_monthly-report.png" width="837" height="1619" loading="lazy"
+                     alt="生成された月次売上レポート全体。上からタイトル帯、当月売上・前月売上・前月比・販売数量のKPI帯、支店別売上表、カテゴリ別売上表、売上上位商品Top10、支店別売上の当月・前月比較グラフ" />
+              </a>
+              <figcaption>生成された「月次レポート」シート全体（見本値）。前月比 +7.6% などの数値もマクロが計算・色分けしています。</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="shots">
+          <figure class="shot shot--narrow">
+            <a href="./assets/01_csv-import-log.png">
+              <img src="./assets/01_csv-import-log.png" width="517" height="934" loading="lazy"
+                   alt="CSV取込ログシート。ファイル名ごとに取込行数とスキップ行数が記録されている" />
+            </a>
+            <figcaption>「取込ログ」シート。どのファイルを何行取り込み、何行スキップしたかが毎回残ります。数字が合わないときの原因調査がここから始められます。</figcaption>
+          </figure>
+          <figure class="shot">
+            <a href="./assets/04_branch-chart.png">
+              <img src="./assets/04_branch-chart.png" width="839" height="369" loading="lazy"
+                   alt="支店別売上の当月・前月比較の集合縦棒グラフ。6支店それぞれに当月と前月の2本の棒が並ぶ" />
+            </a>
+            <figcaption>支店別売上の当月・前月比較グラフ（Chart.Export で書き出した実物）。データの並び順は当月売上の降順で、マクロがソートしています。</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="block closing" id="source">
+      <div class="container">
+        <p class="block__eyebrow">05 — Source &amp; Next</p>
+        <h2>ソース一式と、実際のご依頼について</h2>
+
+        <div class="links-grid">
+          <div class="link-card">
+            <h3>ソース一式を公開しています</h3>
+            <p>
+              VBAソース（役割別7モジュール・コメント付き）・デモブック（.xlsm）・サンプルCSV・
+              ブック組み立てスクリプト・READMEまで、このデモの全ファイルをそのまま置いています。
+            </p>
+            <ul>
+              <li><code>src/</code> … modMain / modConfig / modUtil / modImport / modAggregate / modReport / modExport</li>
+              <li><code>monthly-report-demo.xlsm</code> … 生成済みデモブック（ロックなし）</li>
+              <li><code>sample-data/csv/</code> … 架空の日次売上CSV 61ファイル</li>
+              <li><code>README.md</code> … 再現手順と設計のポイント</li>
+            </ul>
+            <a class="link-card__btn" href="https://github.com/hayaboosan/portfolio/tree/main/vba-works/monthly-report" target="_blank" rel="noopener noreferrer">ソース一式を見る（GitHub）</a>
+          </div>
+
+          <div class="link-card link-card--pending">
+            <h3>操作デモ動画（準備中）</h3>
+            <p>
+              ボタンを押してからレポートが完成するまでの実際の画面を、短い動画で公開する予定です。
+              公開までは、上のスクリーンショットとソース一式をご覧ください。
+            </p>
+            <span class="link-card__btn" aria-disabled="true">動画を見る（準備中）</span>
+          </div>
+        </div>
+
+        <p class="delivery-note">
+          実際のご依頼でも、納品物はこのデモと同じ方針です——
+          <strong>VBAプロジェクトのロック（保護）なし・コメント付きソースコード一式・非エンジニアの方向けの操作手順書つき</strong>でお渡しします。
+          納品後にお客様側で中身を確認・修正できない「ブラックボックス納品」はいたしません。
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>架空サンプルによる自主制作の見本です。</span>
+      <a href="../">Web制作ポートフォリオTOP</a>
+    </div>
+  </footer>
+
+  <script>
+    // VBAコードの簡易シンタックスハイライト（外部ライブラリ不使用）
+    (function () {
+      var KW = "Attribute|Option|Explicit|Public|Private|Const|Sub|Function|End|Dim|As|String|Long|Double|Single|Variant|Boolean|Object|Integer|Date|If|Then|Else|ElseIf|Select|Case|For|Each|Next|To|Step|Do|While|Loop|Until|With|Set|New|On|Error|GoTo|Resume|Exit|ByVal|ByRef|Not|And|Or|True|False|Nothing|Is|ReDim|Preserve|Open|Close|Input|Line";
+      var FN = "IIf|Format\\$?|CreateObject|CDbl|CLng|CDate|CStr|Timer|LBound|UBound|MsgBox|RGB|Left\\$?|Right\\$?|Mid\\$?|Trim\\$?|Len|Split|Dir|FreeFile|EOF|StrComp|Array";
+      var pattern = new RegExp('("[^"]*")|\\b(' + KW + ')\\b|\\b(' + FN + ')\\b|\\b(\\d+(?:\\.\\d+)?)\\b', "g");
+
+      function esc(s) {
+        return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      }
+
+      function highlightLine(raw) {
+        // 文字列リテラルの外にある最初の「'」以降をコメントとして分離
+        var code = raw, cmt = null, inStr = false;
+        for (var j = 0; j < raw.length; j++) {
+          var ch = raw.charAt(j);
+          if (ch === '"') { inStr = !inStr; }
+          else if (ch === "'" && !inStr) { code = raw.slice(0, j); cmt = raw.slice(j); break; }
+        }
+        var out = "", last = 0;
+        code.replace(pattern, function (m, str, kw, fn, num, offset) {
+          out += esc(code.slice(last, offset));
+          if (str !== undefined) { out += '<span class="str">' + esc(str) + "</span>"; }
+          else if (kw !== undefined) { out += '<span class="kw">' + kw + "</span>"; }
+          else if (fn !== undefined) { out += '<span class="fn">' + fn + "</span>"; }
+          else { out += '<span class="num">' + num + "</span>"; }
+          last = offset + m.length;
+          return m;
+        });
+        out += esc(code.slice(last));
+        if (cmt !== null) { out += '<span class="cmt">' + esc(cmt) + "</span>"; }
+        return out;
+      }
+
+      var blocks = document.querySelectorAll("pre code.vba");
+      for (var i = 0; i < blocks.length; i++) {
+        var lines = blocks[i].textContent.split("\n");
+        var html = [];
+        for (var k = 0; k < lines.length; k++) { html.push(highlightLine(lines[k])); }
+        blocks[i].innerHTML = html.join("\n");
+      }
+    })();
+  </script>
+</body>
+</html>

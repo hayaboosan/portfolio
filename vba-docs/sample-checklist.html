@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>動作確認書（見本）｜請求書作成.xlsm（架空）｜Excel VBA 納品文書サンプル</title>
+  <meta name="description" content="Excelマクロ（VBA）の修正サービスで納品する「動作確認書」の実物見本。架空の請求書作成マクロを題材に、何を・どう確認したかを表で記録し、お客様側で行う最終確認の手順まで含めた文書です。" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231D6F42'/%3E%3Ctext x='16' y='22.5' font-family='Segoe UI,sans-serif' font-size='15' font-weight='700' fill='%23FFFFFF' text-anchor='middle'%3EVB%3C/text%3E%3C/svg%3E" />
+  <link rel="canonical" href="https://portfolio.tegumi.dev/vba-docs/sample-checklist.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://portfolio.tegumi.dev/vba-docs/sample-checklist.html" />
+  <meta property="og:title" content="動作確認書（見本）｜Excel VBA 納品文書サンプル" />
+  <meta property="og:description" content="マクロ修正の納品時に添える動作確認書の実物見本。確認項目・手順・期待結果を表で記録し、お客様側の最終確認手順つき。題材は架空のマクロです。" />
+  <meta name="theme-color" content="#143d27" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" /></noscript>
+
+  <style>
+    :root {
+      --ink: #16241c;
+      --body: #243329;
+      --soft: #4c5f53;
+      --accent: #1d6f42;
+      --accent-deep: #143d27;
+      --bg: #e8efe9;
+      --paper: #ffffff;
+      --line: rgba(22, 36, 28, 0.16);
+      --sans: "Zen Kaku Gothic New", "Noto Sans JP", "Hiragino Sans", sans-serif;
+      --mono: ui-monospace, "Cascadia Code", "Consolas", monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-text-size-adjust: 100%; overflow-x: clip; }
+    body {
+      font-family: var(--sans);
+      color: var(--body);
+      background: var(--bg);
+      line-height: 1.8;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .toolbar {
+      background: var(--accent-deep); color: #cfe5d6;
+      padding: 0.7rem 0; font-size: 0.85rem;
+    }
+    .toolbar .wrap { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .toolbar a { color: #fff; }
+    .wrap { width: min(860px, 94%); margin-inline: auto; }
+
+    .sample-banner {
+      background: #fff8e8; border-bottom: 1px solid #e7d9ae;
+      color: #5d4f25; font-size: 0.85rem; padding: 0.6rem 0;
+    }
+
+    .sheet {
+      background: var(--paper);
+      margin: 1.6rem auto 2.2rem;
+      padding: 2.6rem 2.8rem;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      box-shadow: 0 18px 50px -30px rgba(20, 61, 39, 0.5);
+      max-width: 860px;
+      width: 94%;
+    }
+    .doc-head { border-bottom: 3px solid var(--accent); padding-bottom: 1rem; margin-bottom: 1.4rem; }
+    .doc-head h1 { font-size: 1.45rem; color: var(--ink); letter-spacing: 0.02em; }
+    .doc-head .doc-sub { color: var(--soft); font-size: 0.85rem; margin-top: 0.2rem; }
+    .doc-meta { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin: 0 0 1.6rem; }
+    .doc-meta th, .doc-meta td { border: 1px solid var(--line); padding: 0.45em 0.8em; text-align: left; }
+    .doc-meta th { background: #eef5f0; white-space: nowrap; width: 11em; font-weight: 700; color: var(--accent-deep); }
+
+    h2 {
+      font-size: 1.05rem; color: var(--accent-deep);
+      border-left: 5px solid var(--accent);
+      padding-left: 0.6em; margin: 1.8rem 0 0.7rem;
+    }
+    p { margin-bottom: 0.7rem; }
+    ul, ol { padding-left: 1.5em; margin-bottom: 0.7rem; }
+    li { margin-bottom: 0.25em; }
+
+    table.grid { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin: 0.4rem 0 0.9rem; }
+    table.grid th, table.grid td { border: 1px solid var(--line); padding: 0.5em 0.7em; text-align: left; vertical-align: top; }
+    table.grid th { background: #eef5f0; font-weight: 700; color: var(--accent-deep); }
+    table.grid td.ta-c { text-align: center; white-space: nowrap; }
+    .table-wrap { overflow-x: auto; }
+    .legend { font-size: 0.82rem; color: var(--soft); margin-bottom: 0.9rem; }
+
+    code { font-family: var(--mono); font-size: 0.85em; background: #eef3ef; padding: 0.1em 0.4em; border-radius: 4px; }
+
+    .callout { border: 1px solid var(--line); border-radius: 8px; padding: 0.8rem 1rem; margin: 0.6rem 0 0.9rem; font-size: 0.92rem; }
+    .callout--info { background: #eef7f0; border-color: #bcd9c5; }
+    .callout--note { background: #fff8e8; border-color: #e7d9ae; }
+    .callout strong { display: block; margin-bottom: 0.2rem; }
+    .callout--info strong { color: #1d6f42; }
+    .callout--note strong { color: #8a6d1a; }
+
+    .doc-foot { border-top: 1px solid var(--line); margin-top: 2rem; padding-top: 0.9rem; font-size: 0.82rem; color: var(--soft); }
+
+    @media (max-width: 640px) {
+      .sheet { padding: 1.6rem 1.2rem; }
+      body { font-size: 14px; }
+    }
+    @media print {
+      .toolbar, .sample-banner { display: none; }
+      body { background: #fff; }
+      .sheet { box-shadow: none; border: none; margin: 0; padding: 0; width: 100%; max-width: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <div class="wrap">
+      <span>納品文書サンプル 03 — 動作確認書</span>
+      <span><a href="./">サンプル一覧</a>　<a href="../">ポートフォリオTOP</a></span>
+    </div>
+  </div>
+  <div class="sample-banner">
+    <div class="wrap">
+      この文書は<strong>見本</strong>です。題材は見本用に自作した架空のマクロで、実際のお客様のファイル・データは一切使用していません。表中の日付・件数・番号はすべて<strong>見本用の想定値</strong>です。
+    </div>
+  </div>
+
+  <main class="sheet">
+    <header class="doc-head">
+      <h1>動作確認書</h1>
+      <p class="doc-sub">— 修正後のブックを「何を・どう確認したか」の記録（お客様側の最終確認手順つき） —</p>
+    </header>
+
+    <table class="doc-meta">
+      <tbody>
+        <tr><th scope="row">案件</th><td>請求書作成マクロのエラー修正</td></tr>
+        <tr><th scope="row">対象ブック</th><td>請求書作成.xlsm（2026-06-10 お預かり版を修正したもの）</td></tr>
+        <tr><th scope="row">確認環境</th><td>Windows 11 ／ Microsoft 365（デスクトップ版 Excel）</td></tr>
+        <tr><th scope="row">確認日</th><td>2026-06-13</td></tr>
+        <tr><th scope="row">お客様環境との差異</th><td>お客様環境は Excel 2019 と伺っています。今回の修正で使っている機能に、Excel 2019 で動作しないものはありません</td></tr>
+      </tbody>
+    </table>
+
+    <h2>1. 確認の進め方</h2>
+    <p>
+      架空の受注データ5件を入れた作業用コピーで、下表の項目を上から順に実施しました。
+      結果欄は<strong>確認を実施した後にのみ</strong>記入しています（実施前に「済」を入れた表は使いません）。
+    </p>
+    <div class="callout callout--note">
+      <strong>実データでの最終確認について</strong>
+      こちらでの確認は見本データによるものです。実際の受注データでの最終確認は、
+      §3の手順に沿ってお客様の環境で行ってください（納品後7日以内をお願いしています）。
+    </div>
+
+    <h2>2. 確認結果</h2>
+    <p class="legend">結果欄の記号：✅＝確認済み ／ －＝対象外（理由を記載）</p>
+    <div class="table-wrap">
+      <table class="grid">
+        <thead>
+          <tr><th>#</th><th>確認項目</th><th>手順</th><th>期待結果</th><th>結果</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>正常系：1件作成</td>
+            <td>「受注一覧(2026)」で顧客名・金額の入った行を選択し、「選択した行の請求書を作成」を押す</td>
+            <td>保存先フォルダ内の「2026-06」フォルダにPDFが作成され、その行の「発行日」「請求書No」が記入される</td>
+            <td class="ta-c">✅</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><strong>今回の事象が再発しないこと</strong></td>
+            <td>シート名「受注一覧(2026)」のまま、ボタン3種の実行とブックの開き直しを一通り行う</td>
+            <td>「実行時エラー 9」が発生しない</td>
+            <td class="ta-c">✅</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>正常系：まとめて作成</td>
+            <td>当月・発行日が空欄の3件がある状態で「今月分をまとめて作成」を押す</td>
+            <td>3件分のPDFが作成され、「3件作成しました」と表示される</td>
+            <td class="ta-c">✅</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>請求書番号が正しく進むこと</td>
+            <td>#1・#3の実行後に「設定」シートの次の請求書番号（B2）を確認する</td>
+            <td>発行した件数の分だけ番号が進み、発行済みPDFの番号に重複がない</td>
+            <td class="ta-c">✅</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>異常系：必須項目が空欄</td>
+            <td>顧客名が空欄の行を選択して「選択した行の請求書を作成」を押す</td>
+            <td>メッセージを表示して中止し、PDFは作られず請求書番号も進まない</td>
+            <td class="ta-c">✅</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>変更していない処理が従来どおり動くこと</td>
+            <td>「発行済みの行を整理」を押す</td>
+            <td>発行日の入った行が「処理済み」シートの末尾へ移動し、受注一覧から消える</td>
+            <td class="ta-c">✅</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>開いたときの絞り込み</td>
+            <td>ブックを閉じて開き直す</td>
+            <td>受注一覧の表示が当月分に絞り込まれる（データは消えない）</td>
+            <td class="ta-c">✅</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>3. お客様側で行っていただく最終確認（納品後7日以内）</h2>
+    <ol>
+      <li>納品した「修正後ブック」の<strong>コピー</strong>を作り、以降はコピーの方で確認する（今お使いのブックはまだ差し替えない）</li>
+      <li>普段どおりの操作で請求書を1件作成し、PDFが保存先フォルダに作られること、宛名・金額・請求書番号が正しいことを目で確認する</li>
+      <li>月次で「まとめて作成」をお使いの場合は、それも普段と同じ手順で1回実行してみる</li>
+      <li>問題がなければ、今お使いのブックと差し替える。<strong>差し替え前のブックは削除せず</strong>、「請求書作成_旧_20260613.xlsm」のように日付を付けた名前で保管する</li>
+    </ol>
+    <div class="callout callout--info">
+      <strong>途中でうまくいかない場合</strong>
+      操作をそこで止めて、エラーメッセージが出ている画面の写真（スクリーンショット）を添えてメッセージでお知らせください。
+      納品から14日以内に見つかった「今回の修正箇所と同じ原因による不具合」は無償で対応します。
+    </div>
+
+    <footer class="doc-foot">
+      <p>
+        本書は見本です（題材は架空のマクロ。日付・件数・番号などはすべて見本用の想定値です）。
+        実際の納品では、<a href="./sample-changelog.html">変更内容書</a>・修正前後のソースコード一式（テキストファイル）とセットでお渡しします。
+      </p>
+    </footer>
+  </main>
+</body>
+</html>

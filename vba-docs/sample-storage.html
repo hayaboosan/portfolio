@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ソースの保管方法（見本）｜請求書作成.xlsm（架空）｜Excel VBA 納品文書サンプル</title>
+  <meta name="description" content="Excelマクロ（VBA）の納品時にお渡しする顧客向け案内「ソースの保管方法」の実物見本。マクロの『保険』のかけ方を、日付フォルダ方式・Git方式・手動エクスポート手順まで非エンジニア向けに1枚で案内します。" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231D6F42'/%3E%3Ctext x='16' y='22.5' font-family='Segoe UI,sans-serif' font-size='15' font-weight='700' fill='%23FFFFFF' text-anchor='middle'%3EVB%3C/text%3E%3C/svg%3E" />
+  <link rel="canonical" href="https://portfolio.tegumi.dev/vba-docs/sample-storage.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://portfolio.tegumi.dev/vba-docs/sample-storage.html" />
+  <meta property="og:title" content="ソースの保管方法（見本）｜Excel VBA 納品文書サンプル" />
+  <meta property="og:description" content="マクロの「保険」のかけ方を顧客向けに1枚で案内する文書の実物見本。日付フォルダ方式・Git方式・手動エクスポート手順つき。題材は架空のマクロです。" />
+  <meta name="theme-color" content="#143d27" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" /></noscript>
+
+  <style>
+    :root {
+      --ink: #16241c;
+      --body: #243329;
+      --soft: #4c5f53;
+      --accent: #1d6f42;
+      --accent-deep: #143d27;
+      --bg: #e8efe9;
+      --paper: #ffffff;
+      --line: rgba(22, 36, 28, 0.16);
+      --sans: "Zen Kaku Gothic New", "Noto Sans JP", "Hiragino Sans", sans-serif;
+      --mono: ui-monospace, "Cascadia Code", "Consolas", monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-text-size-adjust: 100%; overflow-x: clip; }
+    body {
+      font-family: var(--sans);
+      color: var(--body);
+      background: var(--bg);
+      line-height: 1.8;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .toolbar {
+      background: var(--accent-deep); color: #cfe5d6;
+      padding: 0.7rem 0; font-size: 0.85rem;
+    }
+    .toolbar .wrap { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .toolbar a { color: #fff; }
+    .wrap { width: min(860px, 94%); margin-inline: auto; }
+
+    .sample-banner {
+      background: #fff8e8; border-bottom: 1px solid #e7d9ae;
+      color: #5d4f25; font-size: 0.85rem; padding: 0.6rem 0;
+    }
+
+    .sheet {
+      background: var(--paper);
+      margin: 1.6rem auto 2.2rem;
+      padding: 2.6rem 2.8rem;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      box-shadow: 0 18px 50px -30px rgba(20, 61, 39, 0.5);
+      max-width: 860px;
+      width: 94%;
+    }
+    .doc-head { border-bottom: 3px solid var(--accent); padding-bottom: 1rem; margin-bottom: 1.4rem; }
+    .doc-head h1 { font-size: 1.45rem; color: var(--ink); letter-spacing: 0.02em; }
+    .doc-head .doc-sub { color: var(--soft); font-size: 0.85rem; margin-top: 0.2rem; }
+    .doc-meta { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin: 0 0 1.6rem; }
+    .doc-meta th, .doc-meta td { border: 1px solid var(--line); padding: 0.45em 0.8em; text-align: left; }
+    .doc-meta th { background: #eef5f0; white-space: nowrap; width: 11em; font-weight: 700; color: var(--accent-deep); }
+
+    h2 {
+      font-size: 1.05rem; color: var(--accent-deep);
+      border-left: 5px solid var(--accent);
+      padding-left: 0.6em; margin: 1.8rem 0 0.7rem;
+    }
+    p { margin-bottom: 0.7rem; }
+    ul, ol { padding-left: 1.5em; margin-bottom: 0.7rem; }
+    li { margin-bottom: 0.25em; }
+
+    table.grid { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin: 0.4rem 0 0.9rem; }
+    table.grid th, table.grid td { border: 1px solid var(--line); padding: 0.5em 0.7em; text-align: left; vertical-align: top; }
+    table.grid th { background: #eef5f0; font-weight: 700; color: var(--accent-deep); }
+    .table-wrap { overflow-x: auto; }
+
+    code { font-family: var(--mono); font-size: 0.85em; background: #eef3ef; padding: 0.1em 0.4em; border-radius: 4px; }
+    pre.tree {
+      font-family: var(--mono); font-size: 0.82rem; line-height: 1.6;
+      background: #f4f8f5; border: 1px solid var(--line); border-radius: 8px;
+      padding: 0.9rem 1.1rem; margin: 0.4rem 0 0.9rem; overflow-x: auto;
+    }
+
+    .callout { border: 1px solid var(--line); border-radius: 8px; padding: 0.8rem 1rem; margin: 0.6rem 0 0.9rem; font-size: 0.92rem; }
+    .callout--info { background: #eef7f0; border-color: #bcd9c5; }
+    .callout--note { background: #fff8e8; border-color: #e7d9ae; }
+    .callout strong { display: block; margin-bottom: 0.2rem; }
+    .callout--info strong { color: #1d6f42; }
+    .callout--note strong { color: #8a6d1a; }
+
+    .doc-foot { border-top: 1px solid var(--line); margin-top: 2rem; padding-top: 0.9rem; font-size: 0.82rem; color: var(--soft); }
+
+    @media (max-width: 640px) {
+      .sheet { padding: 1.6rem 1.2rem; }
+      body { font-size: 14px; }
+    }
+    @media print {
+      .toolbar, .sample-banner { display: none; }
+      body { background: #fff; }
+      .sheet { box-shadow: none; border: none; margin: 0; padding: 0; width: 100%; max-width: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <div class="wrap">
+      <span>納品文書サンプル 05 — ソースの保管方法</span>
+      <span><a href="./">サンプル一覧</a>　<a href="../">ポートフォリオTOP</a></span>
+    </div>
+  </div>
+  <div class="sample-banner">
+    <div class="wrap">
+      この文書は<strong>見本</strong>です。題材は見本用に自作した架空のマクロで、実際のお客様のファイル・データは一切使用していません。
+    </div>
+  </div>
+
+  <main class="sheet">
+    <header class="doc-head">
+      <h1>ソースの保管方法</h1>
+      <p class="doc-sub">— マクロの「保険」のかけ方（納品物「2_ソースコード」フォルダのご案内） —</p>
+    </header>
+
+    <table class="doc-meta">
+      <tbody>
+        <tr><th scope="row">対象</th><td>納品zip内「2_ソースコード」フォルダ（.bas / .cls などのテキストファイル）</td></tr>
+        <tr><th scope="row">納品日</th><td>2026-06-13（請求書作成.xlsm の修正納品に同梱）</td></tr>
+        <tr><th scope="row">お読みいただきたい方</th><td>ブック・共有フォルダの管理をされる方（Excelの専門知識は不要です）</td></tr>
+      </tbody>
+    </table>
+
+    <h2>1. なぜ保管が必要か</h2>
+    <p>
+      Excelのマクロは<strong>ブック（Excelファイル）の中に入っている</strong>ため、
+      ブックが壊れたり誤って上書きされたりすると、マクロのコードごと失われます。
+      納品物の「2_ソースコード」フォルダは、マクロの中身をテキストファイルとして取り出したもので、
+      万一のときにマクロを復元する手がかりになる「保険」です。
+    </p>
+    <div class="callout callout--note">
+      <strong>保険がきくのはコード部分のみです</strong>
+      シートの内容・ボタンの配置・書式は、ソースファイルからは復元できません。
+      ブック本体のバックアップが別に必要なため、以下の方法では<strong>ブックとソースをセットで</strong>保管します。
+    </div>
+
+    <h2>2. 同梱ファイルの見方</h2>
+    <div class="table-wrap">
+      <table class="grid">
+        <thead>
+          <tr><th>ファイルの種類</th><th>中身</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>.bas</code></td><td>標準モジュール（処理の本体が書かれたコード）</td></tr>
+          <tr><td><code>.cls</code></td><td>シートやブック自体に付いているコード（例：ブックを開いたときの処理）</td></tr>
+          <tr><td><code>.frm</code> / <code>.frx</code></td><td>入力画面（ユーザーフォーム）のコードと部品 ※今回のブックにはありません</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      いずれもメモ帳などのテキストエディタで開いて中を見ることができます。
+      <strong>開いただけでマクロが実行されることはありません。</strong>
+    </p>
+
+    <h2>3. 方法A：日付フォルダ方式（おすすめ・誰でもできる）</h2>
+    <ol>
+      <li>共有フォルダ等に「マクロ保管」フォルダを作る</li>
+      <li>マクロを変更するたびに「YYYYMMDD_変更内容」という名前のフォルダを作り、<strong>ブックのコピーとソース一式</strong>を入れる</li>
+      <li>「いつ・誰が・何を変えたか」を1行ずつ書き足すメモ（変更履歴.txt）を同じ場所に置く</li>
+    </ol>
+    <pre class="tree">マクロ保管/
+├─ 変更履歴.txt                       … いつ・誰が・何を変えたかを1行ずつ
+├─ 20260613_エラー修正（シート名対応）/
+│   ├─ 請求書作成.xlsm               … その時点のブックのコピー
+│   └─ ソース一式（.bas / .cls）
+└─ 20260701_（次に変更したら追加）/</pre>
+
+    <h2>4. 方法B：Git方式（社内にITに詳しい方がいる場合）</h2>
+    <p>
+      ソースフォルダをGitというバージョン管理の仕組みで管理すると、変更点の比較や過去の状態への復元ができます。
+      導入をご希望の場合はご相談ください（別途お見積もり）。
+    </p>
+
+    <h2>5. 今後マクロを変更したときのソースの取り出し方（手動・3分）</h2>
+    <ol>
+      <li>Excelで <code>Alt + F11</code> を押してVBエディタを開く</li>
+      <li>左側のツリーで標準モジュール等を右クリック →「ファイルのエクスポート」を選ぶ</li>
+      <li>保管フォルダに保存する（モジュールごとに繰り返し）</li>
+    </ol>
+    <div class="callout callout--info">
+      <strong>補足</strong>
+      この操作にExcelの設定変更は不要で、どのPCでもそのまま行えます。
+      操作がご不安な場合は、変更のご依頼と併せてこちらでソースの取り出しまで行います。
+    </div>
+
+    <footer class="doc-foot">
+      <p>
+        本書は見本です（題材は架空のマクロ）。実際の納品では、
+        <a href="./sample-changelog.html">変更内容書</a>・<a href="./sample-checklist.html">動作確認書</a>・
+        <a href="./sample-handover.html">引き継ぎ手順書</a>と併せて、この案内を毎回同梱しています。
+      </p>
+    </footer>
+  </main>
+</body>
+</html>

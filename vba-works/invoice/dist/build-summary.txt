@@ -1,0 +1,12 @@
+﻿invoice-demo ビルド記録  2026-07-02 22:12:50
+============================================================
+Excel バージョン: 16.0
+AccessVBOM: 1
+xlsm: C:\Users\Hayabusa\Documents\Claude\Projects\Works\Tegumi\portfolio\vba-works\invoice\dist\invoice-demo.xlsm
+マクロ実行: 4件 / 合計 2.78 秒 / 1件あたり 0.69 秒
+PDF: C:\Users\Hayabusa\Documents\Claude\Projects\Works\Tegumi\portfolio\vba-works\invoice\dist\請求書PDF\2026-07\請求書_1024_株式会社やまびこ企画.pdf
+PDF: C:\Users\Hayabusa\Documents\Claude\Projects\Works\Tegumi\portfolio\vba-works\invoice\dist\請求書PDF\2026-07\請求書_1025_合同会社みなみ書房.pdf
+PDF: C:\Users\Hayabusa\Documents\Claude\Projects\Works\Tegumi\portfolio\vba-works\invoice\dist\請求書PDF\2026-07\請求書_1026_株式会社あおば事務機.pdf
+PDF: C:\Users\Hayabusa\Documents\Claude\Projects\Works\Tegumi\portfolio\vba-works\invoice\dist\請求書PDF\2026-07\請求書_1027_ひまわり印刷株式会社.pdf
+修正前版の実行結果: 実行時エラー 9：インデックスが有効範囲にありません。
+結果: 正常終了

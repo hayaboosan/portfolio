@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>実行時エラー9で止まった請求書マクロ：原因特定から当日復旧（事例見本）｜Excel VBA 修正事例</title>
+  <meta name="description" content="「ボタンを押すとエラーが出て請求業務が止まった」Excelマクロ（VBA）の修正事例の見本。実行時エラー9の原因切り分けから、シート名直書きの定数化による修正・再発予防、納品文書までの流れをBefore/Afterのコード差分つきで紹介します。題材は架空の請求書作成マクロです。" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231D6F42'/%3E%3Ctext x='16' y='22.5' font-family='Segoe UI,sans-serif' font-size='15' font-weight='700' fill='%23FFFFFF' text-anchor='middle'%3EVB%3C/text%3E%3C/svg%3E" />
+  <link rel="canonical" href="https://portfolio.tegumi.dev/vba-case-fix/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://portfolio.tegumi.dev/vba-case-fix/" />
+  <meta property="og:title" content="実行時エラー9で止まった請求書マクロ：原因特定から当日復旧（事例見本）" />
+  <meta property="og:description" content="Excelマクロ修正の進め方を見本事例で紹介。原因の切り分け→直書きの定数化→再発予防→文書つき納品まで、Before/Afterのコード差分つき。題材は架空のマクロです。" />
+
+  <meta name="theme-color" content="#143d27" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" /></noscript>
+
+  <style>
+    :root {
+      --ink: #16241c;
+      --body: #243329;
+      --soft: #4c5f53;
+      --accent: #1d6f42;
+      --accent-deep: #143d27;
+      --bg: #f2f7f3;
+      --panel: #ffffff;
+      --line: rgba(22, 36, 28, 0.14);
+      --radius: 16px;
+      --shadow: 0 24px 60px -36px rgba(20, 61, 39, 0.45);
+      --sans: "Zen Kaku Gothic New", "Noto Sans JP", "Hiragino Sans", sans-serif;
+      --mono: ui-monospace, "Cascadia Code", "Consolas", monospace;
+      --code-bg: #142c1e;
+      --code-ink: #ddefe3;
+      --code-muted: #86ab93;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: clip; }
+    body {
+      font-family: var(--sans);
+      color: var(--body);
+      background: var(--bg);
+      line-height: 1.85;
+      letter-spacing: 0.01em;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container { width: min(960px, 92%); margin-inline: auto; }
+    a { color: var(--accent); }
+
+    .skip-link {
+      position: absolute; left: -9999px; top: 0;
+      background: var(--accent-deep); color: #fff; padding: 0.6em 1em; z-index: 100;
+    }
+    .skip-link:focus { left: 0; }
+
+    .page-header {
+      background: var(--accent-deep);
+      color: #f2f7f3;
+      padding: 0.9rem 0;
+    }
+    .page-header .container { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .page-header a { color: #cfe5d6; text-decoration: none; font-size: 0.88rem; }
+    .page-header a:hover { color: #fff; text-decoration: underline; }
+    .page-header__brand { font-weight: 700; letter-spacing: 0.04em; }
+
+    .sample-banner {
+      background: #fff8e8; border-bottom: 1px solid #e7d9ae;
+      color: #5d4f25; font-size: 0.85rem; padding: 0.6rem 0;
+    }
+
+    .hero { padding: 3.2rem 0 2.2rem; }
+    .hero__eyebrow {
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 0.16em;
+      color: var(--accent); text-transform: uppercase; margin-bottom: 0.7rem;
+    }
+    .hero h1 { font-size: clamp(1.5rem, 4vw, 2.1rem); color: var(--ink); line-height: 1.55; margin-bottom: 1rem; }
+    .hero__lead { max-width: 46em; color: var(--soft); }
+    .hero__lead + .hero__lead { margin-top: 0.6rem; }
+
+    .case-facts {
+      margin-top: 1.6rem;
+      display: grid; gap: 0.6rem 1.4rem;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+      box-shadow: var(--shadow); padding: 1.2rem 1.5rem;
+      font-size: 0.9rem;
+    }
+    .case-facts dt { font-weight: 700; color: var(--accent-deep); font-size: 0.8rem; letter-spacing: 0.08em; }
+    .case-facts dd { color: var(--body); }
+    .case-facts div { min-width: 0; }
+
+    section.block { padding: 1.6rem 0; }
+    .block h2 {
+      font-size: 1.3rem; color: var(--ink); line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+    .block h2 .no {
+      display: inline-block; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.14em;
+      color: var(--accent); margin-right: 0.8em; transform: translateY(-0.15em);
+    }
+    .block p { max-width: 46em; margin-bottom: 0.8rem; }
+
+    .voice {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--accent);
+      border-radius: 10px;
+      padding: 1.1rem 1.4rem;
+      margin: 0.4rem 0 1.2rem;
+      max-width: 46em;
+      color: var(--ink);
+    }
+    .voice p { margin-bottom: 0.4rem; }
+    .voice p:last-child { margin-bottom: 0; }
+    .voice .voice__label {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+
+    .steps { display: grid; gap: 1.1rem; margin: 1.2rem 0 0.6rem; }
+    .step {
+      background: var(--panel); border: 1px solid var(--line);
+      border-radius: var(--radius); box-shadow: var(--shadow);
+      padding: 1.4rem 1.6rem;
+    }
+    .step__tag {
+      display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+      color: #fff; background: var(--accent); border-radius: 999px;
+      padding: 0.15em 1em; margin-bottom: 0.5rem;
+    }
+    .step h3 { font-size: 1.08rem; color: var(--ink); margin-bottom: 0.5rem; line-height: 1.5; }
+    .step p { font-size: 0.95rem; }
+
+    /* ---- code diff ---- */
+    .codecard { border-radius: 12px; overflow: hidden; border: 1px solid var(--line); margin: 1rem 0; }
+    .codecard__head {
+      display: flex; align-items: center; gap: 0.7em; flex-wrap: wrap;
+      background: #0e2015; color: #cfe5d6;
+      font-size: 0.8rem; padding: 0.5em 1em;
+    }
+    .codecard__badge {
+      font-weight: 700; font-size: 0.72rem; letter-spacing: 0.1em;
+      border-radius: 999px; padding: 0.1em 0.9em;
+    }
+    .codecard__badge--before { background: #7c2d2d; color: #ffe3e3; }
+    .codecard__badge--after { background: #1d6f42; color: #e4f6ea; }
+    .codecard__file { font-family: var(--mono); }
+    .code {
+      background: var(--code-bg); color: var(--code-ink);
+      font-family: var(--mono); font-size: 0.82rem; line-height: 1.7;
+      padding: 0.9em 0; overflow-x: auto;
+    }
+    .code .ln { display: block; white-space: pre; padding: 0 1.2em; }
+    .code .c { color: var(--code-muted); }
+    .code .ln--del { background: rgba(214, 92, 92, 0.16); box-shadow: inset 4px 0 0 #c05555; }
+    .code .ln--add { background: rgba(74, 189, 122, 0.16); box-shadow: inset 4px 0 0 #2f9e63; }
+
+    .spots { margin: 1rem 0 0.4rem; }
+    .spots table {
+      width: 100%; border-collapse: collapse; background: var(--panel);
+      border: 1px solid var(--line); font-size: 0.88rem;
+    }
+    .spots th, .spots td { padding: 0.55em 0.8em; border: 1px solid var(--line); text-align: left; vertical-align: top; }
+    .spots th { background: #e7f1ea; color: var(--accent-deep); font-weight: 700; white-space: nowrap; }
+    .spots code, .block p code, .step p code {
+      font-family: var(--mono); font-size: 0.85em;
+      background: #e3ede6; padding: 0.1em 0.4em; border-radius: 4px;
+    }
+    .table-wrap { overflow-x: auto; border-radius: 10px; }
+
+    /* ---- metric ---- */
+    .metric {
+      background: var(--accent-deep); color: #f2f7f3;
+      border-radius: var(--radius); box-shadow: var(--shadow);
+      padding: 1.8rem 1.8rem 1.5rem; margin: 1rem 0 0.4rem;
+      text-align: center;
+    }
+    .metric__label { font-size: 0.9rem; color: #cfe5d6; margin-bottom: 0.3rem; }
+    .metric__value { font-size: clamp(2.1rem, 6vw, 3rem); font-weight: 700; line-height: 1.3; }
+    .metric__value small { font-size: 0.45em; font-weight: 500; color: #cfe5d6; }
+    .metric__sub { font-size: 0.88rem; color: #cfe5d6; margin-top: 0.2rem; }
+    .metric__note { font-size: 0.76rem; color: #9dbfa9; margin-top: 0.8rem; line-height: 1.7; }
+
+    /* ---- figures ---- */
+    .shots { display: grid; gap: 1.4rem; margin-top: 1.2rem; }
+    .shot {
+      background: var(--panel); border: 1px solid var(--line);
+      border-radius: var(--radius); box-shadow: var(--shadow);
+      padding: 1.1rem 1.2rem 1rem;
+    }
+    .shot img {
+      display: block; width: 100%; height: auto;
+      border: 1px solid var(--line); border-radius: 8px;
+      background: #fff;
+    }
+    .shot figcaption { font-size: 0.85rem; color: var(--soft); margin-top: 0.6rem; line-height: 1.7; }
+    .shot figcaption strong { color: var(--accent-deep); }
+
+    /* ---- deliverables ---- */
+    .deliv { display: grid; gap: 1.1rem; margin-top: 1.2rem; }
+    .deliv-card {
+      background: var(--panel); border: 1px solid var(--line);
+      border-radius: var(--radius); box-shadow: var(--shadow);
+      padding: 1.4rem 1.6rem; display: grid; gap: 0.5rem;
+    }
+    .deliv-card__label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; color: var(--accent); }
+    .deliv-card h3 { font-size: 1.05rem; color: var(--ink); line-height: 1.5; }
+    .deliv-card p { font-size: 0.92rem; }
+    .deliv-card__link {
+      justify-self: start; display: inline-block;
+      background: var(--accent); color: #fff; text-decoration: none;
+      font-weight: 700; font-size: 0.92rem;
+      padding: 0.55em 1.4em; border-radius: 999px; transition: background 0.2s;
+    }
+    .deliv-card__link:hover, .deliv-card__link:focus-visible { background: var(--accent-deep); }
+    .deliv-card--video { border-style: dashed; border-color: rgba(22, 36, 28, 0.3); box-shadow: none; }
+    .video-ph {
+      display: flex; align-items: center; justify-content: center; gap: 0.7em;
+      background: #e7f1ea; color: var(--soft);
+      border-radius: 10px; padding: 2.2rem 1rem; font-size: 0.92rem;
+    }
+    .video-ph .play {
+      width: 2.4em; height: 2.4em; border-radius: 50%;
+      background: var(--accent); color: #fff; flex: none;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 0.9em;
+    }
+
+    .closing { padding: 0.6rem 0 3rem; }
+    .closing p { max-width: 46em; }
+
+    .site-footer {
+      background: var(--accent-deep); color: #cfe5d6;
+      padding: 1.6rem 0; font-size: 0.85rem;
+    }
+    .site-footer .container { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .site-footer a { color: #fff; }
+
+    @media (max-width: 600px) {
+      .step, .deliv-card { padding: 1.2rem 1.1rem; }
+      .case-facts { padding: 1rem 1.1rem; }
+      .code { font-size: 0.74rem; }
+    }
+    @media print {
+      .page-header, .site-footer { background: none; color: #000; }
+      .page-header a, .site-footer a { color: #000; }
+      body { background: #fff; }
+      .step, .deliv-card, .shot, .case-facts, .metric, .voice { box-shadow: none; }
+      .metric { background: none; color: #000; border: 1px solid #999; }
+      .metric__label, .metric__sub, .metric__note, .metric__value small { color: #333; }
+      .code { background: #f3f3f3; color: #222; }
+      .code .c { color: #667; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">本文へスキップ</a>
+  <header class="page-header">
+    <div class="container">
+      <span class="page-header__brand">Excel VBA 修正事例（見本）</span>
+      <a href="../">← ポートフォリオTOPへ戻る</a>
+    </div>
+  </header>
+
+  <div class="sample-banner">
+    <div class="container">
+      ⚠️ このページは<strong>見本の事例</strong>です。題材は見本用に自作した架空の「請求書作成マクロ」で、
+      実在の企業・実際のお客様のファイル・データは一切使用していません。
+    </div>
+  </div>
+
+  <main id="main">
+    <section class="hero">
+      <div class="container">
+        <p class="hero__eyebrow">Excel VBA — Case Study 01 : Repair &amp; Recovery</p>
+        <h1>実行時エラー9で止まった請求書マクロ：<br />原因特定から当日復旧、そして再発予防まで。</h1>
+        <p class="hero__lead">
+          「昨日まで動いていたマクロが、今朝からエラーで止まる」——Excelマクロのトラブルで最も多い相談のひとつです。
+          このページでは、架空の「請求書作成マクロ」を題材に、私が実際に行う修正の進め方
+          （原因の切り分け → 修正 → 再発予防 → 文書つき納品）を、コードのBefore/Afterと画面つきでご覧いただけます。
+        </p>
+        <p class="hero__lead">
+          普段は本業でExcelマクロ群の開発・保守・改修（新規作成を含む）を担当しており、
+          その進め方をそのまま見本にしたものです。
+        </p>
+        <dl class="case-facts">
+          <div><dt>症状</dt><dd>ボタンを押すと「実行時エラー 9」で停止</dd></div>
+          <div><dt>原因</dt><dd>シート名の変更（マクロ内に旧名が直書き）</dd></div>
+          <div><dt>修正</dt><dd>3か所の直書きを定数1行に集約</dd></div>
+          <div><dt>復旧</dt><dd>お預かり当日に応急復旧・3日後に文書つき納品</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="h-problem">
+      <div class="container">
+        <h2 id="h-problem"><span class="no">01</span>背景と問題 — 月初の請求業務が、ボタンひとつで止まった</h2>
+        <div class="voice">
+          <p class="voice__label">ご相談時の状況（見本のシナリオ）</p>
+          <p>
+            「請求書を発行しようと『選択した行の請求書を作成』ボタンを押したら、
+            <strong>『実行時エラー 9：インデックスが有効範囲にありません』</strong>という英数字まじりのメッセージが出て止まってしまう。
+            昨日までは普通に動いていた。作った人はもう退職していて、社内に分かる人がいない。
+            請求書は今日中に送らないといけない」
+          </p>
+        </div>
+        <p>
+          このマクロは、受注一覧シートのデータから顧客ごとの請求書を組み立ててPDF保存し、
+          発行日と請求書番号を台帳に記録するもの。毎月の請求業務がこの1冊に乗っているため、
+          止まると<strong>業務そのものが止まります</strong>。
+        </p>
+        <p>
+          きっかけは、年度の切り替えでシートの名前を「受注一覧」から「受注一覧(2026)」に変えたこと。
+          見た目には何の問題もない、ごく自然な操作です。
+          しかしマクロの中には変更前の名前が残っていて、「『受注一覧』という名前のシートを探したが見つからない」
+          状態になっていました。<strong>ブックやデータの破損ではありません</strong>——修正のご相談では、
+          まずこの一点を切り分けてお伝えするところから始めます。
+        </p>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="h-actions">
+      <div class="container">
+        <h2 id="h-actions"><span class="no">02</span>打ち手 — 応急処置で終わらせず、「次」も起きない形に直す</h2>
+
+        <div class="steps">
+          <article class="step">
+            <span class="step__tag">STEP 1 — お預かり当日</span>
+            <h3>原因の切り分け：どの行で・なぜ止まるのかを特定</h3>
+            <p>
+              「実行時エラー 9」は、<strong>指定した名前のシートやブックが見つからない</strong>ときに出る典型的なエラーです。
+              エラーが発生する行を特定し、コード内の <code>Worksheets("受注一覧")</code> と実際のシート構成を突き合わせて、
+              シート名の変更が原因であること（＝データは無事であること）を確認。この時点でまず現状をご報告します。
+            </p>
+          </article>
+
+          <article class="step">
+            <span class="step__tag">STEP 2 — 同日中</span>
+            <h3>修正：シート名の直書き3か所を、定数1行に集約</h3>
+            <p>
+              直書きの3か所を新しいシート名に書き換えるだけでも動きます。
+              しかしそれでは、<strong>次にシート名を変えた瞬間に同じ事故が再発</strong>します。
+              そこでシート名をモジュール先頭の定数 <code>SHEET_ORDERS</code> に集約し、
+              3か所すべてがこの定数を参照する形に変更しました。当日中に修正版をお渡しして業務を復旧します。
+            </p>
+          </article>
+
+          <article class="step">
+            <span class="step__tag">STEP 3 — 3日後に正式納品</span>
+            <h3>再発予防：文書とソース一式を添えて「直して終わり」にしない</h3>
+            <p>
+              今後シート名を変えたくなったら、定数の1行を書き換えるだけで済みます（その場所はコード内のコメントと引き継ぎメモに明記）。
+              どこを・なぜ・どう変えたかをまとめた<strong>変更内容書</strong>、何をどう確認したかの<strong>動作確認書</strong>、
+              修正前後の<strong>ソースコード一式</strong>を添えて納品しました。
+            </p>
+          </article>
+        </div>
+
+        <h3 style="margin-top:1.6rem; font-size:1.05rem; color:var(--ink);">コードの Before / After（抜粋）</h3>
+
+        <div class="codecard">
+          <div class="codecard__head">
+            <span class="codecard__badge codecard__badge--before">BEFORE — 修正前</span>
+            <span class="codecard__file">Module1.bas ／ ThisWorkbook.cls（抜粋）</span>
+          </div>
+          <div class="code" role="img" aria-label="修正前のVBAコード。シート名「受注一覧」が3か所に直書きされている">
+<span class="ln"><span class="c">'―― Module1（抜粋）―――――――――――――――――――――――</span></span>
+<span class="ln">Public Sub CreateInvoiceSelected()</span>
+<span class="ln"> </span>
+<span class="ln">    Dim wsOrders As Worksheet</span>
+<span class="ln ln--del">    Set wsOrders = ThisWorkbook.Worksheets("受注一覧")   <span class="c">' ←ここで停止（直書き 1/3）</span></span>
+<span class="ln">    ...</span>
+<span class="ln"> </span>
+<span class="ln">Public Sub CreateInvoicesMonthly()</span>
+<span class="ln"> </span>
+<span class="ln">    Dim wsOrders As Worksheet</span>
+<span class="ln ln--del">    Set wsOrders = ThisWorkbook.Worksheets("受注一覧")   <span class="c">' ←同じ直書き（2/3）</span></span>
+<span class="ln">    ...</span>
+<span class="ln"> </span>
+<span class="ln"><span class="c">'―― ThisWorkbook（抜粋）――――――――――――――――――――</span></span>
+<span class="ln">Private Sub Workbook_Open()</span>
+<span class="ln">    ...</span>
+<span class="ln ln--del">    Set wsOrders = Worksheets("受注一覧")                 <span class="c">' ←同じ直書き（3/3）</span></span>
+<span class="ln">    ...</span>
+          </div>
+        </div>
+
+        <div class="codecard">
+          <div class="codecard__head">
+            <span class="codecard__badge codecard__badge--after">AFTER — 修正後</span>
+            <span class="codecard__file">Module1.bas ／ ThisWorkbook.cls（抜粋）</span>
+          </div>
+          <div class="code" role="img" aria-label="修正後のVBAコード。シート名を定数SHEET_ORDERSに集約し、3か所すべてが定数を参照する">
+<span class="ln"><span class="c">'―― Module1（抜粋）―――――――――――――――――――――――</span></span>
+<span class="ln ln--add"><span class="c">'----------------------------------------------------------</span></span>
+<span class="ln ln--add"><span class="c">' シート名の定数</span></span>
+<span class="ln ln--add"><span class="c">'   受注一覧シートの名前はこの1行だけで管理する。</span></span>
+<span class="ln ln--add"><span class="c">'   シート名を変更した場合は、この定数を書き換えれば</span></span>
+<span class="ln ln--add"><span class="c">'   全処理に反映される。</span></span>
+<span class="ln ln--add"><span class="c">'----------------------------------------------------------</span></span>
+<span class="ln ln--add">Public Const SHEET_ORDERS As String = "受注一覧(2026)"</span>
+<span class="ln"> </span>
+<span class="ln">Public Sub CreateInvoiceSelected()</span>
+<span class="ln"> </span>
+<span class="ln">    Dim wsOrders As Worksheet</span>
+<span class="ln ln--add">    Set wsOrders = ThisWorkbook.Worksheets(SHEET_ORDERS) <span class="c">' 定数を参照</span></span>
+<span class="ln">    ...</span>
+<span class="ln"> </span>
+<span class="ln">Public Sub CreateInvoicesMonthly()</span>
+<span class="ln"> </span>
+<span class="ln">    Dim wsOrders As Worksheet</span>
+<span class="ln ln--add">    Set wsOrders = ThisWorkbook.Worksheets(SHEET_ORDERS) <span class="c">' 定数を参照</span></span>
+<span class="ln">    ...</span>
+<span class="ln"> </span>
+<span class="ln"><span class="c">'―― ThisWorkbook（抜粋）――――――――――――――――――――</span></span>
+<span class="ln">Private Sub Workbook_Open()</span>
+<span class="ln">    ...</span>
+<span class="ln ln--add">    Set wsOrders = Worksheets(SHEET_ORDERS)               <span class="c">' 定数を参照</span></span>
+<span class="ln">    ...</span>
+          </div>
+        </div>
+
+        <div class="spots">
+          <div class="table-wrap">
+            <table>
+              <caption style="position:absolute;left:-9999px;">変更した3か所の一覧</caption>
+              <thead>
+                <tr><th>#</th><th>モジュール</th><th>場所</th><th>変更の要点</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td><td><code>Module1</code></td><td><code>CreateInvoiceSelected</code></td>
+                  <td rowspan="3">シート名の直書き（"受注一覧"）をやめ、定数 <code>SHEET_ORDERS</code> を参照する形に集約。定数を現在のシート名「受注一覧(2026)」に設定</td>
+                </tr>
+                <tr><td>2</td><td><code>Module1</code></td><td><code>CreateInvoicesMonthly</code></td></tr>
+                <tr><td>3</td><td><code>ThisWorkbook</code></td><td><code>Workbook_Open</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p style="font-size:0.88rem; color:var(--soft); margin-top:0.6rem;">
+          変更したのはこの3か所のみで、請求書のレイアウト・番号の採番・「発行済みの行を整理」の処理には手を加えていません。
+          影響範囲を最小限に絞り、変えたこと／変えていないことを文書で明記するのが基本方針です。
+        </p>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="h-metric">
+      <div class="container">
+        <h2 id="h-metric"><span class="no">03</span>復旧後の動き — 止まっていた「まとめて作成」が数秒で完走</h2>
+        <div class="metric">
+          <p class="metric__label">修正後の動作確認：当月分の請求書4件を「まとめて作成」で処理</p>
+          <p class="metric__value">約2.8<small>秒</small></p>
+          <p class="metric__sub">PDF作成・発行日の記録・請求書番号の採番まで込み（1件あたり 約0.7秒）</p>
+          <p class="metric__note">
+            ※ この数値は、見本用に自作した架空のデモ環境で計測した<strong>見本・想定値</strong>であり、
+            実際のお客様の案件で得られた実績値ではありません。処理時間はPCの性能やデータ量により変わります。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="h-evidence">
+      <div class="container">
+        <h2 id="h-evidence"><span class="no">04</span>画面の記録 — 修正版マクロが実際に動いている様子</h2>
+        <p style="font-size:0.9rem; color:var(--soft);">
+          以下はすべて、この見本のために自作したデモブックの実際のスクリーンショットです（社名・住所・金額はすべて架空）。
+        </p>
+        <div class="shots">
+          <figure class="shot">
+            <img src="./assets/orders-sheet.png" alt="受注一覧(2026)シートのスクリーンショット。受注日・顧客名・品目・金額の表と、右側に3つのマクロ実行ボタンが並ぶ。7月2日受注の4行は発行日と請求書Noが空欄" width="1791" height="306" loading="lazy" />
+            <figcaption>
+              <strong>実行前：</strong>「受注一覧(2026)」シート。7/2受注の4件はまだ発行日・請求書Noが空欄です。
+              右のボタンが今回エラーで止まっていたマクロの入り口です。
+            </figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="./assets/orders-sheet-after-run.png" alt="マクロ実行後の受注一覧(2026)シート。空欄だった4行に発行日2026/07/02と請求書No 1024から1027が自動記入されている" width="1791" height="306" loading="lazy" />
+            <figcaption>
+              <strong>実行後：</strong>修正版で「今月分をまとめて作成」を実行。4件の発行日と請求書No（1024〜1027）が自動で記録されました。
+            </figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="./assets/invoice-sheet.png" alt="マクロが自動生成した請求書PDFのレイアウト。宛名・請求金額・品目明細・消費税・合計金額・振込先が整形されている" width="942" height="699" loading="lazy" />
+            <figcaption>
+              <strong>生成物：</strong>同時に自動保存される請求書PDF（1件分）。宛名・明細・税込金額まで転記済みの状態で、
+              年月別のフォルダに保存されます。
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="h-deliv">
+      <div class="container">
+        <h2 id="h-deliv"><span class="no">05</span>この事例の納品物 — 実物の見本をそのまま公開しています</h2>
+        <p>
+          修正のご依頼では「直った本体」だけでなく、次に困らないための文書とソース一式をセットでお渡しします。
+          この事例（見本）で実際に作成したものを公開していますので、納品物の品質はここでご確認いただけます。
+        </p>
+        <div class="deliv">
+          <article class="deliv-card">
+            <p class="deliv-card__label">DOCUMENT — 変更内容書（見本）</p>
+            <h3>どこを・なぜ・どう変えたかの報告書（A4 1枚）</h3>
+            <p>
+              まさにこの修正を題材にした変更内容書の実物見本です。原因・変更箇所・影響範囲・今回変えていないことを、
+              非エンジニアの方にも分かる言葉でまとめています。
+            </p>
+            <a class="deliv-card__link" href="../vba-docs/sample-changelog.html">変更内容書の見本を見る</a>
+          </article>
+          <article class="deliv-card">
+            <p class="deliv-card__label">SOURCE — ソースコード一式（修正前・修正後）</p>
+            <h3>Before/Afterの実コードと、1コマンド再現手順</h3>
+            <p>
+              この事例の修正前・修正後のVBAソース、実差分、デモブックを1コマンドで組み立てるスクリプトの一式です。
+              コードの書き方・コメントの残し方はここでご確認いただけます。
+            </p>
+            <a class="deliv-card__link" href="https://github.com/hayaboosan/portfolio/tree/main/vba-works/invoice" target="_blank" rel="noopener noreferrer">ソース一式を見る（GitHub）</a>
+          </article>
+          <article class="deliv-card deliv-card--video">
+            <p class="deliv-card__label">VIDEO — 動画（準備中）</p>
+            <h3>エラー再現から復旧までの実行の様子</h3>
+            <div class="video-ph">
+              <span class="play" aria-hidden="true">▶</span>
+              <span>修正前のエラー再現 → 修正版の実行 → PDF生成までを、短い動画で公開予定です。</span>
+            </div>
+          </article>
+        </div>
+        <p style="font-size:0.88rem; color:var(--soft); margin-top:1rem;">
+          このほかの納品文書（解読レポート・動作確認書・引き継ぎ手順書・ソースの保管方法）の見本は
+          <a href="../vba-docs/">納品文書サンプル一覧</a>にまとめています。
+        </p>
+      </div>
+    </section>
+
+    <section class="closing">
+      <div class="container">
+        <p>
+          「動かなくなったマクロ」のご相談は、原因が分かるまでが一番不安な時間だと思います。
+          まずは現状の切り分けとご報告から。お手元のブックを変更する前に、必ず元ファイルを保全した上で作業します。
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>架空サンプルによる自主制作の見本です。</span>
+      <a href="../">Web制作ポートフォリオTOP</a>
+    </div>
+  </footer>
+</body>
+</html>

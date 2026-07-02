@@ -18,17 +18,17 @@
       } catch (e) {}
     })();
   </script>
-  <title>Web制作ポートフォリオ｜LP5作品＋サイト改修事例3件（実在1件含む）＋小修正/検索対応デモ＋見積もりWebアプリ＋絞り込み検索UI＋VBA納品文書サンプル</title>
-  <meta name="description" content="フレームワーク不使用のvanilla HTML / CSS / JS で制作した、架空ブランドのランディングページ5作品（オンラインスクール・コーヒー焙煎所・美容サロン・パーソナルジム・歯科クリニック）、既存サイトのビフォーアフター改修事例3件（実在1件含む）、よくある小修正デモ集、検索エンジン対応・Q&A設置デモ、リアルタイム計算する見積もりWebアプリ、条件で絞り込める賃貸物件検索UI、そしてExcel VBA保守の納品文書サンプルまでをまとめたWeb制作ポートフォリオ。" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23B89149'/%3E%3Ctext x='16' y='22.5' font-family='Segoe UI,sans-serif' font-size='17' font-weight='700' fill='%2317150F' text-anchor='middle'%3EW%3C/text%3E%3C/svg%3E" />
-  <link rel="canonical" href="https://hayaboosan.github.io/portfolio/" />
+  <title>Excel VBA（マクロ）の修正・解読・開発｜コードを読んで、壊さず直します</title>
+  <meta name="description" content="動かなくなったExcelマクロ（VBA）の修正、作った人が退職して中身が分からないマクロの解読・文書化、新規マクロの開発を承ります。ソースはロックなし・コメント付きで納品し、既存の機能は変更しません。納品後14日間は同一原因の不具合を無償対応します。" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231D6F42'/%3E%3Ctext x='16' y='22' font-family='Segoe UI,sans-serif' font-size='13' font-weight='700' fill='%23FFFFFF' text-anchor='middle'%3EVB%3C/text%3E%3C/svg%3E" />
+  <link rel="canonical" href="https://portfolio.tegumi.dev/" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://hayaboosan.github.io/portfolio/" />
-  <meta property="og:title" content="Web制作ポートフォリオ｜LP5作品＋改修事例3件（実在1件含む）＋小修正/検索対応デモ＋見積もりWebアプリ＋絞り込み検索UI" />
-  <meta property="og:description" content="vanilla HTML / CSS / JS で制作した架空ブランドのLP5作品、既存サイトの改修事例3件（実在1件含む）、よくある小修正デモ集、検索エンジン対応・Q&A設置デモ、リアルタイム計算する見積もりWebアプリ、条件で絞り込める賃貸物件検索UI、Excel VBA保守の納品文書サンプル。" />
-  <meta property="og:image" content="https://hayaboosan.github.io/portfolio/assets/og/hub.png" />
+  <meta property="og:url" content="https://portfolio.tegumi.dev/" />
+  <meta property="og:title" content="Excel VBA（マクロ）の修正・解読・開発｜コードを読んで、壊さず直します" />
+  <meta property="og:description" content="動かないマクロの修正、退職者が残したマクロの解読・文書化、新規開発。ソースはロックなし・コメント付き、既存機能は変更せず、納品後14日間の同一原因不具合は無償対応。" />
+  <meta property="og:image" content="https://portfolio.tegumi.dev/assets/og/hub.png" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <!-- Google Fonts -->
@@ -38,8 +38,9 @@
 
   <style>
     /* ============================================================
-       Web制作ポートフォリオ ハブページ
+       Excel VBA ポートフォリオ ハブページ
        単一ファイル完結 / フレームワーク不使用
+       アクセント＝Excelグリーン（vba-docs と共通の系統色）
        ============================================================ */
 
     :root {
@@ -47,47 +48,29 @@
       --ink-soft: #555a66;
       --ink-faint: #8b909c;
       --bg: #f5f3ee;
-      --bg-deep: #14161c;
+      --bg-deep: #14231b;
       --panel: #fbfaf6;
       --line: rgba(26, 28, 34, 0.1);
-      --gold: #b89149;
+      --accent: #1d6f42;          /* Excel グリーン（vba-docs と同系） */
+      --accent-strong: #1d6f42;   /* ボタン用（両テーマ固定） */
+      --mark1: rgba(29, 111, 66, 0.32);
+      --mark2: rgba(29, 111, 66, 0.12);
 
       /* テーマで切り替える派生トークン */
       --header-bg: rgba(245, 243, 238, 0.78);
       --header-bg-scrolled: rgba(245, 243, 238, 0.92);
-      --btn-bg: #14161c;
+      --btn-bg: #14231b;
       --btn-fg: #ffffff;
       --hero-glow: 0.5;
       --tag-bg: rgba(0, 0, 0, 0.015);
-
-      /* 各作品のブランドカラー */
-      --lumen-primary: #1b2a4a;
-      --lumen-accent: #e8b04b;
-      --lumen-bg: #f7f4ec;
-
-      --akane-primary: #3a2a1e;
-      --akane-accent: #c2632b;
-      --akane-bg: #f4ede2;
-
-      --tsuki-primary: #1f2a28;
-      --tsuki-accent: #a88b6a;
-      --tsuki-bg: #f4f1eb;
-
-      --gym-primary: #17171b;
-      --gym-accent: #c8ff00;
-      --gym-bg: #101015;
-
-      --soyokaze-primary: #15679a;
-      --soyokaze-accent: #2f9bd6;
-      --soyokaze-bg: #eef6fb;
 
       --serif: "Shippori Mincho B1", "Hiragino Mincho ProN", serif;
       --sans: "Zen Kaku Gothic New", "Hiragino Sans", "Noto Sans JP", sans-serif;
       --ease: cubic-bezier(0.22, 1, 0.36, 1);
       --radius: 18px;
-      --shadow-sm: 0 6px 20px -10px rgba(20, 22, 28, 0.25);
-      --shadow-md: 0 26px 60px -34px rgba(20, 22, 28, 0.45);
-      --shadow-lg: 0 40px 90px -42px rgba(20, 22, 28, 0.55);
+      --shadow-sm: 0 6px 20px -10px rgba(20, 35, 27, 0.25);
+      --shadow-md: 0 26px 60px -34px rgba(20, 35, 27, 0.45);
+      --shadow-lg: 0 40px 90px -42px rgba(20, 35, 27, 0.55);
     }
 
     /* ============ ダークテーマ ============
@@ -98,10 +81,12 @@
       --ink-soft: #b6b3aa;
       --ink-faint: #9498a3;
       --bg: #14161b;
-      --bg-deep: #191c22;
+      --bg-deep: #16211b;
       --panel: #1c1f27;
       --line: rgba(233, 231, 224, 0.13);
-      --gold: #cda55c;
+      --accent: #4db681;
+      --mark1: rgba(77, 182, 129, 0.34);
+      --mark2: rgba(77, 182, 129, 0.14);
 
       --header-bg: rgba(20, 22, 27, 0.72);
       --header-bg-scrolled: rgba(20, 22, 27, 0.9);
@@ -118,10 +103,12 @@
         --ink-soft: #b6b3aa;
         --ink-faint: #9498a3;
         --bg: #14161b;
-        --bg-deep: #191c22;
+        --bg-deep: #16211b;
         --panel: #1c1f27;
         --line: rgba(233, 231, 224, 0.13);
-        --gold: #cda55c;
+        --accent: #4db681;
+        --mark1: rgba(77, 182, 129, 0.34);
+        --mark2: rgba(77, 182, 129, 0.14);
         --header-bg: rgba(20, 22, 27, 0.72);
         --header-bg-scrolled: rgba(20, 22, 27, 0.9);
         --btn-bg: #e9e7e0;
@@ -149,7 +136,7 @@
 
     img { display: block; max-width: 100%; height: auto; }
     a { color: inherit; text-decoration: none; }
-    ul { list-style: none; }
+    ul, ol { list-style: none; }
 
     .container {
       width: min(1180px, 100% - 2.6rem);
@@ -197,9 +184,10 @@
       height: 38px;
       border-radius: 10px;
       background: var(--bg-deep);
-      color: var(--gold);
+      color: var(--accent);
       flex-shrink: 0;
     }
+    :root[data-theme="dark"] .brand__mark { color: #7ccfa3; }
     .brand__name {
       font-family: var(--serif);
       font-weight: 600;
@@ -214,7 +202,7 @@
       color: var(--ink-faint);
       text-transform: uppercase;
     }
-    .header__nav { display: flex; align-items: center; gap: 1.8rem; }
+    .header__nav { display: flex; align-items: center; gap: 1.6rem; }
     .header__nav a {
       font-size: 0.82rem;
       letter-spacing: 0.06em;
@@ -239,20 +227,20 @@
       transition: color 0.2s var(--ease), border-color 0.2s var(--ease), background 0.2s var(--ease);
     }
     .theme-toggle:hover { color: var(--ink); border-color: var(--ink-faint); }
-    .theme-toggle:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
     .theme-toggle svg { width: 19px; height: 19px; display: block; }
     .theme-toggle .icon-sun { display: none; }
     :root[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
     :root[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
-    /* ナビ項目9つ＋CTAが1行に収まらない幅では CTA のみ表示 */
-    @media (max-width: 1150px) {
+    /* ナビ項目6つ＋CTAが1行に収まらない幅では CTA のみ表示 */
+    @media (max-width: 760px) {
       .header__nav a:not(.nav-cta) { display: none; }
     }
 
     /* ============ HERO ============ */
     .hero {
       position: relative;
-      padding-block: clamp(4.5rem, 12vw, 8.5rem) clamp(3rem, 7vw, 5rem);
+      padding-block: clamp(4rem, 11vw, 7.5rem) clamp(3rem, 7vw, 5rem);
       overflow: hidden;
     }
     .hero::before,
@@ -267,14 +255,14 @@
     .hero::before {
       width: 460px; height: 460px;
       top: -160px; right: -120px;
-      background: radial-gradient(circle, rgba(232, 176, 75, 0.4), transparent 70%);
+      background: radial-gradient(circle, rgba(29, 111, 66, 0.35), transparent 70%);
     }
     .hero::after {
       width: 420px; height: 420px;
       bottom: -200px; left: -140px;
-      background: radial-gradient(circle, rgba(168, 139, 106, 0.35), transparent 70%);
+      background: radial-gradient(circle, rgba(96, 156, 118, 0.3), transparent 70%);
     }
-    .hero__inner { position: relative; z-index: 1; max-width: 760px; }
+    .hero__inner { position: relative; z-index: 1; max-width: 800px; }
     .hero__eyebrow {
       display: inline-flex;
       align-items: center;
@@ -283,18 +271,34 @@
       letter-spacing: 0.32em;
       text-transform: uppercase;
       color: var(--ink-soft);
-      margin-bottom: 1.6rem;
+      margin-bottom: 1.4rem;
     }
     .hero__eyebrow::before {
       content: "";
       width: 38px; height: 1px;
-      background: var(--gold);
+      background: var(--accent);
+    }
+    /* 事故ワード（発注者の困りごと）チップ */
+    .pain-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin-bottom: 1.5rem;
+    }
+    .pain-list li {
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0.32rem 0.95rem;
+      box-shadow: var(--shadow-sm);
     }
     .hero__title {
       font-family: var(--serif);
       font-weight: 700;
-      font-size: clamp(2.4rem, 6.5vw, 4.4rem);
-      line-height: 1.28;
+      font-size: clamp(2.2rem, 6.2vw, 4rem);
+      line-height: 1.3;
       letter-spacing: 0.02em;
       margin-bottom: 1.6rem;
     }
@@ -309,18 +313,18 @@
       left: -2%; right: -2%;
       bottom: 0.08em;
       height: 0.42em;
-      background: linear-gradient(90deg, rgba(232, 176, 75, 0.55), rgba(194, 99, 43, 0.32));
+      background: linear-gradient(90deg, var(--mark1), var(--mark2));
       z-index: -1;
       border-radius: 4px;
     }
     /* 356px未満で nowrap の強調部分がはみ出さないよう縮小 */
     @media (max-width: 360px) {
-      .hero__title { font-size: clamp(1.8rem, 10.4vw, 2.4rem); }
+      .hero__title { font-size: clamp(1.7rem, 10vw, 2.2rem); }
     }
     .hero__lead {
       font-size: clamp(0.98rem, 1.6vw, 1.12rem);
       color: var(--ink-soft);
-      max-width: 56ch;
+      max-width: 58ch;
       margin-bottom: 2.2rem;
     }
     .hero__meta {
@@ -335,18 +339,34 @@
       content: "";
       width: 6px; height: 6px;
       border-radius: 50%;
-      background: var(--gold);
+      background: var(--accent);
     }
 
-    /* ============ WORKS ============ */
-    .works { padding-block: clamp(2rem, 5vw, 3rem) clamp(4rem, 9vw, 7rem); }
+    /* ============ HERO CTA ============ */
+    .hero__cta-wrap { margin-bottom: 2rem; display: flex; flex-wrap: wrap; gap: 0.8rem 1.2rem; align-items: center; }
+    .hero__cta {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: var(--btn-bg); color: var(--btn-fg);
+      padding: 0.8rem 1.5rem; border-radius: 999px;
+      font-size: 0.9rem; font-weight: 500; letter-spacing: 0.04em;
+      transition: gap 0.25s var(--ease), filter 0.25s var(--ease);
+    }
+    .hero__cta::after { content: "→"; transition: transform 0.25s var(--ease); }
+    .hero__cta:hover { gap: 0.85rem; filter: brightness(1.18); }
+    .hero__cta:hover::after { transform: translateX(3px); }
+    .hero__cta-sub {
+      font-size: 0.88rem; color: var(--ink-soft);
+      text-decoration: underline; text-underline-offset: 3px;
+    }
+    .hero__cta-sub:hover { color: var(--ink); }
 
-    .section-head { margin-bottom: clamp(2.4rem, 5vw, 3.6rem); }
+    /* ============ SECTION HEAD（共通） ============ */
+    .section-head { margin-bottom: clamp(2.2rem, 5vw, 3.2rem); }
     .section-head__eyebrow {
       font-size: 0.72rem;
       letter-spacing: 0.34em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--accent);
       margin-bottom: 0.8rem;
     }
     .section-head__title {
@@ -359,320 +379,211 @@
       margin-top: 0.8rem;
       color: var(--ink-soft);
       font-size: 0.95rem;
-      max-width: 60ch;
+      max-width: 62ch;
     }
 
-    .work-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr));
-      gap: clamp(1.4rem, 2.6vw, 2rem);
-    }
-
-    .card {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow-sm);
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease),
-                  box-shadow 0.4s var(--ease);
-    }
-    .card.is-visible { opacity: 1; transform: none; }
-    .card:hover {
-      box-shadow: var(--shadow-lg);
-      transform: translateY(-6px);
-    }
-    .card:focus-within {
-      outline: 2px solid var(--card-accent, var(--gold));
-      outline-offset: 3px;
-    }
-
-    /* ビジュアル（サムネ的）：ブランド配色のグラデ + 抽象モチーフ */
-    .card__visual {
-      position: relative;
-      aspect-ratio: 16 / 10;
-      background: var(--card-grad);
-      overflow: hidden;
-      isolation: isolate;
-    }
-    .card__visual > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-    .card__glow {
-      position: absolute;
-      width: 60%; aspect-ratio: 1;
-      border-radius: 50%;
-      filter: blur(46px);
-      opacity: 0.7;
-      background: var(--card-accent);
-      top: -15%; right: -10%;
-      transition: transform 0.8s var(--ease);
-    }
-    .card:hover .card__glow { transform: translate(-12%, 18%) scale(1.15); }
-    .card__genre {
-      position: absolute;
-      top: 1rem;
-      left: 1rem;
-      z-index: 2;
-      font-size: 0.68rem;
-      letter-spacing: 0.18em;
-      padding: 0.4rem 0.85rem;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.16);
-      backdrop-filter: blur(6px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      color: #fff;
-    }
-    .card__logo {
-      position: absolute;
-      inset: 0;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: #fff;
-      padding: 1.5rem;
-    }
-    .card__logo-mark {
-      width: 52px; height: 52px;
-      margin-bottom: 0.9rem;
-      color: var(--card-accent);
-    }
-    .card__logo-name {
-      font-family: var(--serif);
-      font-weight: 700;
-      font-size: clamp(1.4rem, 3vw, 1.8rem);
-      letter-spacing: 0.06em;
-      line-height: 1.25;
-      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.35);
-    }
-    .card__logo-en {
-      margin-top: 0.5rem;
-      font-size: 0.66rem;
-      letter-spacing: 0.34em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.8);
-    }
-
-    .card__body {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      padding: 1.6rem 1.6rem 1.5rem;
-    }
-    .card__catch {
-      font-family: var(--serif);
-      font-weight: 600;
-      font-size: 1.18rem;
-      letter-spacing: 0.03em;
-      line-height: 1.55;
-      margin-bottom: 0.7rem;
-      color: var(--ink);
-    }
-    .card__desc {
-      font-size: 0.9rem;
-      color: var(--ink-soft);
-      flex: 1;
-      margin-bottom: 1.3rem;
-    }
-    .card__tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.45rem;
-      margin-bottom: 1.4rem;
-    }
-    .card__tag {
-      font-size: 0.7rem;
-      letter-spacing: 0.04em;
-      color: var(--ink-soft);
-      padding: 0.28rem 0.7rem;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: var(--tag-bg);
-    }
-    .card__link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      align-self: flex-start;
-      font-weight: 500;
-      font-size: 0.9rem;
-      letter-spacing: 0.04em;
-      padding: 0.7rem 1.3rem;
-      border-radius: 999px;
-      color: #fff;
-      background: var(--card-primary);
-      transition: gap 0.25s var(--ease), filter 0.25s var(--ease);
-    }
-    .card__link::after {
-      content: "";
-      width: 18px; height: 9px;
-      background: currentColor;
-      -webkit-mask: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 12'%3E%3Cpath d='M0 6h21M16 1l5 5-5 5' fill='none' stroke='%23000' stroke-width='1.6'/%3E%3C/svg%3E");
-              mask: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 12'%3E%3Cpath d='M0 6h21M16 1l5 5-5 5' fill='none' stroke='%23000' stroke-width='1.6'/%3E%3C/svg%3E");
-      transition: transform 0.25s var(--ease);
-    }
-    /* 注意：.card__link に filter / transform を付けないこと。それらは containing block を生成し、
-       下の stretched link（.card__link::before）の基準が .card からボタン自身に変わって当たり判定が
-       ボタンサイズに縮み、カード全体が押せなくなる。ホバー感は card の浮き＋矢印スライドで十分。 */
-    .card:hover .card__link { gap: 0.9rem; }
-    .card:hover .card__link::after { transform: translateX(3px); }
-    /* ダーク時：ブランド配色の濃いボタンが暗い面に埋もれないよう微かな縁取り */
-    :root[data-theme="dark"] .card__link { box-shadow: inset 0 0 0 1px rgba(233, 231, 224, 0.26); }
-
-    /* カード全体をクリック可能に（stretched link）。
-       リンクの当たり判定をカード全面へ拡張し、ホバーで浮く演出と操作対象を一致させる。
-       .card は position:relative なので、この絶対配置の擬似要素はカード全体を覆う。 */
-    .card__link::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-    }
-    /* キーボードのフォーカスは従来どおりボタンに表示（card の :focus-within と併用） */
-
-    /* ブランド別アクセント割当 */
-    .card--lumen {
-      --card-primary: var(--lumen-primary);
-      --card-accent: var(--lumen-accent);
-      --card-grad: linear-gradient(150deg, #16233e 0%, #1b2a4a 55%, #2c4366 100%);
-    }
-    .card--akane {
-      --card-primary: var(--akane-primary);
-      --card-accent: var(--akane-accent);
-      --card-grad: linear-gradient(150deg, #2a1d13 0%, #4a3322 50%, #b65a28 130%);
-    }
-    .card--tsuki {
-      --card-primary: var(--tsuki-primary);
-      --card-accent: var(--tsuki-accent);
-      --card-grad: linear-gradient(150deg, #18211f 0%, #1f2a28 55%, #3a4d49 110%);
-    }
-    .card--gym {
-      --card-primary: var(--gym-primary);
-      --card-accent: var(--gym-accent);
-      --card-grad: linear-gradient(150deg, #0b0b0e 0%, #17171b 55%, #21240c 130%);
-    }
-    .card--soyokaze {
-      --card-primary: var(--soyokaze-primary);
-      --card-accent: var(--soyokaze-accent);
-      --card-grad: linear-gradient(150deg, #1f88bf 0%, #1577a8 60%, #0f6f9c 120%);
-    }
-
-    /* ============ REFRESH (Before / After) ============ */
-    .refresh { padding-block: clamp(2rem, 5vw, 3rem) clamp(3.5rem, 8vw, 6rem); }
-    .refresh-card {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--panel);
-      box-shadow: var(--shadow-md);
-      overflow: hidden;
-    }
-    .refresh-card__grid { display: grid; grid-template-columns: 1fr auto 1fr; align-items: stretch; }
-    .refresh-panel { padding: clamp(1.4rem, 3.5vw, 2.4rem); }
-    .refresh-panel--before { background: #ece7dd; color: #4a4336; }
-    .refresh-panel--after { background: #0f3b38; color: #eaf4f2; }
-    .refresh-panel__tag {
-      display: inline-block; font-weight: 700; font-size: 0.76rem; letter-spacing: 0.14em;
-      padding: 0.25rem 0.72rem; border-radius: 999px;
-      background: rgba(74, 67, 54, 0.16); color: #5f5440;
-    }
-    .refresh-panel__tag--after { background: rgba(200, 255, 0, 0.16); color: #d6f56a; }
-    .refresh-panel__year { margin-top: 0.7rem; font-weight: 700; font-size: clamp(1rem, 2.4vw, 1.2rem); line-height: 1.5; }
-    .refresh-panel__list { margin-top: 0.9rem; padding-left: 1.15rem; font-size: 0.92rem; line-height: 1.85; }
-    .refresh-panel--before .refresh-panel__list { color: #5b5142; }
-    .refresh-arrow { display: grid; place-items: center; font-size: 1.5rem; color: var(--gold); background: var(--panel); padding-inline: 0.35rem; }
-    .refresh-card__foot {
-      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
-      gap: 1rem 1.4rem; padding: clamp(1.2rem, 3vw, 1.7rem) clamp(1.4rem, 3.5vw, 2.4rem);
-      border-top: 1px solid var(--line);
-    }
-    .refresh-card__desc { flex: 1 1 320px; font-size: 0.9rem; color: var(--ink-soft); margin: 0; }
-    .refresh-card__actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
-    .refresh-card__link {
-      display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none;
-      background: var(--btn-bg); color: var(--btn-fg); padding: 0.72rem 1.35rem; border-radius: 999px;
-      font-weight: 700; font-size: 0.92rem; transition: filter 0.25s var(--ease), gap 0.25s var(--ease);
-    }
-    .refresh-card__link::after { content: "→"; transition: transform 0.25s var(--ease); }
-    .refresh-card__link:hover { filter: brightness(1.35); gap: 0.8rem; }
-    .refresh-card__link:hover::after { transform: translateX(3px); }
-    .refresh-card__sub { color: var(--ink-soft); font-size: 0.88rem; text-decoration: underline; text-underline-offset: 3px; }
-    .refresh-card__sub:hover { color: var(--ink); }
-    @media (max-width: 680px) {
-      .refresh-card__grid { grid-template-columns: 1fr; }
-      .refresh-arrow { padding-block: 0.5rem; }
-      .refresh-arrow span { display: inline-block; transform: rotate(90deg); }
-    }
-    .refresh-card + .refresh-card { margin-top: clamp(1.4rem, 3vw, 2rem); }
-    .refresh-card--indigo .refresh-panel--after { background: #16263d; color: #eaf0f7; }
-    .refresh-card--indigo .refresh-panel__tag--after { background: rgba(216, 154, 46, 0.18); color: #f0c878; }
-    .refresh-card--indigo .refresh-arrow { color: #c4452f; }
-    /* petit-chaton（実在サイト）用：オリーブ配色 */
-    .refresh-card--olive .refresh-panel--after { background: #4f5026; color: #f1efe2; }
-    .refresh-card--olive .refresh-panel__tag--after { background: rgba(227, 216, 168, 0.2); color: #ece2b4; }
-    .refresh-card--olive .refresh-arrow { color: #6f7038; }
-    .refresh-card__badge {
-      display: inline-flex; align-items: center; gap: 0.4rem; vertical-align: 1px;
-      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; margin-right: 0.55rem;
-      padding: 0.22rem 0.66rem; border-radius: 999px;
-      background: rgba(111, 112, 56, 0.12); color: #5c5d2e; border: 1px solid rgba(111, 112, 56, 0.28);
-    }
-    .refresh-card__badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-    :root[data-theme="dark"] .refresh-card__badge { background: rgba(205, 165, 92, 0.16); color: #d8b974; border-color: rgba(205, 165, 92, 0.32); }
-
-    /* ============ FIXES (Quick Fixes catalog) ============ */
-    .fixes { padding-block: clamp(1rem, 3vw, 2rem) clamp(3.5rem, 8vw, 6rem); }
-    .fixes-card {
-      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
-      gap: 1.2rem 1.8rem; padding: clamp(1.4rem, 3.6vw, 2.3rem);
-      border: 1px solid var(--line); border-radius: var(--radius);
-      background: var(--panel); box-shadow: var(--shadow-md);
-    }
-    .fixes-card__body { flex: 1 1 380px; }
-    .fixes-card__catch { font-family: var(--serif); font-weight: 600; font-size: clamp(1.15rem, 2.6vw, 1.4rem); letter-spacing: 0.02em; color: var(--ink); }
-    .fixes-card__desc { margin-top: 0.7rem; font-size: 0.92rem; color: var(--ink-soft); max-width: 60ch; }
-    .fixes-card__tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1.1rem; }
-
-    /* ============ TECH ============ */
-    .tech {
+    /* ============ PROMISE（納品の約束・最重要） ============ */
+    .promise {
       padding-block: clamp(3.5rem, 7vw, 6rem);
       background: var(--bg-deep);
       color: rgba(245, 243, 238, 0.9);
     }
-    .tech .section-head__title { color: #fff; }
-    .tech .section-head__lead { color: rgba(245, 243, 238, 0.65); }
-    .tech-grid {
+    .promise .section-head__eyebrow { color: #7ccfa3; }
+    .promise .section-head__title { color: #fff; }
+    .promise .section-head__lead { color: rgba(245, 243, 238, 0.68); }
+    .promise-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.4rem;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.2rem;
+      counter-reset: promise;
     }
-    .tech-card {
-      padding: 1.6rem;
-      border: 1px solid rgba(245, 243, 238, 0.12);
+    .promise-card {
+      padding: 1.5rem 1.5rem 1.6rem;
+      border: 1px solid rgba(245, 243, 238, 0.14);
       border-radius: 14px;
-      background: rgba(245, 243, 238, 0.03);
+      background: rgba(245, 243, 238, 0.04);
     }
-    .tech-card h3 {
+    .promise-card::before {
+      counter-increment: promise;
+      content: "0" counter(promise);
+      display: block;
+      font-family: var(--serif);
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.14em;
+      color: #7ccfa3;
+      margin-bottom: 0.7rem;
+    }
+    .promise-card h3 {
       font-family: var(--serif);
       font-weight: 600;
-      font-size: 1.05rem;
+      font-size: 1.04rem;
+      line-height: 1.6;
+      margin-bottom: 0.55rem;
+      color: #fff;
+    }
+    .promise-card p {
+      font-size: 0.86rem;
+      color: rgba(245, 243, 238, 0.72);
+    }
+    .promise__note {
+      margin-top: 1.6rem;
+      font-size: 0.8rem;
+      color: rgba(245, 243, 238, 0.55);
+    }
+
+    /* ============ CASES（事例） ============ */
+    .cases { padding-block: clamp(3.5rem, 8vw, 6rem) clamp(3rem, 7vw, 5rem); }
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.4rem;
+    }
+    .case-card {
+      display: flex;
+      flex-direction: column;
+      padding: clamp(1.4rem, 3vw, 1.9rem);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: var(--shadow-md);
+    }
+    .case-card__tag {
+      align-self: flex-start;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      border: 1px solid currentColor;
+      border-radius: 999px;
+      padding: 0.2rem 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .case-card h3 {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: 1.15rem;
+      line-height: 1.6;
+      letter-spacing: 0.02em;
       margin-bottom: 0.6rem;
-      color: var(--gold);
     }
-    .tech-card p {
+    .case-card p {
       font-size: 0.88rem;
-      color: rgba(245, 243, 238, 0.7);
+      color: var(--ink-soft);
+      flex-grow: 1;
+      margin-bottom: 1.3rem;
     }
+    .cases__note {
+      margin-top: 1.6rem;
+      font-size: 0.8rem;
+      color: var(--ink-faint);
+    }
+
+    /* 汎用リンクボタン */
+    .btn-link {
+      display: inline-flex; align-items: center; gap: 0.5rem; align-self: flex-start;
+      background: var(--btn-bg); color: var(--btn-fg); padding: 0.68rem 1.3rem; border-radius: 999px;
+      font-weight: 700; font-size: 0.88rem; transition: filter 0.25s var(--ease), gap 0.25s var(--ease);
+    }
+    .btn-link::after { content: "→"; transition: transform 0.25s var(--ease); }
+    .btn-link:hover { filter: brightness(1.35); gap: 0.8rem; }
+    .btn-link:hover::after { transform: translateX(3px); }
+
+    /* ============ DOCS（納品文書見本） ============ */
+    .docs { padding-block: clamp(3rem, 7vw, 5.5rem); background: var(--panel); border-block: 1px solid var(--line); }
+    .docs-card {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 1.4rem 2rem;
+    }
+    .docs-card__body { flex: 1 1 400px; }
+    .docs-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.5rem 1.4rem;
+      margin-block: 1.2rem 1.4rem;
+    }
+    .docs-list li {
+      display: flex; align-items: baseline; gap: 0.55rem;
+      font-size: 0.9rem; color: var(--ink);
+    }
+    .docs-list li::before {
+      content: "✓";
+      font-weight: 700;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .docs-card__desc { font-size: 0.92rem; color: var(--ink-soft); max-width: 66ch; }
+    .docs__note { margin-top: 1rem; font-size: 0.8rem; color: var(--ink-faint); }
+
+    /* ============ PRICE（料金の目安） ============ */
+    .price { padding-block: clamp(3.5rem, 8vw, 6rem); }
+    .price-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .price-table caption { text-align: left; }
+    .price-table th, .price-table td { text-align: left; padding: 0.8rem 0.9rem; border-bottom: 1px solid var(--line); }
+    .price-table thead th { color: var(--ink-faint); font-weight: 500; font-size: 0.78rem; letter-spacing: 0.06em; }
+    .price-table td:last-child, .price-table thead th:last-child { text-align: right; }
+    .price-table tbody td:last-child { font-weight: 700; white-space: nowrap; color: var(--ink); }
+    .price-note { margin-top: 0.9rem; font-size: 0.82rem; color: var(--ink-faint); line-height: 1.8; }
+
+    .visually-hidden {
+      position: absolute !important; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+    }
+
+    /* ============ FLOW（進め方） ============ */
+    .flow-section { padding-block: clamp(3rem, 7vw, 5.5rem); background: var(--panel); border-block: 1px solid var(--line); }
+    .flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(168px, 1fr)); gap: 1rem; counter-reset: step; list-style: none; }
+    .flow li {
+      padding: 1.2rem 1.2rem 1.3rem; border: 1px solid var(--line);
+      border-radius: 14px; background: var(--bg);
+    }
+    .flow li::before {
+      counter-increment: step; content: counter(step);
+      display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%;
+      background: var(--bg-deep); color: #7ccfa3; font-weight: 700; font-size: 0.9rem; margin-bottom: 0.7rem;
+    }
+    .flow li h3 { font-size: 0.92rem; font-weight: 700; margin-bottom: 0.35rem; }
+    .flow li p { font-size: 0.82rem; color: var(--ink-soft); }
+    .flow-note { margin-top: 1.2rem; font-size: 0.82rem; color: var(--ink-faint); line-height: 1.8; }
+
+    /* ============ TOOLS（その他の制作物） ============ */
+    .tools { padding-block: clamp(3.5rem, 8vw, 6rem); }
+    .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.1rem; max-width: 780px; }
+    .tool-card {
+      display: block;
+      padding: 1.3rem 1.4rem;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--panel);
+      transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
+    }
+    .tool-card:hover { border-color: var(--accent); box-shadow: var(--shadow-sm); }
+    .tool-card h3 { font-size: 0.98rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--ink); }
+    .tool-card h3::after { content: " →"; color: var(--accent); }
+    .tool-card p { font-size: 0.86rem; color: var(--ink-soft); }
+
+    /* ============ CTAバンド ============ */
+    .cta-band { padding-block: 0 clamp(3.5rem, 8vw, 6rem); }
+    .cta-band__inner {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.4rem;
+      padding: clamp(1.4rem, 3.5vw, 2rem); border-radius: var(--radius);
+      background: var(--bg-deep); color: rgba(245, 243, 238, 0.92);
+    }
+    .cta-band__inner p { flex: 1 1 320px; font-size: 0.95rem; }
+    .cta-band__btn {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: var(--accent-strong); color: #ffffff; font-weight: 700;
+      padding: 0.85rem 1.6rem; border-radius: 999px; font-size: 0.95rem;
+      transition: filter 0.25s var(--ease), gap 0.25s var(--ease);
+    }
+    .cta-band__btn::after { content: "→"; transition: transform 0.25s var(--ease); }
+    .cta-band__btn:hover { filter: brightness(1.15); gap: 0.85rem; }
+    .cta-band__btn:hover::after { transform: translateX(3px); }
 
     /* ============ FOOTER ============ */
     .site-footer {
       padding-block: clamp(2.5rem, 5vw, 3.5rem) 1.6rem;
-      background: #0e1015;
+      background: #0e1512;
       color: rgba(245, 243, 238, 0.7);
       border-top: 1px solid var(--line);
     }
@@ -696,7 +607,33 @@
       color: rgba(245, 243, 238, 0.75);
       transition: color 0.2s var(--ease);
     }
-    .site-footer__links a:hover { color: var(--gold); }
+    .site-footer__links a:hover { color: #7ccfa3; }
+
+    /* 過去のWeb制作アーカイブ（小さくテキストリンクのみ） */
+    .site-footer__archive {
+      padding-block: 1.3rem 0.2rem;
+      border-bottom: 1px solid rgba(245, 243, 238, 0.1);
+    }
+    .site-footer__archive h2 {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      color: rgba(245, 243, 238, 0.5);
+      margin-bottom: 0.45rem;
+    }
+    .site-footer__archive ul {
+      display: flex; flex-wrap: wrap; gap: 0.2rem 1.1rem;
+      padding-bottom: 1.1rem;
+    }
+    .site-footer__archive a {
+      font-size: 0.72rem;
+      color: rgba(245, 243, 238, 0.45);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.2s var(--ease);
+    }
+    .site-footer__archive a:hover { color: rgba(245, 243, 238, 0.8); }
+
     .site-footer__bottom {
       padding-top: 1.4rem;
       font-size: 0.76rem;
@@ -705,91 +642,15 @@
     }
     .site-footer__bottom p + p { margin-top: 0.3rem; }
 
-    /* ============ HERO CTA ============ */
-    .hero__cta-wrap { margin-bottom: 2rem; }
-    .hero__cta {
-      display: inline-flex; align-items: center; gap: 0.6rem;
-      background: var(--btn-bg); color: var(--btn-fg);
-      padding: 0.8rem 1.5rem; border-radius: 999px;
-      font-size: 0.9rem; font-weight: 500; letter-spacing: 0.04em;
-      transition: gap 0.25s var(--ease), filter 0.25s var(--ease);
-    }
-    .hero__cta::after { content: "→"; transition: transform 0.25s var(--ease); }
-    .hero__cta:hover { gap: 0.85rem; filter: brightness(1.18); }
-    .hero__cta:hover::after { transform: translateX(3px); }
-
-    /* ============ OFFER (ご依頼について) ============ */
-    .offer { padding-block: clamp(3rem, 7vw, 5.5rem); background: var(--panel); border-top: 1px solid var(--line); }
-    .offer__group + .offer__group { margin-top: clamp(2.4rem, 5vw, 3.4rem); }
-    .offer__group-title {
-      font-family: var(--serif); font-weight: 600; font-size: 1.15rem;
-      letter-spacing: 0.03em; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.7rem;
-    }
-    .offer__group-title::before { content: ""; width: 26px; height: 1px; background: var(--gold); flex-shrink: 0; }
-
-    .visually-hidden {
-      position: absolute !important; width: 1px; height: 1px;
-      padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
-    }
-    .do-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.1rem; }
-    .do-card { padding: 1.3rem 1.4rem; border: 1px solid var(--line); border-radius: 14px; background: var(--bg); }
-    .do-card h4 { font-size: 0.98rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--ink); }
-    .do-card p { font-size: 0.86rem; color: var(--ink-soft); }
-
-    .price-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-    .price-table caption { text-align: left; }
-    .price-table th, .price-table td { text-align: left; padding: 0.8rem 0.9rem; border-bottom: 1px solid var(--line); }
-    .price-table thead th { color: var(--ink-faint); font-weight: 500; font-size: 0.78rem; letter-spacing: 0.06em; }
-    .price-table td:last-child, .price-table thead th:last-child { text-align: right; }
-    .price-table tbody td:last-child { font-weight: 700; white-space: nowrap; color: var(--ink); }
-    .price-note { margin-top: 0.9rem; font-size: 0.82rem; color: var(--ink-faint); line-height: 1.8; }
-
-    .flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(168px, 1fr)); gap: 1rem; counter-reset: step; list-style: none; }
-    .flow li {
-      padding: 1.2rem 1.2rem 1.3rem; border: 1px solid var(--line);
-      border-radius: 14px; background: var(--bg);
-    }
-    .flow li::before {
-      counter-increment: step; content: counter(step);
-      display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%;
-      background: var(--bg-deep); color: var(--gold); font-weight: 700; font-size: 0.9rem; margin-bottom: 0.7rem;
-    }
-    .flow li h4 { font-size: 0.92rem; font-weight: 700; margin-bottom: 0.35rem; }
-    .flow li p { font-size: 0.82rem; color: var(--ink-soft); }
-
-    .offer__cta {
-      margin-top: clamp(2.2rem, 5vw, 3rem);
-      display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.4rem;
-      padding: clamp(1.4rem, 3.5vw, 2rem); border-radius: var(--radius);
-      background: var(--bg-deep); color: rgba(245, 243, 238, 0.92);
-    }
-    .offer__cta p { flex: 1 1 320px; font-size: 0.95rem; }
-    .offer__cta-btn {
-      display: inline-flex; align-items: center; gap: 0.6rem;
-      background: var(--gold); color: #1a1410; font-weight: 700;
-      padding: 0.85rem 1.6rem; border-radius: 999px; font-size: 0.95rem;
-      transition: filter 0.25s var(--ease), gap 0.25s var(--ease);
-    }
-    .offer__cta-btn::after { content: "→"; transition: transform 0.25s var(--ease); }
-    .offer__cta-btn:hover { filter: brightness(1.08); gap: 0.85rem; }
-    .offer__cta-btn:hover::after { transform: translateX(3px); }
-
     /* ============ Reduced motion ============ */
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .card { opacity: 1; transform: none; transition: box-shadow 0.3s ease; }
       * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
     }
   </style>
-  <noscript>
-    <style>
-      /* JavaScript 無効時もカードを確実に表示（スクロールイン演出のフォールバック） */
-      .card { opacity: 1 !important; transform: none !important; }
-    </style>
-  </noscript>
 </head>
 <body>
-  <a class="skip-link" href="#works">作品一覧へスキップ</a>
+  <a class="skip-link" href="#top">本文へスキップ</a>
 
   <!-- ============ HEADER ============ -->
   <header class="site-header" id="siteHeader">
@@ -797,26 +658,23 @@
       <a class="brand" href="#top" aria-label="ポートフォリオ トップへ">
         <span class="brand__mark" aria-hidden="true">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 7l9-4 9 4-9 4-9-4Z" />
-            <path d="M3 12l9 4 9-4" />
-            <path d="M3 17l9 4 9-4" />
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <path d="M3 9h18" />
+            <path d="M9 9v12" />
           </svg>
         </span>
         <span class="brand__text">
-          <span class="brand__name">Web制作ポートフォリオ</span>
-          <span class="brand__sub">Selected Works</span>
+          <span class="brand__name">Excel VBA ポートフォリオ</span>
+          <span class="brand__sub">Fix / Read / Build</span>
         </span>
       </a>
       <nav class="header__nav" aria-label="メインナビゲーション">
-        <a href="#works">作品</a>
-        <a href="#refresh">改修事例</a>
-        <a href="#fixes">小修正</a>
-        <a href="#seo">検索対応</a>
-        <a href="#apptool">ツール</a>
-        <a href="#catalog">カタログ</a>
-        <a href="#vba">VBA文書</a>
-        <a href="#tech">技術</a>
-        <a href="#offer">ご依頼</a>
+        <a href="#cases">事例</a>
+        <a href="#docs">納品文書</a>
+        <a href="#promise">約束</a>
+        <a href="#price">料金</a>
+        <a href="#flow">進め方</a>
+        <a href="#python">Python</a>
         <button type="button" class="theme-toggle" id="themeToggle" aria-label="配色テーマを切り替える" title="ダークモード / ライトモード" hidden>
           <svg class="theme-toggle__icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z" />
@@ -835,565 +693,208 @@
     <!-- ============ HERO ============ -->
     <section class="hero">
       <div class="container hero__inner">
-        <p class="hero__eyebrow">Front-end / Landing Page Design</p>
-        <h1 class="hero__title">ブランドの世界観を、<br /><em>そのまま画面に。</em></h1>
+        <p class="hero__eyebrow">Excel VBA — Macro Fix / Read / Build</p>
+        <ul class="pain-list" aria-label="こんなお困りごとに">
+          <li>「マクロが動かない」</li>
+          <li>「エラーが出て業務が止まった」</li>
+          <li>「作った人が退職した」</li>
+        </ul>
+        <h1 class="hero__title">コードを読んで、<br /><em>壊さず直します。</em></h1>
         <p class="hero__lead">
-          フレームワークに頼らず、vanilla な HTML / CSS / JavaScript だけで仕上げた、架空ブランドのランディングページ5作品です。
-          コンセプト設計・コピー・配色・実装まで、一貫してデザインしました。気になる作品をご覧ください。
+          Excelマクロ（VBA）の修正・解読（文書化）・新規開発を承ります。
+          本業でExcelマクロ群の開発・保守・改修を担当しており（新規作成も含む）、
+          「直して終わり」にせず、中身が分かる文書を添えて納品します。
         </p>
-        <p class="hero__cta-wrap"><a class="hero__cta" href="#offer">ご依頼について（できること・料金・流れ）</a></p>
+        <p class="hero__cta-wrap">
+          <a class="hero__cta" href="#promise">納品の5つの約束を見る</a>
+          <a class="hero__cta-sub" href="#price">料金の目安へ</a>
+        </p>
         <ul class="hero__meta">
-          <li>ライブラリ不使用</li>
-          <li>レスポンシブ対応</li>
-          <li>アクセシビリティ配慮</li>
-          <li>静的ホスティング即対応</li>
+          <li>ソースはロックなし納品</li>
+          <li>既存の機能は変更しません</li>
+          <li>納品後14日間の無償対応（同一原因）</li>
+          <li>完全オンライン・テキストのみで完結</li>
         </ul>
       </div>
     </section>
 
-    <!-- ============ WORKS ============ -->
-    <section class="works" id="works">
+    <!-- ============ PROMISE（納品の約束・最重要） ============ -->
+    <section class="promise" id="promise">
       <div class="container">
         <header class="section-head">
-          <p class="section-head__eyebrow">Works — 5 Brands</p>
-          <h2 class="section-head__title">5つの架空ブランドのLP</h2>
+          <p class="section-head__eyebrow">Promise — 納品の約束</p>
+          <h2 class="section-head__title">納品の、5つの約束</h2>
           <p class="section-head__lead">
-            それぞれ業種・ターゲット・トーンの異なる架空ブランドを想定し、ブランドごとに固有の配色と書体、動きを設計しています。
+            マクロの外注で不安になりがちな点を、先にお約束します。「ブラックボックスのまま納品される」「既存の処理まで変えられてしまう」——そうならない形でお渡しします。
           </p>
         </header>
+        <div class="promise-grid">
+          <div class="promise-card">
+            <h3>ソースはロックなし・コメント付き</h3>
+            <p>VBAのコードに保護（パスワードロック）はかけません。処理の意図が分かる日本語コメントを付けて納品するので、後からどなたでも中身を確認・引き継ぎできます。</p>
+          </div>
+          <div class="promise-card">
+            <h3>既存の機能は変更せず、追加のみ</h3>
+            <p>いま動いている処理には手を入れず、事前に合意した範囲だけを修正・追加します。変更範囲は着手前に文章で確認し、合意外の変更はしません。</p>
+          </div>
+          <div class="promise-card">
+            <h3>納品後14日間の無償対応</h3>
+            <p>今回の修正箇所と同じ原因による不具合は、納品後14日以内であれば無償で対応します。それ以外の箇所・新しいご要望は別途お見積もりです。</p>
+          </div>
+          <div class="promise-card">
+            <h3>操作手順書つき</h3>
+            <p>非エンジニアの方がそのまま使える操作手順書を添えて納品します（操作解説動画は現在準備中です）。</p>
+          </div>
+          <div class="promise-card">
+            <h3>マクロ警告の解除手順書つき</h3>
+            <p>ネット経由で受け取ったマクロ付きファイルは、Excelの安全機能（Mark of the Web）により警告が出て動かないことがあります。安全に解除するための1枚手順書を必ず添えます。</p>
+          </div>
+        </div>
+        <p class="promise__note">※ 作業は必ずコピーで行い、お送りいただいた元ファイルはそのまま保全します。</p>
+      </div>
+    </section>
 
-        <div class="work-grid">
-
-          <!-- 01 Atelier Lumen -->
-          <article class="card card--lumen">
-            <div class="card__visual">
-              <span class="card__glow" aria-hidden="true"></span>
-              <span class="card__genre">オンラインスクール</span>
-              <svg viewBox="0 0 400 250" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
-                <path d="M20 230 C 110 150, 160 190, 220 110 S 340 20, 400 8" fill="none" stroke="var(--lumen-accent)" stroke-width="1.4" opacity="0.55" />
-                <path d="M0 200 C 100 180, 130 90, 240 70 S 360 40, 400 60" fill="none" stroke="var(--lumen-accent)" stroke-width="0.9" opacity="0.3" />
-                <circle cx="220" cy="110" r="2.6" fill="var(--lumen-accent)" />
-              </svg>
-              <div class="card__logo">
-                <svg class="card__logo-mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
-                  <circle cx="16" cy="16" r="6.5" />
-                  <line x1="16" y1="2" x2="16" y2="7" /><line x1="16" y1="25" x2="16" y2="30" />
-                  <line x1="2" y1="16" x2="7" y2="16" /><line x1="25" y1="16" x2="30" y2="16" />
-                  <line x1="6" y1="6" x2="9.5" y2="9.5" /><line x1="22.5" y1="22.5" x2="26" y2="26" />
-                  <line x1="26" y1="6" x2="22.5" y2="9.5" /><line x1="9.5" y1="22.5" x2="6" y2="26" />
-                </svg>
-                <span class="card__logo-name">Atelier Lumen</span>
-                <span class="card__logo-en">アトリエ・ルーメン</span>
-              </div>
-            </div>
-            <div class="card__body">
-              <p class="card__catch">学びを、灯す。</p>
-              <p class="card__desc">
-                1クラス最大12名の少人数制オンライン創造学校。現役プロの伴走と週次の個別添削を軸に、信頼感のある紺×金で「静かに灯る学びの場」を表現しました。
-              </p>
-              <ul class="card__tags">
-                <li class="card__tag"># 料金プラン3種</li>
-                <li class="card__tag"># 申込フォーム</li>
-                <li class="card__tag"># スクロール演出</li>
-              </ul>
-              <a class="card__link" href="./online-school/" aria-label="Atelier Lumen の作品を見る">作品を見る</a>
-            </div>
+    <!-- ============ CASES（事例） ============ -->
+    <section class="cases" id="cases">
+      <div class="container">
+        <header class="section-head">
+          <p class="section-head__eyebrow">Cases — 事例</p>
+          <h2 class="section-head__title">事例で見る、3つの対応</h2>
+          <p class="section-head__lead">
+            修正・新規開発・解読の3つの対応を、実際の作業の流れと納品物の形が分かるデモ事例として公開しています。
+          </p>
+        </header>
+        <div class="cases-grid">
+          <article class="case-card">
+            <p class="case-card__tag">修正・復旧</p>
+            <h3>エラーで止まった請求書マクロの復旧</h3>
+            <p>実行時エラーで止まった請求書作成マクロ（架空題材）を、原因の特定 → 修正 → 動作確認の流れで復旧するデモ事例。実際の進め方と納品物の形をそのまま確認できます。</p>
+            <a class="btn-link" href="./vba-case-fix/">修正事例を見る</a>
           </article>
-
-          <!-- 02 焙煎所 茜 -->
-          <article class="card card--akane">
-            <div class="card__visual">
-              <span class="card__glow" aria-hidden="true"></span>
-              <span class="card__genre">コーヒー焙煎所</span>
-              <svg viewBox="0 0 400 250" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
-                <path d="M140 250 C 100 190, 180 160, 140 100 C 110 60, 170 35, 140 -10" fill="none" stroke="var(--akane-accent)" stroke-width="1.6" opacity="0.45" />
-                <path d="M210 250 C 170 190, 250 160, 210 100 C 180 60, 240 35, 210 -10" fill="none" stroke="var(--akane-accent)" stroke-width="1.2" opacity="0.3" />
-                <path d="M280 250 C 240 190, 320 160, 280 100 C 250 60, 310 35, 280 -10" fill="none" stroke="var(--akane-accent)" stroke-width="1" opacity="0.22" />
-              </svg>
-              <div class="card__logo">
-                <svg class="card__logo-mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <ellipse cx="16" cy="16" rx="8" ry="12" />
-                  <path d="M16 5 C 12.5 11, 12.5 21, 16 27" />
-                </svg>
-                <span class="card__logo-name">焙煎所 茜</span>
-                <span class="card__logo-en">Akane Roastery</span>
-              </div>
-            </div>
-            <div class="card__body">
-              <p class="card__catch">一杯に、夜明けの色を。</p>
-              <p class="card__desc">
-                スペシャルティコーヒーと自家製焼き菓子の焙煎所。立ちのぼる湯気のアニメーションと焦茶×茜色の配色で、早朝の焙煎所の香りと温度を画面に閉じ込めました。
-              </p>
-              <ul class="card__tags">
-                <li class="card__tag"># 数字カウントアップ</li>
-                <li class="card__tag"># 定期便プラン</li>
-                <li class="card__tag"># スティッキーCTA</li>
-              </ul>
-              <a class="card__link" href="./cafe/" aria-label="焙煎所 茜 の作品を見る">作品を見る</a>
-            </div>
+          <article class="case-card">
+            <p class="case-card__tag">新規開発</p>
+            <h3>月次売上集計ツールの新規開発</h3>
+            <p>CSVの取り込みから集計・帳票出力までをボタン1つにまとめる新規開発のデモ事例（架空題材）。コードの書き方（コメント・構成）も併せて確認できます。</p>
+            <a class="btn-link" href="./vba-case-build/">開発事例を見る</a>
           </article>
-
-          <!-- 03 月白 Tsukishiro -->
-          <article class="card card--tsuki">
-            <div class="card__visual">
-              <span class="card__glow" aria-hidden="true"></span>
-              <span class="card__genre">プライベートサロン</span>
-              <svg viewBox="0 0 400 250" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
-                <circle cx="300" cy="70" r="60" fill="none" stroke="var(--tsuki-accent)" stroke-width="1.2" opacity="0.4" />
-                <path d="M300 18 a52 52 0 0 0 0 104 70 70 0 0 1 0-104Z" fill="var(--tsuki-accent)" opacity="0.18" />
-                <line x1="0" y1="180" x2="400" y2="155" stroke="var(--tsuki-accent)" stroke-width="0.8" opacity="0.25" />
-                <line x1="0" y1="205" x2="400" y2="185" stroke="var(--tsuki-accent)" stroke-width="0.8" opacity="0.18" />
-              </svg>
-              <div class="card__logo">
-                <svg class="card__logo-mark" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                  <circle cx="13" cy="13" r="9" />
-                  <path d="M13 4a9 9 0 0 0 0 18 12 12 0 0 1 0-18Z" fill="currentColor" stroke="none" />
-                </svg>
-                <span class="card__logo-name">月白</span>
-                <span class="card__logo-en">Tsukishiro Atelier</span>
-              </div>
-            </div>
-            <div class="card__body">
-              <p class="card__catch">肌が、静かに目を覚ます。</p>
-              <p class="card__desc">
-                表参道の路地裏にある完全予約制プライベートサロン。墨緑×金茶の落ち着いた配色と余白を効かせ、「静かな美容」のラグジュアリーで上質な世界観を組み立てました。
-              </p>
-              <ul class="card__tags">
-                <li class="card__tag"># 縦長ヒーロー</li>
-                <li class="card__tag"># 会員制メニュー</li>
-                <li class="card__tag"># OGP / アクセシビリティ</li>
-              </ul>
-              <a class="card__link" href="./beauty-salon/" aria-label="月白 Tsukishiro の作品を見る">作品を見る</a>
-            </div>
+          <article class="case-card">
+            <p class="case-card__tag">解読・文書化</p>
+            <h3>退職者が残したマクロの解読レポート</h3>
+            <p>「誰も中身が分からない」マクロを日本語の資料に起こす、解読レポートの実物見本。ブックは変更せず、読み取りのみで作業します。</p>
+            <a class="btn-link" href="./vba-docs/sample-report.html">解読レポートを見る</a>
           </article>
+        </div>
+        <p class="cases__note">
+          ※ 事例の題材はいずれもポートフォリオ用に自作した架空のマクロです。実際のお客様のファイル・データは使用していません。事例中の画面・数値はすべて見本・想定値です。
+        </p>
+      </div>
+    </section>
 
-          <!-- 04 臨界 RINKAI -->
-          <article class="card card--gym">
-            <div class="card__visual">
-              <span class="card__glow" aria-hidden="true"></span>
-              <span class="card__genre">パーソナルジム</span>
-              <svg viewBox="0 0 400 250" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
-                <path d="M0 210 L70 210 L70 150 L140 150 L140 95 L210 95 L210 55 L280 55 L280 25 L400 25" fill="none" stroke="var(--gym-accent)" stroke-width="2" opacity="0.7" stroke-linejoin="round" />
-                <path d="M0 235 L80 235 L80 185 L160 185 L160 140 L240 140 L240 100 L320 100 L320 70 L400 70" fill="none" stroke="var(--gym-accent)" stroke-width="1" opacity="0.26" stroke-linejoin="round" />
-                <circle cx="280" cy="25" r="3.4" fill="var(--gym-accent)" />
-              </svg>
-              <div class="card__logo">
-                <svg class="card__logo-mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M5 12.5v7M9 10.5v11M27 12.5v7M23 10.5v11" />
-                  <rect x="9" y="14.5" width="14" height="3" rx="1.2" fill="currentColor" stroke="none" />
-                </svg>
-                <span class="card__logo-name">臨界</span>
-                <span class="card__logo-en">RINKAI</span>
-              </div>
-            </div>
-            <div class="card__body">
-              <p class="card__catch">2ヶ月で、別人の自分へ。</p>
-              <p class="card__desc">
-                恵比寿の完全予約制パーソナルジムを想定したLP。漆黒×電光ライムの大胆な配色と数字のカウントアップで、「データで結果まで伴走する」高揚感とスピード感を表現しました。
-              </p>
-              <ul class="card__tags">
-                <li class="card__tag"># 数字カウントアップ</li>
-                <li class="card__tag"># ビフォーアフター実績</li>
-                <li class="card__tag"># スティッキー予約CTA</li>
-              </ul>
-              <a class="card__link" href="./personal-gym/" aria-label="臨界 RINKAI の作品を見る">作品を見る</a>
-            </div>
-          </article>
-
-          <!-- 05 そよかぜ歯科 -->
-          <article class="card card--soyokaze">
-            <div class="card__visual">
-              <span class="card__glow" aria-hidden="true"></span>
-              <span class="card__genre">歯科クリニック</span>
-              <svg viewBox="0 0 400 250" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
-                <path d="M0 150 C 80 120, 140 180, 220 150 S 360 120, 400 150" fill="none" stroke="var(--soyokaze-accent)" stroke-width="1.4" opacity="0.5" />
-                <path d="M0 185 C 90 160, 150 205, 240 180 S 360 160, 400 185" fill="none" stroke="#ffffff" stroke-width="0.9" opacity="0.3" />
-                <circle cx="320" cy="66" r="2.6" fill="#ffffff" opacity="0.85" />
-                <circle cx="92" cy="58" r="1.8" fill="var(--soyokaze-accent)" opacity="0.7" />
-              </svg>
-              <div class="card__logo">
-                <svg class="card__logo-mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M16 6c-3.4-2.4-7.6-1.4-7.6 3.4 0 2.9 1 4.8 1.7 8.2.5 2.2.7 4.8 2.1 4.8 1.3 0 1.4-1.9 1.9-3.8.3-1 .8-1.7 1.9-1.7s1.6.7 1.9 1.7c.5 1.9.6 3.8 1.9 3.8 1.4 0 1.6-2.6 2.1-4.8.7-3.4 1.7-5.3 1.7-8.2C23.6 4.6 19.4 3.6 16 6Z" />
-                </svg>
-                <span class="card__logo-name">そよかぜ歯科</span>
-                <span class="card__logo-en">Soyokaze Dental</span>
-              </div>
-            </div>
-            <div class="card__body">
-              <p class="card__catch">歯医者さんを、好きになる。</p>
-              <p class="card__desc">
-                みどり野駅すぐの架空の歯科医院LP。既存4作品のダーク／和テイストとはあえて対照的に、白×ソフトブルー／ミントに暖色を効かせ、痛みへの配慮と「家族で通える清潔感」を明るく親しみやすく表現しました。
-              </p>
-              <ul class="card__tags">
-                <li class="card__tag"># 診療時間○×表</li>
-                <li class="card__tag"># 自作SVG地図</li>
-                <li class="card__tag"># 電話/Web予約CTA</li>
-              </ul>
-              <a class="card__link" href="./dental-clinic/" aria-label="そよかぜ歯科 の作品を見る">作品を見る</a>
-            </div>
-          </article>
-
+    <!-- ============ DOCS（納品文書見本） ============ -->
+    <section class="docs" id="docs">
+      <div class="container">
+        <header class="section-head">
+          <p class="section-head__eyebrow">Documents — 納品文書の見本</p>
+          <h2 class="section-head__title">「直して終わり」にしない、納品5点セット</h2>
+        </header>
+        <div class="docs-card">
+          <div class="docs-card__body">
+            <p class="docs-card__desc">
+              修正のご依頼では、修正済みブックだけでなく次のセットを添えて納品します。次に同じトラブルが起きたとき・別の方が引き継ぐときに、そのまま手がかりとして使える形でお返しします。
+            </p>
+            <ul class="docs-list">
+              <li>修正済みブック</li>
+              <li>ソースコード一式（修正前・修正後）</li>
+              <li>変更内容書（A4 1枚）</li>
+              <li>動作確認書</li>
+              <li>引き継ぎ手順書</li>
+            </ul>
+            <p class="docs__note">現在、解読レポートと変更内容書の実物見本を公開しています。題材は見本用に自作した架空の請求書作成マクロです。</p>
+          </div>
+          <a class="btn-link" href="./vba-docs/">納品文書の見本を見る</a>
         </div>
       </div>
     </section>
 
-    <!-- ============ REFRESH (Before / After) ============ -->
-    <section class="refresh" id="refresh">
+    <!-- ============ PRICE（料金の目安） ============ -->
+    <section class="price" id="price">
       <div class="container">
         <header class="section-head">
-          <p class="section-head__eyebrow">Case Studies — Site Refresh</p>
-          <h2 class="section-head__title">サイト改修 ビフォーアフター（実在1件＋架空2件）</h2>
+          <p class="section-head__eyebrow">Price — 料金の目安</p>
+          <h2 class="section-head__title">料金の目安</h2>
           <p class="section-head__lead">
-            古い作りや過剰な構成のサイトを作り直すと何が変わるか。<strong>実際に公開・運用されている実在サイト1件</strong>と、架空の整骨院・個人食堂2件を題材に、改修前後を比較できる事例です。
+            確定金額は、内容を確認のうえ無料でお見積もりします。金額と対応範囲は着手前に確定し、あとからの追加請求はしません。
           </p>
         </header>
-
-        <article class="refresh-card refresh-card--olive">
-          <div class="refresh-card__grid">
-            <div class="refresh-panel refresh-panel--before">
-              <span class="refresh-panel__tag">Before</span>
-              <p class="refresh-panel__year">Vue / Vite の SPA（CSR）</p>
-              <ul class="refresh-panel__list">
-                <li>本文がJS依存でクローラが読めない・h1なし</li>
-                <li>lang=en／OGP・sitemap なし（SEO 91）</li>
-                <li>画像がガタつく（CLS 0.95）・Performance 62</li>
-                <li>1ページLPにSPA＝所有者が保守不能</li>
-              </ul>
-            </div>
-            <div class="refresh-arrow" aria-hidden="true"><span>→</span></div>
-            <div class="refresh-panel refresh-panel--after">
-              <span class="refresh-panel__tag refresh-panel__tag--after">After</span>
-              <p class="refresh-panel__year">Astro による完全な静的HTML</p>
-              <ul class="refresh-panel__list">
-                <li>静的HTML化で検索・SNS対応・h1新設（SEO 100）</li>
-                <li>OGP・構造化データ・sitemap を整備</li>
-                <li>CLS 0・Performance 97（実測）</li>
-                <li>素のCSSで保守容易＋GitHub Pages へ移行</li>
-              </ul>
-            </div>
-          </div>
-          <div class="refresh-card__foot">
-            <p class="refresh-card__desc">
-              <span class="refresh-card__badge">実在サイト</span>架空サンプルではなく、公開・運用中のサイトでの実作業。<strong>デザインは1pxも変えず</strong>、中身だけを静的サイトへ。Lighthouse 62→97・CLS 0.95→0 を実測で達成した事例です。
-            </p>
-            <div class="refresh-card__actions">
-              <a class="refresh-card__link" href="./case-study-petit-chaton/">改修事例を見る</a>
-              <a class="refresh-card__sub" href="https://petit-chaton.com" target="_blank" rel="noopener noreferrer">公開サイト ↗</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="refresh-card">
-          <div class="refresh-card__grid">
-            <div class="refresh-panel refresh-panel--before">
-              <span class="refresh-panel__tag">Before</span>
-              <p class="refresh-panel__year">2008年当時の作り</p>
-              <ul class="refresh-panel__list">
-                <li>スマホ非対応（横スクロール必須）</li>
-                <li>テーブルレイアウト・12pxの小さな文字</li>
-                <li>低コントラスト・古い演出（marquee 等）</li>
-                <li>電話番号がタップ発信できない</li>
-              </ul>
-            </div>
-            <div class="refresh-arrow" aria-hidden="true"><span>→</span></div>
-            <div class="refresh-panel refresh-panel--after">
-              <span class="refresh-panel__tag refresh-panel__tag--after">After</span>
-              <p class="refresh-panel__year">現行の標準（レスポンシブ）</p>
-              <ul class="refresh-panel__list">
-                <li>モバイルファースト・横スクロールなし</li>
-                <li>CSS Grid / Flex・clamp() で可読性向上</li>
-                <li>WCAG AA・セマンティックHTML5</li>
-                <li>tel: リンク＋24時間予約フォーム</li>
-              </ul>
-            </div>
-          </div>
-          <div class="refresh-card__foot">
-            <p class="refresh-card__desc">
-              「なぜその変更が来院・問い合わせにつながるのか」を一つひとつ言語化した、Before→After対応表つきの改修事例です。
-            </p>
-            <div class="refresh-card__actions">
-              <a class="refresh-card__link" href="./case-study-refresh/">改修事例を見る</a>
-              <a class="refresh-card__sub" href="./case-study-refresh/before/">改修前</a>
-              <a class="refresh-card__sub" href="./case-study-refresh/after/">改修後</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="refresh-card refresh-card--indigo">
-          <div class="refresh-card__grid">
-            <div class="refresh-panel refresh-panel--before">
-              <span class="refresh-panel__tag">Before</span>
-              <p class="refresh-panel__year">2008年当時の作り（個人食堂）</p>
-              <ul class="refresh-panel__list">
-                <li>お品書きが画像1枚（読めない・更新できない）</li>
-                <li>固定幅でスマホは横スクロール必須</li>
-                <li>定休日の説明が極小・低コントラストの注記のみ</li>
-                <li>電話のみ・タップ発信不可（tel: リンクなし）</li>
-              </ul>
-            </div>
-            <div class="refresh-arrow" aria-hidden="true"><span>→</span></div>
-            <div class="refresh-panel refresh-panel--after">
-              <span class="refresh-panel__tag refresh-panel__tag--after">After</span>
-              <p class="refresh-panel__year">現行の標準（レスポンシブ）</p>
-              <ul class="refresh-panel__list">
-                <li>価格つきの読めるHTMLメニューに刷新</li>
-                <li>モバイルファースト・横スクロールなし</li>
-                <li>営業時間テーブル＋定休日を明記</li>
-                <li>tel: リンク＋24時間予約フォーム＋自作SVG地図</li>
-              </ul>
-            </div>
-          </div>
-          <div class="refresh-card__foot">
-            <p class="refresh-card__desc">
-              画像1枚のお品書きを「読めて・予約できる」サイトへ。飲食店ならではの集客導線を、Before→After対応表つきで整理した事例です。
-            </p>
-            <div class="refresh-card__actions">
-              <a class="refresh-card__link" href="./case-study-restaurant/">改修事例を見る</a>
-              <a class="refresh-card__sub" href="./case-study-restaurant/before/">改修前</a>
-              <a class="refresh-card__sub" href="./case-study-restaurant/after/">改修後</a>
-            </div>
-          </div>
-        </article>
+        <table class="price-table">
+          <caption class="visually-hidden">作業内容ごとの料金の目安</caption>
+          <thead>
+            <tr><th scope="col">内容</th><th scope="col">目安</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>マクロの解読・文書化（解読レポート＋ソース一式。ブックは変更しません）</td><td>10,000円〜</td></tr>
+            <tr><td>マクロの解読・文書化（引き継ぎ手順書つき・日常業務で使う一通りのマクロ）</td><td>20,000円〜</td></tr>
+            <tr><td>エラー修正（原因調査＋修正箇所が1〜2箇所のもの）</td><td>5,000円〜</td></tr>
+            <tr><td>修正・小改修（複数箇所、または小さな機能追加1点）</td><td>15,000円〜</td></tr>
+            <tr><td>機能追加・新規開発</td><td>規模に応じて個別見積もり</td></tr>
+          </tbody>
+        </table>
+        <p class="price-note">
+          ※ 規模（マクロの行数など）の判定はこちらで行います。お客様に数えていただく必要はありません。<br />
+          ※ 内容・分量・納期によって変わります。まずは無料見積もりでご確認ください。<br />
+          ※ お支払い・やりとりはクラウドソーシングサイトを通して安全に行います。
+        </p>
       </div>
     </section>
 
-    <!-- ============ FIXES (Quick Fixes catalog) ============ -->
-    <section class="fixes" id="fixes">
+    <!-- ============ FLOW（進め方） ============ -->
+    <section class="flow-section" id="flow">
       <div class="container">
         <header class="section-head">
-          <p class="section-head__eyebrow">Quick Fixes — Demo</p>
-          <h2 class="section-head__title">よくある小修正デモ集</h2>
+          <p class="section-head__eyebrow">Flow — 進め方</p>
+          <h2 class="section-head__title">ご依頼の流れ</h2>
           <p class="section-head__lead">
-            スマホ崩れ・問い合わせフォーム・読みにくさ・画像最適化・tel: リンク・レイアウト崩れ。既存サイトのよくある小修正を、実際に触って違いが分かるBefore→Afterで実演しています。
+            電話・Web会議は不要です。メッセージとファイルのやり取り（非同期テキスト）だけで完結します。
           </p>
         </header>
-        <article class="fixes-card">
-          <div class="fixes-card__body">
-            <p class="fixes-card__catch">その困りごと、触って直せます。</p>
-            <p class="fixes-card__desc">
-              6種類のよくある修正を、その場で切り替えて確認できるデモにまとめました。「ここだけ直してほしい」という単発のご相談のイメージ共有にどうぞ。
-            </p>
-            <ul class="fixes-card__tags">
-              <li class="card__tag"># スマホ対応化</li>
-              <li class="card__tag"># フォーム設置</li>
-              <li class="card__tag"># 画像最適化/CLS</li>
-              <li class="card__tag"># コントラスト改善</li>
-              <li class="card__tag"># tel: リンク化</li>
-              <li class="card__tag"># レイアウト崩れ修正</li>
-            </ul>
-          </div>
-          <a class="refresh-card__link" href="./quick-fixes/">デモを見る</a>
-        </article>
+        <ol class="flow">
+          <li><h3>ご相談（無料）</h3><p>メッセージでお困りごとをお知らせください。エラー画面の写真や、マクロを動かすボタンの数だけでも概算をご案内できます。</p></li>
+          <li><h3>お見積もり</h3><p>ご購入・ご契約の前に、金額・対応範囲・納期を確定してご提示します（無料）。ご納得いただいてから先へ進みます。</p></li>
+          <li><h3>仮払い後に着手</h3><p>サイトの仮払い（エスクロー）を確認してから作業を開始します。作業は必ずコピーで行い、元ファイルは保全します。</p></li>
+          <li><h3>納品</h3><p>動作確認のうえ、変更内容書などの文書一式を添えて納品します。</p></li>
+          <li><h3>アフター</h3><p>納品後14日間、同一原因の不具合は無償で対応します。</p></li>
+        </ol>
+        <p class="flow-note">
+          ※ 顧客名・金額などの機密データは、架空の値に置き換えた（ダミー化した）コピーでのご提供をお願いしています。データが空でも解読・修正が可能な場合が多く、ダミー化の簡単な手順もご案内できます。
+        </p>
       </div>
     </section>
 
-    <!-- ============ SEO & FAQ (search readiness demo) ============ -->
-    <section class="fixes" id="seo">
+    <!-- ============ PYTHON（業務自動化） ============ -->
+    <section class="tools" id="python">
       <div class="container">
         <header class="section-head">
-          <p class="section-head__eyebrow">Search — SEO &amp; FAQ</p>
-          <h2 class="section-head__title">検索エンジン対応・Q&amp;A設置デモ</h2>
+          <p class="section-head__eyebrow">Python — 業務自動化</p>
+          <h2 class="section-head__title">Pythonでの業務自動化にも対応します</h2>
           <p class="section-head__lead">
-            「サイトを作ったのに検索に出てこない」「お客様向けのQ&amp;Aを置きたい」というご相談向けに、検索結果の見え方の Before→After と、確認すべき設定、構造化データつきのQ&amp;A実装をデモにまとめました。
+            Excelの外側の定型業務（ファイル整理・データ処理・帳票づくりなど）は、Pythonでの自動化もご提案できます。VBAと同じく「動くものと、引き継げる文書」をセットで納品します。
           </p>
         </header>
-        <article class="fixes-card">
-          <div class="fixes-card__body">
-            <p class="fixes-card__catch">「検索に出ない」を、設定から直す。</p>
-            <p class="fixes-card__desc">
-              title・meta description で検索結果の一行がどう変わるかの比較、検索に出ないときに確認する7項目のチェックリスト、JS無効でも動くQ&amp;A（よくある質問）の実装と FAQPage 構造化データ（JSON-LD）。リッチリザルトの現状など「できること・できないこと」も正直に書いた、検索まわりの整備のデモページです。
-            </p>
-            <ul class="fixes-card__tags">
-              <li class="card__tag"># 検索結果の見え方</li>
-              <li class="card__tag"># インデックス登録チェック</li>
-              <li class="card__tag"># Search Console / sitemap</li>
-              <li class="card__tag"># FAQPage 構造化データ</li>
-            </ul>
-          </div>
-          <a class="refresh-card__link" href="./seo-faq/">デモを見る</a>
-        </article>
-      </div>
-    </section>
-
-    <!-- ============ APP TOOL (interactive web app) ============ -->
-    <section class="fixes" id="apptool">
-      <div class="container">
-        <header class="section-head">
-          <p class="section-head__eyebrow">Web App — Interactive Tool</p>
-          <h2 class="section-head__title">インタラクティブな Web アプリ</h2>
-          <p class="section-head__lead">
-            スクロール型のLPだけでなく、状態を持つ「動くツール」も制作します。選択に応じてリアルタイムに計算し、結果はURLに保存して共有できる、1画面完結のアプリです。
-          </p>
-        </header>
-        <article class="fixes-card">
-          <div class="fixes-card__body">
-            <p class="fixes-card__catch">選ぶだけで、概算がそのまま。</p>
-            <p class="fixes-card__desc">
-              リフォーム見積もりシミュレーター。箇所・グレード・オプション・広さを選ぶと、明細と税込合計をリアルタイムに計算します。選択内容はURLに保存して共有でき、キーボード完全操作・アクセシビリティ・JS無効フォールバックにも対応した1画面完結のアプリ風UIです。
-            </p>
-            <ul class="fixes-card__tags">
-              <li class="card__tag"># リアルタイム計算</li>
-              <li class="card__tag"># URL状態保存</li>
-              <li class="card__tag"># アクセシビリティ</li>
-              <li class="card__tag"># vanilla JS</li>
-            </ul>
-          </div>
-          <a class="refresh-card__link" href="./estimator/">ツールを開く</a>
-        </article>
-      </div>
-    </section>
-
-    <!-- ============ CATALOG (filterable list UI) ============ -->
-    <section class="fixes" id="catalog">
-      <div class="container">
-        <header class="section-head">
-          <p class="section-head__eyebrow">Catalog — Filterable List</p>
-          <h2 class="section-head__title">絞り込み検索のデータUI</h2>
-          <p class="section-head__lead">
-            たくさんの項目から、条件で素早く目的の1件へ。スクロール型のLPや1画面ツールとは別ジャンルの「一覧×絞り込み」を、データ駆動の業務プロダクトUIとして制作します。
-          </p>
-        </header>
-        <article class="fixes-card">
-          <div class="fixes-card__body">
-            <p class="fixes-card__catch">21件を、その場で絞り込む。</p>
-            <p class="fixes-card__desc">
-              架空の賃貸物件検索UI。家賃・間取り・面積・駅徒歩・築年数・こだわり条件で21件をリアルタイムに絞り込み、件数の即時更新・並べ替え・条件のURL保存・お気に入り保存に対応します。JavaScript無効でも全件を一覧できるプログレッシブエンハンスメント設計で、キーボード操作・スクリーンリーダー・モバイルのフィルタードロワーにも配慮した、データ駆動のプロダクトUIです。
-            </p>
-            <ul class="fixes-card__tags">
-              <li class="card__tag"># ファセット絞り込み</li>
-              <li class="card__tag"># 件数即時・並べ替え</li>
-              <li class="card__tag"># URL状態保存</li>
-              <li class="card__tag"># お気に入り(localStorage)</li>
-              <li class="card__tag"># プログレッシブエンハンスメント</li>
-            </ul>
-          </div>
-          <a class="refresh-card__link" href="./catalog/">カタログを開く</a>
-        </article>
-      </div>
-    </section>
-
-    <!-- ============ VBA DOCS (Excel VBA documentation samples) ============ -->
-    <section class="fixes" id="vba">
-      <div class="container">
-        <header class="section-head">
-          <p class="section-head__eyebrow">Excel VBA — Documentation</p>
-          <h2 class="section-head__title">Excel VBA 保守の納品文書サンプル</h2>
-          <p class="section-head__lead">
-            Webサイトだけでなく、Excelマクロ（VBA）の修正・解読もお引き受けしています。「直して終わり」にせず、次に引き継ぐ方の手がかりになる文書を必ず添えて納品します。その実物見本です。
-          </p>
-        </header>
-        <article class="fixes-card">
-          <div class="fixes-card__body">
-            <p class="fixes-card__catch">マクロの中身を、日本語で残す。</p>
-            <p class="fixes-card__desc">
-              「作った人が退職して誰も中身が分からない」マクロを文書化する解読レポートと、修正納品に添える変更内容書（原因・変更箇所・影響範囲をA4 1枚で報告）の見本2点。題材は見本用に自作した架空の請求書作成マクロで、実際のお客様のファイルは使用していません。
-            </p>
-            <ul class="fixes-card__tags">
-              <li class="card__tag"># 解読レポート</li>
-              <li class="card__tag"># 変更内容書</li>
-              <li class="card__tag"># 引き継ぎ・属人化解消</li>
-              <li class="card__tag"># Excel VBA</li>
-            </ul>
-          </div>
-          <a class="refresh-card__link" href="./vba-docs/">文書サンプルを見る</a>
-        </article>
-      </div>
-    </section>
-
-    <!-- ============ TECH ============ -->
-    <section class="tech" id="tech">
-      <div class="container">
-        <header class="section-head">
-          <p class="section-head__eyebrow">Tech &amp; Approach</p>
-          <h2 class="section-head__title">技術構成とこだわり</h2>
-          <p class="section-head__lead">
-            掲載しているLP・デモはすべてフレームワーク・ビルドツールなしで構築。HTMLファイルを開くだけで動き、静的ホスティングにそのまま載せられます。
-          </p>
-        </header>
-        <div class="tech-grid">
-          <div class="tech-card">
-            <h3>Vanilla 構成</h3>
-            <p>React・jQuery等は不使用。HTML / CSS / 素のJavaScriptのみで実装し、依存もビルド工程もありません。</p>
-          </div>
-          <div class="tech-card">
-            <h3>レスポンシブ</h3>
-            <p>clamp() と CSS Grid / Flexbox を用い、スマートフォンからワイド画面まで滑らかに最適化しています。</p>
-          </div>
-          <div class="tech-card">
-            <h3>アクセシビリティ</h3>
-            <p>スキップリンク、適切なARIA属性、キーボード操作、prefers-reduced-motion への配慮を組み込んでいます。</p>
-          </div>
-          <div class="tech-card">
-            <h3>軽量な演出</h3>
-            <p>IntersectionObserver によるスクロール表示やカウントアップなど、軽い純正JSで体験を引き立てています。</p>
-          </div>
+        <div class="tools-grid">
+          <a class="tool-card" href="./python-docs/">
+            <h3>Python 業務自動化の納品文書サンプル</h3>
+            <p>納品時にお渡しする仕様書・実行手順書の見本です（題材は架空のサンプルです）。</p>
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- ============ OFFER (ご依頼について) ============ -->
-    <section class="offer" id="offer">
+    <!-- ============ CTAバンド ============ -->
+    <section class="cta-band" aria-label="お問い合わせ">
       <div class="container">
-        <header class="section-head">
-          <p class="section-head__eyebrow">For Clients — できること・料金・流れ</p>
-          <h2 class="section-head__title">ご依頼について</h2>
-          <p class="section-head__lead">
-            「既存サイトのここだけ直したい」から「LP・小規模サイトを作りたい」まで承ります。まずは無料でお見積もりしますので、お気軽にご相談ください。
-          </p>
-        </header>
-
-        <div class="offer__group">
-          <h3 class="offer__group-title">対応できること</h3>
-          <div class="do-grid">
-            <div class="do-card">
-              <h4>既存サイトの修正・改修</h4>
-              <p>スマホ対応・表示崩れの修正・問い合わせフォーム設置・表示速度／画像の最適化・文字の見やすさ（コントラスト）改善・電話番号のタップ発信（tel:）・文言や画像の差し替え・検索エンジン対応（SEO基礎設定・Q&amp;A設置）。</p>
-            </div>
-            <div class="do-card">
-              <h4>LP・小規模サイトの制作</h4>
-              <p>ランディングページや数ページの小規模サイトを、デザインから、またはデザイン支給でのコーディングのみでも。スマホ対応・軽量に仕上げます。</p>
-            </div>
-            <div class="do-card">
-              <h4>動くツール・一覧UI</h4>
-              <p>入力に応じて計算するツールや、条件で絞り込める一覧など、JavaScript で動く小さなUIも制作します。</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="offer__group">
-          <h3 class="offer__group-title">料金の目安</h3>
-          <table class="price-table">
-            <caption class="visually-hidden">作業内容ごとの料金の目安</caption>
-            <thead>
-              <tr><th scope="col">内容</th><th scope="col">目安（税抜・〜から）</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>文言・画像の差し替え／tel: リンク化などの小修正</td><td>5,000円〜</td></tr>
-              <tr><td>お問い合わせフォーム設置</td><td>10,000円〜</td></tr>
-              <tr><td>スマホ対応化（レスポンシブ）</td><td>10,000円〜</td></tr>
-              <tr><td>表示速度・画像最適化／コントラスト改善</td><td>10,000円〜</td></tr>
-              <tr><td>検索エンジン対応の基礎整備／Q&amp;A設置（構造化データ）</td><td>10,000円〜</td></tr>
-              <tr><td>LP 1枚コーディング（デザイン支給）</td><td>30,000円〜</td></tr>
-              <tr><td>小規模サイト（数ページ）</td><td>50,000円〜</td></tr>
-            </tbody>
-          </table>
-          <p class="price-note">※ 内容・分量・納期によって変わります。確定金額は、内容を伺ったうえで無料でお見積もりします。お支払い・やりとりはクラウドワークスを通して安全に行います。</p>
-        </div>
-
-        <div class="offer__group">
-          <h3 class="offer__group-title">ご依頼の流れ</h3>
-          <ol class="flow">
-            <li><h4>ご相談</h4><p>クラウドワークスからメッセージをください。「何を頼めばいいか分からない」段階でも、内容の整理からご一緒します。</p></li>
-            <li><h4>お見積もり</h4><p>対応範囲・納期・金額を明確にしてご提示します（無料）。ご納得のうえで進めます。</p></li>
-            <li><h4>着手・ご確認</h4><p>制作・修正を進め、途中でプレビューURLなどで確認いただきながら調整します。</p></li>
-            <li><h4>納品</h4><p>スマホ実機まで表示を確認したうえで、変更点の簡単な説明を添えて納品します。</p></li>
-            <li><h4>アフター</h4><p>納品後の軽微な手直しにも対応します（対応範囲は事前にお約束します）。</p></li>
-          </ol>
-        </div>
-
-        <div class="offer__cta">
-          <p>ご相談・お見積もりは無料です。小さな修正ひとつからお気軽にどうぞ。</p>
-          <a class="offer__cta-btn" href="https://crowdworks.jp/public/employees/3919155/" rel="noopener noreferrer" target="_blank">クラウドワークスで相談する</a>
+        <div class="cta-band__inner">
+          <p>ご相談・お見積もりは無料です。「何を頼めばいいか分からない」段階でも、内容の整理からご一緒します。</p>
+          <a class="cta-band__btn" href="https://crowdworks.jp/public/employees/3919155/" rel="noopener noreferrer" target="_blank">クラウドワークスで相談する</a>
         </div>
       </div>
     </section>
@@ -1403,25 +904,23 @@
   <footer class="site-footer">
     <div class="container">
       <div class="site-footer__inner">
-        <p class="site-footer__tagline">ブランドの世界観を、そのまま画面に。</p>
+        <p class="site-footer__tagline">コードを読んで、壊さず直します。</p>
         <nav class="site-footer__links" aria-label="フッターナビゲーション">
-          <a href="./online-school/">Atelier Lumen</a>
-          <a href="./cafe/">焙煎所 茜</a>
-          <a href="./beauty-salon/">月白</a>
-          <a href="./personal-gym/">臨界 RINKAI</a>
-          <a href="./dental-clinic/">そよかぜ歯科</a>
-          <a href="./case-study-refresh/">改修事例：整骨院</a>
-          <a href="./case-study-restaurant/">改修事例：食堂</a>
-          <a href="./quick-fixes/">小修正デモ集</a>
-          <a href="./seo-faq/">検索対応・Q&amp;Aデモ</a>
-          <a href="./estimator/">見積もりツール</a>
-          <a href="./catalog/">賃貸検索カタログ</a>
-          <a href="./vba-docs/">VBA納品文書サンプル</a>
+          <a href="./vba-case-fix/">事例：修正・復旧</a>
+          <a href="./vba-case-build/">事例：新規開発</a>
+          <a href="./vba-docs/">納品文書の見本</a>
+          <a href="./python-docs/">Python自動化の文書サンプル</a>
         </nav>
       </div>
+      <div class="site-footer__archive">
+        <h2>アーカイブ</h2>
+        <ul>
+          <li><a href="./case-study-petit-chaton/">サイト改修事例：petit-chaton（実在・Web制作時代の実施内容）</a></li>
+        </ul>
+      </div>
       <div class="site-footer__bottom">
-        <p>© 2026 Web Production Portfolio.</p>
-        <p>※掲載作品はすべてポートフォリオ用に制作した架空のサンプルです。実在の企業・サービスとは関係ありません。</p>
+        <p>© 2026 Excel VBA ポートフォリオ</p>
+        <p>※ VBAの事例・納品文書見本の題材はポートフォリオ用に自作した架空のマクロで、掲載している画面・数値はすべて見本・想定値です（実際の取引実績ではありません）。アーカイブ内のサイト改修事例（petit-chaton）のみ、実在サイトでの実施内容です。</p>
       </div>
     </div>
   </footer>
@@ -1478,30 +977,6 @@
       }
     })();
 
-    // カードのスクロールイン表示
-    (function () {
-      var cards = document.querySelectorAll('.card');
-      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (reduce || !('IntersectionObserver' in window)) {
-        cards.forEach(function (c) { c.classList.add('is-visible'); });
-        return;
-      }
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry, i) {
-          if (entry.isIntersecting) {
-            // 同時に複数見えても順に出る軽いずらし
-            var el = entry.target;
-            el.style.transitionDelay = (Array.prototype.indexOf.call(cards, el) % 3 * 90) + 'ms';
-            el.classList.add('is-visible');
-            el.addEventListener('transitionend', function () {
-              el.style.transitionDelay = '';
-            }, { once: true });
-            io.unobserve(el);
-          }
-        });
-      }, { threshold: 0.16 });
-      cards.forEach(function (c) { io.observe(c); });
-    })();
   </script>
 </body>
 </html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>仕様書（見本）｜複数店舗 日次売上集計スクリプト（架空）｜Python 業務自動化 納品文書サンプル</title>
+  <meta name="description" content="Pythonによる業務自動化サービスで納品する「仕様書」の実物見本。架空の複数店舗日次売上集計スクリプトを題材に、入力形式・処理の流れ・出力構成・必要ライブラリ・エラー時の挙動を日本語で文書化しています。" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231B5FA8'/%3E%3Ctext x='16' y='22.5' font-family='Segoe UI,sans-serif' font-size='15' font-weight='700' fill='%23FFFFFF' text-anchor='middle'%3EPy%3C/text%3E%3C/svg%3E" />
+  <link rel="canonical" href="https://portfolio.tegumi.dev/python-docs/spec.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://portfolio.tegumi.dev/python-docs/spec.html" />
+  <meta property="og:title" content="仕様書（見本）｜Python 業務自動化 納品文書サンプル" />
+  <meta property="og:description" content="複数店舗の日次売上CSVを1つのExcelレポートに集計するPythonスクリプトの仕様書の実物見本。題材は架空のデータです。" />
+  <meta name="theme-color" content="#123a63" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" /></noscript>
+
+  <style>
+    :root {
+      --ink: #131c2b;
+      --body: #22344c;
+      --soft: #4c5f7a;
+      --accent: #1b5fa8;
+      --accent-deep: #123a63;
+      --bg: #e5edf7;
+      --paper: #ffffff;
+      --line: rgba(19, 28, 43, 0.16);
+      --sans: "Zen Kaku Gothic New", "Noto Sans JP", "Hiragino Sans", sans-serif;
+      --mono: ui-monospace, "Cascadia Code", "Consolas", monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-text-size-adjust: 100%; overflow-x: clip; }
+    body {
+      font-family: var(--sans);
+      color: var(--body);
+      background: var(--bg);
+      line-height: 1.8;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .toolbar {
+      background: var(--accent-deep); color: #cfe0f3;
+      padding: 0.7rem 0; font-size: 0.85rem;
+    }
+    .toolbar .wrap { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .toolbar a { color: #fff; }
+    .wrap { width: min(860px, 94%); margin-inline: auto; }
+
+    .sample-banner {
+      background: #fff8e8; border-bottom: 1px solid #e7d9ae;
+      color: #5d4f25; font-size: 0.85rem; padding: 0.6rem 0;
+    }
+
+    .sheet {
+      background: var(--paper);
+      margin: 1.6rem auto 2.2rem;
+      padding: 2.6rem 2.8rem;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      box-shadow: 0 18px 50px -30px rgba(18, 58, 99, 0.5);
+      max-width: 860px;
+      width: 94%;
+    }
+    .doc-head { border-bottom: 3px solid var(--accent); padding-bottom: 1rem; margin-bottom: 1.4rem; }
+    .doc-head h1 { font-size: 1.45rem; color: var(--ink); letter-spacing: 0.02em; }
+    .doc-head .doc-sub { color: var(--soft); font-size: 0.85rem; margin-top: 0.2rem; }
+    .doc-meta { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin: 0 0 1.6rem; }
+    .doc-meta th, .doc-meta td { border: 1px solid var(--line); padding: 0.45em 0.8em; text-align: left; }
+    .doc-meta th { background: #e6eefa; white-space: nowrap; width: 11em; font-weight: 700; color: var(--accent-deep); }
+
+    h2 {
+      font-size: 1.05rem; color: var(--accent-deep);
+      border-left: 5px solid var(--accent);
+      padding-left: 0.6em; margin: 1.8rem 0 0.7rem;
+    }
+    p { margin-bottom: 0.7rem; }
+    ul, ol { padding-left: 1.5em; margin-bottom: 0.7rem; }
+    li { margin-bottom: 0.25em; }
+
+    table.grid { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin: 0.4rem 0 0.9rem; }
+    table.grid th, table.grid td { border: 1px solid var(--line); padding: 0.5em 0.7em; text-align: left; vertical-align: top; }
+    table.grid th { background: #e6eefa; font-weight: 700; color: var(--accent-deep); }
+    .table-wrap { overflow-x: auto; }
+
+    code { font-family: var(--mono); font-size: 0.85em; background: #eaf0f8; padding: 0.1em 0.4em; border-radius: 4px; }
+    pre { font-family: var(--mono); font-size: 0.82em; background: #10233c; color: #d8e6f7; padding: 0.9em 1em; border-radius: 8px; overflow-x: auto; margin-bottom: 0.9rem; line-height: 1.6; }
+
+    .flow { background: #f0f5fb; border: 1px solid var(--line); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 0.9rem; }
+    .flow__name { font-weight: 700; color: var(--accent-deep); margin-bottom: 0.3rem; font-size: 0.95rem; }
+    .flow__name code { font-size: 0.82em; }
+    .flow ol { margin-bottom: 0; }
+
+    .callout { border: 1px solid var(--line); border-radius: 8px; padding: 0.8rem 1rem; margin: 0.6rem 0 0.9rem; font-size: 0.92rem; }
+    .callout--ok { background: #eaf4ee; border-color: #b9d9c4; }
+    .callout--ng { background: #fdf1ef; border-color: #e7c2ba; }
+    .callout--risk { background: #fff8e8; border-color: #e7d9ae; }
+    .callout strong { display: block; margin-bottom: 0.2rem; }
+    .callout--ok strong { color: #1d6f42; }
+    .callout--ng strong { color: #a8402f; }
+    .callout--risk strong { color: #8a6d1a; }
+
+    .doc-foot { border-top: 1px solid var(--line); margin-top: 2rem; padding-top: 0.9rem; font-size: 0.82rem; color: var(--soft); }
+
+    @media (max-width: 640px) {
+      .sheet { padding: 1.6rem 1.2rem; }
+      body { font-size: 14px; }
+    }
+    @media print {
+      .toolbar, .sample-banner { display: none; }
+      body { background: #fff; }
+      .sheet { box-shadow: none; border: none; margin: 0; padding: 0; width: 100%; max-width: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <div class="wrap">
+      <span>納品文書サンプル 01 — 仕様書</span>
+      <span><a href="./">サンプル一覧</a>　<a href="../">ポートフォリオTOP</a></span>
+    </div>
+  </div>
+  <div class="sample-banner">
+    <div class="wrap">
+      この文書は<strong>見本</strong>です。題材は見本用に自作した架空のスクリプトで、実際のお客様のファイル・データは一切使用していません。
+    </div>
+  </div>
+
+  <main class="sheet">
+    <header class="doc-head">
+      <h1>仕様書</h1>
+      <p class="doc-sub">— このスクリプトが「何を・どの順で・何を出力するか」の説明書 —</p>
+    </header>
+
+    <table class="doc-meta">
+      <tbody>
+        <tr><th scope="row">対象スクリプト</th><td>daily_sales_report.py（複数店舗 日次売上集計）</td></tr>
+        <tr><th scope="row">ご依頼内容</th><td>各店舗から届く日次売上CSVを、月次のExcelレポートに自動集計</td></tr>
+        <tr><th scope="row">実行環境</th><td>Windows 10/11・Python 3.12／ライブラリ：pandas, openpyxl</td></tr>
+        <tr><th scope="row">作成日</th><td>2026-07-02</td></tr>
+        <tr><th scope="row">作業方法</th><td>お客様の実データは使用せず、ダミーCSVのみで開発・確認しています</td></tr>
+      </tbody>
+    </table>
+
+    <h2>1. このスクリプトがやっていること（全体像）</h2>
+    <p>
+      <code>input/</code> フォルダに置かれた<strong>各店舗の日次売上CSV（複数ファイル）</strong>をすべて読み込み、
+      店舗別・日別に集計したうえで、<strong>1つのExcelレポート</strong>（グラフ・店舗別シートつき）として <code>output/</code> フォルダに出力します。
+      毎月手作業でCSVを開いてコピー＆ペーストしていた集計作業を、フォルダにCSVを置いて実行するだけで完了する状態にするものです。
+    </p>
+
+    <h2>2. 入力ファイルの想定形式</h2>
+    <p>
+      <code>input/</code> フォルダの中にある <code>*.csv</code> をすべて対象とします。1店舗＝1ファイルで、
+      ファイル名は問いません（フォルダ内のCSVを自動で読み取ります）。各CSVの列構成は次のとおりです。
+    </p>
+    <div class="table-wrap">
+      <table class="grid">
+        <thead>
+          <tr><th>列名</th><th>形式</th><th>内容</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>日付</code></td><td>YYYY-MM-DD</td><td>売上が発生した日付</td></tr>
+          <tr><td><code>店舗名</code></td><td>文字列</td><td>店舗の名称（レポートの店舗別シート名に使用）</td></tr>
+          <tr><td><code>売上金額</code></td><td>数値（円・カンマなし）</td><td>その日の税込売上合計</td></tr>
+          <tr><td><code>客数</code></td><td>整数</td><td>その日の来客数（客単価の算出に使用）</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout callout--ok">
+      <strong>サンプルCSVの1行目（ヘッダー）</strong>
+      <pre style="margin:0.4em 0 0">日付,店舗名,売上金額,客数
+2026-06-01,渋谷店,182400,96
+2026-06-01,新宿店,204300,110</pre>
+    </div>
+
+    <h2>3. 処理の流れ</h2>
+    <div class="flow">
+      <p class="flow__name">全体の処理順序 <code>main()</code></p>
+      <ol>
+        <li><code>input/</code> フォルダ内のCSVファイルを一覧取得（0件ならメッセージを出して終了）</li>
+        <li>ファイルを1つずつ読み込み、列名・日付形式・欠損値をチェック（異常があれば4章のとおり記録して次のファイルへ）</li>
+        <li>すべてのCSVを1つの表に結合</li>
+        <li>「店舗別」「日別」「店舗×日別」の3パターンで集計（pandasの<code>groupby</code>）</li>
+        <li>Excelブックを新規作成し、集計結果をシートごとに書き出し（openpyxl）</li>
+        <li>店舗別売上の棒グラフをExcel内に自動生成</li>
+        <li><code>output/売上レポート_YYYYMMDD.xlsx</code> として保存し、完了メッセージを表示</li>
+      </ol>
+    </div>
+
+    <h2>4. 出力Excelレポートの構成</h2>
+    <div class="table-wrap">
+      <table class="grid">
+        <thead>
+          <tr><th>シート名</th><th>内容</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>サマリー</code></td><td>期間全体の合計売上・合計客数・平均客単価、店舗別売上の棒グラフ</td></tr>
+          <tr><td><code>店舗別集計</code></td><td>店舗ごとの合計売上・合計客数・平均客単価の一覧表</td></tr>
+          <tr><td><code>日別集計</code></td><td>日付ごとの全店舗合計売上・客数の一覧表</td></tr>
+          <tr><td><code>明細（店舗×日）</code></td><td>店舗×日付のクロス集計表（ピボット形式）</td></tr>
+          <tr><td><code>取込エラー一覧</code></td><td>読み込みに失敗した行・ファイルがあった場合のみ、内容と理由を記載</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>5. 必要なライブラリ</h2>
+    <div class="table-wrap">
+      <table class="grid">
+        <thead>
+          <tr><th>ライブラリ</th><th>用途</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>pandas</code></td><td>CSVの読み込み・結合・集計（groupby / pivot_table）</td></tr>
+          <tr><td><code>openpyxl</code></td><td>Excelブックの作成・書式設定・グラフ生成</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      バージョンは <code>requirements.txt</code> に固定して同梱します。インストール方法は
+      <a href="./run-guide.html">実行手順書</a>をご覧ください。
+    </p>
+
+    <h2>6. エラー時の挙動</h2>
+    <div class="callout callout--risk">
+      <strong>⚠ 想定しているエラーと挙動</strong>
+      <ul>
+        <li><strong>列が足りない・列名が違うCSV</strong>：そのファイルはスキップし、「取込エラー一覧」シートにファイル名と理由を記録。処理全体は止めずに続行します</li>
+        <li><strong>日付・金額が数値として読めない行</strong>：その行だけを除外し、同様にエラー一覧へ記録します（1行の不備で全体が止まらない設計です）</li>
+        <li><strong><code>input/</code> フォルダにCSVが1件もない</strong>：画面にメッセージを表示して、Excelを作成せずに終了します</li>
+        <li><strong><code>output/</code> フォルダが存在しない</strong>：スクリプトが自動作成してから保存します</li>
+        <li><strong>同名の出力ファイルが既に開かれている</strong>（Excelで開いたまま等）：保存に失敗した旨のメッセージを表示して終了します。ファイルを閉じてから再実行してください</li>
+      </ul>
+    </div>
+    <p>
+      想定外のエラーが起きた場合も、原因箇所とエラー内容を <code>output/error_log.txt</code> に記録してから終了する設計です（実行画面が消えても後から確認できます）。
+    </p>
+
+    <footer class="doc-foot">
+      <p>
+        本書は見本です（題材は架空のスクリプト）。実際の納品では、この仕様書に加えて実行手順書（→
+        <a href="./run-guide.html">見本</a>）、動作確認書、requirements.txt を含むスクリプト一式をお渡しします。
+      </p>
+    </footer>
+  </main>
+</body>
+</html>

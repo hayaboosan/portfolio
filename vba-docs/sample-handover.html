@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>引き継ぎ手順書（見本）｜請求書作成.xlsm（架空）｜Excel VBA 納品文書サンプル</title>
+  <meta name="description" content="Excelマクロ（VBA）の納品時にお渡しする「引き継ぎ手順書」の実物見本。架空の請求書作成マクロを題材に、処理の流れ・設定値・触ってはいけない箇所・よくあるトラブルと対処を1枚にまとめています。" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231D6F42'/%3E%3Ctext x='16' y='22.5' font-family='Segoe UI,sans-serif' font-size='15' font-weight='700' fill='%23FFFFFF' text-anchor='middle'%3EVB%3C/text%3E%3C/svg%3E" />
+  <link rel="canonical" href="https://portfolio.tegumi.dev/vba-docs/sample-handover.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://portfolio.tegumi.dev/vba-docs/sample-handover.html" />
+  <meta property="og:title" content="引き継ぎ手順書（見本）｜Excel VBA 納品文書サンプル" />
+  <meta property="og:description" content="担当が代わっても運用を続けられるようにする引き継ぎ手順書の実物見本。処理の流れ・設定値・トラブル対処表つき。題材は架空のマクロです。" />
+  <meta name="theme-color" content="#143d27" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" /></noscript>
+
+  <style>
+    :root {
+      --ink: #16241c;
+      --body: #243329;
+      --soft: #4c5f53;
+      --accent: #1d6f42;
+      --accent-deep: #143d27;
+      --bg: #e8efe9;
+      --paper: #ffffff;
+      --line: rgba(22, 36, 28, 0.16);
+      --sans: "Zen Kaku Gothic New", "Noto Sans JP", "Hiragino Sans", sans-serif;
+      --mono: ui-monospace, "Cascadia Code", "Consolas", monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-text-size-adjust: 100%; overflow-x: clip; }
+    body {
+      font-family: var(--sans);
+      color: var(--body);
+      background: var(--bg);
+      line-height: 1.8;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .toolbar {
+      background: var(--accent-deep); color: #cfe5d6;
+      padding: 0.7rem 0; font-size: 0.85rem;
+    }
+    .toolbar .wrap { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .toolbar a { color: #fff; }
+    .wrap { width: min(860px, 94%); margin-inline: auto; }
+
+    .sample-banner {
+      background: #fff8e8; border-bottom: 1px solid #e7d9ae;
+      color: #5d4f25; font-size: 0.85rem; padding: 0.6rem 0;
+    }
+
+    .sheet {
+      background: var(--paper);
+      margin: 1.6rem auto 2.2rem;
+      padding: 2.6rem 2.8rem;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      box-shadow: 0 18px 50px -30px rgba(20, 61, 39, 0.5);
+      max-width: 860px;
+      width: 94%;
+    }
+    .doc-head { border-bottom: 3px solid var(--accent); padding-bottom: 1rem; margin-bottom: 1.4rem; }
+    .doc-head h1 { font-size: 1.45rem; color: var(--ink); letter-spacing: 0.02em; }
+    .doc-head .doc-sub { color: var(--soft); font-size: 0.85rem; margin-top: 0.2rem; }
+    .doc-meta { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin: 0 0 1.6rem; }
+    .doc-meta th, .doc-meta td { border: 1px solid var(--line); padding: 0.45em 0.8em; text-align: left; }
+    .doc-meta th { background: #eef5f0; white-space: nowrap; width: 11em; font-weight: 700; color: var(--accent-deep); }
+
+    h2 {
+      font-size: 1.05rem; color: var(--accent-deep);
+      border-left: 5px solid var(--accent);
+      padding-left: 0.6em; margin: 1.8rem 0 0.7rem;
+    }
+    p { margin-bottom: 0.7rem; }
+    ul, ol { padding-left: 1.5em; margin-bottom: 0.7rem; }
+    li { margin-bottom: 0.25em; }
+
+    table.grid { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin: 0.4rem 0 0.9rem; }
+    table.grid th, table.grid td { border: 1px solid var(--line); padding: 0.5em 0.7em; text-align: left; vertical-align: top; }
+    table.grid th { background: #eef5f0; font-weight: 700; color: var(--accent-deep); }
+    .table-wrap { overflow-x: auto; }
+
+    code { font-family: var(--mono); font-size: 0.85em; background: #eef3ef; padding: 0.1em 0.4em; border-radius: 4px; }
+
+    .flow { background: #f4f8f5; border: 1px solid var(--line); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 0.9rem; }
+    .flow__name { font-weight: 700; color: var(--accent-deep); margin-bottom: 0.3rem; font-size: 0.95rem; }
+    .flow__name code { font-size: 0.82em; }
+    .flow ol { margin-bottom: 0; }
+
+    .callout { border: 1px solid var(--line); border-radius: 8px; padding: 0.8rem 1rem; margin: 0.6rem 0 0.9rem; font-size: 0.92rem; }
+    .callout--ok { background: #eef7f0; border-color: #bcd9c5; }
+    .callout--ng { background: #fdf1ef; border-color: #e7c2ba; }
+    .callout--risk { background: #fff8e8; border-color: #e7d9ae; }
+    .callout strong { display: block; margin-bottom: 0.2rem; }
+    .callout--ok strong { color: #1d6f42; }
+    .callout--ng strong { color: #a8402f; }
+    .callout--risk strong { color: #8a6d1a; }
+
+    .doc-foot { border-top: 1px solid var(--line); margin-top: 2rem; padding-top: 0.9rem; font-size: 0.82rem; color: var(--soft); }
+
+    @media (max-width: 640px) {
+      .sheet { padding: 1.6rem 1.2rem; }
+      body { font-size: 14px; }
+    }
+    @media print {
+      .toolbar, .sample-banner { display: none; }
+      body { background: #fff; }
+      .sheet { box-shadow: none; border: none; margin: 0; padding: 0; width: 100%; max-width: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <div class="wrap">
+      <span>納品文書サンプル 04 — 引き継ぎ手順書</span>
+      <span><a href="./">サンプル一覧</a>　<a href="../">ポートフォリオTOP</a></span>
+    </div>
+  </div>
+  <div class="sample-banner">
+    <div class="wrap">
+      この文書は<strong>見本</strong>です。題材は見本用に自作した架空のマクロで、実際のお客様のファイル・データは一切使用していません。
+    </div>
+  </div>
+
+  <main class="sheet">
+    <header class="doc-head">
+      <h1>引き継ぎ手順書</h1>
+      <p class="doc-sub">— 担当が代わっても、この1枚で運用を続けられるようにするための文書 —</p>
+    </header>
+
+    <table class="doc-meta">
+      <tbody>
+        <tr><th scope="row">対象ブック</th><td>請求書作成.xlsm（2026-06-13 納品版）</td></tr>
+        <tr><th scope="row">この文書の目的</th><td>請求書発行業務の担当交代・引き継ぎのときに、コードを読まずに運用を続けられるようにする</td></tr>
+        <tr><th scope="row">作成日</th><td>2026-06-13</td></tr>
+        <tr><th scope="row">関連文書</th><td>変更内容書・動作確認書・ソースの保管方法（いずれも納品zipに同梱）</td></tr>
+      </tbody>
+    </table>
+
+    <h2>1. このブックのマクロがやっていること（全体像）</h2>
+    <p>
+      「受注一覧(2026)」シートに入力した受注データから、お客様ごとの請求書PDFを作って保存するブックです。
+      請求書の見た目は「請求書テンプレ」シート、保存先や請求書番号などの設定は「設定」シートにまとまっています。
+      普段の操作はボタン3つだけです。
+    </p>
+    <div class="table-wrap">
+      <table class="grid">
+        <thead>
+          <tr><th>操作（ボタン等）</th><th>起きること</th><th>補足</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>「選択した行の請求書を作成」</td>
+            <td>選択中の1件の請求書PDFを作成・保存し、その行に発行日と請求書Noを記録</td>
+            <td>PDFの保存先は「設定」シートB3のフォルダ＋年月フォルダ</td>
+          </tr>
+          <tr>
+            <td>「今月分をまとめて作成」</td>
+            <td>当月の未発行分すべてについて、上と同じ処理を順番に実行</td>
+            <td>発行済み（発行日が入った行）は自動でスキップされます</td>
+          </tr>
+          <tr>
+            <td>「発行済みの行を整理」</td>
+            <td>発行済みの行を「処理済み」シートの末尾へ移動</td>
+            <td>月末の整理用。受注一覧からは消えますが「処理済み」に残ります</td>
+          </tr>
+          <tr>
+            <td>ブックを開いたとき（自動）</td>
+            <td>受注一覧の表示を当月分に絞り込み</td>
+            <td>フィルタによる絞り込みです。データは消えていません</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>2. 処理の流れ</h2>
+    <div class="flow">
+      <p class="flow__name">請求書の作成（1件）<code>CreateInvoiceSelected</code> — メイン処理</p>
+      <ol>
+        <li>選択中の行が請求書を作れる行か確認（顧客名・金額が空ならメッセージを出して中止）</li>
+        <li>「設定」シートから次の請求書番号を取得</li>
+        <li>「請求書テンプレ」シートに顧客名・住所・明細・合計金額を転記</li>
+        <li>テンプレシートをPDFとして出力（保存先：設定シートB3のフォルダ＋「年月」フォルダ）</li>
+        <li>受注一覧の「発行日」に今日の日付、「請求書No」に発行した番号を記録</li>
+        <li>「設定」シートの請求書番号を1つ進める</li>
+      </ol>
+    </div>
+    <p>
+      「今月分をまとめて作成」（<code>CreateInvoicesMonthly</code>）は、当月かつ発行日が空欄の行を上から順に探し、
+      1件ずつ上記と同じ処理を繰り返して最後に件数を表示します。
+      「発行済みの行を整理」（<code>ArchiveIssuedRows</code>）は、発行日の入った行を「処理済み」シートへコピーしてから受注一覧側を削除します。
+    </p>
+
+    <h2>3. 設定値 — 変えてよい場所／いけない場所</h2>
+    <div class="callout callout--ok">
+      <strong>⭕ 変えてよい（運用で触る場所）</strong>
+      <ul>
+        <li>「設定」シート <code>B3</code>：PDFの保存先フォルダ（例 <code>C:\請求書</code>）</li>
+        <li>「設定」シート <code>B4</code>：自社名・振込先などの差し込み文言</li>
+        <li>「受注一覧(2026)」シートへの行の追加・入力（列の挿入・削除はNG・下記参照）</li>
+      </ul>
+    </div>
+    <div class="callout callout--ng">
+      <strong>❌ 変えてはいけない（マクロが壊れる場所）</strong>
+      <ul>
+        <li>シート名「受注一覧(2026)」「請求書テンプレ」「設定」「処理済み」（マクロが名前で参照しています。受注一覧の名前をどうしても変えたい場合は、§5の表#1の手順で定数もセットで変更）</li>
+        <li>受注一覧の<strong>列の並び順</strong>（A:受注日〜H:請求書No。列を挿入・削除すると転記がずれます）</li>
+        <li>「設定」シート <code>B2</code>：次の請求書番号（手で書き換えると番号が重複します）</li>
+        <li>「請求書テンプレ」の転記先セル（<code>B5</code>〜<code>G20</code> 付近。レイアウト変更はマクロ修正とセットで）</li>
+      </ul>
+    </div>
+
+    <h2>4. 納品後にお客様側で行う確認</h2>
+    <ol>
+      <li>納品した修正後ブックの<strong>コピー</strong>を作り、コピーの方で普段どおり請求書を1件作成してみる</li>
+      <li>PDFの内容（宛名・金額・請求書番号）を目で確認する</li>
+      <li>問題がなければ今お使いのブックと差し替える。差し替え前のブックは日付を付けた名前で保管する</li>
+    </ol>
+    <p>
+      確認項目の詳しい一覧と手順は、同梱の動作確認書に記載しています（→ <a href="./sample-checklist.html">動作確認書の見本</a>）。
+    </p>
+
+    <h2>5. よくあるトラブルと対処</h2>
+    <div class="table-wrap">
+      <table class="grid">
+        <thead>
+          <tr><th>#</th><th>症状</th><th>まず疑う原因</th><th>対処</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>「実行時エラー 9」が出て止まる</td>
+            <td>受注一覧のシート名が変更された</td>
+            <td><code>Module1</code> 先頭の定数 <code>SHEET_ORDERS</code> の1行を、現在のシート名に合わせて書き換える（2026-06-13 の修正でこの1か所に集約済み）</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>PDFが作られず、保存先に関するエラーが出る</td>
+            <td>「設定」シートB3のフォルダが存在しない（PCの入れ替え・フォルダ名変更の後に起きやすい）</td>
+            <td>B3のフォルダを実際に作るか、B3を実在するフォルダのパスに書き換える</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>ボタンを押しても何も起きない</td>
+            <td>マクロが無効のままブックを開いている</td>
+            <td>ブックを開き直し、上部の黄色いバーの「コンテンツの有効化」を押す</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>同じ請求書が二重に発行された</td>
+            <td>「発行日」欄を手で消してから再実行した</td>
+            <td>発行日欄は手で消さない（重複防止はこの欄が頼りです）。発行済みの控えは「処理済み」シートの「請求書No」列で確認できます</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout callout--risk">
+      <strong>⚠ 上記で解決しない場合</strong>
+      無理に触らず、エラーメッセージの画面写真を添えてご連絡ください。
+      その際「直前に何をしたか（シート名を変えた・PCを替えた等）」を添えていただけると原因の特定が早くなります。
+    </div>
+
+    <h2>6. ソースコードの保管について</h2>
+    <p>
+      納品zipの「2_ソースコード」フォルダは、ブックが壊れたときの「保険」になるテキストファイルです。
+      保管のしかたと今後の取り出し方は、別紙「ソースの保管方法」をご覧ください（→ <a href="./sample-storage.html">ソースの保管方法の見本</a>）。
+    </p>
+
+    <footer class="doc-foot">
+      <p>
+        本書は見本です（題材は架空のマクロ）。実際の納品では、ご依頼の規模とプランに応じて
+        <a href="./sample-changelog.html">変更内容書</a>・<a href="./sample-checklist.html">動作確認書</a>・ソースコード一式とセットでお渡しします。
+      </p>
+    </footer>
+  </main>
+</body>
+</html>

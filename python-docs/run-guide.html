@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>実行手順書（見本）｜複数店舗 日次売上集計スクリプト（架空）｜Python 業務自動化 納品文書サンプル</title>
+  <meta name="description" content="Pythonによる業務自動化サービスで納品する「実行手順書」の実物見本。架空の複数店舗日次売上集計スクリプトを題材に、セットアップ・実行方法・よくあるトラブル・触ってはいけない設定値を非エンジニア向けに説明しています。" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231B5FA8'/%3E%3Ctext x='16' y='22.5' font-family='Segoe UI,sans-serif' font-size='15' font-weight='700' fill='%23FFFFFF' text-anchor='middle'%3EPy%3C/text%3E%3C/svg%3E" />
+  <link rel="canonical" href="https://portfolio.tegumi.dev/python-docs/run-guide.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://portfolio.tegumi.dev/python-docs/run-guide.html" />
+  <meta property="og:title" content="実行手順書（見本）｜Python 業務自動化 納品文書サンプル" />
+  <meta property="og:description" content="非エンジニアの方でも実行できるPythonスクリプトの実行手順書の実物見本。セットアップからトラブル対処までを説明します。題材は架空のデータです。" />
+  <meta name="theme-color" content="#123a63" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" /></noscript>
+
+  <style>
+    :root {
+      --ink: #131c2b;
+      --body: #22344c;
+      --soft: #4c5f7a;
+      --accent: #1b5fa8;
+      --accent-deep: #123a63;
+      --bg: #e5edf7;
+      --paper: #ffffff;
+      --line: rgba(19, 28, 43, 0.16);
+      --sans: "Zen Kaku Gothic New", "Noto Sans JP", "Hiragino Sans", sans-serif;
+      --mono: ui-monospace, "Cascadia Code", "Consolas", monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-text-size-adjust: 100%; overflow-x: clip; }
+    body {
+      font-family: var(--sans);
+      color: var(--body);
+      background: var(--bg);
+      line-height: 1.8;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .toolbar {
+      background: var(--accent-deep); color: #cfe0f3;
+      padding: 0.7rem 0; font-size: 0.85rem;
+    }
+    .toolbar .wrap { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .toolbar a { color: #fff; }
+    .wrap { width: min(860px, 94%); margin-inline: auto; }
+
+    .sample-banner {
+      background: #fff8e8; border-bottom: 1px solid #e7d9ae;
+      color: #5d4f25; font-size: 0.85rem; padding: 0.6rem 0;
+    }
+
+    .sheet {
+      background: var(--paper);
+      margin: 1.6rem auto 2.2rem;
+      padding: 2.6rem 2.8rem;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      box-shadow: 0 18px 50px -30px rgba(18, 58, 99, 0.5);
+      max-width: 860px;
+      width: 94%;
+    }
+    .doc-head { border-bottom: 3px solid var(--accent); padding-bottom: 1rem; margin-bottom: 1.4rem; }
+    .doc-head h1 { font-size: 1.45rem; color: var(--ink); letter-spacing: 0.02em; }
+    .doc-head .doc-sub { color: var(--soft); font-size: 0.85rem; margin-top: 0.2rem; }
+    .doc-meta { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin: 0 0 1.6rem; }
+    .doc-meta th, .doc-meta td { border: 1px solid var(--line); padding: 0.45em 0.8em; text-align: left; }
+    .doc-meta th { background: #e6eefa; white-space: nowrap; width: 11em; font-weight: 700; color: var(--accent-deep); }
+
+    h2 {
+      font-size: 1.05rem; color: var(--accent-deep);
+      border-left: 5px solid var(--accent);
+      padding-left: 0.6em; margin: 1.8rem 0 0.7rem;
+    }
+    p { margin-bottom: 0.7rem; }
+    ul, ol { padding-left: 1.5em; margin-bottom: 0.7rem; }
+    li { margin-bottom: 0.25em; }
+
+    table.grid { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin: 0.4rem 0 0.9rem; }
+    table.grid th, table.grid td { border: 1px solid var(--line); padding: 0.5em 0.7em; text-align: left; vertical-align: top; }
+    table.grid th { background: #e6eefa; font-weight: 700; color: var(--accent-deep); }
+    .table-wrap { overflow-x: auto; }
+
+    code { font-family: var(--mono); font-size: 0.85em; background: #eaf0f8; padding: 0.1em 0.4em; border-radius: 4px; }
+    pre { font-family: var(--mono); font-size: 0.82em; background: #10233c; color: #d8e6f7; padding: 0.9em 1em; border-radius: 8px; overflow-x: auto; margin-bottom: 0.9rem; line-height: 1.6; }
+
+    .flow { background: #f0f5fb; border: 1px solid var(--line); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 0.9rem; }
+    .flow__name { font-weight: 700; color: var(--accent-deep); margin-bottom: 0.3rem; font-size: 0.95rem; }
+    .flow__name code { font-size: 0.82em; }
+    .flow ol { margin-bottom: 0; }
+
+    .callout { border: 1px solid var(--line); border-radius: 8px; padding: 0.8rem 1rem; margin: 0.6rem 0 0.9rem; font-size: 0.92rem; }
+    .callout--ok { background: #eaf4ee; border-color: #b9d9c4; }
+    .callout--ng { background: #fdf1ef; border-color: #e7c2ba; }
+    .callout--risk { background: #fff8e8; border-color: #e7d9ae; }
+    .callout strong { display: block; margin-bottom: 0.2rem; }
+    .callout--ok strong { color: #1d6f42; }
+    .callout--ng strong { color: #a8402f; }
+    .callout--risk strong { color: #8a6d1a; }
+
+    .doc-foot { border-top: 1px solid var(--line); margin-top: 2rem; padding-top: 0.9rem; font-size: 0.82rem; color: var(--soft); }
+
+    @media (max-width: 640px) {
+      .sheet { padding: 1.6rem 1.2rem; }
+      body { font-size: 14px; }
+    }
+    @media print {
+      .toolbar, .sample-banner { display: none; }
+      body { background: #fff; }
+      .sheet { box-shadow: none; border: none; margin: 0; padding: 0; width: 100%; max-width: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <div class="wrap">
+      <span>納品文書サンプル 02 — 実行手順書</span>
+      <span><a href="./">サンプル一覧</a>　<a href="../">ポートフォリオTOP</a></span>
+    </div>
+  </div>
+  <div class="sample-banner">
+    <div class="wrap">
+      この文書は<strong>見本</strong>です。題材は見本用に自作した架空のスクリプトで、実際のお客様のファイル・データは一切使用していません。
+    </div>
+  </div>
+
+  <main class="sheet">
+    <header class="doc-head">
+      <h1>実行手順書</h1>
+      <p class="doc-sub">— セットアップから実行・トラブル対処までのご案内（PC操作に不慣れな方向け） —</p>
+    </header>
+
+    <table class="doc-meta">
+      <tbody>
+        <tr><th scope="row">対象スクリプト</th><td>daily_sales_report.py（複数店舗 日次売上集計）</td></tr>
+        <tr><th scope="row">対象読者</th><td>Pythonを扱ったことがない、経理・事務担当の方</td></tr>
+        <tr><th scope="row">動作確認環境</th><td>Windows 10 / 11</td></tr>
+        <tr><th scope="row">作成日</th><td>2026-07-02</td></tr>
+      </tbody>
+    </table>
+
+    <h2>1. 最初に一度だけ行うセットアップ</h2>
+    <div class="flow">
+      <p class="flow__name">① Python の導入</p>
+      <ol>
+        <li>すでにPythonが入っている場合はこの手順は不要です（お渡しする <code>セットアップ確認.bat</code> をダブルクリックすると、入っているかどうかが表示されます）</li>
+        <li>入っていない場合は、<a href="https://www.python.org/downloads/" target="_blank" rel="noopener noreferrer">python.org の公式サイト</a>から最新版をダウンロードしてインストールします</li>
+        <li>インストール画面の最初の項目にある<strong>「Add python.exe to PATH」に必ずチェック</strong>を入れてから「Install Now」を押してください（このチェックを忘れると後の手順が動きません）</li>
+      </ol>
+    </div>
+    <div class="flow">
+      <p class="flow__name">② 必要なライブラリのインストール</p>
+      <ol>
+        <li>お渡ししたフォルダの中にある <code>セットアップ.bat</code> を<strong>ダブルクリック</strong>します</li>
+        <li>黒い画面（コマンドプロンプト）が開き、自動で <code>pip install -r requirements.txt</code> が実行されます。これは <code>requirements.txt</code> に書かれたライブラリ（pandas・openpyxl）を、必要なバージョンでまとめてインストールする処理です</li>
+        <li>「Successfully installed …」のような表示が出て、黒い画面が自動で閉じれば完了です</li>
+      </ol>
+    </div>
+    <div class="callout callout--ok">
+      <strong>セットアップは最初の1回だけでOK</strong>
+      いったんインストールが終われば、次回以降はこの手順を繰り返す必要はありません。すぐに「2. 日々の実行方法」に進めます。
+    </div>
+
+    <h2>2. 日々の実行方法</h2>
+    <div class="flow">
+      <p class="flow__name">通常の実行（月次の集計を作りたいとき）</p>
+      <ol>
+        <li>各店舗から届いた売上CSVを、フォルダ内の <code>input</code> フォルダにすべてコピーします（ファイル名は気にしなくて大丈夫です）</li>
+        <li><code>集計実行.bat</code> を<strong>ダブルクリック</strong>します</li>
+        <li>黒い画面が開き、「〇件のCSVを読み込みました」「処理中…」のような表示が流れます</li>
+        <li>「完了しました。output フォルダをご確認ください」と表示されたら終了です（画面は自動的に閉じます）</li>
+        <li><code>output</code> フォルダに <code>売上レポート_(実行日).xlsx</code> が作成されているので、それを開いて確認します</li>
+      </ol>
+    </div>
+    <p>
+      所要時間は数十件のCSVで数秒〜十数秒程度です。処理中に画面を閉じたり、PCをスリープさせたりしないようにお願いします。
+    </p>
+
+    <h2>3. よくあるトラブルと対処</h2>
+    <div class="table-wrap">
+      <table class="grid">
+        <thead>
+          <tr><th>症状</th><th>原因と対処</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>ダブルクリックしても一瞬で画面が消えてしまう</td>
+            <td><code>input</code> フォルダにCSVが1件も入っていない可能性があります。CSVを入れてから再実行してください。それでも消える場合は <code>output/error_log.txt</code> の内容をご連絡ください</td>
+          </tr>
+          <tr>
+            <td>「'python' は、内部コマンド…として認識されていません」と表示される</td>
+            <td>Pythonのインストール時に「Add python.exe to PATH」のチェックが漏れています。Pythonを一度アンインストールし、チェックを入れてから入れ直してください</td>
+          </tr>
+          <tr>
+            <td>「PermissionError」や「別のプログラムで使用されているため…」と表示される</td>
+            <td>出力しようとしているExcelファイルが開いたままになっています。Excelでそのファイルを閉じてから再実行してください</td>
+          </tr>
+          <tr>
+            <td>一部の店舗のデータだけレポートに反映されない</td>
+            <td>そのCSVの列名や日付の形式が想定と異なる可能性があります。<code>output</code> フォルダの「取込エラー一覧」（Excel内のシート、または <code>error_log.txt</code>）に理由が記録されます</td>
+          </tr>
+          <tr>
+            <td>ウイルス対策ソフトが警告を出す・ブロックする</td>
+            <td>見慣れない実行ファイルとして誤検知されることがあります。社内の情報システムご担当者にご確認のうえ、必要であれば例外設定をお願いします</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      上記で解決しない場合や、エラーメッセージの内容がご不明な場合は、<code>output/error_log.txt</code> の内容と、実行時に表示された画面のスクリーンショットを添えてご連絡ください。
+    </p>
+
+    <h2>4. 触ってはいけない設定値</h2>
+    <div class="callout callout--ng">
+      <strong>❌ 変更しないでください（スクリプトが動かなくなります）</strong>
+      <ul>
+        <li>フォルダ名 <code>input</code>・<code>output</code>（スクリプトがこの名前で参照しています）</li>
+        <li><code>daily_sales_report.py</code> 本体の内容（改修が必要な場合は別途ご依頼ください）</li>
+        <li><code>requirements.txt</code> に書かれたライブラリのバージョン番号（動作確認済みの組み合わせです）</li>
+        <li>CSVの列名（<code>日付</code>・<code>店舗名</code>・<code>売上金額</code>・<code>客数</code>）。列の順番の入れ替えは問題ありませんが、列名自体を変えると読み込めません</li>
+      </ul>
+    </div>
+    <div class="callout callout--ok">
+      <strong>⭕ 変えてよい（運用で触ってよい場所）</strong>
+      <ul>
+        <li><code>input</code> フォルダの中身（CSVの追加・入れ替え・削除）</li>
+        <li>出力された <code>.xlsx</code> レポート自体（Excel上での見た目の調整・印刷設定など）</li>
+      </ul>
+    </div>
+
+    <footer class="doc-foot">
+      <p>
+        本書は見本です（題材は架空のスクリプト）。実際の納品では、この実行手順書に加えて仕様書（→
+        <a href="./spec.html">見本</a>）、動作確認書、セットアップ用・実行用のバッチファイル一式をお渡しします。
+      </p>
+    </footer>
+  </main>
+</body>
+</html>

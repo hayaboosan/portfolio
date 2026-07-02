@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Excel VBA 保守の納品文書サンプル｜解読レポート・変更内容書｜Web制作ポートフォリオ</title>
-  <meta name="description" content="Excelマクロ（VBA）の修正・解読を「直して終わり」にしない納品文書のサンプル。解読レポートと変更内容書の実物見本を公開しています。題材はすべて架空の請求書作成マクロです。" />
+  <title>Excel VBA 保守の納品文書サンプル｜解読レポート・変更内容書ほか5点セット｜Web制作ポートフォリオ</title>
+  <meta name="description" content="Excelマクロ（VBA）の修正・解読を「直して終わり」にしない納品文書のサンプル。解読レポート・変更内容書・動作確認書・引き継ぎ手順書・ソースの保管方法の実物見本5点を公開しています。題材はすべて架空の請求書作成マクロです。" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231D6F42'/%3E%3Ctext x='16' y='22.5' font-family='Segoe UI,sans-serif' font-size='15' font-weight='700' fill='%23FFFFFF' text-anchor='middle'%3EVB%3C/text%3E%3C/svg%3E" />
-  <link rel="canonical" href="https://hayaboosan.github.io/portfolio/vba-docs/" />
+  <link rel="canonical" href="https://portfolio.tegumi.dev/vba-docs/" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://hayaboosan.github.io/portfolio/vba-docs/" />
-  <meta property="og:title" content="Excel VBA 保守の納品文書サンプル｜解読レポート・変更内容書" />
-  <meta property="og:description" content="Excelマクロの修正・解読を「直して終わり」にしない納品文書の実物見本。題材は架空の請求書作成マクロです。" />
+  <meta property="og:url" content="https://portfolio.tegumi.dev/vba-docs/" />
+  <meta property="og:title" content="Excel VBA 保守の納品文書サンプル｜納品文書5点セット" />
+  <meta property="og:description" content="Excelマクロの修正・解読を「直して終わり」にしない納品文書の実物見本5点。題材は架空の請求書作成マクロです。" />
 
   <meta name="theme-color" content="#143d27" />
 
@@ -157,7 +157,7 @@
           Excelマクロ（VBA）の修正や解読をお引き受けするとき、修正済みのブックだけでなく、
           「何を・なぜ・どう変えたか」「このマクロは何をしているのか」を日本語で残した文書を必ずお付けしています。
           次に同じトラブルが起きたときや、別の方が引き継ぐときに、そのまま手がかりになるからです。
-          ここでは、その納品文書の実物見本を2点公開しています。
+          ここでは、その納品文書の実物見本を5点公開しています。
         </p>
         <p class="note">
           ※ 見本の題材は、この見本のために自作した<strong>架空の「請求書作成マクロ」</strong>です。
@@ -191,6 +191,42 @@
           <p class="doc-card__meta">想定場面：「マクロが動かなくなった」の修正納品時／A4 1枚</p>
           <a class="doc-card__link" href="./sample-changelog.html">変更内容書の見本を見る</a>
         </article>
+
+        <article class="doc-card">
+          <p class="doc-card__label">SAMPLE 03 — 動作確認書</p>
+          <h2>動作確認書（何をどう確認したかの記録）</h2>
+          <p>
+            修正後のブックを納品する前に、何を・どんな手順で・どうなることを確認したかを表で残す文書です。
+            正常系だけでなく「今回の事象が再発しないこと」「空欄などの異常系」も項目に含め、
+            お客様側で行っていただく最終確認の手順まで書き添えます。
+          </p>
+          <p class="doc-card__meta">想定場面：修正の納品時（スタンダード以上）／結果は確認実施後にのみ記入</p>
+          <a class="doc-card__link" href="./sample-checklist.html">動作確認書の見本を見る</a>
+        </article>
+
+        <article class="doc-card">
+          <p class="doc-card__label">SAMPLE 04 — 引き継ぎ手順書</p>
+          <h2>引き継ぎ手順書（担当が代わっても運用できるように）</h2>
+          <p>
+            ボタンと処理の対応・処理の流れ・変えてよい設定と触ってはいけない箇所に加えて、
+            「よくあるトラブルと対処」の表まで含めた運用向けの文書です。
+            コードを読まなくても、この1枚で次の担当の方が業務を続けられることを目指しています。
+          </p>
+          <p class="doc-card__meta">想定場面：担当交代・属人化の解消／プランに応じて同梱</p>
+          <a class="doc-card__link" href="./sample-handover.html">引き継ぎ手順書の見本を見る</a>
+        </article>
+
+        <article class="doc-card">
+          <p class="doc-card__label">SAMPLE 05 — ソースの保管方法</p>
+          <h2>ソースの保管方法（マクロの「保険」のかけ方）</h2>
+          <p>
+            マクロはブックの中に入っているため、ブックが壊れるとコードごと失われます。
+            納品するソースコード一式を「保険」として活かすための保管のしかた（日付フォルダ方式／Git方式）と、
+            今後の取り出し方を非エンジニアの方向けに1枚で案内する文書です。
+          </p>
+          <p class="doc-card__meta">想定場面：すべての納品に同梱する顧客向けのご案内</p>
+          <a class="doc-card__link" href="./sample-storage.html">ソースの保管方法の見本を見る</a>
+        </article>
       </div>
     </section>
 
@@ -206,11 +242,11 @@
             <tbody>
               <tr>
                 <th scope="row">修正済みブック</th>
-                <td>動作確認済みの本体。お送りいただいた元ファイルはそのまま保全します。</td>
+                <td>動作確認済みの本体。お送りいただいた元ファイルはそのまま保全します（何をどう確認したかは → <a href="./sample-checklist.html">動作確認書の見本</a>）。</td>
               </tr>
               <tr>
                 <th scope="row">ソースコード一式（修正前・修正後）</th>
-                <td>マクロの中身をテキストファイルで取り出したもの。ブックが万一壊れてもコードが残る「保険」です。</td>
+                <td>マクロの中身をテキストファイルで取り出したもの。ブックが万一壊れてもコードが残る「保険」です（保管のしかた → <a href="./sample-storage.html">ソースの保管方法の見本</a>）。</td>
               </tr>
               <tr>
                 <th scope="row">変更内容書</th>
@@ -218,11 +254,11 @@
               </tr>
               <tr>
                 <th scope="row">動作確認書</th>
-                <td>何をどう確認したか。お客様側で行っていただく最終確認の手順つき。</td>
+                <td>何をどう確認したか。お客様側で行っていただく最終確認の手順つき（→ <a href="./sample-checklist.html">見本</a>）。</td>
               </tr>
               <tr>
                 <th scope="row">引き継ぎ手順書</th>
-                <td>処理の流れ・設定値・触ってはいけない箇所・よくあるトラブル（→ 内容は<a href="./sample-report.html">解読レポート見本</a>に近い粒度）。</td>
+                <td>処理の流れ・設定値・触ってはいけない箇所・よくあるトラブルと対処（→ <a href="./sample-handover.html">見本</a>）。</td>
               </tr>
             </tbody>
           </table>

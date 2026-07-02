@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Python 業務自動化の納品文書サンプル｜仕様書・実行手順書｜業務自動化ポートフォリオ</title>
+  <meta name="description" content="Pythonによる業務自動化（Excel/CSV集計・レポート作成）の納品文書サンプル。仕様書と実行手順書の実物見本を公開しています。題材はすべて架空の月次売上集計です。" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231B5FA8'/%3E%3Ctext x='16' y='22.5' font-family='Segoe UI,sans-serif' font-size='15' font-weight='700' fill='%23FFFFFF' text-anchor='middle'%3EPy%3C/text%3E%3C/svg%3E" />
+  <link rel="canonical" href="https://portfolio.tegumi.dev/python-docs/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://portfolio.tegumi.dev/python-docs/" />
+  <meta property="og:title" content="Python 業務自動化の納品文書サンプル｜仕様書・実行手順書" />
+  <meta property="og:description" content="Excel/CSVの集計・レポート作成を自動化するPythonスクリプトの納品文書の実物見本。題材は架空の月次売上集計です。" />
+
+  <meta name="theme-color" content="#123a63" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" /></noscript>
+
+  <style>
+    :root {
+      --ink: #131c2b;
+      --body: #22344c;
+      --soft: #4c5f7a;
+      --accent: #1b5fa8;
+      --accent-deep: #123a63;
+      --bg: #eef4fa;
+      --panel: #ffffff;
+      --line: rgba(19, 28, 43, 0.14);
+      --radius: 16px;
+      --shadow: 0 24px 60px -36px rgba(18, 58, 99, 0.45);
+      --sans: "Zen Kaku Gothic New", "Noto Sans JP", "Hiragino Sans", sans-serif;
+      --mono: ui-monospace, "Cascadia Code", "Consolas", monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: clip; }
+    body {
+      font-family: var(--sans);
+      color: var(--body);
+      background: var(--bg);
+      line-height: 1.85;
+      letter-spacing: 0.01em;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container { width: min(960px, 92%); margin-inline: auto; }
+    a { color: var(--accent); }
+
+    .skip-link {
+      position: absolute; left: -9999px; top: 0;
+      background: var(--accent-deep); color: #fff; padding: 0.6em 1em; z-index: 100;
+    }
+    .skip-link:focus { left: 0; }
+
+    .page-header {
+      background: var(--accent-deep);
+      color: #eef4fa;
+      padding: 0.9rem 0;
+    }
+    .page-header .container { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .page-header a { color: #cfe0f3; text-decoration: none; font-size: 0.88rem; }
+    .page-header a:hover { color: #fff; text-decoration: underline; }
+    .page-header__brand { font-weight: 700; letter-spacing: 0.04em; }
+
+    .hero { padding: 3.4rem 0 2.4rem; }
+    .hero__eyebrow {
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 0.16em;
+      color: var(--accent); text-transform: uppercase; margin-bottom: 0.7rem;
+    }
+    .hero h1 { font-size: clamp(1.5rem, 4vw, 2.1rem); color: var(--ink); line-height: 1.5; margin-bottom: 1rem; }
+    .hero__lead { max-width: 46em; color: var(--soft); }
+
+    .note {
+      margin: 1.4rem 0 0;
+      padding: 0.85rem 1.1rem;
+      background: #fff8e8;
+      border: 1px solid #e7d9ae;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      color: #5d4f25;
+    }
+
+    .docs { padding: 1.8rem 0 2.6rem; display: grid; gap: 1.4rem; }
+    .doc-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.7rem 1.8rem;
+      display: grid;
+      gap: 0.8rem;
+    }
+    .doc-card__label {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em;
+      color: var(--accent);
+    }
+    .doc-card h2 { font-size: 1.22rem; color: var(--ink); line-height: 1.5; }
+    .doc-card p { font-size: 0.95rem; color: var(--body); }
+    .doc-card__meta { font-size: 0.85rem; color: var(--soft); }
+    .doc-card__link {
+      justify-self: start;
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 0.65em 1.5em;
+      border-radius: 999px;
+      transition: background 0.2s;
+    }
+    .doc-card__link:hover, .doc-card__link:focus-visible { background: var(--accent-deep); }
+
+    .package { padding: 0 0 3rem; }
+    .package h2 { font-size: 1.25rem; color: var(--ink); margin-bottom: 0.9rem; }
+    .package table {
+      width: 100%; border-collapse: collapse; background: var(--panel);
+      border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
+      font-size: 0.92rem;
+    }
+    .package th, .package td { padding: 0.7em 0.9em; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    .package th { background: #e6eefa; color: var(--accent-deep); font-weight: 700; white-space: nowrap; }
+    .package tr:last-child td { border-bottom: none; }
+    .package .table-wrap { overflow-x: auto; border-radius: 12px; }
+    .package p.package__lead { margin-bottom: 1rem; color: var(--soft); font-size: 0.95rem; max-width: 46em; }
+
+    .site-footer {
+      background: var(--accent-deep); color: #cfe0f3;
+      padding: 1.6rem 0; font-size: 0.85rem;
+    }
+    .site-footer .container { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .site-footer a { color: #fff; }
+
+    @media (max-width: 600px) {
+      .doc-card { padding: 1.3rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">本文へスキップ</a>
+  <header class="page-header">
+    <div class="container">
+      <span class="page-header__brand">Python 業務自動化の納品文書サンプル</span>
+      <a href="../">← ポートフォリオTOPへ戻る</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="container">
+        <p class="hero__eyebrow">Python — Business Automation Documentation Samples</p>
+        <h1>集計・レポート作成の自動化を、<br />使う人が迷わない文書つきで。</h1>
+        <p class="hero__lead">
+          Pythonによる業務自動化をお引き受けするとき、スクリプト本体だけでなく、
+          「何を・どういう順で・何を出力するか」「どう実行し、何に気をつけるか」を日本語で残した文書を必ずお付けしています。
+          ふだんExcelやCSVを手作業で扱う方でも、安心して運用できるようにするためです。
+          ここでは、その納品文書の実物見本を2点公開しています。
+        </p>
+        <p class="note">
+          ※ 見本の題材は、この見本のために自作した<strong>架空の「複数店舗 日次売上集計スクリプト」</strong>です。
+          実際のお客様のファイル・データ・店舗名は一切使用していません。
+        </p>
+      </div>
+    </section>
+
+    <section class="docs" aria-label="文書サンプル">
+      <div class="container docs">
+        <article class="doc-card">
+          <p class="doc-card__label">SAMPLE 01 — 仕様書</p>
+          <h2>仕様書（スクリプトの処理内容・入出力の説明）</h2>
+          <p>
+            スクリプトが「何を読み込み、どういう順で処理し、何を出力するか」を日本語にまとめた文書です。
+            入力CSVの想定形式、出力Excelレポートの構成、必要なライブラリ、エラー時の挙動までを1枚にまとめます。
+          </p>
+          <p class="doc-card__meta">想定場面：導入前の仕様確認・引き継ぎ／実データは使用せずスクリプトと仕様のみで作成</p>
+          <a class="doc-card__link" href="./spec.html">仕様書の見本を見る</a>
+        </article>
+
+        <article class="doc-card">
+          <p class="doc-card__label">SAMPLE 02 — 実行手順書</p>
+          <h2>実行手順書（セットアップ・実行方法・トラブル対処）</h2>
+          <p>
+            非エンジニアの方が自分でスクリプトを動かせるようにするための文書です。
+            Pythonの導入からバッチファイルのダブルクリックでの実行方法、よくあるトラブルと対処、
+            触ってはいけない設定値までを分かりやすく説明します。
+          </p>
+          <p class="doc-card__meta">想定場面：導入後の運用開始時／PC操作に不慣れな方でも実行できる想定</p>
+          <a class="doc-card__link" href="./run-guide.html">実行手順書の見本を見る</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="package">
+      <div class="container">
+        <h2>納品パッケージの全体像</h2>
+        <p class="package__lead">
+          自動化のご依頼では、上の文書を含む次のセットをzipでお渡しします（内容はご依頼の規模により変わります）。
+        </p>
+        <div class="table-wrap">
+          <table>
+            <caption class="sr-only" style="position:absolute;left:-9999px;">納品物の一覧</caption>
+            <tbody>
+              <tr>
+                <th scope="row">スクリプト一式</th>
+                <td>動作確認済みの本体（.py）と、実行用バッチファイル。フォルダ構成つき。</td>
+              </tr>
+              <tr>
+                <th scope="row">requirements.txt</th>
+                <td>必要なライブラリの一覧。セットアップ時に一括インストールするための定義ファイル。</td>
+              </tr>
+              <tr>
+                <th scope="row">仕様書</th>
+                <td>何を・どの順で・何を出力するか（→ <a href="./spec.html">見本</a>）。</td>
+              </tr>
+              <tr>
+                <th scope="row">実行手順書</th>
+                <td>セットアップ・実行方法・トラブル対処・触ってはいけない設定値（→ <a href="./run-guide.html">見本</a>）。</td>
+              </tr>
+              <tr>
+                <th scope="row">動作確認書</th>
+                <td>何をどう確認したか。お客様側で行っていただく最終確認の手順つき。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>架空サンプルによる自主制作の見本です。</span>
+      <a href="../">業務自動化ポートフォリオTOP</a>
+    </div>
+  </footer>
+</body>
+</html>

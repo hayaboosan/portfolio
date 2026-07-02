@@ -1,0 +1,70 @@
+--- src/before/Module1.bas	2026-07-02 21:39:44.536571200 +0900
++++ src/after/Module1.bas	2026-07-02 21:39:37.926518900 +0900
+@@ -3,11 +3,11 @@
+ ' Module1 ： 請求書作成（メイン処理）
+ '--------------------------------------------------------------------------
+ ' 【このブックの役割】
+-'   「受注一覧」シートに入力した受注データから、お客様ごとの
++'   「受注一覧(2026)」シートに入力した受注データから、お客様ごとの
+ '   請求書を「請求書テンプレ」シートで組み立て、PDFとして保存します。
+ '
+ ' 【シート構成】
+-'   ・受注一覧       … 受注データの入力表（A:受注日 〜 H:請求書No）
++'   ・受注一覧(2026) … 受注データの入力表（A:受注日 〜 H:請求書No）
+ '   ・請求書テンプレ … 請求書のレイアウト（転記先は B5〜G20 付近）
+ '   ・設定           … B2:次の請求書番号 / B3:PDF保存先 / B4:差し込み文言
+ '   ・処理済み       … 発行済みの行の保管場所（Module2 で使用）
+@@ -22,6 +22,14 @@
+ '==========================================================================
+ Option Explicit
+ 
++'--------------------------------------------------------------------------
++' シート名の定数
++'   受注一覧シートの名前はこの1行だけで管理する。
++'   シート名を変更した場合は、この定数を書き換えれば全処理に反映される。
++'   （2026-06-13 修正：シート名の直書きをやめ、ここに集約した）
++'--------------------------------------------------------------------------
++Public Const SHEET_ORDERS As String = "受注一覧(2026)"
++
+ '--- 受注一覧の列位置（列を挿入・削除すると転記がずれるので変更不可） ------
+ Private Const COL_ORDER_DATE As Long = 1      ' A列：受注日
+ Private Const COL_CUSTOMER   As Long = 2      ' B列：顧客名
+@@ -54,6 +62,9 @@
+ '
+ ' 【変更履歴】
+ '   2026-05-08 新規作成
++'   2026-06-13 シート名の直書き（"受注一覧"）をやめ、定数 SHEET_ORDERS に
++'              集約。定数を現在のシート名「受注一覧(2026)」に設定
++'              （詳細は納品時の「変更内容書」を参照）
+ '--------------------------------------------------------------------------
+ 
+ '==========================================================================
+@@ -70,7 +81,7 @@
+ Public Sub CreateInvoiceSelected()
+ 
+     Dim wsOrders As Worksheet
+-    Set wsOrders = ThisWorkbook.Worksheets("受注一覧")
++    Set wsOrders = ThisWorkbook.Worksheets(SHEET_ORDERS)
+ 
+     ' --- 受注一覧シート上で実行されているかを確認 ------------------------
+     If Not ActiveSheet Is wsOrders Then
+@@ -124,7 +135,7 @@
+ Public Sub CreateInvoicesMonthly()
+ 
+     Dim wsOrders As Worksheet
+-    Set wsOrders = ThisWorkbook.Worksheets("受注一覧")
++    Set wsOrders = ThisWorkbook.Worksheets(SHEET_ORDERS)
+ 
+     Dim lastRow As Long
+     lastRow = wsOrders.Cells(wsOrders.Rows.Count, COL_ORDER_DATE).End(xlUp).Row
+--- src/before/ThisWorkbook.cls	2026-07-02 21:40:23.703986900 +0900
++++ src/after/ThisWorkbook.cls	2026-07-02 21:40:10.175149100 +0900
+@@ -26,7 +26,7 @@
+     On Error Resume Next
+ 
+     Dim wsOrders As Worksheet
+-    Set wsOrders = Worksheets("受注一覧")
++    Set wsOrders = Worksheets(SHEET_ORDERS)
+ 
+     Dim lastRow As Long
+     lastRow = wsOrders.Cells(wsOrders.Rows.Count, 1).End(xlUp).Row
