@@ -1,7 +1,7 @@
 # Web制作ポートフォリオ
 
-副業でのWeb制作受注に向けて制作した、**架空ブランドのランディングページ（LP）5作品**、**既存サイトのビフォーアフター改修事例2件**、**WordPress子テーマ改修デモ**、**よくある小修正のデモ集**、**検索エンジン対応・Q&A設置デモ**、**リアルタイム計算する見積もりWebアプリ**、そして**条件で絞り込める賃貸物件検索UI**をまとめたポートフォリオです。
-いずれもフレームワーク・ライブラリを一切使わず、**vanilla な HTML / CSS / JavaScript** のみで実装しています（WordPressデモは子テーマ＋PHPのコード層のみで構成し、別リポジトリで公開）。スクロール型のLPだけでなく、状態を持つ「動くツール」やデータ駆動の「一覧×絞り込み」まで、ページの種類そのものに幅を持たせています。
+副業でのWeb制作受注に向けて制作した、**架空ブランドのランディングページ（LP）5作品**、**既存サイトのビフォーアフター改修事例2件**、**よくある小修正のデモ集**、**検索エンジン対応・Q&A設置デモ**、**リアルタイム計算する見積もりWebアプリ**、そして**条件で絞り込める賃貸物件検索UI**をまとめたポートフォリオです。
+いずれもフレームワーク・ライブラリを一切使わず、**vanilla な HTML / CSS / JavaScript** のみで実装しています。スクロール型のLPだけでなく、状態を持つ「動くツール」やデータ駆動の「一覧×絞り込み」まで、ページの種類そのものに幅を持たせています。
 
 トップ（ハブ）ページ [`index.html`](./index.html) から、各作品へ相対パスでアクセスできます。
 
@@ -51,18 +51,6 @@ LP制作だけでなく、**既存サイトの修正・改修**も主要な対�
 - **Before**：[`./case-study-restaurant/before/`](./case-study-restaurant/before/) — お品書きが画像1枚（読めない・更新できない）・固定幅で横スクロール必須・営業時間が低コントラスト・電話のみ／地図なし
 - **After**：[`./case-study-restaurant/after/`](./case-study-restaurant/after/) — 価格つきの読めるHTMLメニュー・モバイルファースト・営業時間テーブル＋定休日明記・`tel:` リンク＋24時間予約フォーム・自作SVGのアクセス地図・OGP整備
 - **事例ページ**：[`./case-study-restaurant/`](./case-study-restaurant/)（Before→After対応表・測定できる改善つき）。詳しい解説は [`case-study-restaurant/README.md`](./case-study-restaurant/README.md)
-
----
-
-## WordPress 改修デモ（子テーマ・コード層） — `case-study-wp/`
-
-既存のWordPressサイトの修正・機能追加にも対応するため、**子テーマ・functions.php のフック・自作ブロックという「コード」だけで改修するデモ**を [`./case-study-wp/`](./case-study-wp/) にまとめています。題材は架空の動物病院サイト（テーマ：[Lightning](https://ja.wordpress.org/themes/lightning/)）。
-
-- **実装内容**：tel: リンク化＋モバイル固定CTA（`wp_footer` フック）／診療時間表のショートコード／お知らせ機能（カスタム投稿タイプ＋**ビルドツール不要の動的ブロック**）／速度改善（不要なJS/CSSの削減・Contact Form 7 の条件付き読み込み）
-- **実測値**：トップページの JavaScript を 6ファイル193.6KB → **1ファイル6.8KB（−96%）**、CSS＋JS合計を −48%（ローカル環境で実測）
-- **親テーマ・プラグイン本体は無改変**（アップデート耐性のため、変更はすべて子テーマ側）
-- **動くコードは別リポジトリで公開**：[lightning-child-demo](https://github.com/hayaboosan/lightning-child-demo) — WordPress Playground の blueprint を同梱しており、PHP/MySQL のインストールなしに **1コマンドで改修前後のWordPressを手元で再現**できます
-- 対応範囲（子テーマ・コード層のみ／Elementor等ビルダー構築・ゼロからのデザインは対象外）をページ内に明示
 
 ---
 
@@ -187,9 +175,6 @@ portfolio/
 │   ├── README.md           ← 改修内容の解説
 │   ├── before/             ← 改修前（2008年当時の作り）
 │   └── after/              ← 改修後（現行標準）
-├── case-study-wp/          ← WordPress 子テーマ改修デモ（解説ページ）
-│   ├── index.html          ← 対応範囲・Before/After・実測値（単一ファイル完結）
-│   └── assets/             ← 実際に動くWPのスクリーンショット
 ├── quick-fixes/            ← よくある小修正デモ集
 │   └── index.html          ← Before→After デモ（単一ファイル完結）
 ├── seo-faq/                ← 検索エンジン対応・Q&A設置デモ
